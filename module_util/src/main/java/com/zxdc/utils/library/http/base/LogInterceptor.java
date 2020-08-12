@@ -50,18 +50,6 @@ public class LogInterceptor implements Interceptor {
     public Request addGetParameter(Request request){
         HttpUrl.Builder builder = request.url().newBuilder();
         builder.setEncodedQueryParameter("token", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
-        builder.setEncodedQueryParameter("siteid", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.SITEID));
-        builder.setEncodedQueryParameter("zz", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.IS_ZZ));
-        final String lat=SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.LAT);
-        final String lng=SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.LONG);
-        if(TextUtils.isEmpty(lat)){
-            builder.setEncodedQueryParameter("lat", "0");
-            builder.setEncodedQueryParameter("lng", "0");
-        }else{
-            builder.setEncodedQueryParameter("lat", lat);
-            builder.setEncodedQueryParameter("lng", lng);
-        }
-        builder.setEncodedQueryParameter("city", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.CITY));
         LogUtils.e("参数：token="+SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
         Request newRequest = request.newBuilder()
                 .method(request.method(), request.body())
@@ -79,18 +67,6 @@ public class LogInterceptor implements Interceptor {
         FormBody formBody;
         Map<String, String> requstMap = new HashMap<>();
         requstMap.put("token", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
-        requstMap.put("siteid", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.SITEID));
-        requstMap.put("zz", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.IS_ZZ));
-        final String lat=SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.LAT);
-        final String lng=SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.LONG);
-        if(TextUtils.isEmpty(lat)){
-            requstMap.put("lat", "0");
-            requstMap.put("lng", "0");
-        }else{
-            requstMap.put("lat", lat);
-            requstMap.put("lng", lng);
-        }
-        requstMap.put("city", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.CITY));
         LogUtils.e("参数：token="+SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
         if (request.body().contentLength() > 0 && request.body() instanceof FormBody) {
             formBody = (FormBody) request.body();

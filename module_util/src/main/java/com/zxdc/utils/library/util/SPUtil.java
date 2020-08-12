@@ -14,52 +14,11 @@ public class SPUtil {
 
     private SharedPreferences shar;
     private Editor editor;
-    public final static String USERMESSAGE = "su_mei_chao_ji_jia";
+    public final static String USERMESSAGE = "yan_guo_student";
     //是否是第一次打开APP
     public final static String IS_FIRST_OPEN="IS_FIRST_OPEN";
-    //是否登录成功了
-    public final static String IS_LOGIN="IS_LOGIN";
-    //当前的经纬度
-    public final static String LAT="LAG";
-    public final static String LONG="LONG";
-    //用户所在的城市
-    public final static String LOCATION_CITY="LOCATION_CITY";
-    //当前的城市名称
-    public final static String CITY="CITY";
-    //分站id
-    public final static String SITEID="SITEID";
-    //是否是总站
-    public final static String IS_ZZ="IS_ZZ";
     //登录的token
     public final static String TOKEN="TOKEN";
-    //用户id
-    public final static String USER_ID="USER_ID";
-    //微信登录的openid
-    public final static String WX_OPEN_ID="WX_OPEN_ID";
-    //qq登录的openid
-    public final static String QQ_OPEN_ID="QQ_OPEN_ID";
-    //登录账号
-    public final static String ACCOUNT="ACCOUNT";
-    //登录密码
-    public final static String PASSWORD="PASSWORD";
-    //是否首次进入首页
-    public final static String ISOPENMAIN="ISOPENMAIN";
-    //是否首次进入案例详情页面
-    public final static String IS_OPEN_CASE_DETAIILS="IS_OPEN_CASE_DETAIILS";
-    //是否首次进入设计师详情页面
-    public final static String IS_OPEN_DESIGNER_DETAILS="IS_OPEN_DESIGNER_DETAILS";
-    //搜索的关键字
-    public final static String SEARCH_KEY="SEARCH_KEY";
-    //点击过的历史城市
-    public final static String HISTORY_CITY="HISTORY_CITY";
-    //存储后台最新版本信息
-    public final static String VERSION_CODE="VERSION_CODE";
-    //首页的活动id
-    public final static String ACTIVITY_ID="ACTIVITY_ID";
-    //客服电话
-    public final static String TEL="TEL";
-    //推送
-    public final static String JPUSH="JPUSH";
     private static SPUtil sharUtil = null;
     public static Gson gson=new Gson();
     private SPUtil(Context context, String sharname) {

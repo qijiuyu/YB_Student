@@ -1,4 +1,4 @@
-package com.zxdc.utils.library.base;
+package com.ylean.yb.student.base;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,36 +9,42 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 
-import com.gyf.barlibrary.ImmersionBar;
-import com.zxdc.utils.library.util.LogUtils;
+import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2017/10/26 0026.
  */
 
-public class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends FragmentActivity {
 
     protected Activity activity;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activity = this;
-        String simpleName = this.getClass().getSimpleName();
-        switch (simpleName){
-            case "WelcomeActivity":
-            case "GuideActivity":
-            case "MainActivity":
-            case "BrandActivity":
-            case "PackageActivity":
-            case "UserActivity":
-                 break;
-             default:
-                 ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true).autoDarkModeEnable(true).init();
-                 break;
-        }
+        setContentView(getLayoutId());
+        // 绑定初始化ButterKnife
+        ButterKnife.bind(this);
+        // 数据初始化
+        initData();
     }
+
+
+    /**
+     * 设置UI界面布局
+     *
+     * @return UI
+     */
+    protected abstract int getLayoutId();
+
+    /**
+     * 数据初始化
+     */
+    protected void initData() {
+        activity=this;
+    }
+
 
     /**
      * 跳转Activity
@@ -72,9 +78,9 @@ public class BaseActivity extends FragmentActivity {
     /**
      * 隐藏键盘
      */
-    public void lockKey(EditText et) {
+    public void lockKey(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     /**
@@ -98,6 +104,4 @@ public class BaseActivity extends FragmentActivity {
     public void onPause() {
         super.onPause();
     }
-
-
 }

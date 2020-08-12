@@ -285,6 +285,9 @@
     public static ** valueOf(java.lang.String);
 }
 
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+
 #-keep public class com.ylean.dyspd.R$*{
 #public static final int *;
 #}

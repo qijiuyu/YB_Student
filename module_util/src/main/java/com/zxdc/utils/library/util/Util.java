@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
-import com.zxdc.utils.library.base.BaseActivity;
 import com.zxdc.utils.library.base.BaseApplication;
 
 import java.math.BigDecimal;
