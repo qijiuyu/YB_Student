@@ -131,7 +131,6 @@ public class UserInfoActivity extends BaseActivity {
                  addEducationAdapter.notifyDataSetChanged();
                  break;
             case R.id.tv_submit:
-                 LogUtils.e("++++++"+JsonUtil.objectToString(familyList));
                  break;
             default:
                 break;

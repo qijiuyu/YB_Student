@@ -19,6 +19,7 @@
             <ImageView
                 android:layout_width="9.5dp"
                 android:layout_height="18dp"
+                android:src="@mipmap/black_bank"
                 android:layout_marginRight="20dp"/>
 
         </LinearLayout>

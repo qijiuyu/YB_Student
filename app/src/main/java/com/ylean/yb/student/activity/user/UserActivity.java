@@ -3,6 +3,7 @@ package com.ylean.yb.student.activity.user;
 import android.view.View;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.user.setting.SettingActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.zxdc.utils.library.view.CircleImageView;
 import butterknife.BindView;
@@ -39,6 +40,7 @@ public class UserActivity extends BaseActivity {
                 break;
             //设置
             case R.id.img_setting:
+                 setClass(SettingActivity.class);
                 break;
             //个人档案
             case R.id.img_head:
