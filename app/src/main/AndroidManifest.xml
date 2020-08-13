@@ -73,6 +73,8 @@
         <activity android:name=".activity.user.setting.UpdateMobileActivity2"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.setting.UpdatePwdActivity1"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.setting.UpdatePwdActivity2"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.init.LoginActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.init.RegisterActivity1"  android:screenOrientation="portrait"/>
 
 
         <provider

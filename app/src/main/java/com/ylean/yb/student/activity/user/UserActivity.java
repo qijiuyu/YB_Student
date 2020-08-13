@@ -3,6 +3,7 @@ package com.ylean.yb.student.activity.user;
 import android.view.View;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.init.LoginActivity;
 import com.ylean.yb.student.activity.user.setting.SettingActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.zxdc.utils.library.view.CircleImageView;
@@ -37,6 +38,7 @@ public class UserActivity extends BaseActivity {
         switch (view.getId()) {
             //消息
             case R.id.img_news:
+                setClass(LoginActivity.class);
                 break;
             //设置
             case R.id.img_setting:
