@@ -39,4 +39,5 @@ dependencies {
     //bugly统计错误
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    compile 'com.gyf.immersionbar:immersionbar:2.3.3'
 }

@@ -1,15 +1,251 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/lin_wellcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/white">
 
-    <ImageView
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/img_welcome"/>
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:background="@color/color_FA4D4F">
+
+                    <ImageView
+                        android:id="@+id/img_news"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/news"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="15dp"/>
+
+                    <ImageView
+                        android:id="@+id/img_setting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/setting"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="15dp"/>
+
+                    <com.zxdc.utils.library.view.CircleImageView
+                        android:id="@+id/img_head"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/bg_share"
+                        android:layout_marginTop="69dp"
+                        android:layout_marginLeft="15dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_nickName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="出走的馒头君"
+                        android:textStyle="bold"
+                        android:textSize="22sp"
+                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="113dp"
+                        android:layout_marginTop="67dp"
+                        android:drawableRight="@mipmap/male"
+                        android:drawablePadding="7dp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="113dp"
+                        android:layout_marginTop="104dp">
+
+                        <TextView
+                            android:layout_width="49dp"
+                            android:layout_height="18dp"
+                            android:background="@drawable/bg_user_tag"
+                            android:text="高中"
+                            android:textColor="@color/color_FA4D4F"
+                            android:textSize="11sp"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="49dp"
+                            android:layout_height="18dp"
+                            android:layout_marginLeft="15dp"
+                            android:background="@drawable/bg_user_tag"
+                            android:text="在校"
+                            android:textColor="@color/color_FA4D4F"
+                            android:textSize="11sp"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="身份证号: 20114199901010011"
+                        android:textSize="11sp"
+                        android:textColor="@android:color/white"
+                        android:drawableLeft="@mipmap/credentials_icon"
+                        android:drawablePadding="7dp"
+                        android:layout_marginLeft="113dp"
+                        android:layout_marginTop="132dp"/>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="181dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_user_money">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp">
+
+                            <TextView
+                                android:id="@+id/tv_total_money"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="100"
+                                android:textColor="@android:color/black"
+                                android:textSize="24sp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="万元"
+                                android:textColor="@android:color/black"
+                                android:textSize="14sp"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="收款总计"
+                            android:textSize="12sp"
+                            android:textColor="@color/color_BCC4CD"
+                            android:layout_marginTop="4dp"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="23dp"
+                        android:background="@color/color_DCDDDE"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp">
+
+                            <TextView
+                                android:id="@+id/tv_total_activity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="100"
+                                android:textColor="@android:color/black"
+                                android:textSize="24sp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="个"
+                                android:textColor="@android:color/black"
+                                android:textSize="14sp"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="参与活动"
+                            android:textSize="12sp"
+                            android:textColor="@color/color_BCC4CD"
+                            android:layout_marginTop="4dp"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="23dp"
+                        android:background="@color/color_DCDDDE"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp">
+
+                            <TextView
+                                android:id="@+id/tv_total_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="100"
+                                android:textColor="@android:color/black"
+                                android:textSize="24sp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="小时"
+                                android:textColor="@android:color/black"
+                                android:textSize="14sp"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="公益时"
+                            android:textSize="12sp"
+                            android:textColor="@color/color_BCC4CD"
+                            android:layout_marginTop="4dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

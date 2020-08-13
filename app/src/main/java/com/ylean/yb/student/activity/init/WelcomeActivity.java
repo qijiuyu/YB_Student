@@ -5,7 +5,7 @@ import android.view.WindowManager;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.TabActivity;
 import com.ylean.yb.student.base.BaseActivity;
-import com.ylean.yb.student.utils.PermissionCallBack;
+import com.ylean.yb.student.callback.PermissionCallBack;
 import com.ylean.yb.student.utils.PermissionUtil;
 import com.zxdc.utils.library.util.SPUtil;
 

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 import com.android.tu.loadingdialog.LoadingDailog;
 import com.zxdc.utils.library.R;
-import com.zxdc.utils.library.view.MyPopwindow;
 
 /**
  * 弹框工具类

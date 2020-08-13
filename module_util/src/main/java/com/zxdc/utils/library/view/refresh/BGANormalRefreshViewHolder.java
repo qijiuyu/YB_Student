@@ -1,4 +1,4 @@
-package com.zxdc.utils.library.view;
+package com.zxdc.utils.library.view.refresh;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,20 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zxdc.utils.library.R;
-import com.zxdc.utils.library.eventbus.EventBusType;
-import com.zxdc.utils.library.eventbus.EventStatus;
-import com.zxdc.utils.library.util.LogUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:15/5/21 12:56
- * 描述:继承该抽象类实现响应的抽象方法，做出各种下拉刷新效果。参考BGANormalRefreshViewHolder、BGAStickinessRefreshViewHolder、BGAMoocStyleRefreshViewHolder、BGAMeiTuanRefreshViewHolder
+ * 创建时间:15/5/21 13:05
+ * 描述:类似新浪微博下拉刷新风格
  */
-public class BGAYaTangRefreshViewHolder extends BGARefreshViewHolder {
+public class BGANormalRefreshViewHolder extends BGARefreshViewHolder {
     private TextView mHeaderStatusTv;
     private ImageView mHeaderArrowIv;
     private ImageView mHeaderChrysanthemumIv;
@@ -39,7 +34,7 @@ public class BGAYaTangRefreshViewHolder extends BGARefreshViewHolder {
      * @param context
      * @param isLoadingMoreEnabled 上拉加载更多是否可用
      */
-    public BGAYaTangRefreshViewHolder(Context context, boolean isLoadingMoreEnabled) {
+    public BGANormalRefreshViewHolder(Context context, boolean isLoadingMoreEnabled) {
         super(context, isLoadingMoreEnabled);
         initAnimation();
     }
@@ -83,7 +78,7 @@ public class BGAYaTangRefreshViewHolder extends BGARefreshViewHolder {
     @Override
     public View getRefreshHeaderView() {
         if (mRefreshHeaderView == null) {
-            mRefreshHeaderView = View.inflate(mContext, R.layout.my_refresh_view, null);
+            mRefreshHeaderView = View.inflate(mContext, R.layout.view_refresh_header_normal, null);
             mRefreshHeaderView.setBackgroundColor(Color.TRANSPARENT);
             if (mRefreshViewBackgroundColorRes != -1) {
                 mRefreshHeaderView.setBackgroundResource(mRefreshViewBackgroundColorRes);
@@ -110,7 +105,6 @@ public class BGAYaTangRefreshViewHolder extends BGARefreshViewHolder {
 
     @Override
     public void changeToPullDown() {
-        LogUtils.e("+++++++++++++++++++++++1");
         mHeaderStatusTv.setText(mPullDownRefreshText);
         mHeaderChrysanthemumIv.setVisibility(View.INVISIBLE);
         mHeaderChrysanthemumAd.stop();
@@ -121,8 +115,6 @@ public class BGAYaTangRefreshViewHolder extends BGARefreshViewHolder {
 
     @Override
     public void changeToReleaseRefresh() {
-        LogUtils.e("+++++++++++++++++++++++2");
-        EventBus.getDefault().post(new EventBusType(EventStatus.START_REFRESH));
         mHeaderStatusTv.setText(mReleaseRefreshText);
         mHeaderChrysanthemumIv.setVisibility(View.INVISIBLE);
         mHeaderChrysanthemumAd.stop();
@@ -132,7 +124,6 @@ public class BGAYaTangRefreshViewHolder extends BGARefreshViewHolder {
 
     @Override
     public void changeToRefreshing() {
-        LogUtils.e("+++++++++++++++++++++++3");
         mHeaderStatusTv.setText(mRefreshingText);
         // 必须把动画清空才能隐藏成功
         mHeaderArrowIv.clearAnimation();
@@ -143,14 +134,24 @@ public class BGAYaTangRefreshViewHolder extends BGARefreshViewHolder {
 
     @Override
     public void onEndRefreshing() {
-        LogUtils.e("+++++++++++++++++++++++4");
-        EventBus.getDefault().post(new EventBusType(EventStatus.END_REFRESH));
         mHeaderStatusTv.setText(mPullDownRefreshText);
         mHeaderChrysanthemumIv.setVisibility(View.INVISIBLE);
         mHeaderChrysanthemumAd.stop();
         mHeaderArrowIv.setVisibility(View.VISIBLE);
         mDownAnim.setDuration(0);
         mHeaderArrowIv.startAnimation(mDownAnim);
+    }
+
+
+    public void setLodingView(boolean isBottom){
+        if(isBottom){
+            this.mFooterStatusTv.setText("内容已全部加载");
+            this.mFooterChrysanthemumIv.setVisibility(View.GONE);
+        }else{
+            this.mFooterStatusTv.setText("加载中...");
+            this.mFooterChrysanthemumIv.setVisibility(View.VISIBLE);
+        }
+
     }
 
 }

@@ -12,6 +12,9 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.gyf.barlibrary.ImmersionBar;
+import com.ylean.yb.student.R;
+
 import butterknife.ButterKnife;
 
 /**
@@ -28,6 +31,15 @@ public abstract class BaseActivity extends FragmentActivity {
         ButterKnife.bind(this);
         // 数据初始化
         initData();
+
+        String simpleName = this.getClass().getSimpleName();
+        switch (simpleName){
+            case "UserActivity":
+                ImmersionBar.with(this).statusBarColor(R.color.color_FA4D4F).fitsSystemWindows(true).autoDarkModeEnable(true).init();
+                break;
+            default:
+                break;
+        }
     }
 
 

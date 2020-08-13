@@ -1,9 +1,9 @@
-package com.zxdc.utils.library.view;
+package com.zxdc.utils.library.view.refresh;
 
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.zxdc.utils.library.view.refresh.BGANormalRefreshViewHolder2;
+import com.zxdc.utils.library.view.MyRefreshLayoutListener;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
@@ -17,17 +17,17 @@ public class MyRefreshLayout extends BGARefreshLayout {
 
     boolean isLoadingMore = true;
 
-    private BGANormalRefreshViewHolder2 bgaNormalRefreshViewHolder;
+    private BGANormalRefreshViewHolder bgaNormalRefreshViewHolder;
 
 
     public MyRefreshLayout(Context context) {
         super(context);
-        bgaNormalRefreshViewHolder=new BGANormalRefreshViewHolder2(getContext(), true);
+        bgaNormalRefreshViewHolder=new BGANormalRefreshViewHolder(getContext(), true);
     }
 
     public MyRefreshLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        bgaNormalRefreshViewHolder=new BGANormalRefreshViewHolder2(getContext(), true);
+        bgaNormalRefreshViewHolder=new BGANormalRefreshViewHolder(getContext(), true);
     }
 
     @Override
@@ -98,5 +98,6 @@ public class MyRefreshLayout extends BGARefreshLayout {
     public void setLoadingMoreText(boolean isBottom){
         bgaNormalRefreshViewHolder.setLodingView(isBottom);
     }
+
 
 }

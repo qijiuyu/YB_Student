@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
+import com.ylean.yb.student.callback.PermissionCallBack;
 
 import java.util.List;
 
