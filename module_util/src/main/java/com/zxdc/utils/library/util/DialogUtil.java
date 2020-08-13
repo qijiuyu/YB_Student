@@ -89,7 +89,7 @@ public class DialogUtil {
      */
     @SuppressLint("WrongConstant")
     public static PopupWindow showPopWindow2(View view){
-        MyPopwindow mPopuwindow = new MyPopwindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        PopupWindow mPopuwindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         ColorDrawable cd = new ColorDrawable();
         mPopuwindow.setBackgroundDrawable(cd);
         mPopuwindow.setOutsideTouchable(true);

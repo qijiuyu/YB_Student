@@ -34,7 +34,7 @@ public abstract class BaseActivity extends FragmentActivity {
 
         String simpleName = this.getClass().getSimpleName();
         switch (simpleName){
-            case "UserActivity":
+            case "UserInfoActivity":
                 ImmersionBar.with(this).statusBarColor(R.color.color_FA4D4F).fitsSystemWindows(true).autoDarkModeEnable(true).init();
                 break;
             default:

@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import androidx.annotation.RequiresApi;
+
+import com.gyf.barlibrary.ImmersionBar;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.declare.DeclareActivity;
 import com.ylean.yb.student.activity.love.LoveActivity;
@@ -62,6 +64,9 @@ public class TabActivity extends android.app.TabActivity {
         setContentView(R.layout.activity_tab);
         ButterKnife.bind(this);
         initView();
+
+        ImmersionBar.with(this).transparentStatusBar().init();
+        ImmersionBar.with(this).statusBarDarkFont(true).init();
 
         //android 7.0系统解决拍照的问题
         PermissionUtil.initPhotoError();

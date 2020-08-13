@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@android:color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="#FFFBFB">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="与本人关系"
+                android:textColor="@color/color_333333"
+                android:textSize="14sp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_relation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请选择关系"
+                android:textColor="@color/color_333333"
+                android:textSize="14sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:drawableRight="@mipmap/more_icon"
+                android:drawablePadding="5dp"
+                android:layout_marginRight="5dp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_rel_border"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="姓名"
+                android:textSize="14sp"
+                android:textColor="@color/color_333333"/>
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_memo"
+                android:layout_marginLeft="30dp"
+                android:hint="请输入姓名"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:maxLines="1"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_rel_border"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="单位"
+                android:textSize="14sp"
+                android:textColor="@color/color_333333"/>
+
+            <EditText
+                android:id="@+id/et_unit"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_memo"
+                android:layout_marginLeft="30dp"
+                android:hint="请输入单位"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:maxLines="1"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_rel_border"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="职业"
+                android:textSize="14sp"
+                android:textColor="@color/color_333333"/>
+
+            <EditText
+                android:id="@+id/et_position"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_memo"
+                android:layout_marginLeft="30dp"
+                android:hint="请输入职业"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:maxLines="1"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_rel_border"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="主要收入来源"
+                android:textSize="14sp"
+                android:textColor="@color/color_333333"/>
+
+            <EditText
+                android:id="@+id/et_entry"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_memo"
+                android:layout_marginLeft="20dp"
+                android:hint="请输入主要收入来源"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:maxLines="1"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
