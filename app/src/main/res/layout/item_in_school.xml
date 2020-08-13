@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2016年大学批次第4学年在校情况"
+            android:layout_marginRight="70dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="17sp"
+            android:textColor="@color/color_333333"
+            android:textStyle="bold"
+            android:layout_marginTop="14dp"/>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="审核中"
+            android:textColor="@color/color_FFA000"
+            android:textSize="14sp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="13dp"/>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="按时提交在校情况信息，奖学金可持续发放。需提交在校情况材料以及本人的学生成绩单"
+            android:textSize="14sp"
+            android:textColor="@color/color_666666"
+            android:layout_below="@id/tv_name"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="申请时间：2018.01.01 12：00：00"
+            android:textSize="11sp"
+            android:textColor="@color/color_999999"
+            android:drawableLeft="@mipmap/time_icon"
+            android:drawablePadding="5dp"
+            android:layout_below="@id/tv_content"
+            android:layout_marginTop="8dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#f9f9f9"
+            android:layout_below="@id/tv_time"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:background="@drawable/bg_in_school"
+            android:text="学生提交"
+            android:textSize="12sp"
+            android:textColor="@color/color_999999"
+            android:gravity="center"
+            android:layout_below="@id/tv_content"
+            android:layout_marginTop="60dp"/>
+
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_btn"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_content"
+            android:layout_marginTop="57dp"
+            android:text="重新提交"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:gravity="center"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f9f9f9"
+        android:layout_marginTop="14dp"/>
+
+</LinearLayout>

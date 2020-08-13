@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.init.LoginActivity;
+import com.ylean.yb.student.activity.user.apply.ApplyRecordActivity;
 import com.ylean.yb.student.activity.user.setting.SettingActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.zxdc.utils.library.view.CircleImageView;
@@ -50,9 +51,11 @@ public class UserActivity extends BaseActivity {
                  break;
             //申请记录
             case R.id.rel_sqjl:
+                setClass(ApplyRecordActivity.class);
                 break;
             //在校情况
             case R.id.rel_zxjk:
+                setClass(InSchoolActivity.class);
                 break;
             //我的社团
             case R.id.rel_st:

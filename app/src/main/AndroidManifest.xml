@@ -75,6 +75,13 @@
         <activity android:name=".activity.user.setting.UpdatePwdActivity2"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.init.LoginActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.init.RegisterActivity1"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.init.BindingEmailActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.init.ValidationActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.init.ValidationMobileActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.init.ValidationEmailActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.apply.ApplyRecordActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.apply.ReplacementActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.InSchoolActivity"  android:screenOrientation="portrait"/>
 
 
         <provider
