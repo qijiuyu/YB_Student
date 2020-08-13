@@ -1,4 +1,4 @@
-package com.ylean.yb.student.activity.user;
+package com.ylean.yb.student.activity.user.school;
 
 import android.os.Bundle;
 import android.view.View;

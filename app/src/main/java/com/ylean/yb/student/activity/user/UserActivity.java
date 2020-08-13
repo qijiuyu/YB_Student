@@ -5,6 +5,7 @@ import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.init.LoginActivity;
 import com.ylean.yb.student.activity.user.apply.ApplyRecordActivity;
+import com.ylean.yb.student.activity.user.school.InSchoolActivity;
 import com.ylean.yb.student.activity.user.setting.SettingActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.zxdc.utils.library.view.CircleImageView;

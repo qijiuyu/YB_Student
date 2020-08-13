@@ -1,6 +1,7 @@
 package com.ylean.yb.student.adapter.user;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.user.school.AddInSchoolActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +49,13 @@ public class InSchoolAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
+        holder.tvSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(activity, AddInSchoolActivity.class);
+                activity.startActivity(intent);
+            }
+        });
         return view;
     }
 
