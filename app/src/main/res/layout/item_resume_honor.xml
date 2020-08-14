@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:text="时间：2019年10月"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:text="奖项：军训优秀奖"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:text="级别：院级"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:gravity="center_vertical"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#f9f9f9"/>
+
+    </LinearLayout>
+
+</LinearLayout>

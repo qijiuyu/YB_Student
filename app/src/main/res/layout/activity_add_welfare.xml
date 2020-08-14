@@ -73,7 +73,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="11dp">
+                    android:layout_marginTop="11dp"
+                    android:layout_marginBottom="11dp">
 
                     <TextView
                         android:id="@+id/tv_people"
@@ -92,96 +93,107 @@
                         android:text="北京大学"
                         android:textColor="@color/color_666666"
                         android:textSize="12sp"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginLeft="50dp"
                         android:drawablePadding="5dp"
                         android:drawableLeft="@mipmap/time_icon"/>
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_welfare_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="11dp"
-                    android:text="公益：2小时"
-                    android:textColor="@color/color_666666"
-                    android:textSize="12sp"
-                    android:drawablePadding="5dp"
-                    android:drawableLeft="@mipmap/time_icon"/>
-
             </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="活动介绍"
-                android:textSize="17sp"
-                android:textColor="@color/color_333333"
-                android:textStyle="bold"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_white"
-                android:layout_margin="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="根据《职业年金基金管理暂行办法》（人社部〔2016〕92号）规定，经北京市职业年金基金管理机构评选委员会评选，结果如下：
-
-中国人寿养老保险股份有限公司、平安养老保险股份有限公司、泰康养老保险股份有限公司、中国工商银行股份有限公司、太平养老保险股份有限公司、长江养老保险股份有限公司、建信养老金管理有限责任公司、中国银行股份有限公司、招商银行股份有限公司、中国农业银行股份有限公司、中国人民养老保险有限责任公司为北京市机关事业单位职业年金计划受托人。
-
-　　参加评选的机构对评选结果如有异议，在2019年5月31日下午17:00前，以书面形式向北京市职业年金基金管理机构评选委员会办公室反映。"
-                    android:textColor="@color/color_333333"
-                    android:textSize="14sp"
-                    android:lineSpacingMultiplier="1.3"
-                    android:layout_margin="15dp"/>
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp">
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="留言信息(10)"
-                    android:textSize="17sp"
-                    android:textColor="@color/color_333333"
-                    android:textStyle="bold"
-                    android:layout_centerVertical="true"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="写留言"
-                    android:textSize="12sp"
-                    android:textColor="@color/color_333333"
-                    android:drawableLeft="@mipmap/time_icon"
-                    android:drawablePadding="5dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_white"
-                android:layout_margin="15dp">
-
-                <com.zxdc.utils.library.view.MeasureListView
-                    android:id="@+id/listView"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </com.zxdc.utils.library.view.MeasureListView>
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="公益时"
+                        android:textColor="@color/color_333333"
+                        android:textSize="15sp"/>
+
+                    <EditText
+                        android:id="@+id/tv_apply_time"
+                        android:layout_width="180dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/bg_memo"
+                        android:layout_marginLeft="25dp"
+                        android:hint="请输入参与活动投入公益时长"
+                        android:textSize="12sp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:inputType="number" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="小时"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/color_333333"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="说明信息"
+                        android:textColor="@color/color_333333"
+                        android:textSize="15sp"/>
+
+                    <EditText
+                        android:id="@+id/et_memo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_memo"
+                        android:layout_marginLeft="10dp"
+                        android:minLines="4"
+                        android:padding="10dp"
+                        android:gravity="top"
+                        android:textSize="14sp"
+                        android:textColor="@color/color_333333"
+                        android:hint="请输入说明信息"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="图片信息"
+                        android:textColor="@color/color_333333"
+                        android:textSize="15sp"/>
+
+                    <com.zxdc.utils.library.view.MyGridView
+                        android:id="@+id/gridView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:numColumns="2"
+                        android:verticalSpacing="10dp">
+                    </com.zxdc.utils.library.view.MyGridView>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -194,7 +206,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
-                android:text="申请公益时"
+                android:text="确认提交"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
                 android:gravity="center"/>

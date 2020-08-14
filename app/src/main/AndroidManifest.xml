@@ -89,6 +89,8 @@
         <activity android:name=".activity.declare.DeclareAuditActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.activity.MyActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.activity.ActivityDetailsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.activity.AddWelfareActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.resume.MyResumeActivity"  android:screenOrientation="portrait"/>
 
 
         <provider

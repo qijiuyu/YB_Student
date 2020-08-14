@@ -6,6 +6,7 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.init.LoginActivity;
 import com.ylean.yb.student.activity.user.activity.MyActivity;
 import com.ylean.yb.student.activity.user.apply.ApplyRecordActivity;
+import com.ylean.yb.student.activity.user.resume.MyResumeActivity;
 import com.ylean.yb.student.activity.user.school.InSchoolActivity;
 import com.ylean.yb.student.activity.user.setting.SettingActivity;
 import com.ylean.yb.student.base.BaseActivity;
@@ -77,6 +78,7 @@ public class UserActivity extends BaseActivity {
                 break;
             //我的简历
             case R.id.rel_resume:
+                setClass(MyResumeActivity.class);
                 break;
             //我的留言
             case R.id.rel_ly:
