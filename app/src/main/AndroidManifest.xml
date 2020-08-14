@@ -91,6 +91,8 @@
         <activity android:name=".activity.user.activity.ActivityDetailsActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.activity.AddWelfareActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.resume.MyResumeActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.resume.DeliveryRecordActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.resume.EditResumeActivity"  android:screenOrientation="portrait"/>
 
 
         <provider

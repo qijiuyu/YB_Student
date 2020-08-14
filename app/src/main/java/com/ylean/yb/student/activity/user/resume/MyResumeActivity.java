@@ -105,8 +105,10 @@ public class MyResumeActivity extends BaseActivity {
                  finish();
                 break;
             case R.id.tv_right:
+                 setClass(DeliveryRecordActivity.class);
                 break;
             case R.id.tv_edit:
+                setClass(EditResumeActivity.class);
                 break;
             default:
                 break;

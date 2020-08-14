@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_white"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="销售培训生（欢迎应届生及2年"
+            android:textColor="@color/color_333333"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginTop="11dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="100dp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6000/月"
+            android:textSize="16sp"
+            android:textColor="@color/color_FA4D4F"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"/>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="宁夏燕宝慈善基金会宁夏燕宝慈善基..."
+            android:textColor="@color/color_666666"
+            android:textSize="13sp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginLeft="12dp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="69.5dp"
+            android:layout_marginRight="12dp">
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="银川 兴庆区"
+                android:textSize="12sp"
+                android:textColor="@color/color_666666"
+                android:drawableLeft="@mipmap/time_icon"
+                android:drawablePadding="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2-3年"
+                android:textSize="12sp"
+                android:textColor="@color/color_666666"
+                android:drawableLeft="@mipmap/time_icon"
+                android:drawablePadding="5dp"
+                android:layout_marginLeft="15dp"/>
+
+            <TextView
+                android:id="@+id/tv_school"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本科"
+                android:textSize="12sp"
+                android:textColor="@color/color_666666"
+                android:drawableLeft="@mipmap/time_icon"
+                android:drawablePadding="5dp"
+                android:layout_marginLeft="15dp"/>
+
+            <TextView
+                android:id="@+id/tv_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2人"
+                android:textSize="12sp"
+                android:textColor="@color/color_666666"
+                android:drawableLeft="@mipmap/time_icon"
+                android:drawablePadding="5dp"
+                android:layout_marginLeft="15dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="117dp"
+            android:text="申请于：2019.09.12  12：00"
+            android:textSize="11sp"
+            android:textColor="@color/color_666666"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@mipmap/time_icon"
+            android:layout_marginBottom="14dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
