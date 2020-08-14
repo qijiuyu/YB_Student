@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9"
+    android:orientation="vertical">
+
+    <include layout="@layout/head"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:layout_margin="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="批次编号"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/tv_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="bfmzdxfszx-000001"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_FA4D4F"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="11dp"/>
+
+
+                <ImageView
+                    android:id="@+id/img_head"
+                    android:layout_width="133dp"
+                    android:layout_height="95dp"
+                    android:src="@mipmap/aa"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="41dp"/>
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018年大学生批次"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_333333"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="154dp"
+                    android:layout_marginTop="41dp"
+                    android:layout_marginRight="10dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="要求二本以上且户籍为自治区以上且户籍为宁夏回族..."
+                    android:textSize="14sp"
+                    android:textColor="@color/color_666666"
+                    android:layout_marginLeft="154dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_below="@id/tv_name"
+                    android:layout_marginTop="5dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:id="@+id/tv_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已有：200人 进行申请"
+                    android:textColor="@color/color_666666"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="154dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_below="@id/tv_content"
+                    android:layout_marginTop="15dp"/>
+
+                <TextView
+                    android:id="@+id/tv_valid_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="有效时间：2019.01.01 - 2019.02.15"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_666666"
+                    android:layout_below="@id/img_head"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="15dp"/>
+
+                <TextView
+                    android:id="@+id/tv_send_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="发布时间：2019.01.01"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_666666"
+                    android:layout_below="@id/tv_valid_time"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="11dp"/>
+
+                <TextView
+                    android:id="@+id/tv_submit"
+                    android:layout_width="75dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bg_btn"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/img_head"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="15dp"
+                    android:text="去申请"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="注：未能展示出符合实际申报的批次，请从个人档案中正确维护教育经历！"
+                android:textSize="12sp"
+                android:textColor="@color/color_333333"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="详情介绍"
+                android:textColor="@color/color_333333"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"/>
+
+            <org.sufficientlysecure.htmltextview.HtmlTextView
+                android:id="@+id/tv_html"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

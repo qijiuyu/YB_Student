@@ -21,7 +21,7 @@ import butterknife.OnClick;
 /**
  * 注册
  */
-public class RegisterActivity1 extends BaseActivity {
+public class RegisterActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.et_card)

@@ -74,7 +74,7 @@
         <activity android:name=".activity.user.setting.UpdatePwdActivity1"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.setting.UpdatePwdActivity2"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.init.LoginActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.init.RegisterActivity1"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.init.RegisterActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.init.BindingEmailActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.init.ValidationActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.init.ValidationMobileActivity"  android:screenOrientation="portrait"/>
@@ -83,6 +83,8 @@
         <activity android:name=".activity.user.apply.ReplacementActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.school.InSchoolActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.school.AddInSchoolActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.declare.DeclareDetailsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.declare.AddDeclareActivity"  android:screenOrientation="portrait"/>
 
 
         <provider

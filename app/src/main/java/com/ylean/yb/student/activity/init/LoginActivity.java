@@ -58,7 +58,7 @@ public class LoginActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_register:
-                 setClass(RegisterActivity1.class);
+                 setClass(RegisterActivity.class);
                 break;
             //忘记密码
             case R.id.tv_forget:
