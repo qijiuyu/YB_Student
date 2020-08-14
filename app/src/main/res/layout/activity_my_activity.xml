@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9"
+    android:orientation="vertical">
+
+    <include layout="@layout/head"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp">
+
+        <TextView
+            android:id="@+id/tv_activity_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="34"
+            android:textSize="24sp"
+            android:textColor="@color/color_333333"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_no_apply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="34"
+            android:textSize="24sp"
+            android:textColor="@color/color_333333"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_apply_success"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="34"
+            android:textSize="24sp"
+            android:textColor="@color/color_333333"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="共参加活动（个）"
+            android:textSize="9sp"
+            android:textColor="@color/color_333333"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="未申请公益时(个）"
+            android:textSize="9sp"
+            android:textColor="@color/color_333333"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="审核通过公益时总计(个)"
+            android:textSize="9sp"
+            android:textColor="@color/color_333333"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <com.zxdc.utils.library.view.refresh.MyRefreshLayout
+        android:id="@+id/re_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:focusable="true"
+            android:scrollbars="none" />
+
+    </com.zxdc.utils.library.view.refresh.MyRefreshLayout>
+
+</LinearLayout>

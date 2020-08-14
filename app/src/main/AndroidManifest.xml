@@ -87,6 +87,8 @@
         <activity android:name=".activity.declare.AddDeclareActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.declare.ApplySuccessActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.declare.DeclareAuditActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.activity.MyActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.activity.ActivityDetailsActivity"  android:screenOrientation="portrait"/>
 
 
         <provider

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9"
+    android:orientation="vertical">
+
+    <include layout="@layout/head"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_white"
+                android:orientation="vertical"
+                android:layout_margin="15dp">
+
+                <ImageView
+                    android:id="@+id/img_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="145dp"
+                    android:src="@mipmap/aa"
+                    android:scaleType="centerCrop"
+                    android:layout_margin="15dp"/>
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="北京垃圾分类计划暨第三届36Hours公益短视频挑战赛"
+                    android:textSize="17sp"
+                    android:textColor="@color/color_333333"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:maxLines="2"
+                    android:ellipsize="none"/>
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2019-02-23 14:30   ~   2019-02-25 18:00"
+                    android:textColor="@color/color_666666"
+                    android:textSize="12sp"
+                    android:drawableLeft="@mipmap/time_icon"
+                    android:drawablePadding="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="西安市长安区东长安街501号 京东航天数字产业示范园3层"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_666666"
+                    android:drawableLeft="@mipmap/time_icon"
+                    android:drawablePadding="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="8dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="11dp">
+
+                    <TextView
+                        android:id="@+id/tv_people"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1000人以上"
+                        android:textColor="@color/color_666666"
+                        android:textSize="12sp"
+                        android:drawablePadding="5dp"
+                        android:drawableLeft="@mipmap/time_icon"/>
+
+                    <TextView
+                        android:id="@+id/tv_school"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="北京大学"
+                        android:textColor="@color/color_666666"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="30dp"
+                        android:drawablePadding="5dp"
+                        android:drawableLeft="@mipmap/time_icon"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_welfare_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="11dp"
+                    android:text="公益：2小时"
+                    android:textColor="@color/color_666666"
+                    android:textSize="12sp"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@mipmap/time_icon"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="活动介绍"
+                android:textSize="17sp"
+                android:textColor="@color/color_333333"
+                android:textStyle="bold"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_white"
+                android:layout_margin="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="根据《职业年金基金管理暂行办法》（人社部〔2016〕92号）规定，经北京市职业年金基金管理机构评选委员会评选，结果如下：
+
+中国人寿养老保险股份有限公司、平安养老保险股份有限公司、泰康养老保险股份有限公司、中国工商银行股份有限公司、太平养老保险股份有限公司、长江养老保险股份有限公司、建信养老金管理有限责任公司、中国银行股份有限公司、招商银行股份有限公司、中国农业银行股份有限公司、中国人民养老保险有限责任公司为北京市机关事业单位职业年金计划受托人。
+
+　　参加评选的机构对评选结果如有异议，在2019年5月31日下午17:00前，以书面形式向北京市职业年金基金管理机构评选委员会办公室反映。"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp"
+                    android:lineSpacingMultiplier="1.3"
+                    android:layout_margin="15dp"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="留言信息(10)"
+                    android:textSize="17sp"
+                    android:textColor="@color/color_333333"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="写留言"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_333333"
+                    android:drawableLeft="@mipmap/time_icon"
+                    android:drawablePadding="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_white"
+                android:layout_margin="15dp">
+
+                <com.zxdc.utils.library.view.MeasureListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </com.zxdc.utils.library.view.MeasureListView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

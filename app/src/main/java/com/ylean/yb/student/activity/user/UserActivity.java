@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.init.LoginActivity;
+import com.ylean.yb.student.activity.user.activity.MyActivity;
 import com.ylean.yb.student.activity.user.apply.ApplyRecordActivity;
 import com.ylean.yb.student.activity.user.school.InSchoolActivity;
 import com.ylean.yb.student.activity.user.setting.SettingActivity;
@@ -66,6 +67,7 @@ public class UserActivity extends BaseActivity {
                 break;
             //我的活动
             case R.id.rel_activity:
+                setClass(MyActivity.class);
                 break;
             //导师咨询
             case R.id.rel_zx:
