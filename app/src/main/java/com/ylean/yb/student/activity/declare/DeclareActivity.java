@@ -2,6 +2,7 @@ package com.ylean.yb.student.activity.declare;
 
 import android.text.Html;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -69,6 +70,12 @@ public class DeclareActivity extends BaseActivity  implements MyRefreshLayoutLis
 
         reList.setMyRefreshLayoutListener(this);
         listView.setAdapter(adapter=new DeclareAdapter(this));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                setClass(DeclareAuditActivity.class);
+            }
+        });
     }
 
     @OnClick(R.id.tv_submit)

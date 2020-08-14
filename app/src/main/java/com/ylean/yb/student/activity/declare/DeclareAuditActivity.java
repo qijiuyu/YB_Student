@@ -1,28 +1,40 @@
 package com.ylean.yb.student.activity.declare;
 
-import android.support.v7.widget.LinearLayoutManager;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.declare.EconomicAdapter;
-import com.ylean.yb.student.adapter.user.AddFamilyAdapter;
+import com.ylean.yb.student.adapter.declare.ShowFamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
-import com.zxdc.utils.library.bean.AddFamily;
+import com.zxdc.utils.library.view.ClickTextView;
 import com.zxdc.utils.library.view.MeasureListView;
-import java.util.ArrayList;
-import java.util.List;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 批次申报
+ * 批次审核页面
  */
-public class AddDeclareActivity extends BaseActivity {
+public class DeclareAuditActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.img_audit1)
+    ImageView imgAudit1;
+    @BindView(R.id.img_audit2)
+    ImageView imgAudit2;
+    @BindView(R.id.img_audit3)
+    ImageView imgAudit3;
+    @BindView(R.id.tv_audit1)
+    TextView tvAudit1;
+    @BindView(R.id.tv_audit2)
+    TextView tvAudit2;
+    @BindView(R.id.tv_audit3)
+    TextView tvAudit3;
     @BindView(R.id.tv_code)
     TextView tvCode;
     @BindView(R.id.tv_batchNo)
@@ -53,22 +65,34 @@ public class AddDeclareActivity extends BaseActivity {
     TextView tvEmail;
     @BindView(R.id.tv_bank_code)
     TextView tvBankCode;
-    @BindView(R.id.et_high_school)
-    EditText etHighSchool;
-    @BindView(R.id.et_university)
-    EditText etUniversity;
+    @BindView(R.id.tv_high_school)
+    TextView tvHighSchool;
+    @BindView(R.id.tv_university)
+    TextView tvUniversity;
     @BindView(R.id.img_head)
     ImageView imgHead;
     @BindView(R.id.list_family)
-    RecyclerView listFamily;
+    MeasureListView listFamily;
     @BindView(R.id.tv_reward)
     TextView tvReward;
     @BindView(R.id.list_economic)
     MeasureListView listEconomic;
-    private AddFamilyAdapter addFamilyAdapter;
+    @BindView(R.id.img_zm)
+    ImageView imgZm;
+    @BindView(R.id.img_fm)
+    ImageView imgFm;
+    @BindView(R.id.img_hk1)
+    ImageView imgHk1;
+    @BindView(R.id.img_hk2)
+    ImageView imgHk2;
+    @BindView(R.id.img_notice)
+    ImageView imgNotice;
+    @BindView(R.id.img_other)
+    ImageView imgOther;
+    @BindView(R.id.tv_submit)
+    ClickTextView tvSubmit;
+    private ShowFamilyAdapter showFamilyAdapter;
     private EconomicAdapter economicAdapter;
-    //家庭成员集合
-    private List<AddFamily> familyList=new ArrayList<>();
 
     /**
      * 加载布局
@@ -76,7 +100,7 @@ public class AddDeclareActivity extends BaseActivity {
      */
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_add_declare;
+        return R.layout.activity_declare_audit;
     }
 
 
@@ -86,31 +110,24 @@ public class AddDeclareActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        tvTitle.setText("批次审报");
+        tvTitle.setText("审核记录");
 
         //家庭成员列表
-        listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listFamily.setAdapter(addFamilyAdapter=new AddFamilyAdapter(this,familyList));
+        listFamily.setAdapter(showFamilyAdapter=new ShowFamilyAdapter(this));
 
         //经济情况列表
         listEconomic.setAdapter(economicAdapter=new EconomicAdapter(this));
     }
 
 
-    @OnClick({R.id.lin_back, R.id.tv_add_family,R.id.tv_submit})
+    @OnClick({R.id.lin_back, R.id.tv_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lin_back:
-                 finish();
-                break;
-            //添加家庭成员
-            case R.id.tv_add_family:
-                familyList.add(new AddFamily());
-                addFamilyAdapter.notifyDataSetChanged();
                 break;
             case R.id.tv_submit:
-                 setClass(ApplySuccessActivity.class);
-                 break;
+                 finish();
+                break;
             default:
                 break;
         }

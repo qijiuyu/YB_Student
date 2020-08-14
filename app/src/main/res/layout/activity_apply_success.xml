@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/head"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/apply_success"
+        android:layout_marginTop="70dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您批次申请已提交成功！ "
+        android:textSize="17sp"
+        android:textColor="@color/color_333333"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="基金会会尽快进行审核，请关注审核进度情况"
+        android:textColor="@color/color_999999"
+        android:textSize="13sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="65dp">
+
+
+        <TextView
+            android:id="@+id/tv_main"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_border_red"
+            android:layout_marginLeft="50dp"
+            android:text="返回首页"
+            android:textSize="14sp"
+            android:textColor="@color/color_FA4D4F"
+            android:gravity="center"/>
+
+
+        <TextView
+            android:id="@+id/tv_record"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_btn"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:text="查看提交记录"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:gravity="center"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

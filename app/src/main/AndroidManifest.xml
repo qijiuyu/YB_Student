@@ -85,6 +85,8 @@
         <activity android:name=".activity.user.school.AddInSchoolActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.declare.DeclareDetailsActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.declare.AddDeclareActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.declare.ApplySuccessActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.declare.DeclareAuditActivity"  android:screenOrientation="portrait"/>
 
 
         <provider
