@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9"
+    android:orientation="vertical">
+
+    <include layout="@layout/head"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:background="@drawable/bg_white">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018年大学批次奖学金"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:textColor="@color/color_333333"
+                    android:layout_marginTop="18dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="所在学校"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_666666"
+                    android:layout_marginTop="52dp"/>
+
+                <TextView
+                    android:id="@+id/tv_school"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="清华大学"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp"
+                    android:layout_marginTop="52dp"
+                    android:layout_alignParentRight="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="银行卡号"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_666666"
+                    android:layout_marginTop="79.5dp"/>
+
+                <TextView
+                    android:id="@+id/tv_bank_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12453256454556****"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp"
+                    android:layout_marginTop="79.5dp"
+                    android:layout_alignParentRight="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="发放说明"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_666666"
+                    android:layout_marginTop="107dp"/>
+
+                <TextView
+                    android:id="@+id/tv_send_des"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="80dp"
+                    android:gravity="right"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="第四学年第二次"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp"
+                    android:layout_marginTop="107dp"
+                    android:layout_alignParentRight="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="发放时间"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_666666"
+                    android:layout_marginTop="135dp"/>
+
+                <TextView
+                    android:id="@+id/tv_send_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018年8月2日"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp"
+                    android:layout_marginTop="135dp"
+                    android:layout_alignParentRight="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="金额"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_666666"
+                    android:layout_marginTop="162.5dp"/>
+
+                <TextView
+                    android:id="@+id/tv_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10000.00"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp"
+                    android:layout_marginTop="162.5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="15dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上传银行汇款单"
+                android:textSize="15sp"
+                android:textColor="@color/color_333333"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="26dp"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="96dp"
+                android:layout_marginTop="12dp">
+
+                <ImageView
+                    android:id="@+id/img_bank"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@mipmap/add_photo_icon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="注：请去银行办理信息变更业务，并\n将银行办理的业务单拍照上传。"
+                    android:textColor="@color/color_999999"
+                    android:textSize="10sp"
+                    android:layout_marginTop="38dp"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上传申请单"
+                android:textSize="15sp"
+                android:textColor="@color/color_333333"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="36dp"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="96dp"
+                android:layout_marginTop="12dp">
+
+                <ImageView
+                    android:id="@+id/img_apply"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@mipmap/add_photo_icon"/>
+
+                <ImageView
+                    android:id="@+id/img_template"
+                    android:layout_width="56dp"
+                    android:layout_height="69dp"
+                    android:src="@mipmap/file_icon"
+                    android:layout_marginLeft="15dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="申请单模版下载\n注：请下载申请模版\n并填写拍照上传"
+                    android:textColor="@color/color_999999"
+                    android:textSize="10sp"
+                    android:layout_marginTop="21dp"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="说明信息"
+                    android:textSize="15sp"
+                    android:textColor="@color/color_333333"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/et_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minLines="4"
+                    android:background="@drawable/bg_white"
+                    android:layout_marginLeft="15dp"
+                    android:hint="请输入说明信息"
+                    android:padding="10dp"
+                    android:gravity="top"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_btn"
+                android:layout_marginTop="70dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="提交"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

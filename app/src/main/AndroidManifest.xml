@@ -100,6 +100,8 @@
         <activity android:name=".activity.user.bank.MyBankActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.bank.UpdateBankActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.bank.MoneyIssueActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.bank.ApplyRefundActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.bank.ApplyReissueActivity"  android:screenOrientation="portrait"/>
 
 
         <provider
