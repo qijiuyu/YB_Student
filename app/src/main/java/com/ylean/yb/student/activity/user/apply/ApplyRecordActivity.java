@@ -1,10 +1,12 @@
 package com.ylean.yb.student.activity.user.apply;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.adapter.user.ApplyRecordAdapter;
+import com.ylean.yb.student.adapter.user.apply.ApplyRecordAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.zxdc.utils.library.view.MyRefreshLayoutListener;
 import com.zxdc.utils.library.view.refresh.MyRefreshLayout;
@@ -45,7 +47,19 @@ public class ApplyRecordActivity extends BaseActivity implements MyRefreshLayout
         tvTitle.setText("申请记录");
 
         reList.setMyRefreshLayoutListener(this);
+        listView.setDivider(null);
         listView.setAdapter(adapter=new ApplyRecordAdapter(this));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent();
+                if(position==0){
+                    intent.setClass(activity,ReissueAuditActivity.class);
+                }
+                startActivity(intent);
+
+            }
+        });
     }
 
     @OnClick(R.id.lin_back)

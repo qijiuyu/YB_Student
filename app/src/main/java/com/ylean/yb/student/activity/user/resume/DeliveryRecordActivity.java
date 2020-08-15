@@ -5,7 +5,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.adapter.user.ApplyRecordAdapter;
 import com.ylean.yb.student.adapter.user.resume.DeliveryRecordAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.zxdc.utils.library.view.MyRefreshLayoutListener;

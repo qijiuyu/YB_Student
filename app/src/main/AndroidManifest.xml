@@ -80,7 +80,6 @@
         <activity android:name=".activity.init.ValidationMobileActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.init.ValidationEmailActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.apply.ApplyRecordActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.user.apply.ReplacementActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.school.InSchoolActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.school.AddInSchoolActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.declare.DeclareDetailsActivity"  android:screenOrientation="portrait"/>
@@ -102,6 +101,7 @@
         <activity android:name=".activity.user.bank.MoneyIssueActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.bank.ApplyRefundActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.bank.ApplyReissueActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.apply.ReissueAuditActivity"  android:screenOrientation="portrait"/>
 
 
         <provider

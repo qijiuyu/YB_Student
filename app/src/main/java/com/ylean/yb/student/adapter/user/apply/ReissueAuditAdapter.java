@@ -1,4 +1,4 @@
-package com.ylean.yb.student.adapter.user;
+package com.ylean.yb.student.adapter.user.apply;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -12,11 +12,11 @@ import com.ylean.yb.student.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ApplyRecordAdapter extends BaseAdapter {
+public class ReissueAuditAdapter extends BaseAdapter {
 
     private Activity activity;
 
-    public ApplyRecordAdapter(Activity activity) {
+    public ReissueAuditAdapter(Activity activity) {
         super();
         this.activity = activity;
     }
@@ -39,7 +39,7 @@ public class ApplyRecordAdapter extends BaseAdapter {
     ViewHolder holder = null;
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null) {
-            view = LayoutInflater.from(activity).inflate(R.layout.item_apply_record, null);
+            view = LayoutInflater.from(activity).inflate(R.layout.item_reissue_audit, null);
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {
@@ -52,16 +52,18 @@ public class ApplyRecordAdapter extends BaseAdapter {
 
     static
     class ViewHolder {
-        @BindView(R.id.tv_type)
-        TextView tvType;
-        @BindView(R.id.tv_status)
-        TextView tvStatus;
-        @BindView(R.id.tv_name)
-        TextView tvName;
-        @BindView(R.id.tv_time)
-        TextView tvTime;
-        @BindView(R.id.tv_submit)
-        TextView tvSubmit;
+        @BindView(R.id.tv_title)
+        TextView tvTitle;
+        @BindView(R.id.tv_school)
+        TextView tvSchool;
+        @BindView(R.id.tv_bank_code)
+        TextView tvBankCode;
+        @BindView(R.id.tv_send_des)
+        TextView tvSendDes;
+        @BindView(R.id.tv_send_time)
+        TextView tvSendTime;
+        @BindView(R.id.tv_money)
+        TextView tvMoney;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

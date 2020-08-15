@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9"
+    android:orientation="vertical">
+
+    <include layout="@layout/head"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="@drawable/bg_white"
+                android:layout_margin="15dp">
+
+                <ImageView
+                    android:id="@+id/img_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/in_apply"/>
+
+                <ImageView
+                    android:id="@+id/img_audit1"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@mipmap/audit1"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="15dp"/>
+
+                <ImageView
+                    android:id="@+id/img_audit2"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@mipmap/audit2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"/>
+
+                <ImageView
+                    android:id="@+id/img_audit3"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@mipmap/audit2"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginTop="15dp"/>
+
+                <TextView
+                    android:id="@+id/tv_audit1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="提交"
+                    android:textColor="@color/color_FA4D4F"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="36dp"
+                    android:layout_marginTop="47dp"/>
+
+                <TextView
+                    android:id="@+id/tv_audit2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="教育局审核"
+                    android:textColor="@color/color_333333"
+                    android:textSize="12sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="47dp"/>
+
+                <TextView
+                    android:id="@+id/tv_audit3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="基金会审核"
+                    android:textColor="@color/color_333333"
+                    android:textSize="12sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="36dp"
+                    android:layout_marginTop="47dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#BCC4CD"
+                    android:layout_toRightOf="@id/img_audit1"
+                    android:layout_toLeftOf="@id/img_audit2"
+                    android:layout_marginTop="31dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#BCC4CD"
+                    android:layout_toRightOf="@id/img_audit2"
+                    android:layout_toLeftOf="@id/img_audit3"
+                    android:layout_marginTop="31dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="补发明细"
+                android:textSize="17sp"
+                android:textColor="@color/color_333333"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="15dp"/>
+
+            <com.zxdc.utils.library.view.MeasureListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:divider="@null">
+            </com.zxdc.utils.library.view.MeasureListView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:orientation="vertical"
+                android:background="@drawable/bg_white">
+
+                <TextView
+                    android:id="@+id/tv_total_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="补发金额总计：50000.00元"
+                    android:textColor="@color/color_333333"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="13sp"
+                    android:layout_marginTop="20dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="11dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="补发申请单："
+                        android:textSize="14sp"
+                        android:textColor="@color/color_666666"/>
+
+                    <ImageView
+                        android:layout_width="81dp"
+                        android:layout_height="115dp"
+                        android:src="@mipmap/cc"
+                        android:layout_marginLeft="10dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="11dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="说明信息："
+                        android:textSize="14sp"
+                        android:textColor="@color/color_666666"/>
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="说明信息展示地方说明信息展示地方
+信息展示地方说明信息展示地方说明
+展示地方"
+                      android:textSize="14sp"
+                      android:textColor="@color/color_333333"
+                      android:layout_marginLeft="15dp"
+                      android:layout_marginRight="15dp"
+                      android:layout_marginBottom="15dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_btn"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:text="重新提交"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
