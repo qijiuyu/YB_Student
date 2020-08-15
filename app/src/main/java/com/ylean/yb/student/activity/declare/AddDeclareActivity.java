@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.declare.EconomicAdapter;
-import com.ylean.yb.student.adapter.user.AddFamilyAdapter;
+import com.ylean.yb.student.adapter.user.mine.AddFamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.zxdc.utils.library.bean.AddFamily;
 import com.zxdc.utils.library.view.MeasureListView;

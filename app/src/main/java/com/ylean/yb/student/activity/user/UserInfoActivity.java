@@ -1,6 +1,5 @@
 package com.ylean.yb.student.activity.user;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,19 +7,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.adapter.user.AddEducationAdapter;
-import com.ylean.yb.student.adapter.user.AddFamilyAdapter;
+import com.ylean.yb.student.adapter.user.mine.AddEducationAdapter;
+import com.ylean.yb.student.adapter.user.mine.AddFamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
-import com.ylean.yb.student.utils.JsonUtil;
 import com.zxdc.utils.library.bean.AddEducation;
 import com.zxdc.utils.library.bean.AddFamily;
-import com.zxdc.utils.library.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

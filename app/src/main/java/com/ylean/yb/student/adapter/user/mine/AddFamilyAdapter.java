@@ -1,4 +1,4 @@
-package com.ylean.yb.student.adapter.user;
+package com.ylean.yb.student.adapter.user.mine;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;

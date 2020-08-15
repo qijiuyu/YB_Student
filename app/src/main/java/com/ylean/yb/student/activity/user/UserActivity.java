@@ -6,6 +6,7 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.init.LoginActivity;
 import com.ylean.yb.student.activity.user.activity.MyActivity;
 import com.ylean.yb.student.activity.user.apply.ApplyRecordActivity;
+import com.ylean.yb.student.activity.user.leave.MyLeaveActivity;
 import com.ylean.yb.student.activity.user.resume.MyResumeActivity;
 import com.ylean.yb.student.activity.user.school.InSchoolActivity;
 import com.ylean.yb.student.activity.user.setting.SettingActivity;
@@ -82,6 +83,7 @@ public class UserActivity extends BaseActivity {
                 break;
             //我的留言
             case R.id.rel_ly:
+                setClass(MyLeaveActivity.class);
                 break;
             //关于我们
             case R.id.rel_about:

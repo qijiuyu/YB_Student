@@ -1,4 +1,4 @@
-package com.ylean.yb.student.adapter.user;
+package com.ylean.yb.student.adapter.user.resume;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -9,54 +9,53 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.callback.TimeCallBack;
-import com.ylean.yb.student.enumer.AddEducationEnum;
 import com.ylean.yb.student.utils.SelectTimeUtils;
 import com.zxdc.utils.library.bean.AddEducation;
+import com.zxdc.utils.library.bean.AddResumePostion;
+
 import java.util.List;
 
-public class AddEducationAdapter extends RecyclerView.Adapter<AddEducationAdapter.MyHolder> {
+public class AddResumePositionAdapter extends RecyclerView.Adapter<AddResumePositionAdapter.MyHolder> {
 
     private Activity activity;
-    private List<AddEducation> list;
-    /**
-     * 当前状态
-     */
-    private AddEducationEnum addEducationEnum;
+    private List<AddResumePostion> list;
 
     /**
      * 当前输入的对象
      */
-    private AddEducation education;
-    public AddEducationAdapter(Activity activity, List<AddEducation> list) {
+    private AddResumePostion position;
+    public AddResumePositionAdapter(Activity activity, List<AddResumePostion> list) {
         super();
         this.activity = activity;
         this.list=list;
         if(list.size()==0){
-            list.add(new AddEducation());
+            list.add(new AddResumePostion());
         }
     }
 
     public MyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View inflate = LayoutInflater.from(activity).inflate(R.layout.item_add_education, viewGroup,false);
+        View inflate = LayoutInflater.from(activity).inflate(R.layout.item_resume_add_position, viewGroup,false);
         MyHolder holder = new MyHolder(inflate);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int i) {
-       final AddEducation addEducation=list.get(i);
+       final AddResumePostion addResumePostion=list.get(i);
 
 
         /**
-         * 选择入学时间
+         * 选择开始时间
          */
-        holder.tvTime.setTag(addEducation);
-        holder.tvTime.setOnClickListener(new View.OnClickListener() {
+        holder.tvStartTime.setTag(addResumePostion);
+        holder.tvStartTime.setOnClickListener(new View.OnClickListener() {
            public void onClick(final View v) {
-               education= (AddEducation) v.getTag();
+               position= (AddResumePostion) v.getTag();
                SelectTimeUtils.selectTime(activity, new TimeCallBack() {
                    public void getTime(String time) {
                        ((TextView)v).setText(time);
@@ -64,6 +63,21 @@ public class AddEducationAdapter extends RecyclerView.Adapter<AddEducationAdapte
                });
            }
        });
+
+        /**
+         * 选择结束时间
+         */
+        holder.tvEndTime.setTag(addResumePostion);
+        holder.tvEndTime.setOnClickListener(new View.OnClickListener() {
+            public void onClick(final View v) {
+                position= (AddResumePostion) v.getTag();
+                SelectTimeUtils.selectTime(activity, new TimeCallBack() {
+                    public void getTime(String time) {
+                        ((TextView)v).setText(time);
+                    }
+                });
+            }
+        });
 
 
     }
@@ -97,15 +111,14 @@ public class AddEducationAdapter extends RecyclerView.Adapter<AddEducationAdapte
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        TextView tvType,tvProvince,tvCity,tvArea,tvSchool,tvTime;
+        TextView tvStartTime,tvEndTime;
+        EditText etName,etMemo;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
-            tvType=itemView.findViewById(R.id.tv_type);
-            tvProvince=itemView.findViewById(R.id.tv_province);
-            tvCity=itemView.findViewById(R.id.tv_city);
-            tvArea=itemView.findViewById(R.id.tv_area);
-            tvSchool=itemView.findViewById(R.id.tv_school);
-            tvTime=itemView.findViewById(R.id.tv_time);
+            tvStartTime=itemView.findViewById(R.id.tv_startTime);
+            tvEndTime=itemView.findViewById(R.id.tv_endTime);
+            etName=itemView.findViewById(R.id.et_name);
+            etMemo=itemView.findViewById(R.id.et_memo);
         }
     }
 }

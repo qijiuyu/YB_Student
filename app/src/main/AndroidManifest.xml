@@ -93,6 +93,7 @@
         <activity android:name=".activity.user.resume.MyResumeActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.resume.DeliveryRecordActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.resume.EditResumeActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.leave.MyLeaveActivity"  android:screenOrientation="portrait"/>
 
 
         <provider

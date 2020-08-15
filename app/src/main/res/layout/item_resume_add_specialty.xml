@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_rel_border"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="技能/语言"
+                android:textSize="14sp"
+                android:textColor="@color/color_333333"/>
+
+            <EditText
+                android:id="@+id/et_language"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_memo"
+                android:layout_marginLeft="30dp"
+                android:hint="请输入技能/语言"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:paddingLeft="7dp"
+                android:maxLines="1"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="掌握程度"
+                android:textSize="14sp"
+                android:textColor="@color/color_333333"/>
+
+            <TextView
+                android:id="@+id/tv_master"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_memo"
+                android:layout_marginLeft="35dp"
+                android:hint="请选择掌握程度"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:paddingLeft="7dp"
+                android:paddingRight="15dp"
+                android:maxLines="1"
+                android:drawableRight="@mipmap/bottom_sj"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginLeft="-15dp"
+            android:layout_marginRight="-15dp"
+            android:background="#f9f9f9"/>
+
+    </LinearLayout>
+
+</LinearLayout>
