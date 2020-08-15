@@ -94,6 +94,9 @@
         <activity android:name=".activity.user.resume.DeliveryRecordActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.resume.EditResumeActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.leave.MyLeaveActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.AboutActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.FeedBackActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.news.NewsActivity"  android:screenOrientation="portrait"/>
 
 
         <provider

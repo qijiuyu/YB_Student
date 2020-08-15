@@ -7,6 +7,7 @@ import com.ylean.yb.student.activity.init.LoginActivity;
 import com.ylean.yb.student.activity.user.activity.MyActivity;
 import com.ylean.yb.student.activity.user.apply.ApplyRecordActivity;
 import com.ylean.yb.student.activity.user.leave.MyLeaveActivity;
+import com.ylean.yb.student.activity.user.news.NewsActivity;
 import com.ylean.yb.student.activity.user.resume.MyResumeActivity;
 import com.ylean.yb.student.activity.user.school.InSchoolActivity;
 import com.ylean.yb.student.activity.user.setting.SettingActivity;
@@ -43,7 +44,7 @@ public class UserActivity extends BaseActivity {
         switch (view.getId()) {
             //消息
             case R.id.img_news:
-                setClass(LoginActivity.class);
+                setClass(NewsActivity.class);
                 break;
             //设置
             case R.id.img_setting:
@@ -87,6 +88,7 @@ public class UserActivity extends BaseActivity {
                 break;
             //关于我们
             case R.id.rel_about:
+                setClass(AboutActivity.class);
                 break;
             default:
                 break;
