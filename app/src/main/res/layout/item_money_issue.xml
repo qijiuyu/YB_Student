@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="@drawable/bg_white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发放状态"
+            android:textSize="17sp"
+            android:textColor="@color/color_333333"
+            android:layout_marginTop="18dp"/>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="成功"
+            android:textColor="@color/color_BCC4CD"
+            android:textSize="14sp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="所在学校"
+            android:textSize="14sp"
+            android:textColor="@color/color_666666"
+            android:layout_marginTop="52dp"/>
+
+        <TextView
+            android:id="@+id/tv_school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清华大学"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_marginTop="52dp"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="银行卡号"
+            android:textSize="14sp"
+            android:textColor="@color/color_666666"
+            android:layout_marginTop="79.5dp"/>
+
+        <TextView
+            android:id="@+id/tv_bank_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12453256454556****"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_marginTop="79.5dp"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发放说明"
+            android:textSize="14sp"
+            android:textColor="@color/color_666666"
+            android:layout_marginTop="107dp"/>
+
+        <TextView
+            android:id="@+id/tv_send_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:gravity="right"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="第四学年第二次"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_marginTop="107dp"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发放时间"
+            android:textSize="14sp"
+            android:textColor="@color/color_666666"
+            android:layout_marginTop="135dp"/>
+
+        <TextView
+            android:id="@+id/tv_send_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2018年8月2日"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_marginTop="135dp"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="金额"
+            android:textSize="14sp"
+            android:textColor="@color/color_666666"
+            android:layout_marginTop="162.5dp"/>
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10000.00"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_marginTop="162.5dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"/>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

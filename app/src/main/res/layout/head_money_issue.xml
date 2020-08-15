@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@drawable/bg_white"
+       android:layout_margin="15dp"
+       android:padding="15dp"
+       android:orientation="vertical">
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <TextView
+               android:id="@+id/tv_title"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="2016年大学批次第4学年在校情况"
+               android:textColor="@color/color_333333"
+               android:textSize="17sp"
+               android:textStyle="bold"
+               android:layout_marginRight="70dp"
+               android:maxLines="1"
+               android:ellipsize="end"/>
+
+           <TextView
+               android:id="@+id/tv_status"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="已完成"
+               android:textSize="14sp"
+               android:textColor="@color/color_BCC4CD"
+               android:layout_alignParentRight="true"
+               android:layout_centerVertical="true"/>
+
+       </RelativeLayout>
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:layout_marginTop="10dp">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="发放周期"
+               android:textColor="@color/color_666666"
+               android:textSize="14sp"
+               android:layout_centerVertical="true"/>
+
+           <TextView
+               android:id="@+id/tv_time"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="4年"
+               android:textSize="14sp"
+               android:textColor="@color/color_333333"
+               android:layout_centerVertical="true"
+               android:layout_alignParentRight="true"/>
+
+       </RelativeLayout>
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="40dp">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="发放资金总额"
+               android:textColor="@color/color_666666"
+               android:textSize="14sp"
+               android:layout_centerVertical="true"/>
+
+           <TextView
+               android:id="@+id/tv_total_money"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="￥6000.00/年"
+               android:textSize="14sp"
+               android:textColor="@color/color_333333"
+               android:layout_centerVertical="true"
+               android:layout_alignParentRight="true"/>
+
+       </RelativeLayout>
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="40dp">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="已发放金额"
+               android:textColor="@color/color_666666"
+               android:textSize="14sp"
+               android:layout_centerVertical="true"/>
+
+           <TextView
+               android:id="@+id/tv_send_money"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="￥6000.00/年"
+               android:textSize="14sp"
+               android:textColor="@color/color_333333"
+               android:layout_centerVertical="true"
+               android:layout_alignParentRight="true"/>
+
+       </RelativeLayout>
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="40dp">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="已发放资数"
+               android:textColor="@color/color_666666"
+               android:textSize="14sp"
+               android:layout_centerVertical="true"/>
+
+           <TextView
+               android:id="@+id/tv_send_num"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="4次"
+               android:textSize="14sp"
+               android:textColor="@color/color_333333"
+               android:layout_centerVertical="true"
+               android:layout_alignParentRight="true"/>
+
+       </RelativeLayout>
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="40dp">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="已收到金额"
+               android:textColor="@color/color_666666"
+               android:textSize="14sp"
+               android:layout_centerVertical="true"/>
+
+           <TextView
+               android:id="@+id/tv_get_money"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="￥24000.00/年"
+               android:textSize="14sp"
+               android:textColor="@color/color_333333"
+               android:layout_centerVertical="true"
+               android:layout_alignParentRight="true"/>
+
+       </RelativeLayout>
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="40dp">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="已收到次数"
+               android:textColor="@color/color_666666"
+               android:textSize="14sp"
+               android:layout_centerVertical="true"/>
+
+           <TextView
+               android:id="@+id/tv_get_num"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="4"
+               android:textSize="14sp"
+               android:textColor="@color/color_333333"
+               android:layout_centerVertical="true"
+               android:layout_alignParentRight="true"/>
+
+       </RelativeLayout>
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="40dp">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="补发资数"
+               android:textColor="@color/color_666666"
+               android:textSize="14sp"
+               android:layout_centerVertical="true"/>
+
+           <TextView
+               android:id="@+id/tv_reissue_num"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="4"
+               android:textSize="14sp"
+               android:textColor="@color/color_333333"
+               android:layout_centerVertical="true"
+               android:layout_alignParentRight="true"/>
+
+       </RelativeLayout>
+
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="#f9f9f9"/>
+
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="right"
+           android:layout_marginTop="40dp">
+
+           <TextView
+               android:id="@+id/tv_apply_reissue"
+               android:layout_width="84dp"
+               android:layout_height="30dp"
+               android:background="@drawable/bg_border_gray"
+               android:text="申请补发"
+               android:textSize="14sp"
+               android:textColor="@color/color_333333"
+               android:gravity="center"/>
+
+           <TextView
+               android:id="@+id/tv_apply_refund"
+               android:layout_width="119.5dp"
+               android:layout_height="30dp"
+               android:background="@drawable/bg_border_gray"
+               android:text="申请退还奖学金"
+               android:textSize="14sp"
+               android:textColor="@color/color_333333"
+               android:gravity="center"
+               android:layout_marginLeft="15dp"/>
+
+       </LinearLayout>
+
+   </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:text="收款信息"
+        android:textColor="@color/color_333333"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="15dp"
+        android:gravity="center_vertical"/>
+
+</LinearLayout>

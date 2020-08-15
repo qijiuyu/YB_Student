@@ -97,6 +97,9 @@
         <activity android:name=".activity.user.AboutActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.FeedBackActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.news.NewsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.bank.MyBankActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.bank.UpdateBankActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.bank.MoneyIssueActivity"  android:screenOrientation="portrait"/>
 
 
         <provider
