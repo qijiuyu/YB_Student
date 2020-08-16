@@ -55,6 +55,12 @@ public class ApplyRecordActivity extends BaseActivity implements MyRefreshLayout
                 Intent intent=new Intent();
                 if(position==0){
                     intent.setClass(activity,ReissueAuditActivity.class);
+                }else if(position==1){
+                    intent.setClass(activity,WelfareAuditActivity.class);
+                }else if(position==2){
+                    intent.setClass(activity,InSchoolAuditActivity.class);
+                }else if(position==3){
+                    intent.setClass(activity,BankAuditActivity.class);
                 }
                 startActivity(intent);
 

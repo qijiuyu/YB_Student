@@ -103,109 +103,58 @@
 
             </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="补发明细"
-                android:textSize="17sp"
-                android:textColor="@color/color_333333"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="15dp"/>
-
-            <com.zxdc.utils.library.view.MeasureListView
-                android:id="@+id/listView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:divider="@null">
-            </com.zxdc.utils.library.view.MeasureListView>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:background="@drawable/bg_white"
                 android:orientation="vertical"
-                android:background="@drawable/bg_white">
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:padding="15dp">
 
                 <TextView
-                    android:id="@+id/tv_total_money"
+                    android:id="@+id/tv_bank_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="补发金额总计：50000.00元"
-                    android:textColor="@color/color_333333"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="13sp"
-                    android:layout_marginTop="20dp"/>
+                    android:text="新银行卡号：45678932102551****"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_333333" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="新银行卡照片信息："
+                    android:textSize="14sp"
+                    android:textColor="@color/color_333333" />
+
+                <ImageView
+                    android:id="@+id/img_bank"
+                    android:layout_width="206dp"
+                    android:layout_height="131dp"
+                    android:src="@mipmap/aa"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"/>
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginTop="11dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="银行变更单："
-                        android:textSize="14sp"
-                        android:textColor="@color/color_666666"/>
-
-                    <ImageView
-                        android:layout_width="81dp"
-                        android:layout_height="115dp"
-                        android:src="@mipmap/cc"
-                        android:layout_marginLeft="10dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="13dp"
                     android:layout_marginTop="21dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="补发申请单："
+                        android:text="变更申请单："
                         android:textSize="14sp"
                         android:textColor="@color/color_666666"/>
 
                     <ImageView
+                        android:id="@+id/img_results"
                         android:layout_width="81dp"
                         android:layout_height="115dp"
                         android:src="@mipmap/cc"
                         android:layout_marginLeft="10dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginTop="11dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="说明信息："
-                        android:textSize="14sp"
-                        android:textColor="@color/color_666666"/>
-
-                  <TextView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="说明信息展示地方说明信息展示地方
-信息展示地方说明信息展示地方说明
-展示地方"
-                      android:textSize="14sp"
-                      android:textColor="@color/color_333333"
-                      android:layout_marginLeft="15dp"
-                      android:layout_marginRight="15dp"
-                      android:layout_marginBottom="15dp"/>
 
                 </LinearLayout>
 
@@ -216,9 +165,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:background="@drawable/bg_btn"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginBottom="20dp"
                 android:text="重新提交"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
