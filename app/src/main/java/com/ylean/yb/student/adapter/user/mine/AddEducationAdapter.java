@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.callback.SelectRelationCallBack;
 import com.ylean.yb.student.callback.TimeCallBack;
 import com.ylean.yb.student.enumer.AddEducationEnum;
 import com.ylean.yb.student.utils.SelectTimeUtils;
+import com.ylean.yb.student.view.SchoolType;
 import com.zxdc.utils.library.bean.AddEducation;
 import java.util.List;
 
@@ -48,6 +50,24 @@ public class AddEducationAdapter extends RecyclerView.Adapter<AddEducationAdapte
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int i) {
        final AddEducation addEducation=list.get(i);
+
+
+        /**
+         * 选择学校类型
+         */
+       holder.tvType.setTag(addEducation);
+       holder.tvType.setOnClickListener(new View.OnClickListener() {
+           public void onClick(View v) {
+               education= (AddEducation) v.getTag();
+               new SchoolType(activity, new SelectRelationCallBack() {
+                   @Override
+                   public void onSuccess(Object object, Object object2) {
+                       holder.tvType.setText((String)object);
+                       education.setType((String)object2);
+                   }
+               }).show();
+           }
+       });
 
 
         /**

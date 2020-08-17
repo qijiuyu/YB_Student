@@ -10,13 +10,13 @@
         android:orientation="vertical"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
         android:background="@android:color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
             android:background="@drawable/bg_rel_border"
             android:gravity="center_vertical">
 
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="@drawable/bg_memo"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="15dp"
                 android:hint="请选择学校类型"
                 android:textSize="13sp"
                 android:textColor="@android:color/black"
@@ -47,6 +47,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
             android:background="@drawable/bg_rel_border"
             android:gravity="center_vertical">
 
@@ -60,7 +62,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginLeft="15dp">
+                android:layout_marginLeft="10dp">
 
                 <TextView
                     android:id="@+id/tv_province"
@@ -123,6 +125,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
             android:background="@drawable/bg_rel_border"
             android:gravity="center_vertical">
 
@@ -138,7 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="@drawable/bg_memo"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="15dp"
                 android:hint="请选择所在学校"
                 android:textSize="13sp"
                 android:textColor="@android:color/black"
@@ -153,6 +157,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -167,7 +173,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="@drawable/bg_memo"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="15dp"
                 android:hint="请选择入学时间"
                 android:textSize="13sp"
                 android:textColor="@android:color/black"
@@ -183,8 +189,6 @@
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:background="#f9f9f9"/>
-
-
 
     </LinearLayout>
 

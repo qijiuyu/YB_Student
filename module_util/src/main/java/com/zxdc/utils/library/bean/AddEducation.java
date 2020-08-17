@@ -4,45 +4,72 @@ import java.io.Serializable;
 
 public class AddEducation implements Serializable {
 
-    private String schoolType;//学校类型
-    private String province;//省
-    private String city;//市
-    private String area;//区
+    private String type;//学校类型
+    private String pcode;//省
+    private String pname;
+    private String ccode;//市
+    private String cname;
+    private String acode;//区
+    private String aname;
     private String school;//所在学校
     private String time;//入学时间
     private String faculty;//院系名称
     private String specialty;//专业名称
 
-    public String getSchoolType() {
-        return schoolType;
+    public String getType() {
+        return type;
     }
 
-    public void setSchoolType(String schoolType) {
-        this.schoolType = schoolType;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getProvince() {
-        return province;
+    public String getPcode() {
+        return pcode;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setPcode(String pcode) {
+        this.pcode = pcode;
     }
 
-    public String getCity() {
-        return city;
+    public String getPname() {
+        return pname;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setPname(String pname) {
+        this.pname = pname;
     }
 
-    public String getArea() {
-        return area;
+    public String getCcode() {
+        return ccode;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setCcode(String ccode) {
+        this.ccode = ccode;
+    }
+
+    public String getCname() {
+        return cname;
+    }
+
+    public void setCname(String cname) {
+        this.cname = cname;
+    }
+
+    public String getAcode() {
+        return acode;
+    }
+
+    public void setAcode(String acode) {
+        this.acode = acode;
+    }
+
+    public String getAname() {
+        return aname;
+    }
+
+    public void setAname(String aname) {
+        this.aname = aname;
     }
 
     public String getSchool() {
