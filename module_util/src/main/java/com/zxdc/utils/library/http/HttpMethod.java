@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.NetCallBack;
+import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.http.base.BaseRequst;
 import com.zxdc.utils.library.http.base.Http;
@@ -26,6 +27,58 @@ public class HttpMethod extends BaseRequst {
 
     private static String size="10";
     public static int pageSize=10;
+
+
+    /**
+     * 获取所有省集合
+     */
+    public static void getProvince(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getProvince().enqueue(new Callback<ProvinceBean>() {
+            public void onResponse(Call<ProvinceBean> call, Response<ProvinceBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<ProvinceBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 根据省代码获取市集合
+     */
+    public static void getCityByProvince(String code,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getCityByProvince(code).enqueue(new Callback<ProvinceBean>() {
+            public void onResponse(Call<ProvinceBean> call, Response<ProvinceBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<ProvinceBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 根据市代码获取区集合
+     */
+    public static void getAreaByCity(String code,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getAreaByCity(code).enqueue(new Callback<ProvinceBean>() {
+            public void onResponse(Call<ProvinceBean> call, Response<ProvinceBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<ProvinceBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
 
 
     /**

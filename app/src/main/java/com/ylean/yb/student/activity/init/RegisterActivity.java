@@ -91,7 +91,6 @@ public class RegisterActivity extends BaseActivity {
                 SelectPhotoUtil.SelectPhoto(this,1);
                 break;
             case R.id.tv_next:
-//                setClass(UserInfoActivity.class);
                 final String card=etCard.getText().toString().trim();
                 final String mobile=etMobile.getText().toString().trim();
                 final String pwd=etPwd.getText().toString().trim();

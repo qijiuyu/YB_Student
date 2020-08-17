@@ -2,6 +2,7 @@ package com.ylean.yb.student.activity.user;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,8 +11,10 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.user.mine.AddEducationAdapter;
 import com.ylean.yb.student.adapter.user.mine.AddFamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.view.SelectProvince;
 import com.zxdc.utils.library.bean.AddEducation;
 import com.zxdc.utils.library.bean.AddFamily;
+import com.zxdc.utils.library.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,18 +106,52 @@ public class UserInfoActivity extends BaseActivity {
 
     @OnClick({R.id.tv_province, R.id.tv_city, R.id.tv_area, R.id.tv_province1, R.id.tv_city1, R.id.tv_area1, R.id.tv_add_family,R.id.tv_add_education,R.id.tv_submit})
     public void onViewClicked(View view) {
+        final String province=tvProvince.getText().toString().trim();
+        final String city=tvCity.getText().toString().trim();
+        final String area=tvArea.getText().toString().trim();
+        final String province1=tvProvince1.getText().toString().trim();
+        final String city1=tvCity1.getText().toString().trim();
+        final String area1=tvArea1.getText().toString().trim();
         switch (view.getId()) {
+            //选择省
             case R.id.tv_province:
+                new SelectProvince(this,tvProvince,0,null).show();
                 break;
+            //选择市
             case R.id.tv_city:
+                if(TextUtils.isEmpty(province)){
+                    ToastUtil.showLong("请先选择省");
+                    return;
+                }
+                new SelectProvince(this,tvCity,1,(String)tvProvince.getTag()).show();
                 break;
+            //选择区
             case R.id.tv_area:
+                if(TextUtils.isEmpty(city)){
+                    ToastUtil.showLong("请先选择市");
+                    return;
+                }
+                new SelectProvince(this,tvArea,2,(String)tvCity.getTag()).show();
                 break;
+            //选择省
             case R.id.tv_province1:
+                new SelectProvince(this,tvProvince1,0,null).show();
                 break;
+            //选择市
             case R.id.tv_city1:
+                if(TextUtils.isEmpty(province1)){
+                    ToastUtil.showLong("请先选择省");
+                    return;
+                }
+                new SelectProvince(this,tvCity1,1,(String)tvProvince1.getTag()).show();
                 break;
+            //选择区
             case R.id.tv_area1:
+                if(TextUtils.isEmpty(city1)){
+                    ToastUtil.showLong("请先选择市");
+                    return;
+                }
+                new SelectProvince(this,tvArea1,2,(String)tvCity1.getTag()).show();
                 break;
             //添加家庭成员
             case R.id.tv_add_family:
@@ -127,6 +164,13 @@ public class UserInfoActivity extends BaseActivity {
                  addEducationAdapter.notifyDataSetChanged();
                  break;
             case R.id.tv_submit:
+                 final String qq=etQq.getText().toString().trim();
+                 final String wx=etWx.getText().toString().trim();
+                 final String address=etAddress.getText().toString().trim();
+                 final String address1=etAddress1.getText().toString().trim();
+                 final String mobile=etParentMobile.getText().toString().trim();
+                 final String landMobile=etLandMobile.getText().toString().trim();
+
                  break;
             default:
                 break;
