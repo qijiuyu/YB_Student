@@ -14,6 +14,11 @@ import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.view.SelectProvince;
 import com.zxdc.utils.library.bean.AddEducation;
 import com.zxdc.utils.library.bean.AddFamily;
+import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.ProvinceBean;
+import com.zxdc.utils.library.bean.ProvinceCallBack;
+import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -115,7 +120,14 @@ public class UserInfoActivity extends BaseActivity {
         switch (view.getId()) {
             //选择省
             case R.id.tv_province:
-                new SelectProvince(this,tvProvince,0,null).show();
+                new SelectProvince(this, 0, null, new ProvinceCallBack() {
+                    public void onSuccess(ProvinceBean.ListBean listBean) {
+                        tvProvince.setText(listBean.getName());
+                        tvProvince.setTag(listBean.getCode());
+                        tvCity.setText(null);
+                        tvArea.setText(null);
+                    }
+                }).show();
                 break;
             //选择市
             case R.id.tv_city:
@@ -123,7 +135,13 @@ public class UserInfoActivity extends BaseActivity {
                     ToastUtil.showLong("请先选择省");
                     return;
                 }
-                new SelectProvince(this,tvCity,1,(String)tvProvince.getTag()).show();
+                new SelectProvince(this, 1, (String) tvProvince.getTag(), new ProvinceCallBack() {
+                    public void onSuccess(ProvinceBean.ListBean listBean) {
+                        tvCity.setText(listBean.getName());
+                        tvCity.setTag(listBean.getCode());
+                        tvArea.setText(null);
+                    }
+                }).show();
                 break;
             //选择区
             case R.id.tv_area:
@@ -131,11 +149,23 @@ public class UserInfoActivity extends BaseActivity {
                     ToastUtil.showLong("请先选择市");
                     return;
                 }
-                new SelectProvince(this,tvArea,2,(String)tvCity.getTag()).show();
+                new SelectProvince(this, 2, (String) tvCity.getTag(), new ProvinceCallBack() {
+                    public void onSuccess(ProvinceBean.ListBean listBean) {
+                        tvArea.setText(listBean.getName());
+                        tvArea.setTag(listBean.getCode());
+                    }
+                }).show();
                 break;
             //选择省
             case R.id.tv_province1:
-                new SelectProvince(this,tvProvince1,0,null).show();
+                new SelectProvince(this, 0, null, new ProvinceCallBack() {
+                    public void onSuccess(ProvinceBean.ListBean listBean) {
+                        tvProvince1.setText(listBean.getName());
+                        tvProvince1.setTag(listBean.getCode());
+                        tvCity1.setText(null);
+                        tvArea1.setText(null);
+                    }
+                }).show();
                 break;
             //选择市
             case R.id.tv_city1:
@@ -143,7 +173,13 @@ public class UserInfoActivity extends BaseActivity {
                     ToastUtil.showLong("请先选择省");
                     return;
                 }
-                new SelectProvince(this,tvCity1,1,(String)tvProvince1.getTag()).show();
+                new SelectProvince(this, 1, (String) tvProvince1.getTag(), new ProvinceCallBack() {
+                    public void onSuccess(ProvinceBean.ListBean listBean) {
+                        tvCity1.setText(listBean.getName());
+                        tvCity1.setTag(listBean.getCode());
+                        tvArea1.setText(null);
+                    }
+                }).show();
                 break;
             //选择区
             case R.id.tv_area1:
@@ -151,7 +187,12 @@ public class UserInfoActivity extends BaseActivity {
                     ToastUtil.showLong("请先选择市");
                     return;
                 }
-                new SelectProvince(this,tvArea1,2,(String)tvCity1.getTag()).show();
+                new SelectProvince(this, 2, (String) tvCity1.getTag(), new ProvinceCallBack() {
+                    public void onSuccess(ProvinceBean.ListBean listBean) {
+                        tvArea1.setText(listBean.getName());
+                        tvArea1.setTag(listBean.getCode());
+                    }
+                }).show();
                 break;
             //添加家庭成员
             case R.id.tv_add_family:
@@ -170,7 +211,27 @@ public class UserInfoActivity extends BaseActivity {
                  final String address1=etAddress1.getText().toString().trim();
                  final String mobile=etParentMobile.getText().toString().trim();
                  final String landMobile=etLandMobile.getText().toString().trim();
+                 if(TextUtils.isEmpty(mobile)){
+                     ToastUtil.showLong("请输入家长手机号");
+                     return;
+                 }
+                 Address addressBean=new Address();
+                 addressBean.setPcode((String)tvProvince.getTag());
+                 addressBean.setPname(province);
+                 addressBean.setCcode((String)tvCity.getTag());
+                 addressBean.setCname(city);
+                 addressBean.setAcode((String)tvArea.getTag());
+                 addressBean.setAname(area);
 
+                Address addressBean1=new Address();
+                addressBean1.setPcode((String)tvProvince1.getTag());
+                addressBean1.setPname(province1);
+                addressBean1.setCcode((String)tvCity1.getTag());
+                addressBean1.setCname(city1);
+                addressBean1.setAcode((String)tvArea1.getTag());
+                addressBean1.setAname(area1);
+
+                HttpMethod.saveUser(mobile, JsonUtil.objectToString(address),qq,JsonUtil.objectToString(address1),landMobile,1,wx,null);
                  break;
             default:
                 break;

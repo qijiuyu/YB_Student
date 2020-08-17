@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.persenter.ProvinceP;
 import com.zxdc.utils.library.bean.ProvinceBean;
+import com.zxdc.utils.library.bean.ProvinceCallBack;
+
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
@@ -23,7 +25,6 @@ public class SelectProvince extends Dialog implements ProvinceP.Face {
     @BindView(R.id.wheel)
     CycleWheelView wheel;
     private Activity context;
-    private TextView textView;
     //所有省份集合
     private List<ProvinceBean.ListBean> pList;
     //根据省编码获取市集合
@@ -37,6 +38,7 @@ public class SelectProvince extends Dialog implements ProvinceP.Face {
      */
     private int type;
     private String code;//编码
+    private ProvinceCallBack callBack;
     private ProvinceP provinceP;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +53,12 @@ public class SelectProvince extends Dialog implements ProvinceP.Face {
         initView();
     }
 
-    public SelectProvince(Activity context, TextView textView, int type,String code) {
+    public SelectProvince(Activity context,int type,String code,ProvinceCallBack callBack) {
         super(context, R.style.ActionSheetDialogStyle);
         this.context = context;
-        this.textView = textView;
         this.type = type;
         this.code=code;
+        this.callBack=callBack;
     }
 
     /**
@@ -82,14 +84,11 @@ public class SelectProvince extends Dialog implements ProvinceP.Face {
                  break;
             case R.id.tv_confirm:
                  if(type==0){
-                     textView.setText(pList.get(wheel.getSelection()).getName());
-                     textView.setTag(pList.get(wheel.getSelection()).getCode());
+                     callBack.onSuccess(pList.get(wheel.getSelection()));
                  }else if(type==1){
-                     textView.setText(cList.get(wheel.getSelection()).getName());
-                     textView.setTag(cList.get(wheel.getSelection()).getCode());
+                     callBack.onSuccess(cList.get(wheel.getSelection()));
                  }else{
-                     textView.setText(aList.get(wheel.getSelection()).getName());
-                     textView.setTag(aList.get(wheel.getSelection()).getCode());
+                     callBack.onSuccess(aList.get(wheel.getSelection()));
                  }
                  dismiss();
                  break;

@@ -1,8 +1,6 @@
 package com.zxdc.utils.library.http;
 
-import android.os.Handler;
-import android.text.TextUtils;
-
+import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.ProvinceBean;
@@ -11,10 +9,7 @@ import com.zxdc.utils.library.http.base.BaseRequst;
 import com.zxdc.utils.library.http.base.Http;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.JsonUtil;
-import com.zxdc.utils.library.util.LogUtils;
-import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -95,7 +90,6 @@ public class HttpMethod extends BaseRequst {
                 DialogUtil.closeProgress();
                 try {
                     String str = response.body().string();
-                    LogUtils.e(str+"+++++++++++++++++++");
                     final UserInfo userInfo= (UserInfo) JsonUtil.stringToObject(str,UserInfo.class);
                     netCallBack.onSuccess(userInfo);
                 } catch (IOException e) {
@@ -105,6 +99,51 @@ public class HttpMethod extends BaseRequst {
             public void onFailure(okhttp3.Call call, IOException e) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong(e.getMessage());
+            }
+        });
+    }
+
+
+    /**
+     * 保存用户基本信息
+     */
+    public static void saveUser(String ucphone,String address,String qq,String residenceaddress,String uctel,int uid,String wechat,final NetCallBack netCallBack) {
+        Map<String ,String> map=new HashMap<>();
+        map.put("ucphone",ucphone);
+        map.put("address",address);
+        map.put("qq",qq);
+        map.put("residenceaddress",residenceaddress);
+        map.put("uctel",uctel);
+        map.put("uid",uid+"");
+        map.put("wechat",wechat);
+        Http.getRetrofit().create(HttpApi.class).saveUser(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 学生注册第三步
+     */
+    public static void bindingEmail(String code,String email,final NetCallBack netCallBack) {
+        Map<String ,String> map=new HashMap<>();
+        map.put("code",code);
+        map.put("email",email);
+        Http.getRetrofit().create(HttpApi.class).bindingEmail(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
             }
         });
     }

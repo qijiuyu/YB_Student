@@ -1,19 +1,18 @@
 package com.ylean.yb.student.activity.init;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
+import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.bean.NetCallBack;
+import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 /**
  * 绑定邮箱
  */
@@ -29,7 +28,6 @@ public class BindingEmailActivity extends BaseActivity {
 
     /**
      * 加载布局
-     * @return
      */
     @Override
     protected int getLayoutId() {
@@ -70,9 +68,35 @@ public class BindingEmailActivity extends BaseActivity {
                     ToastUtil.showLong("请输入邮箱验证码");
                     return;
                 }
+                //学生注册第三步
+                bindingEmail(code,email);
                 break;
             default:
                 break;
         }
+    }
+
+
+    /**
+     * 学生注册第三步
+     */
+    private void bindingEmail(String code,String email){
+        DialogUtil.showProgress(this,"数据加载中");
+        HttpMethod.bindingEmail(code, email, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
     }
 }
