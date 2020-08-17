@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.callback.SelectRelationCallBack;
 import com.ylean.yb.student.enumer.AddFarilyEnum;
 import com.ylean.yb.student.view.SelectRelation;
+import com.ylean.yb.student.view.SelectReward;
 import com.zxdc.utils.library.bean.AddFamily;
 import java.util.List;
 
@@ -55,10 +57,13 @@ public class AddFamilyAdapter extends RecyclerView.Adapter<AddFamilyAdapter.MyHo
         holder.tvRelation.setTag(addFamily);
         holder.tvRelation.setOnClickListener(new View.OnClickListener() {
            public void onClick(View v) {
-               addFarilyEnum=AddFarilyEnum.关系;
                family= (AddFamily) v.getTag();
-               holder.tvRelation.addTextChangedListener(textWatcher);
-               new SelectRelation(activity,(TextView)v).show();
+               new SelectRelation(activity, new SelectRelationCallBack() {
+                   public void onSuccess(Object object, Object object2) {
+                       holder.tvRelation.setText((String)object);
+                       family.setRelation((String)object2);
+                   }
+               }).show();
            }
        });
 
@@ -129,6 +134,24 @@ public class AddFamilyAdapter extends RecyclerView.Adapter<AddFamilyAdapter.MyHo
                 }
             }
         });
+
+
+
+        /**
+         * 是否接受过燕宝奖励
+         */
+        holder.tvReward.setTag(addFamily);
+        holder.tvReward.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                family= (AddFamily) v.getTag();
+                new SelectReward(activity, new SelectRelationCallBack() {
+                    public void onSuccess(Object object, Object object2) {
+                        holder.tvReward.setText((String)object);
+                        family.setWhethersupport((String)object2);
+                    }
+                }).show();
+            }
+        });
     }
 
 
@@ -138,7 +161,6 @@ public class AddFamilyAdapter extends RecyclerView.Adapter<AddFamilyAdapter.MyHo
      */
     TextWatcher textWatcher=new TextWatcher() {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
@@ -149,20 +171,17 @@ public class AddFamilyAdapter extends RecyclerView.Adapter<AddFamilyAdapter.MyHo
                 return;
             }
             switch (addFarilyEnum){
-                case 关系:
-                    family.setRelation(content);
-                    break;
                 case 姓名:
                     family.setName(content);
                     break;
                 case 单位:
-                    family.setUnit(content);
+                    family.setCompany(content);
                     break;
                 case 职位:
-                    family.setPosition(content);
+                    family.setOccupation(content);
                     break;
                 case 收入来源:
-                    family.setEntry(content);
+                    family.setIncomesource(content);
                     break;
                 default:
                     break;
@@ -179,11 +198,12 @@ public class AddFamilyAdapter extends RecyclerView.Adapter<AddFamilyAdapter.MyHo
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        TextView tvRelation;
+        TextView tvRelation,tvReward;
         EditText etName,etUnit,etPosition,etEntry;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             tvRelation=itemView.findViewById(R.id.tv_relation);
+            tvReward=itemView.findViewById(R.id.tv_reward);
             etName=itemView.findViewById(R.id.et_name);
             etUnit=itemView.findViewById(R.id.et_unit);
             etPosition=itemView.findViewById(R.id.et_position);

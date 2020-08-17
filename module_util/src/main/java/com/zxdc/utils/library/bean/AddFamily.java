@@ -5,10 +5,12 @@ import java.io.Serializable;
 public class AddFamily implements Serializable {
 
     private String relation;
+    private String relationname;
+    private String whethersupport;
     private String name;
-    private String unit;
-    private String position;
-    private String entry;
+    private String company;
+    private String occupation;
+    private String incomesource;
 
     public String getRelation() {
         return relation;
@@ -26,27 +28,43 @@ public class AddFamily implements Serializable {
         this.name = name;
     }
 
-    public String getUnit() {
-        return unit;
+    public String getRelationname() {
+        return relationname;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setRelationname(String relationname) {
+        this.relationname = relationname;
     }
 
-    public String getPosition() {
-        return position;
+    public String getWhethersupport() {
+        return whethersupport;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setWhethersupport(String whethersupport) {
+        this.whethersupport = whethersupport;
     }
 
-    public String getEntry() {
-        return entry;
+    public String getCompany() {
+        return company;
     }
 
-    public void setEntry(String entry) {
-        this.entry = entry;
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public String getIncomesource() {
+        return incomesource;
+    }
+
+    public void setIncomesource(String incomesource) {
+        this.incomesource = incomesource;
     }
 }

@@ -8,23 +8,23 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
+
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.callback.SelectRelationCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectRelation extends Dialog implements View.OnClickListener {
+public class SelectReward extends Dialog implements View.OnClickListener {
 
     private Activity context;
     private CycleWheelView wheel;
-    private List<String> listName=new ArrayList<String>(){{add("父亲");add("母亲");add("哥哥");add("姐姐");add("弟弟");add("妹妹");add("其他");}};
-    private List<String> listCode=new ArrayList<String>(){{add("1");add("2");add("3");add("4");add("5");add("6");add("7");}};
+    private List<String> listName=new ArrayList<String>(){{add("否");add("是");}};
+    private List<String> listCode=new ArrayList<String>(){{add("0");add("1");}};
     private SelectRelationCallBack selectRelationCallBack;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.wheel_select);
+        setContentView(R.layout.min_wheel_select);
         Window dialogWindow = getWindow();
         dialogWindow.setGravity(Gravity.CENTER | Gravity.BOTTOM);
         WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
@@ -33,7 +33,7 @@ public class SelectRelation extends Dialog implements View.OnClickListener {
         initListener();
     }
 
-    public SelectRelation(Activity context,SelectRelationCallBack selectRelationCallBack) {
+    public SelectReward(Activity context, SelectRelationCallBack selectRelationCallBack) {
         super(context, R.style.ActionSheetDialogStyle);
         this.context = context;
         this.selectRelationCallBack=selectRelationCallBack;
@@ -44,7 +44,7 @@ public class SelectRelation extends Dialog implements View.OnClickListener {
         wheel.setLabels(listName);
         wheel.setSelection(0);
         try {
-            wheel.setWheelSize(5);
+            wheel.setWheelSize(3);
         } catch (CycleWheelView.CycleWheelViewException e) {
             e.printStackTrace();
         }
