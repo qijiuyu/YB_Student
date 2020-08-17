@@ -6,6 +6,7 @@ import android.os.Message;
 import android.text.TextUtils;
 
 import com.zxdc.utils.library.base.BaseApplication;
+import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.http.HandlerConstant;
 import com.zxdc.utils.library.http.HttpConstant;
 import com.zxdc.utils.library.util.SPUtil;
@@ -74,15 +75,15 @@ public class Http {
     /**
      * 上传文件
      */
-    public static void upLoadFile(String url, String fileKey, List<File> list, Map<String, String> map, Callback callback) {
+    public static void upLoadFile(String url, List<FileBean> list, Map<String, String> map, Callback callback) {
         //添加token参数
         map.put("token", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
         //创建RequestBody
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         if(null!=list){
             for (int i=0;i<list.size();i++){
-                RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"), list.get(i));
-                builder.addFormDataPart(fileKey+i, list.get(i).getName(), body);
+                RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"), list.get(i).getFile());
+                builder.addFormDataPart(list.get(i).getName(), list.get(i).getFile().getName(), body);
             }
         }
         for (String key : map.keySet()) {
@@ -94,7 +95,7 @@ public class Http {
                 .url(Http.baseUrl + url)
                 .post(requestBody)
                 .build();
-        Call call = new OkHttpClient.Builder().writeTimeout(50, TimeUnit.SECONDS).readTimeout(50,TimeUnit.SECONDS).build().newCall(request);
+        Call call = new OkHttpClient.Builder().writeTimeout(100, TimeUnit.SECONDS).readTimeout(100,TimeUnit.SECONDS).build().newCall(request);
         call.enqueue(callback);
     }
 

@@ -7,7 +7,7 @@ public class HttpConstant {
     //¥
 
     //测试IP
-    public static final String IP = "http://dysm.yl-mall.cn/";
+    public static final String IP = "http://yb.api.yl-mall.cn/";
 
 
 }

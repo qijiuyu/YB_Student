@@ -50,6 +50,7 @@ public class LogInterceptor implements Interceptor {
     public Request addGetParameter(Request request){
         HttpUrl.Builder builder = request.url().newBuilder();
         builder.setEncodedQueryParameter("token", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
+        builder.setEncodedQueryParameter("ch","2");
         LogUtils.e("参数：token="+SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
         Request newRequest = request.newBuilder()
                 .method(request.method(), request.body())
@@ -67,6 +68,7 @@ public class LogInterceptor implements Interceptor {
         FormBody formBody;
         Map<String, String> requstMap = new HashMap<>();
         requstMap.put("token", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
+        requstMap.put("ch", "2");
         LogUtils.e("参数：token="+SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
         if (request.body().contentLength() > 0 && request.body() instanceof FormBody) {
             formBody = (FormBody) request.body();

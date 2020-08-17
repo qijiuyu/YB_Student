@@ -1,6 +1,7 @@
 package com.ylean.yb.student.activity.init;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,7 +14,14 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.user.UserInfoActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
+import com.zxdc.utils.library.bean.FileBean;
+import com.zxdc.utils.library.bean.NetCallBack;
+import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.ToastUtil;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -43,6 +51,7 @@ public class RegisterActivity extends BaseActivity {
      * 2：反面照片
      */
     private int imgType;
+    private File zmFile,fmFile;
 
     /**
      * 加载布局
@@ -82,7 +91,49 @@ public class RegisterActivity extends BaseActivity {
                 SelectPhotoUtil.SelectPhoto(this,1);
                 break;
             case R.id.tv_next:
-                setClass(UserInfoActivity.class);
+//                setClass(UserInfoActivity.class);
+                final String card=etCard.getText().toString().trim();
+                final String mobile=etMobile.getText().toString().trim();
+                final String pwd=etPwd.getText().toString().trim();
+                final String code=etCode.getText().toString().trim();
+                if(TextUtils.isEmpty(card)){
+                    ToastUtil.showLong("请输入身份证号");
+                    return;
+                }
+                if(card.length()<18){
+                    ToastUtil.showLong("请输入正确的身份证号");
+                    return;
+                }
+                if(TextUtils.isEmpty(mobile)){
+                    ToastUtil.showLong("请输入手机号");
+                    return;
+                }
+                if(mobile.length()<11){
+                    ToastUtil.showLong("请输入正确的手机号");
+                    return;
+                }
+                if(TextUtils.isEmpty(pwd)){
+                    ToastUtil.showLong("请输入密码");
+                    return;
+                }
+                if(TextUtils.isEmpty(code)){
+                    ToastUtil.showLong("请输入验证码");
+                    return;
+                }
+                if(zmFile==null){
+                    ToastUtil.showLong("请选择身份证正面照片");
+                    return;
+                }
+                if(fmFile==null){
+                    ToastUtil.showLong("请选择身份证反面照片");
+                    return;
+                }
+
+                //注册
+                List<FileBean> list=new ArrayList<>();
+                list.add(new FileBean("positive",zmFile));
+                list.add(new FileBean("back",fmFile));
+                register(code,card,mobile,pwd,list);
                 break;
             default:
                 break;
@@ -99,8 +150,10 @@ public class RegisterActivity extends BaseActivity {
                 if (resultCode == RESULT_OK) {
                     File tempFile = new File(SelectPhotoUtil.pai);
                     if(imgType==1){
+                        zmFile=tempFile;
                         Glide.with(this).load(tempFile).into(imgZm);
                     }else {
+                        fmFile=tempFile;
                         Glide.with(this).load(tempFile).into(imgFm);
                     }
                 }
@@ -109,13 +162,46 @@ public class RegisterActivity extends BaseActivity {
             case PictureConfig.CHOOSE_REQUEST:
                 List<LocalMedia> list= PictureSelector.obtainMultipleResult(data);
                 if(imgType==1){
+                    zmFile=new File(list.get(0).getCompressPath());
                     Glide.with(this).load(list.get(0).getCompressPath()).into(imgZm);
                 }else {
+                    fmFile=new File(list.get(0).getCompressPath());
                     Glide.with(this).load(list.get(0).getCompressPath()).into(imgFm);
                 }
                 break;
             default:
                 break;
         }
+    }
+
+
+    /**
+     * 注册
+     * @param code
+     * @param idcardno
+     * @param phone
+     * @param pwd
+     * @param list
+     */
+    private void register(String code, String idcardno, String phone, String pwd, List<FileBean> list){
+        DialogUtil.showProgress(this,"注册中");
+        HttpMethod.register1(code, idcardno, phone, pwd, list, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final UserInfo userInfo= (UserInfo) object;
+                if(userInfo.isSussess()){
+                    Intent intent=new Intent(activity, UserInfoActivity.class);
+                    intent.putExtra("userInfo",userInfo);
+                    startActivity(intent);
+                }else{
+                    ToastUtil.showLong(userInfo.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
     }
 }

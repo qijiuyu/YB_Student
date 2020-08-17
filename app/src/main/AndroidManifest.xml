@@ -53,7 +53,7 @@
             android:value="portrait|landscape" />
 
 
-        <activity android:name=".activity.init.WelcomeActivity">
+        <activity android:name=".activity.init.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -73,7 +73,7 @@
         <activity android:name=".activity.user.setting.UpdateMobileActivity2"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.setting.UpdatePwdActivity1"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.setting.UpdatePwdActivity2"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.init.LoginActivity"  android:screenOrientation="portrait"/>
+        <!--<activity android:name=".activity.init.LoginActivity"  android:screenOrientation="portrait"/>-->
         <activity android:name=".activity.init.RegisterActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.init.BindingEmailActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.init.ValidationActivity"  android:screenOrientation="portrait"/>
