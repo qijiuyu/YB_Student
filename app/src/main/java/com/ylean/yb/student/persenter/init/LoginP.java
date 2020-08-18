@@ -2,7 +2,7 @@ package com.ylean.yb.student.persenter.init;
 
 import android.app.Activity;
 
-import com.zxdc.utils.library.bean.LoginBean;
+import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
@@ -28,13 +28,13 @@ public class LoginP {
         HttpMethod.login(name, pwd, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
-                final LoginBean loginBean= (LoginBean) object;
-                if(loginBean.isSussess()){
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
 
-                    face.onSuccess(loginBean);
+                    face.onSuccess(baseBean);
 
                 }else{
-                    ToastUtil.showLong(loginBean.getDesc());
+                    ToastUtil.showLong(baseBean.getDesc());
                 }
             }
 
@@ -47,6 +47,6 @@ public class LoginP {
 
 
     public interface Face{
-        void onSuccess(LoginBean loginBean);
+        void onSuccess(BaseBean baseBean);
     }
 }

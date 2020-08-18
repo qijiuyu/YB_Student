@@ -1,5 +1,6 @@
 package com.ylean.yb.student.activity.init;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.init.ForgetPwdP;
+import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.util.ToastUtil;
 
 import butterknife.BindView;
@@ -66,7 +68,20 @@ public class ValidationActivity extends BaseActivity implements ForgetPwdP.Face 
      * 验证成功
      */
     @Override
-    public void onSuccess() {
-        setClass(ValidationMobileActivity.class);
+    public void onSuccess(ForgetPwd forgetPwd) {
+        Intent intent=new Intent(this,ValidationMobileActivity.class);
+        intent.putExtra("forgetPwd",forgetPwd);
+        intent.putExtra("idnum",etCard.getText().toString().trim());
+        startActivityForResult(intent,1000);
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1000){
+            finish();
+        }
+    }
+
 }

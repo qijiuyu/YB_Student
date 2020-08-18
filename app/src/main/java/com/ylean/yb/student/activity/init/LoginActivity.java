@@ -9,7 +9,7 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.TabActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.init.LoginP;
-import com.zxdc.utils.library.bean.LoginBean;
+import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 
@@ -109,9 +109,9 @@ public class LoginActivity extends BaseActivity implements LoginP.Face {
      * 登录成功
      */
     @Override
-    public void onSuccess(LoginBean loginBean) {
+    public void onSuccess(BaseBean baseBean) {
         //存储token
-        SPUtil.getInstance(this).addString(SPUtil.TOKEN,loginBean.getToken());
+        SPUtil.getInstance(this).addString(SPUtil.TOKEN,baseBean.getToken());
         setClass(TabActivity.class);
         finish();
     }

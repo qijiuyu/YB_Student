@@ -10,18 +10,11 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.SendEmailP;
 import com.ylean.yb.student.persenter.init.RegisterP;
-import com.zxdc.utils.library.bean.BaseBean;
-import com.zxdc.utils.library.bean.NetCallBack;
-import com.zxdc.utils.library.http.HttpMethod;
-import com.zxdc.utils.library.util.DialogUtil;
-import com.zxdc.utils.library.util.SPUtil;
+import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.util.ToastUtil;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.Timer;
 import java.util.TimerTask;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 /**
@@ -39,6 +32,8 @@ public class BindingEmailActivity extends BaseActivity implements SendEmailP.Fac
     //计数器
     private Timer mTimer;
     private int time = 0;
+    //用户对象
+    private Register userInfo;
     private SendEmailP sendEmailP;
     private RegisterP registerP;
 
@@ -58,6 +53,7 @@ public class BindingEmailActivity extends BaseActivity implements SendEmailP.Fac
     protected void initData() {
         super.initData();
         tvTitle.setText("邮箱绑定");
+        userInfo= (Register) getIntent().getSerializableExtra("userInfo");
         sendEmailP=new SendEmailP(this,this);
         registerP=new RegisterP(this,this);
     }
@@ -92,7 +88,7 @@ public class BindingEmailActivity extends BaseActivity implements SendEmailP.Fac
                     return;
                 }
                 //学生注册第三步
-                registerP.bindingEmail(code,email);
+                registerP.bindingEmail(code,email,userInfo.getData().getId());
                 break;
             default:
                 break;
@@ -148,7 +144,6 @@ public class BindingEmailActivity extends BaseActivity implements SendEmailP.Fac
             mTimer.purge();
             mTimer=null;
         }
-        EventBus.getDefault().unregister(this);
         removeHandler(handler);
     }
 }

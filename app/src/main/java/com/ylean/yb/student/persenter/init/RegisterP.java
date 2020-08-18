@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.NetCallBack;
-import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
@@ -42,7 +42,7 @@ public class RegisterP {
         HttpMethod.register1(code, idcardno, phone, pwd, list, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
-                final UserInfo userInfo= (UserInfo) object;
+                final Register userInfo= (Register) object;
                 if(userInfo.isSussess()){
                     face.onSuccess(userInfo);
                 }else{
@@ -92,9 +92,9 @@ public class RegisterP {
     /**
      * 学生注册第三步
      */
-    public void bindingEmail(String code,String email){
+    public void bindingEmail(String code,String email,int uid){
         DialogUtil.showProgress(activity,"绑定中");
-        HttpMethod.bindingEmail(code, email, new NetCallBack() {
+        HttpMethod.bindingEmail(code, email,uid, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
                 final BaseBean baseBean= (BaseBean) object;
@@ -116,7 +116,7 @@ public class RegisterP {
 
 
     public interface Face{
-        void onSuccess(UserInfo userInfo);
+        void onSuccess(Register userInfo);
     }
 
     public interface Face2{

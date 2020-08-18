@@ -12,8 +12,7 @@ import com.ylean.yb.student.view.SelectProvince;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ProvinceCallBack;
-import com.zxdc.utils.library.bean.UserInfo;
-import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import butterknife.BindView;
@@ -66,7 +65,7 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
     @BindView(R.id.et_land_mobile)
     EditText etLandMobile;
     //用户对象
-    private UserInfo userInfo;
+    private Register userInfo;
     private RegisterP registerP;
 
     /**
@@ -87,7 +86,7 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
         super.initData();
         registerP=new RegisterP(this,this);
 
-        userInfo= (UserInfo) getIntent().getSerializableExtra("userInfo");
+        userInfo= (Register) getIntent().getSerializableExtra("userInfo");
 
         if(userInfo!=null){
             tvUserName.setText(userInfo.getData().getName());
@@ -205,12 +204,24 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
                     ToastUtil.showLong("请选择户口所在地");
                     return;
                 }
+                if(TextUtils.isEmpty(address)){
+                    ToastUtil.showLong("请输入户口详细地址");
+                    return;
+                }
                 if(TextUtils.isEmpty(area1)){
                     ToastUtil.showLong("请选择家庭地址");
                     return;
                 }
+                if(TextUtils.isEmpty(address1)){
+                    ToastUtil.showLong("请输入家庭详细地址");
+                    return;
+                }
                 if(TextUtils.isEmpty(mobile)){
                     ToastUtil.showLong("请输入家长手机号");
+                    return;
+                }
+                if(TextUtils.isEmpty(landMobile)){
+                    ToastUtil.showLong("请输入家长座机号");
                     return;
                 }
                 Address addressBean=new Address();
@@ -244,7 +255,9 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
      */
     @Override
     public void onSuccess() {
-        setClass(BindingEmailActivity.class,1000);
+        Intent intent=new Intent(this,BindingEmailActivity.class);
+        intent.putExtra("userInfo",userInfo);
+        startActivityForResult(intent,1000);
     }
 
 

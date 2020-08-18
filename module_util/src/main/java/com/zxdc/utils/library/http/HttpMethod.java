@@ -2,10 +2,10 @@ package com.zxdc.utils.library.http;
 
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.FileBean;
-import com.zxdc.utils.library.bean.LoginBean;
+import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.ProvinceBean;
-import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.http.base.BaseRequst;
 import com.zxdc.utils.library.http.base.Http;
 import com.zxdc.utils.library.util.DialogUtil;
@@ -93,7 +93,7 @@ public class HttpMethod extends BaseRequst {
                 try {
                     String str = response.body().string();
                     LogUtils.e("+++++++++++++++++"+str);
-                    final UserInfo userInfo= (UserInfo) JsonUtil.stringToObject(str,UserInfo.class);
+                    final Register userInfo= (Register) JsonUtil.stringToObject(str, Register.class);
                     netCallBack.onSuccess(userInfo);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -139,7 +139,7 @@ public class HttpMethod extends BaseRequst {
         Map<String ,String> map=new HashMap<>();
         map.put("type",type);
         map.put("email",email);
-        Http.getRetrofit().create(HttpApi.class).bindingEmail(map).enqueue(new Callback<BaseBean>() {
+        Http.getRetrofit().create(HttpApi.class).sendbindemail(map).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());
@@ -155,10 +155,11 @@ public class HttpMethod extends BaseRequst {
     /**
      * 学生注册第三步
      */
-    public static void bindingEmail(String code,String email,final NetCallBack netCallBack) {
+    public static void bindingEmail(String code,String email,int uid,final NetCallBack netCallBack) {
         Map<String ,String> map=new HashMap<>();
         map.put("code",code);
         map.put("email",email);
+        map.put("uid",uid+"");
         Http.getRetrofit().create(HttpApi.class).bindingEmail(map).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
@@ -176,12 +177,12 @@ public class HttpMethod extends BaseRequst {
      * 登录
      */
     public static void login(String name,String pwd,final NetCallBack netCallBack) {
-        Http.getRetrofit().create(HttpApi.class).login(name,pwd).enqueue(new Callback<LoginBean>() {
-            public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
+        Http.getRetrofit().create(HttpApi.class).login(name,pwd).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());
             }
-            public void onFailure(Call<LoginBean> call, Throwable t) {
+            public void onFailure(Call<BaseBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }
@@ -193,7 +194,49 @@ public class HttpMethod extends BaseRequst {
      * 找回密码第一步
      */
     public static void findfirstpwd(String idnum,final NetCallBack netCallBack) {
-        Http.getRetrofit().create(HttpApi.class).findfirstpwd(idnum).enqueue(new Callback<BaseBean>() {
+        Http.getRetrofit().create(HttpApi.class).findfirstpwd(idnum).enqueue(new Callback<ForgetPwd>() {
+            public void onResponse(Call<ForgetPwd> call, Response<ForgetPwd> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<ForgetPwd> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 设置新登录密码
+     */
+    public static void findpwd(String idnum,String code,String pwd,String rpwd,int type,final NetCallBack netCallBack) {
+        Map<String,String> map=new HashMap<>();
+        map.put("idnum",idnum);
+        map.put("code",code);
+        map.put("pwd",pwd);
+        map.put("rpwd",rpwd);
+        map.put("type",type+"");
+
+        Http.getRetrofit().create(HttpApi.class).findpwd(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 获取学生基本信息
+     */
+    public static void getbaseinfo(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getbaseinfo().enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());

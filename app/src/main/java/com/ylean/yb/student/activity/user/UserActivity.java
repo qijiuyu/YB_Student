@@ -1,5 +1,6 @@
 package com.ylean.yb.student.activity.user;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
@@ -13,6 +14,8 @@ import com.ylean.yb.student.activity.user.resume.MyResumeActivity;
 import com.ylean.yb.student.activity.user.school.InSchoolActivity;
 import com.ylean.yb.student.activity.user.setting.SettingActivity;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.user.UserP;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -20,7 +23,7 @@ import butterknife.OnClick;
 /**
  * 我的
  */
-public class UserActivity extends BaseActivity {
+public class UserActivity extends BaseActivity implements UserP.Face {
     @BindView(R.id.img_head)
     CircleImageView imgHead;
     @BindView(R.id.tv_nickName)
@@ -34,9 +37,25 @@ public class UserActivity extends BaseActivity {
     @BindView(R.id.tv_total_time)
     TextView tvTotalTime;
 
+    private UserP userP;
+
+    /**
+     * 加载布局
+     * @return
+     */
     @Override
     protected int getLayoutId() {
         return R.layout.activity_user;
+    }
+
+
+    /**
+     * 初始化
+     */
+    @Override
+    protected void initData() {
+        super.initData();
+        userP=new UserP(this,this);
     }
 
 
@@ -95,6 +114,25 @@ public class UserActivity extends BaseActivity {
                 break;
             default:
                 break;
+        }
+    }
+
+
+    /**
+     * 获取用户基本信息
+     */
+    @Override
+    public void getbaseinfo() {
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final String token= SPUtil.getInstance(this).getString(SPUtil.TOKEN);
+        if(!TextUtils.isEmpty(token)){
+            userP.getbaseinfo();
         }
     }
 }

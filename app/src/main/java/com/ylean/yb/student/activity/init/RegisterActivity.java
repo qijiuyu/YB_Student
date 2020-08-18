@@ -15,7 +15,7 @@ import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.init.RegisterP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.zxdc.utils.library.bean.FileBean;
-import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.util.ToastUtil;
 import java.io.File;
 import java.util.ArrayList;
@@ -185,7 +185,7 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face {
      * @param userInfo
      */
     @Override
-    public void onSuccess(UserInfo userInfo) {
+    public void onSuccess(Register userInfo) {
         Intent intent=new Intent(this,RegisterActivity2.class);
         intent.putExtra("userInfo",userInfo);
         startActivityForResult(intent,1000);
