@@ -17,6 +17,9 @@ import com.zxdc.utils.library.bean.AddFamily;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -62,7 +65,7 @@ public class AddFamilyView extends Dialog implements FamilyP.Face2 {
     }
 
 
-    @OnClick({R.id.tv_relation, R.id.tv_reward, R.id.tv_add})
+    @OnClick({R.id.tv_relation, R.id.tv_reward, R.id.tv_add,R.id.rel})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_relation:
@@ -118,8 +121,13 @@ public class AddFamilyView extends Dialog implements FamilyP.Face2 {
                 addFamily.setOccupation(position);
                 addFamily.setIncomesource(entry);
                 addFamily.setWhethersupport((String)tvReward.getTag());
-                familyP.addFamily(JsonUtil.objectToString(addFamily));
+                List<AddFamily> list=new ArrayList<>();
+                list.add(addFamily);
+                familyP.addFamily(JsonUtil.objectToString(list));
                 break;
+            case R.id.rel:
+                 dismiss();
+                 break;
             default:
                 break;
         }
