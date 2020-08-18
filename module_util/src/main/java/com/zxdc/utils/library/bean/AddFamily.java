@@ -8,19 +8,19 @@ import java.io.Serializable;
 
 public class AddFamily implements Serializable {
 
-    private String relation;
+    private int relation;
     private String relationname;
-    private String whethersupport="0";
+    private String whethersupport;
     private String name;
     private String company;
     private String occupation;
     private String incomesource;
 
-    public String getRelation() {
+    public int getRelation() {
         return relation;
     }
 
-    public void setRelation(String relation) {
+    public void setRelation(int relation) {
         this.relation = relation;
     }
 
@@ -74,7 +74,7 @@ public class AddFamily implements Serializable {
 
 
     public boolean check(){
-        if(TextUtils.isEmpty(relation)){
+        if(relation==0){
             ToastUtil.showLong("请选择与本人的关系");
             return false;
         }

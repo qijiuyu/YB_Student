@@ -1,6 +1,7 @@
 package com.zxdc.utils.library.http;
 
 import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.bean.NetCallBack;
@@ -295,5 +296,64 @@ public class HttpMethod extends BaseRequst {
         });
     }
 
+
+
+    /**
+     * 修改个人信息
+     */
+    public static void updateUserInfo(String ucphone,String address,String qq,String residenceaddress,String uctel,String wechat,final NetCallBack netCallBack) {
+        Map<String ,String> map=new HashMap<>();
+        map.put("ucphone",ucphone);
+        map.put("address",address);
+        map.put("qq",qq);
+        map.put("residenceaddress",residenceaddress);
+        map.put("uctel",uctel);
+        map.put("wechat",wechat);
+        Http.getRetrofit().create(HttpApi.class).updateUserInfo(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 查询家庭成员
+     */
+    public static void getFamilyList(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getFamilyList().enqueue(new Callback<FamilyBean>() {
+            public void onResponse(Call<FamilyBean> call, Response<FamilyBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<FamilyBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 删除家庭成员
+     */
+    public static void deleteFamily(int id,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).deleteFamily(id).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
 
 }

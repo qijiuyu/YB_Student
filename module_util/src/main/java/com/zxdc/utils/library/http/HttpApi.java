@@ -3,6 +3,7 @@ package com.zxdc.utils.library.http;
 
 
 import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.UserInfo;
@@ -10,6 +11,7 @@ import com.zxdc.utils.library.bean.UserInfo;
 import java.util.Map;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -57,5 +59,14 @@ public interface HttpApi {
     @POST(HttpConstant.IP+"api/user/fm/add")
     Call<BaseBean> addFamily(@FieldMap Map<String, String> map);
 
+    @FormUrlEncoded
+    @PUT(HttpConstant.IP+"api/user/student/savebaseinfo")
+    Call<BaseBean> updateUserInfo(@FieldMap Map<String, String> map);
+
+    @GET(HttpConstant.IP+"api/user/fm/getList")
+    Call<FamilyBean> getFamilyList();
+
+    @DELETE(HttpConstant.IP+"api/user/fm/delete")
+    Call<BaseBean> deleteFamily(@Query("id") int id);
 
 }
