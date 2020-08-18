@@ -53,9 +53,8 @@ public interface HttpApi {
     @PUT(HttpConstant.IP+"api/user/login/findpwd")
     Call<BaseBean> findpwd(@FieldMap Map<String, String> map);
 
-
     @FormUrlEncoded
-    @PUT(HttpConstant.IP+"api/user/fm/add")
+    @POST(HttpConstant.IP+"api/user/fm/add")
     Call<BaseBean> addFamily(@FieldMap Map<String, String> map);
 
 

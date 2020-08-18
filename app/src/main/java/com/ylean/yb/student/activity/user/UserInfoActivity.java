@@ -130,7 +130,7 @@ public class UserInfoActivity extends BaseActivity implements AddFamilyP.Face {
                 tvProvince.setText(address.getPname());
                 tvProvince.setTag(address.getPcode());
                 tvCity.setText(address.getCname());
-                tvCity.setText(address.getCcode());
+                tvCity.setTag(address.getCcode());
                 tvArea.setText(address.getAname());
                 tvArea.setTag(address.getAcode());
                 etAddress.setText(address.getAddress());
@@ -144,7 +144,7 @@ public class UserInfoActivity extends BaseActivity implements AddFamilyP.Face {
                 tvProvince1.setText(address.getPname());
                 tvProvince1.setTag(address.getPcode());
                 tvCity1.setText(address.getCname());
-                tvCity1.setText(address.getCcode());
+                tvCity1.setTag(address.getCcode());
                 tvArea1.setText(address.getAname());
                 tvArea1.setTag(address.getAcode());
                 etAddress1.setText(address.getAddress());
@@ -260,17 +260,46 @@ public class UserInfoActivity extends BaseActivity implements AddFamilyP.Face {
                  final String address1=etAddress1.getText().toString().trim();
                  final String mobile=etParentMobile.getText().toString().trim();
                  final String landMobile=etLandMobile.getText().toString().trim();
-                 if(TextUtils.isEmpty(mobile)){
-                     ToastUtil.showLong("请输入家长手机号");
-                     return;
-                 }
-                 Address addressBean=new Address();
-                 addressBean.setPcode((String)tvProvince.getTag());
-                 addressBean.setPname(province);
-                 addressBean.setCcode((String)tvCity.getTag());
-                 addressBean.setCname(city);
-                 addressBean.setAcode((String)tvArea.getTag());
-                 addressBean.setAname(area);
+                if(TextUtils.isEmpty(qq)){
+                    ToastUtil.showLong("请输入qq号");
+                    return;
+                }
+                if(TextUtils.isEmpty(wx)){
+                    ToastUtil.showLong("请输入微信号");
+                    return;
+                }
+                if(TextUtils.isEmpty(area)){
+                    ToastUtil.showLong("请选择户口所在地");
+                    return;
+                }
+                if(TextUtils.isEmpty(address)){
+                    ToastUtil.showLong("请输入户口详细地址");
+                    return;
+                }
+                if(TextUtils.isEmpty(area1)){
+                    ToastUtil.showLong("请选择家庭地址");
+                    return;
+                }
+                if(TextUtils.isEmpty(address1)){
+                    ToastUtil.showLong("请输入家庭详细地址");
+                    return;
+                }
+                if(TextUtils.isEmpty(mobile)){
+                    ToastUtil.showLong("请输入家长手机号");
+                    return;
+                }
+                if(TextUtils.isEmpty(landMobile)){
+                    ToastUtil.showLong("请输入家长座机号");
+                    return;
+                }
+                Address addressBean=new Address();
+                addressBean.setPcode((String)tvProvince.getTag());
+                addressBean.setPname(province);
+                addressBean.setCcode((String)tvCity.getTag());
+                addressBean.setCname(city);
+                addressBean.setAcode((String)tvArea.getTag());
+                addressBean.setAname(area);
+                addressBean.setAddress(address);
 
                 Address addressBean1=new Address();
                 addressBean1.setPcode((String)tvProvince1.getTag());
@@ -279,8 +308,20 @@ public class UserInfoActivity extends BaseActivity implements AddFamilyP.Face {
                 addressBean1.setCname(city1);
                 addressBean1.setAcode((String)tvArea1.getTag());
                 addressBean1.setAname(area1);
+                addressBean1.setAddress(address1);
 
-                HttpMethod.saveUser(mobile, JsonUtil.objectToString(address),qq,JsonUtil.objectToString(address1),landMobile,1,wx,null);
+
+                boolean isAdd=true;
+                for (int i=0;i<familyList.size();i++){
+                     if(!familyList.get(i).check()){
+                         isAdd=false;
+                         break;
+                     }
+                }
+                if(!isAdd){
+                    return;
+                }
+                addFamilyP.addFamily(JsonUtil.objectToString(familyList));
                  break;
             default:
                 break;
