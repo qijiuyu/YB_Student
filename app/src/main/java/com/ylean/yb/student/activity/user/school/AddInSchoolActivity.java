@@ -111,6 +111,9 @@ public class AddInSchoolActivity extends BaseActivity {
             //返回相册选择图片
             case PictureConfig.CHOOSE_REQUEST:
                 List<LocalMedia> list= PictureSelector.obtainMultipleResult(data);
+                if(list.size()==0){
+                    return;
+                }
                 if(imgType==1){
                     Glide.with(this).load(list.get(0).getCompressPath()).into(imgResults);
                 }else {

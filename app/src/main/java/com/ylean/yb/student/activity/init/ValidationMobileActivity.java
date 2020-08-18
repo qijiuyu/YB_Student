@@ -1,18 +1,13 @@
 package com.ylean.yb.student.activity.init;
 
-import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.activity.user.setting.UpdateMobileActivity2;
 import com.ylean.yb.student.activity.user.setting.UpdatePwdActivity2;
 import com.ylean.yb.student.base.BaseActivity;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

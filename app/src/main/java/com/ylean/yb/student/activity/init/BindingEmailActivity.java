@@ -1,22 +1,33 @@
 package com.ylean.yb.student.activity.init;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.SendEmailP;
+import com.ylean.yb.student.persenter.init.RegisterP;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 /**
  * 绑定邮箱
  */
-public class BindingEmailActivity extends BaseActivity {
+public class BindingEmailActivity extends BaseActivity implements SendEmailP.Face, RegisterP.Face3 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.et_email)
@@ -25,6 +36,11 @@ public class BindingEmailActivity extends BaseActivity {
     TextView tvSendCode;
     @BindView(R.id.et_code)
     EditText etCode;
+    //计数器
+    private Timer mTimer;
+    private int time = 0;
+    private SendEmailP sendEmailP;
+    private RegisterP registerP;
 
     /**
      * 加载布局
@@ -42,6 +58,8 @@ public class BindingEmailActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         tvTitle.setText("邮箱绑定");
+        sendEmailP=new SendEmailP(this,this);
+        registerP=new RegisterP(this,this);
     }
 
 
@@ -53,11 +71,16 @@ public class BindingEmailActivity extends BaseActivity {
             case R.id.lin_back:
                  finish();
                 break;
+            //发送邮箱验证码
             case R.id.tv_send_code:
                  if(TextUtils.isEmpty(email)){
                      ToastUtil.showLong("请输入邮箱地址");
                      return;
                  }
+                if(time>0){
+                    return;
+                }
+                sendEmailP.sendbindemail("0",email);
                 break;
             case R.id.tv_confirm:
                 if(TextUtils.isEmpty(email)){
@@ -69,7 +92,7 @@ public class BindingEmailActivity extends BaseActivity {
                     return;
                 }
                 //学生注册第三步
-                bindingEmail(code,email);
+                registerP.bindingEmail(code,email);
                 break;
             default:
                 break;
@@ -78,25 +101,54 @@ public class BindingEmailActivity extends BaseActivity {
 
 
     /**
-     * 学生注册第三步
+     * 邮箱验证码发送成功
      */
-    private void bindingEmail(String code,String email){
-        DialogUtil.showProgress(this,"数据加载中");
-        HttpMethod.bindingEmail(code, email, new NetCallBack() {
-            @Override
-            public void onSuccess(Object object) {
-                final BaseBean baseBean= (BaseBean) object;
-                if(baseBean.isSussess()){
-
-                }else{
-                    ToastUtil.showLong(baseBean.getDesc());
+    private Handler handler=new Handler();
+    @Override
+    public void sendbindemail() {
+        time=60;
+        mTimer = new Timer();
+        mTimer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                if (time <= 0) {
+                    handler.post(new Runnable() {
+                        public void run() {
+                            mTimer.cancel();
+                            tvSendCode.setText("获取验证码");
+                        }
+                    });
+                } else {
+                    --time;
+                    handler.post(new Runnable() {
+                        public void run() {
+                            tvSendCode.setText(time + "秒");
+                        }
+                    });
                 }
             }
+        }, 0, 1000);
+    }
 
-            @Override
-            public void onFail() {
 
-            }
-        });
+    /**
+     * 注册成功
+     */
+    @Override
+    public void onSuccess() {
+        setResult(1000,new Intent());
+        finish();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mTimer!=null){
+            mTimer.cancel();
+            mTimer.purge();
+            mTimer=null;
+        }
+        EventBus.getDefault().unregister(this);
+        removeHandler(handler);
     }
 }

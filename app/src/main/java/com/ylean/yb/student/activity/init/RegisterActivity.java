@@ -11,14 +11,11 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.activity.user.UserInfoActivity;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.init.RegisterP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.zxdc.utils.library.bean.FileBean;
-import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.UserInfo;
-import com.zxdc.utils.library.http.HttpMethod;
-import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import java.io.File;
 import java.util.ArrayList;
@@ -29,7 +26,7 @@ import butterknife.OnClick;
 /**
  * 注册
  */
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends BaseActivity implements RegisterP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.et_card)
@@ -52,6 +49,7 @@ public class RegisterActivity extends BaseActivity {
      */
     private int imgType;
     private File zmFile,fmFile;
+    private RegisterP registerP;
 
     /**
      * 加载布局
@@ -69,6 +67,7 @@ public class RegisterActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         tvTitle.setText("注册");
+        registerP=new RegisterP(this,this);
     }
 
 
@@ -132,7 +131,7 @@ public class RegisterActivity extends BaseActivity {
                 List<FileBean> list=new ArrayList<>();
                 list.add(new FileBean("positive",zmFile));
                 list.add(new FileBean("back",fmFile));
-                register(code,card,mobile,pwd,list);
+                registerP.register(code,card,mobile,pwd,list);
                 break;
             default:
                 break;
@@ -160,6 +159,9 @@ public class RegisterActivity extends BaseActivity {
             //返回相册选择图片
             case PictureConfig.CHOOSE_REQUEST:
                 List<LocalMedia> list= PictureSelector.obtainMultipleResult(data);
+                if(list.size()==0){
+                    return;
+                }
                 if(imgType==1){
                     zmFile=new File(list.get(0).getCompressPath());
                     Glide.with(this).load(list.get(0).getCompressPath()).into(imgZm);
@@ -171,36 +173,21 @@ public class RegisterActivity extends BaseActivity {
             default:
                 break;
         }
+
+        if(resultCode==1000){
+            finish();
+        }
     }
 
 
     /**
-     * 注册
-     * @param code
-     * @param idcardno
-     * @param phone
-     * @param pwd
-     * @param list
+     * 提交成功
+     * @param userInfo
      */
-    private void register(String code, String idcardno, String phone, String pwd, List<FileBean> list){
-        DialogUtil.showProgress(this,"注册中");
-        HttpMethod.register1(code, idcardno, phone, pwd, list, new NetCallBack() {
-            @Override
-            public void onSuccess(Object object) {
-                final UserInfo userInfo= (UserInfo) object;
-                if(userInfo.isSussess()){
-                    Intent intent=new Intent(activity, UserInfoActivity.class);
-                    intent.putExtra("userInfo",userInfo);
-                    startActivity(intent);
-                }else{
-                    ToastUtil.showLong(userInfo.getDesc());
-                }
-            }
-
-            @Override
-            public void onFail() {
-
-            }
-        });
+    @Override
+    public void onSuccess(UserInfo userInfo) {
+        Intent intent=new Intent(this,RegisterActivity2.class);
+        intent.putExtra("userInfo",userInfo);
+        startActivityForResult(intent,1000);
     }
 }

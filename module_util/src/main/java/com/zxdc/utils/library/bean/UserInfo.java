@@ -33,7 +33,7 @@ public class UserInfo extends BaseBean {
         private String validitystarttime="";
         private String validityendtime="";
         private boolean isbfchildren;
-        private CardImg idimgurl;
+        private String idimgurl;
 
         public int getId() {
             return id;
@@ -171,13 +171,6 @@ public class UserInfo extends BaseBean {
             this.isbfchildren = isbfchildren;
         }
 
-        public CardImg getIdimgurl() {
-            return idimgurl;
-        }
-
-        public void setIdimgurl(CardImg idimgurl) {
-            this.idimgurl = idimgurl;
-        }
     }
 
 

@@ -45,7 +45,8 @@ public class UserActivity extends BaseActivity {
         switch (view.getId()) {
             //消息
             case R.id.img_news:
-                setClass(NewsActivity.class);
+//                setClass(NewsActivity.class);
+                setClass(LoginActivity.class);
                 break;
             //设置
             case R.id.img_setting:

@@ -205,6 +205,9 @@ public class EditResumeActivity extends BaseActivity {
             //返回相册选择图片
             case PictureConfig.CHOOSE_REQUEST:
                 List<LocalMedia> list= PictureSelector.obtainMultipleResult(data);
+                if(list.size()==0){
+                    return;
+                }
                 Glide.with(this).load(list.get(0).getCompressPath()).into(imgFile);
                 break;
             default:

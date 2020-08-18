@@ -105,6 +105,7 @@
         <activity android:name=".activity.user.apply.WelfareAuditActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.apply.InSchoolAuditActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.apply.BankAuditActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.init.RegisterActivity2"  android:screenOrientation="portrait"/>
 
 
         <provider

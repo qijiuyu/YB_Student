@@ -6,7 +6,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.TabActivity;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.init.LoginP;
+import com.zxdc.utils.library.bean.LoginBean;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 
 import butterknife.BindView;
@@ -15,7 +19,7 @@ import butterknife.OnClick;
 /**
  * 登录
  */
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements LoginP.Face {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -30,6 +34,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.tv_send_code)
     TextView tvSendCode;
 
+    private LoginP loginP=new LoginP(this,this);
     /**
      * 加载布局
      */
@@ -53,6 +58,7 @@ public class LoginActivity extends BaseActivity {
     public void onViewClicked(View view) {
         final String card=etCard.getText().toString().trim();
         final String pwd=etPwd.getText().toString().trim();
+        final String code=etCode.getText().toString().trim();
         switch (view.getId()) {
             case R.id.lin_back:
                 finish();
@@ -77,6 +83,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.tv_update_mobile:
                 break;
+            //登录
             case R.id.tv_login:
                 if(TextUtils.isEmpty(card)){
                     ToastUtil.showLong("请输入身份证号");
@@ -86,9 +93,26 @@ public class LoginActivity extends BaseActivity {
                     ToastUtil.showLong("请输入密码");
                     return;
                 }
+                if(TextUtils.isEmpty(code)){
+                    ToastUtil.showLong("请输入验证码");
+                    return;
+                }
+                loginP.login(card,pwd);
                 break;
             default:
                 break;
         }
+    }
+
+
+    /**
+     * 登录成功
+     */
+    @Override
+    public void onSuccess(LoginBean loginBean) {
+        //存储token
+        SPUtil.getInstance(this).addString(SPUtil.TOKEN,loginBean.getToken());
+        setClass(TabActivity.class);
+        finish();
     }
 }
