@@ -1,6 +1,5 @@
 package com.ylean.yb.student.activity.declare;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
@@ -8,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.declare.EconomicAdapter;
-import com.ylean.yb.student.adapter.user.mine.AddFamilyAdapter;
+import com.ylean.yb.student.adapter.user.mine.FamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.zxdc.utils.library.bean.AddFamily;
 import com.zxdc.utils.library.view.MeasureListView;
@@ -65,7 +64,7 @@ public class AddDeclareActivity extends BaseActivity {
     TextView tvReward;
     @BindView(R.id.list_economic)
     MeasureListView listEconomic;
-    private AddFamilyAdapter addFamilyAdapter;
+    private FamilyAdapter addFamilyAdapter;
     private EconomicAdapter economicAdapter;
     //家庭成员集合
     private List<AddFamily> familyList=new ArrayList<>();
@@ -89,8 +88,8 @@ public class AddDeclareActivity extends BaseActivity {
         tvTitle.setText("批次审报");
 
         //家庭成员列表
-        listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listFamily.setAdapter(addFamilyAdapter=new AddFamilyAdapter(this,familyList));
+//        listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+//        listFamily.setAdapter(addFamilyAdapter=new FamilyAdapter(this,familyList));
 
         //经济情况列表
         listEconomic.setAdapter(economicAdapter=new EconomicAdapter(this));

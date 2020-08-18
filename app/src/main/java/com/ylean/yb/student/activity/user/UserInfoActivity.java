@@ -6,34 +6,31 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.user.mine.AddEducationAdapter;
-import com.ylean.yb.student.adapter.user.mine.AddFamilyAdapter;
+import com.ylean.yb.student.adapter.user.mine.FamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
-import com.ylean.yb.student.persenter.AddFamilyP;
+import com.ylean.yb.student.persenter.FamilyP;
+import com.ylean.yb.student.persenter.user.UserP;
+import com.ylean.yb.student.view.AddFamilyView;
 import com.ylean.yb.student.view.SelectProvince;
 import com.zxdc.utils.library.bean.AddEducation;
-import com.zxdc.utils.library.bean.AddFamily;
 import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ProvinceCallBack;
 import com.zxdc.utils.library.bean.UserInfo;
-import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.JsonUtil;
-import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.ToastUtil;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
  * 个人档案
  */
-public class UserInfoActivity extends BaseActivity implements AddFamilyP.Face {
+public class UserInfoActivity extends BaseActivity implements UserP.Face2, FamilyP.Face {
 
     @BindView(R.id.tv_userName)
     TextView tvUserName;
@@ -83,16 +80,17 @@ public class UserInfoActivity extends BaseActivity implements AddFamilyP.Face {
     RecyclerView listFamily;
     @BindView(R.id.list_education)
     RecyclerView listEducation;
-    private AddFamilyAdapter addFamilyAdapter;
+    private FamilyAdapter addFamilyAdapter;
     private AddEducationAdapter addEducationAdapter;
     //家庭成员集合
-    private List<AddFamily> familyList=new ArrayList<>();
+    private List<FamilyBean.ListBean> familyList=new ArrayList<>();
     //教育集合
     private List<AddEducation> educationList=new ArrayList<>();
     //用户基本信息对象
     private UserInfo userInfo;
 
-    private AddFamilyP addFamilyP=new AddFamilyP(this,this);
+    private UserP userP=new UserP(this,this);
+    private FamilyP familyP=new FamilyP(this,this);
 
     /**
      * 加载布局
@@ -110,49 +108,9 @@ public class UserInfoActivity extends BaseActivity implements AddFamilyP.Face {
     protected void initData() {
         super.initData();
         userInfo= (UserInfo) getIntent().getSerializableExtra("userInfo");
-        if(userInfo!=null){
-            tvUserName.setText(userInfo.getData().getName());
-            tvSex.setText(userInfo.getData().getSex());
-            tvNationality.setText(userInfo.getData().getNationality());
-            tvBirthday.setText(userInfo.getData().getBirthday());
-            tvNational.setText(userInfo.getData().getNation());
-            tvCard.setText(userInfo.getData().getIdnum());
-            tvCardTime.setText(userInfo.getData().getValiditystarttime()+"-"+userInfo.getData().getValidityendtime());
-            tvEmail.setText(userInfo.getData().getEmail());
-            etQq.setText(userInfo.getData().getQq());
-            etWx.setText(userInfo.getData().getWechat());
 
-            /**
-             * 户口地址
-             */
-            if(!TextUtils.isEmpty(userInfo.getData().getAddress())){
-                final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getAddress(),Address.class);
-                tvProvince.setText(address.getPname());
-                tvProvince.setTag(address.getPcode());
-                tvCity.setText(address.getCname());
-                tvCity.setTag(address.getCcode());
-                tvArea.setText(address.getAname());
-                tvArea.setTag(address.getAcode());
-                etAddress.setText(address.getAddress());
-            }
-
-            /**
-             * 家庭地址
-             */
-            if(!TextUtils.isEmpty(userInfo.getData().getResidenceaddress())){
-                final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getResidenceaddress(),Address.class);
-                tvProvince1.setText(address.getPname());
-                tvProvince1.setTag(address.getPcode());
-                tvCity1.setText(address.getCname());
-                tvCity1.setTag(address.getCcode());
-                tvArea1.setText(address.getAname());
-                tvArea1.setTag(address.getAcode());
-                etAddress1.setText(address.getAddress());
-            }
-
-        }
-        listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listFamily.setAdapter(addFamilyAdapter=new AddFamilyAdapter(this,familyList));
+        //展示用户基本信息
+        showBaseInfo();
 
         listEducation.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         listEducation.setAdapter(addEducationAdapter=new AddEducationAdapter(this,educationList));
@@ -245,8 +203,7 @@ public class UserInfoActivity extends BaseActivity implements AddFamilyP.Face {
                 break;
             //添加家庭成员
             case R.id.tv_add_family:
-                familyList.add(new AddFamily());
-                addFamilyAdapter.notifyDataSetChanged();
+                new AddFamilyView(this).show();
                 break;
             //添加教育经历
             case R.id.tv_add_education:
@@ -268,16 +225,32 @@ public class UserInfoActivity extends BaseActivity implements AddFamilyP.Face {
                     ToastUtil.showLong("请输入微信号");
                     return;
                 }
+                if(TextUtils.isEmpty(province)){
+                    ToastUtil.showLong("请选择户口所在省");
+                    return;
+                }
+                if(TextUtils.isEmpty(city)){
+                    ToastUtil.showLong("请选择户口所在市");
+                    return;
+                }
                 if(TextUtils.isEmpty(area)){
-                    ToastUtil.showLong("请选择户口所在地");
+                    ToastUtil.showLong("请选择户口所在区");
                     return;
                 }
                 if(TextUtils.isEmpty(address)){
                     ToastUtil.showLong("请输入户口详细地址");
                     return;
                 }
+                if(TextUtils.isEmpty(province1)){
+                    ToastUtil.showLong("请选择家庭所在省");
+                    return;
+                }
+                if(TextUtils.isEmpty(city1)){
+                    ToastUtil.showLong("请选择家庭所在市");
+                    return;
+                }
                 if(TextUtils.isEmpty(area1)){
-                    ToastUtil.showLong("请选择家庭地址");
+                    ToastUtil.showLong("请选择家庭所在区");
                     return;
                 }
                 if(TextUtils.isEmpty(address1)){
@@ -310,26 +283,100 @@ public class UserInfoActivity extends BaseActivity implements AddFamilyP.Face {
                 addressBean1.setAname(area1);
                 addressBean1.setAddress(address1);
 
-
-                boolean isAdd=true;
-                for (int i=0;i<familyList.size();i++){
-                     if(!familyList.get(i).check()){
-                         isAdd=false;
-                         break;
-                     }
-                }
-                if(!isAdd){
-                    return;
-                }
-                addFamilyP.addFamily(JsonUtil.objectToString(familyList));
+                //更新个人信息
+                userP.updateUserInfo(mobile, JsonUtil.objectToString(addressBean),qq,JsonUtil.objectToString(addressBean1),landMobile,wx);
                  break;
             default:
                 break;
         }
     }
 
-    @Override
-    public void addFamily() {
 
+    /**
+     * 展示用户基本信息
+     */
+    private void showBaseInfo(){
+        if(userInfo!=null){
+            tvUserName.setText(userInfo.getData().getName());
+            tvSex.setText(userInfo.getData().getSex());
+            tvNationality.setText(userInfo.getData().getNationality());
+            tvBirthday.setText(userInfo.getData().getBirthday());
+            tvNational.setText(userInfo.getData().getNation());
+            tvCard.setText(userInfo.getData().getIdnum());
+            tvCardTime.setText(userInfo.getData().getValiditystarttime()+"-"+userInfo.getData().getValidityendtime());
+            tvEmail.setText(userInfo.getData().getEmail());
+            etQq.setText(userInfo.getData().getQq());
+            etWx.setText(userInfo.getData().getWechat());
+
+            /**
+             * 户口地址
+             */
+            if(!TextUtils.isEmpty(userInfo.getData().getAddress())){
+                final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getAddress(),Address.class);
+                tvProvince.setText(address.getPname());
+                tvProvince.setTag(address.getPcode());
+                tvCity.setText(address.getCname());
+                tvCity.setTag(address.getCcode());
+                tvArea.setText(address.getAname());
+                tvArea.setTag(address.getAcode());
+                etAddress.setText(address.getAddress());
+            }
+
+            /**
+             * 家庭地址
+             */
+            if(!TextUtils.isEmpty(userInfo.getData().getResidenceaddress())){
+                final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getResidenceaddress(),Address.class);
+                tvProvince1.setText(address.getPname());
+                tvProvince1.setTag(address.getPcode());
+                tvCity1.setText(address.getCname());
+                tvCity1.setTag(address.getCcode());
+                tvArea1.setText(address.getAname());
+                tvArea1.setTag(address.getAcode());
+                etAddress1.setText(address.getAddress());
+            }
+
+        }
+    }
+
+
+    /**
+     * 修改个人信息成功
+     */
+    @Override
+    public void updateSuccess() {
+
+    }
+
+
+    /**
+     * 查询家庭成员集合
+     * @param list
+     */
+    @Override
+    public void getFamily(List<FamilyBean.ListBean> list) {
+        this.familyList=list;
+        listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        listFamily.setAdapter(addFamilyAdapter=new FamilyAdapter(this,familyList,familyP));
+    }
+
+
+    /**
+     * 删除家庭成员
+     * @param listBean
+     */
+    @Override
+    public void deleteSuccess(FamilyBean.ListBean listBean) {
+        familyList.remove(listBean);
+        listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        listFamily.setAdapter(addFamilyAdapter=new FamilyAdapter(this,familyList,familyP));
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //查询家庭成员数据
+        familyP.getFamilyList();
     }
 }

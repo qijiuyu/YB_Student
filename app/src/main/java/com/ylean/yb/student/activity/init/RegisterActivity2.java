@@ -200,16 +200,32 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
                     ToastUtil.showLong("请输入微信号");
                     return;
                 }
+                if(TextUtils.isEmpty(province)){
+                    ToastUtil.showLong("请选择户口所在省");
+                    return;
+                }
+                if(TextUtils.isEmpty(city)){
+                    ToastUtil.showLong("请选择户口所在市");
+                    return;
+                }
                 if(TextUtils.isEmpty(area)){
-                    ToastUtil.showLong("请选择户口所在地");
+                    ToastUtil.showLong("请选择户口所在区");
                     return;
                 }
                 if(TextUtils.isEmpty(address)){
                     ToastUtil.showLong("请输入户口详细地址");
                     return;
                 }
+                if(TextUtils.isEmpty(province1)){
+                    ToastUtil.showLong("请选择家庭所在省");
+                    return;
+                }
+                if(TextUtils.isEmpty(city1)){
+                    ToastUtil.showLong("请选择家庭所在市");
+                    return;
+                }
                 if(TextUtils.isEmpty(area1)){
-                    ToastUtil.showLong("请选择家庭地址");
+                    ToastUtil.showLong("请选择家庭所在区");
                     return;
                 }
                 if(TextUtils.isEmpty(address1)){
