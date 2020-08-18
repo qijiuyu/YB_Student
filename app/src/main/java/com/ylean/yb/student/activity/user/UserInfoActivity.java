@@ -11,14 +11,17 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.user.mine.AddEducationAdapter;
 import com.ylean.yb.student.adapter.user.mine.AddFamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.AddFamilyP;
 import com.ylean.yb.student.view.SelectProvince;
 import com.zxdc.utils.library.bean.AddEducation;
 import com.zxdc.utils.library.bean.AddFamily;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ProvinceCallBack;
+import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.JsonUtil;
+import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -30,7 +33,7 @@ import butterknife.OnClick;
 /**
  * 个人档案
  */
-public class UserInfoActivity extends BaseActivity {
+public class UserInfoActivity extends BaseActivity implements AddFamilyP.Face {
 
     @BindView(R.id.tv_userName)
     TextView tvUserName;
@@ -86,6 +89,10 @@ public class UserInfoActivity extends BaseActivity {
     private List<AddFamily> familyList=new ArrayList<>();
     //教育集合
     private List<AddEducation> educationList=new ArrayList<>();
+    //用户基本信息对象
+    private UserInfo userInfo;
+
+    private AddFamilyP addFamilyP=new AddFamilyP(this,this);
 
     /**
      * 加载布局
@@ -102,6 +109,48 @@ public class UserInfoActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        userInfo= (UserInfo) getIntent().getSerializableExtra("userInfo");
+        if(userInfo!=null){
+            tvUserName.setText(userInfo.getData().getName());
+            tvSex.setText(userInfo.getData().getSex());
+            tvNationality.setText(userInfo.getData().getNationality());
+            tvBirthday.setText(userInfo.getData().getBirthday());
+            tvNational.setText(userInfo.getData().getNation());
+            tvCard.setText(userInfo.getData().getIdnum());
+            tvCardTime.setText(userInfo.getData().getValiditystarttime()+"-"+userInfo.getData().getValidityendtime());
+            tvEmail.setText(userInfo.getData().getEmail());
+            etQq.setText(userInfo.getData().getQq());
+            etWx.setText(userInfo.getData().getWechat());
+
+            /**
+             * 户口地址
+             */
+            if(!TextUtils.isEmpty(userInfo.getData().getAddress())){
+                final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getAddress(),Address.class);
+                tvProvince.setText(address.getPname());
+                tvProvince.setTag(address.getPcode());
+                tvCity.setText(address.getCname());
+                tvCity.setText(address.getCcode());
+                tvArea.setText(address.getAname());
+                tvArea.setTag(address.getAcode());
+                etAddress.setText(address.getAddress());
+            }
+
+            /**
+             * 家庭地址
+             */
+            if(!TextUtils.isEmpty(userInfo.getData().getResidenceaddress())){
+                final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getResidenceaddress(),Address.class);
+                tvProvince1.setText(address.getPname());
+                tvProvince1.setTag(address.getPcode());
+                tvCity1.setText(address.getCname());
+                tvCity1.setText(address.getCcode());
+                tvArea1.setText(address.getAname());
+                tvArea1.setTag(address.getAcode());
+                etAddress1.setText(address.getAddress());
+            }
+
+        }
         listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         listFamily.setAdapter(addFamilyAdapter=new AddFamilyAdapter(this,familyList));
 
@@ -236,5 +285,10 @@ public class UserInfoActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void addFamily() {
+
     }
 }

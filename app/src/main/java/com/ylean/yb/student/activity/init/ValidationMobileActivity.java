@@ -63,6 +63,7 @@ public class ValidationMobileActivity extends BaseActivity {
             case R.id.tv_email:
                 intent.setClass(this,ValidationEmailActivity.class);
                 intent.putExtra("idnum",idnum);
+                intent.putExtra("forgetPwd",forgetPwd);
                 startActivityForResult(intent,1000);
                 break;
             //获取短信验证码

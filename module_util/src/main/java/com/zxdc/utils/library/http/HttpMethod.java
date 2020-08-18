@@ -6,6 +6,7 @@ import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.Register;
+import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.http.base.BaseRequst;
 import com.zxdc.utils.library.http.base.Http;
 import com.zxdc.utils.library.util.DialogUtil;
@@ -236,7 +237,53 @@ public class HttpMethod extends BaseRequst {
      * 获取学生基本信息
      */
     public static void getbaseinfo(final NetCallBack netCallBack) {
-        Http.getRetrofit().create(HttpApi.class).getbaseinfo().enqueue(new Callback<BaseBean>() {
+        Http.getRetrofit().create(HttpApi.class).getbaseinfo().enqueue(new Callback<UserInfo>() {
+            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<UserInfo> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 修改用户头像
+     */
+    public static void updatephotoimg(List<FileBean> list,final NetCallBack netCallBack){
+        Map<String,String> map=new HashMap<>();
+        Http.upLoadFile("api/user/student/updatephotoimg", list, map, new okhttp3.Callback() {
+            public void onResponse(okhttp3.Call call, okhttp3.Response response){
+                DialogUtil.closeProgress();
+                try {
+                    String str = response.body().string();
+                    LogUtils.e("+++++++++++++++++"+str);
+                    final BaseBean baseBean= (BaseBean) JsonUtil.stringToObject(str, BaseBean.class);
+                    netCallBack.onSuccess(baseBean);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            public void onFailure(okhttp3.Call call, IOException e) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong(e.getMessage());
+            }
+        });
+    }
+
+
+
+    /**
+     * 添加家庭成员
+     */
+    public static void addFamily(String familymembers,final NetCallBack netCallBack) {
+        Map<String,String> map=new HashMap<>();
+        map.put("familymembers",familymembers);
+        Http.getRetrofit().create(HttpApi.class).addFamily(map).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());
@@ -247,5 +294,6 @@ public class HttpMethod extends BaseRequst {
             }
         });
     }
+
 
 }

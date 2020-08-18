@@ -5,6 +5,7 @@ package com.zxdc.utils.library.http;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.bean.ProvinceBean;
+import com.zxdc.utils.library.bean.UserInfo;
 
 import java.util.Map;
 
@@ -46,11 +47,16 @@ public interface HttpApi {
     Call<BaseBean> sendbindemail(@FieldMap Map<String, String> map);
 
     @GET(HttpConstant.IP+"api/user/student/getbaseinfo")
-    Call<BaseBean> getbaseinfo();
+    Call<UserInfo> getbaseinfo();
 
     @FormUrlEncoded
     @PUT(HttpConstant.IP+"api/user/login/findpwd")
     Call<BaseBean> findpwd(@FieldMap Map<String, String> map);
+
+
+    @FormUrlEncoded
+    @PUT(HttpConstant.IP+"api/user/fm/add")
+    Call<BaseBean> addFamily(@FieldMap Map<String, String> map);
 
 
 }

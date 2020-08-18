@@ -1,12 +1,16 @@
 package com.zxdc.utils.library.bean;
 
+import android.text.TextUtils;
+
+import com.zxdc.utils.library.util.ToastUtil;
+
 import java.io.Serializable;
 
 public class AddFamily implements Serializable {
 
     private String relation;
     private String relationname;
-    private String whethersupport;
+    private String whethersupport="0";
     private String name;
     private String company;
     private String occupation;
@@ -66,5 +70,30 @@ public class AddFamily implements Serializable {
 
     public void setIncomesource(String incomesource) {
         this.incomesource = incomesource;
+    }
+
+
+    public boolean check(){
+        if(TextUtils.isEmpty(relation)){
+            ToastUtil.showLong("请选择与本人的关系");
+            return false;
+        }
+        if(TextUtils.isEmpty(name)){
+            ToastUtil.showLong("请输入姓名");
+            return false;
+        }
+        if(TextUtils.isEmpty(company)){
+            ToastUtil.showLong("请输入单位");
+            return false;
+        }
+        if(TextUtils.isEmpty(occupation)){
+            ToastUtil.showLong("请输入职业");
+            return false;
+        }
+        if(TextUtils.isEmpty(incomesource)){
+            ToastUtil.showLong("请输入收入来源");
+            return false;
+        }
+        return true;
     }
 }

@@ -1,8 +1,11 @@
 package com.ylean.yb.student.activity.user;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.init.LoginActivity;
 import com.ylean.yb.student.activity.user.activity.MyActivity;
@@ -15,6 +18,7 @@ import com.ylean.yb.student.activity.user.school.InSchoolActivity;
 import com.ylean.yb.student.activity.user.setting.SettingActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.user.UserP;
+import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import butterknife.BindView;
@@ -37,6 +41,8 @@ public class UserActivity extends BaseActivity implements UserP.Face {
     @BindView(R.id.tv_total_time)
     TextView tvTotalTime;
 
+    //用户信息对象
+    private UserInfo userInfo;
     private UserP userP;
 
     /**
@@ -61,6 +67,7 @@ public class UserActivity extends BaseActivity implements UserP.Face {
 
     @OnClick({R.id.img_news, R.id.img_setting,R.id.img_head, R.id.rel_sqjl, R.id.rel_zxjk, R.id.rel_st, R.id.rel_bank, R.id.rel_activity, R.id.rel_zx, R.id.rel_share, R.id.rel_resume, R.id.rel_ly, R.id.rel_about})
     public void onViewClicked(View view) {
+        Intent intent=new Intent();
         switch (view.getId()) {
             //消息
             case R.id.img_news:
@@ -69,11 +76,15 @@ public class UserActivity extends BaseActivity implements UserP.Face {
                 break;
             //设置
             case R.id.img_setting:
-                 setClass(SettingActivity.class);
+                 intent.setClass(this,SettingActivity.class);
+                 intent.putExtra("userInfo",userInfo);
+                 startActivity(intent);
                 break;
             //个人档案
             case R.id.img_head:
-                 setClass(UserInfoActivity.class);
+                 intent.setClass(this,UserInfoActivity.class);
+                 intent.putExtra("userInfo",userInfo);
+                 startActivity(intent);
                  break;
             //申请记录
             case R.id.rel_sqjl:
@@ -122,8 +133,13 @@ public class UserActivity extends BaseActivity implements UserP.Face {
      * 获取用户基本信息
      */
     @Override
-    public void getbaseinfo() {
-
+    public void getbaseinfo(UserInfo userInfo) {
+        this.userInfo=userInfo;
+        if(!TextUtils.isEmpty(userInfo.getData().getPhoto())){
+            Glide.with(this).load(userInfo.getData().getPhoto()).into(imgHead);
+        }
+        tvNickName.setText(userInfo.getData().getName());
+        tvCredential.setText("身份证号:"+userInfo.getData().getIdnum());
     }
 
 
