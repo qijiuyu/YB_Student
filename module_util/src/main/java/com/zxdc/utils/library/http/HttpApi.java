@@ -2,6 +2,7 @@ package com.zxdc.utils.library.http;
 
 
 
+import com.zxdc.utils.library.bean.AboutBean;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
@@ -10,6 +11,7 @@ import com.zxdc.utils.library.bean.EconomicBean;
 import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
+import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.SchoolBean;
 import com.zxdc.utils.library.bean.UserInfo;
@@ -111,5 +113,11 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/sys/economic/getAllList")
     Call<EconomicBean> getEconomicList();
+
+    @GET(HttpConstant.IP+"api/news/about/getabout")
+    Call<AboutBean> getAbout();
+
+    @GET(HttpConstant.IP+"api/sys/user/msg/getlist")
+    Call<NewsBean> getNewsList(@Query("ctype") int ctype, @Query("page") int page, @Query("size") int size);
 
 }

@@ -238,6 +238,9 @@ public class AddDeclareActivity extends BaseActivity implements UserP.Face, Fami
      */
     @Override
     public void getbaseinfo(UserInfo userInfo) {
+        if(!TextUtils.isEmpty(userInfo.getData().getPhoto())){
+            Glide.with(this).load(userInfo.getData().getPhoto()).into(imgHead);
+        }
         tvName.setText(userInfo.getData().getName());
         tvSex.setText(userInfo.getData().getSex());
         tvNationality.setText(userInfo.getData().getNationality());

@@ -1,5 +1,6 @@
 package com.zxdc.utils.library.http;
 
+import com.zxdc.utils.library.bean.AboutBean;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
@@ -10,6 +11,7 @@ import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.bean.NetCallBack;
+import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.bean.SchoolBean;
@@ -591,6 +593,41 @@ public class HttpMethod extends BaseRequst {
             public void onFailure(okhttp3.Call call, IOException e) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong(e.getMessage());
+            }
+        });
+    }
+
+
+
+    /**
+     * 关于我们
+     */
+    public static void getAbout(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getAbout().enqueue(new Callback<AboutBean>() {
+            public void onResponse(Call<AboutBean> call, Response<AboutBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<AboutBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取消息列表
+     */
+    public static void getNewsList(int ctype,int page,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getNewsList(ctype,page,pageSize).enqueue(new Callback<NewsBean>() {
+            public void onResponse(Call<NewsBean> call, Response<NewsBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<NewsBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
             }
         });
     }

@@ -73,7 +73,6 @@ public class SettingActivity extends BaseActivity {
             etNickName.setText(userInfo.getData().getName());
             tvMobile.setText(userInfo.getData().getPhone());
             etEmail.setText(userInfo.getData().getEmail());
-
         }
     }
 

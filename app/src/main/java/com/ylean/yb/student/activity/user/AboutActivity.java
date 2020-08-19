@@ -4,6 +4,15 @@ import android.view.View;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
+import com.zxdc.utils.library.bean.AboutBean;
+import com.zxdc.utils.library.bean.NetCallBack;
+import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.ToastUtil;
+
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -16,7 +25,7 @@ public class AboutActivity extends BaseActivity {
     @BindView(R.id.tv_version)
     TextView tvVersion;
     @BindView(R.id.tv_content)
-    TextView tvContent;
+    HtmlTextView tvContent;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
     @BindView(R.id.tv_wx)
@@ -41,6 +50,7 @@ public class AboutActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         tvTitle.setText("关于我们");
+        getAbout();
     }
 
     @OnClick({R.id.lin_back, R.id.tv_phone, R.id.tv_url, R.id.rel_feedback})
@@ -59,5 +69,30 @@ public class AboutActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+
+    /**
+     * 关于我们
+     */
+    public void getAbout(){
+        DialogUtil.showProgress(this,"数据加载中");
+        HttpMethod.getAbout(new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+
+                final AboutBean aboutBean= (AboutBean) object;
+                if(aboutBean.isSussess()){
+                    tvContent.setHtml(aboutBean.getData().getContent(), new HtmlHttpImageGetter(tvContent));
+                }else{
+                    ToastUtil.showLong(aboutBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
     }
 }

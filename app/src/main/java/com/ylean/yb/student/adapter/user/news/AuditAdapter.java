@@ -9,6 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
+import com.zxdc.utils.library.bean.NewsBean;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,15 +19,17 @@ import butterknife.ButterKnife;
 public class AuditAdapter extends BaseAdapter {
 
     private Activity activity;
+    private List<NewsBean.News> list;
 
-    public AuditAdapter(Activity activity) {
+    public AuditAdapter(Activity activity,List<NewsBean.News> list) {
         super();
         this.activity = activity;
+        this.list=list;
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return list==null ? 0 : list.size();
     }
 
     @Override
@@ -37,18 +42,20 @@ public class AuditAdapter extends BaseAdapter {
         return position;
     }
 
-    ViewHolder holder = null;
+    NoticeAdapter.ViewHolder holder = null;
 
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null) {
             view = LayoutInflater.from(activity).inflate(R.layout.item_news_notice, null);
-            holder = new ViewHolder(view);
+            holder = new NoticeAdapter.ViewHolder(view);
             view.setTag(holder);
         } else {
-            holder = (ViewHolder) view.getTag();
+            holder = (NoticeAdapter.ViewHolder) view.getTag();
         }
 
-        holder.tvTitle.setText(Html.fromHtml("2019年9月12日提交的 <font color=\"#4A90E2\">2019年大学生批次审核</font> 正在<font color=\"#FA4D4F\">审核</font>中"));
+        final NewsBean.News news=list.get(position);
+        holder.tvTitle.setText(news.getTitle());
+        holder.tvTime.setText(news.getCreatetime());
         return view;
     }
 

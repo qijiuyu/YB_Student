@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
+import com.zxdc.utils.library.bean.NewsBean;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,15 +18,17 @@ import butterknife.ButterKnife;
 public class NoticeAdapter extends BaseAdapter {
 
     private Activity activity;
+    private List<NewsBean.News> list;
 
-    public NoticeAdapter(Activity activity) {
+    public NoticeAdapter(Activity activity,List<NewsBean.News> list) {
         super();
         this.activity = activity;
+        this.list=list;
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return list==null ? 0 : list.size();
     }
 
     @Override
@@ -47,6 +52,9 @@ public class NoticeAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
+        final NewsBean.News news=list.get(position);
+        holder.tvTitle.setText(news.getTitle());
+        holder.tvTime.setText(news.getCreatetime());
         return view;
     }
 
