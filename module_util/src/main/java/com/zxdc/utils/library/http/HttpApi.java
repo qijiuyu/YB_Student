@@ -127,4 +127,9 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.IP+"api/sys/msg/lm/reply")
     Call<BaseBean> reply(@FieldMap Map<String, String> map);
+
+    @GET(HttpConstant.IP+"api/user/bk/getbankinfo")
+    Call<BaseBean> getbankinfo();
+
+
 }

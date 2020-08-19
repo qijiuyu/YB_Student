@@ -112,7 +112,7 @@
             android:textSize="10sp"
             android:textColor="@color/color_999999"
             android:layout_marginLeft="9dp"
-            android:layout_marginTop="37dp"/>
+            android:layout_marginTop="30dp"/>
 
     </LinearLayout>
 

@@ -670,4 +670,48 @@ public class HttpMethod extends BaseRequst {
         });
     }
 
+
+    /**
+     * 获取银行卡基本信息
+     */
+    public static void getbankinfo(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getbankinfo().enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 变更银行卡
+     */
+    public static void updateBank(String num,List<FileBean> list,final NetCallBack netCallBack){
+        Map<String,String> map=new HashMap<>();
+        map.put("num",num);
+        Http.upLoadFile2("api/user/bk/changebankinfo", list, map, new okhttp3.Callback() {
+            public void onResponse(okhttp3.Call call, okhttp3.Response response){
+                DialogUtil.closeProgress();
+                try {
+                    String str = response.body().string();
+                    LogUtils.e("+++++++++++++++++"+str);
+                    final Register userInfo= (Register) JsonUtil.stringToObject(str, Register.class);
+                    netCallBack.onSuccess(userInfo);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            public void onFailure(okhttp3.Call call, IOException e) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong(e.getMessage());
+            }
+        });
+    }
+
+
 }

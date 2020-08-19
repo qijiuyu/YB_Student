@@ -73,7 +73,7 @@ public class Http {
 
 
     /**
-     * 上传文件
+     * 上传文件--post方式
      */
     public static void upLoadFile(String url, List<FileBean> list, Map<String, String> map, Callback callback) {
         //添加token参数
@@ -94,6 +94,34 @@ public class Http {
         Request request = new Request.Builder()
                 .url(Http.baseUrl + url)
                 .post(requestBody)
+                .build();
+        Call call = new OkHttpClient.Builder().writeTimeout(100, TimeUnit.SECONDS).readTimeout(100,TimeUnit.SECONDS).build().newCall(request);
+        call.enqueue(callback);
+    }
+
+
+    /**
+     * 上传文件--put方式
+     */
+    public static void upLoadFile2(String url, List<FileBean> list, Map<String, String> map, Callback callback) {
+        //添加token参数
+        map.put("token", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
+        //创建RequestBody
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        if(null!=list){
+            for (int i=0;i<list.size();i++){
+                RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"), list.get(i).getFile());
+                builder.addFormDataPart(list.get(i).getName(), list.get(i).getFile().getName(), body);
+            }
+        }
+        for (String key : map.keySet()) {
+            builder.addFormDataPart(key, map.get(key));
+        }
+        RequestBody requestBody = builder.build();
+        //创建Request
+        Request request = new Request.Builder()
+                .url(Http.baseUrl + url)
+                .put(requestBody)
                 .build();
         Call call = new OkHttpClient.Builder().writeTimeout(100, TimeUnit.SECONDS).readTimeout(100,TimeUnit.SECONDS).build().newCall(request);
         call.enqueue(callback);

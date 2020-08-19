@@ -9,6 +9,7 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.user.bank.HistoryBankAdapter;
 import com.ylean.yb.student.adapter.user.bank.MyBankAdapter;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.user.MyBankP;
 import com.zxdc.utils.library.view.MeasureListView;
 import com.zxdc.utils.library.view.MyRefreshLayoutListener;
 import com.zxdc.utils.library.view.refresh.MyRefreshLayout;
@@ -18,7 +19,7 @@ import butterknife.OnClick;
 /**
  * 我的银行卡
  */
-public class MyBankActivity extends BaseActivity implements MyRefreshLayoutListener {
+public class MyBankActivity extends BaseActivity implements MyRefreshLayoutListener, MyBankP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.listView)
@@ -31,6 +32,7 @@ public class MyBankActivity extends BaseActivity implements MyRefreshLayoutListe
      * 头部view
      */
     private View headView;
+    private MyBankP myBankP=new MyBankP(this,this);
 
     /**
      * 加载布局
@@ -49,6 +51,8 @@ public class MyBankActivity extends BaseActivity implements MyRefreshLayoutListe
     protected void initData() {
         super.initData();
         tvTitle.setText("我的银行卡");
+
+        myBankP.getbankinfo();
 
         reList.setMyRefreshLayoutListener(this);
         listView.setDivider(null);
