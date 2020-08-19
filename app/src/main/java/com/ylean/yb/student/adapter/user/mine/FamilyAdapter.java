@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.callback.SelectCallBack;
 import com.ylean.yb.student.persenter.FamilyP;
+import com.ylean.yb.student.view.AddFamilyView;
 import com.zxdc.utils.library.bean.FamilyBean;
 import java.util.List;
 
@@ -79,6 +81,24 @@ public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.MyHolder> 
                familyP.deleteFamily((FamilyBean.ListBean) v.getTag());
            }
        });
+
+
+        /**
+         * 编辑
+         */
+        holder.tvUpdate.setTag(listBean);
+        holder.tvUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AddFamilyView(activity, (FamilyBean.ListBean) v.getTag(), new SelectCallBack() {
+                    @Override
+                    public void selectBack(Object object) {
+                        //查询家庭成员数据
+                        familyP.getFamilyList();
+                    }
+                }).show();
+            }
+        });
     }
 
 

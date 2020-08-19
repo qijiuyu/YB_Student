@@ -11,15 +11,15 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.callback.SelectCallBack;
 import com.ylean.yb.student.callback.SelectRelationCallBack;
 import com.ylean.yb.student.persenter.FamilyP;
 import com.zxdc.utils.library.bean.AddFamily;
+import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.ToastUtil;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -38,6 +38,9 @@ public class AddFamilyView extends Dialog implements FamilyP.Face2 {
     @BindView(R.id.tv_reward)
     TextView tvReward;
     private Activity context;
+    //要编辑的家庭对象
+    private FamilyBean.ListBean listBean;
+    private SelectCallBack selectCallBack;
     private FamilyP familyP;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +55,11 @@ public class AddFamilyView extends Dialog implements FamilyP.Face2 {
         initView();
     }
 
-    public AddFamilyView(Activity context) {
+    public AddFamilyView(Activity context,FamilyBean.ListBean listBean,SelectCallBack selectCallBack) {
         super(context, R.style.ActionSheetDialogStyle);
         this.context = context;
+        this.listBean=listBean;
+        this.selectCallBack=selectCallBack;
     }
 
     /**
@@ -62,6 +67,44 @@ public class AddFamilyView extends Dialog implements FamilyP.Face2 {
      */
     private void initView() {
         familyP=new FamilyP(context,this);
+        if(listBean!=null){
+            switch (listBean.getRelation()){
+                case 1:
+                    tvRelation.setText("父亲");
+                    break;
+                case 2:
+                    tvRelation.setText("母亲");
+                    break;
+                case 3:
+                    tvRelation.setText("哥哥");
+                    break;
+                case 4:
+                    tvRelation.setText("姐姐");
+                    break;
+                case 5:
+                    tvRelation.setText("弟弟");
+                    break;
+                case 6:
+                    tvRelation.setText("妹妹");
+                    break;
+                case 7:
+                    tvRelation.setText(listBean.getRelationname());
+                    break;
+                default:
+                    break;
+            }
+            tvRelation.setTag(listBean.getRelation());
+            etName.setText(listBean.getName());
+            etUnit.setText(listBean.getCompany());
+            etPosition.setText(listBean.getOccupation());
+            etEntry.setText(listBean.getIncomesource());
+            if(listBean.getWhethersupport()==0){
+                tvReward.setText("否");
+            }else{
+                tvReward.setText("是");
+            }
+            tvReward.setTag(listBean.getWhethersupport());
+        }
     }
 
 
@@ -90,7 +133,6 @@ public class AddFamilyView extends Dialog implements FamilyP.Face2 {
                 final String unit=etUnit.getText().toString().trim();
                 final String position=etPosition.getText().toString().trim();
                 final String entry=etEntry.getText().toString().trim();
-                final String reward=tvReward.getText().toString().trim();
                 if(TextUtils.isEmpty(relation)){
                     ToastUtil.showLong("请选择与本人关系");
                     return;
@@ -111,19 +153,33 @@ public class AddFamilyView extends Dialog implements FamilyP.Face2 {
                     ToastUtil.showLong("请输入主要收入来源");
                     return;
                 }
-                AddFamily addFamily=new AddFamily();
-                addFamily.setRelation((int)tvRelation.getTag());
-                if(addFamily.getRelation()==7){
-                    addFamily.setRelationname(relation);
+
+                /**
+                 * 添加
+                 */
+                if(listBean==null){
+                    AddFamily addFamily=new AddFamily();
+                    addFamily.setRelation((int)tvRelation.getTag());
+                    if(addFamily.getRelation()==7){
+                        addFamily.setRelationname(relation);
+                    }
+                    addFamily.setName(name);
+                    addFamily.setCompany(unit);
+                    addFamily.setOccupation(position);
+                    addFamily.setIncomesource(entry);
+                    addFamily.setWhethersupport(Integer.parseInt(tvReward.getTag().toString()));
+                    List<AddFamily> list=new ArrayList<>();
+                    list.add(addFamily);
+                    familyP.addFamily(JsonUtil.objectToString(list));
                 }
-                addFamily.setName(name);
-                addFamily.setCompany(unit);
-                addFamily.setOccupation(position);
-                addFamily.setIncomesource(entry);
-                addFamily.setWhethersupport((String)tvReward.getTag());
-                List<AddFamily> list=new ArrayList<>();
-                list.add(addFamily);
-                familyP.addFamily(JsonUtil.objectToString(list));
+
+                /**
+                 * 修改
+                 */
+                if(listBean!=null){
+                    final int relationCode=(int)tvRelation.getTag();
+                    familyP.updateFamily(listBean.getId(),unit,entry,name,position,relationCode,relationCode==7 ? relation : "",(int)tvReward.getTag());
+                }
                 break;
             case R.id.rel:
                  dismiss();
@@ -139,6 +195,17 @@ public class AddFamilyView extends Dialog implements FamilyP.Face2 {
      */
     @Override
     public void addFamily() {
+        selectCallBack.selectBack(null);
+        dismiss();
+    }
+
+
+    /**
+     * 修改成功
+     */
+    @Override
+    public void updateFamily() {
+        selectCallBack.selectBack(null);
         dismiss();
     }
 }

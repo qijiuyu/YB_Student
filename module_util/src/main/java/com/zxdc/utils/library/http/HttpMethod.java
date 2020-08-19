@@ -1,12 +1,14 @@
 package com.zxdc.utils.library.http;
 
 import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.Register;
+import com.zxdc.utils.library.bean.SchoolBean;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.http.base.BaseRequst;
 import com.zxdc.utils.library.http.base.Http;
@@ -350,6 +352,86 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 修改家庭成员
+     */
+    public static void updateFamily(int id,String company,String incomesource,String name,String occupation,int relation,String relationname,int whethersupport,final NetCallBack netCallBack) {
+        Map<String ,String> map=new HashMap<>();
+        map.put("id",id+"");
+        map.put("company",company);
+        map.put("incomesource",incomesource);
+        map.put("name",name);
+        map.put("occupation",occupation);
+        map.put("relation",relation+"");
+        map.put("relationname",relationname);
+        map.put("whethersupport",whethersupport+"");
+        Http.getRetrofit().create(HttpApi.class).updateFamily(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 获取所有学校
+     */
+    public static void getSchoolList(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getSchoolList().enqueue(new Callback<SchoolBean>() {
+            public void onResponse(Call<SchoolBean> call, Response<SchoolBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<SchoolBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 获取所有院系
+     */
+    public static void getFacultyList(final NetCallBack netCallBack) {
+        Map<String,String> map=new HashMap<>();
+        Http.getRetrofit().create(HttpApi.class).getFacultyList(map).enqueue(new Callback<FacultyBean>() {
+            public void onResponse(Call<FacultyBean> call, Response<FacultyBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<FacultyBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取所有专业
+     */
+    public static void getSpecialtyList(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getSpecialtyList().enqueue(new Callback<FacultyBean>() {
+            public void onResponse(Call<FacultyBean> call, Response<FacultyBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<FacultyBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

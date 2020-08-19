@@ -107,6 +107,32 @@ public class FamilyP {
     }
 
 
+    /**
+     * 修改家庭成员
+     */
+    public void updateFamily(int id,String company,String incomesource,String name,String occupation,int relation,String relationname,int whethersupport){
+        DialogUtil.showProgress(activity,"修改中");
+        HttpMethod.updateFamily(id, company, incomesource, name, occupation, relation, relationname, whethersupport, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                    face2.updateFamily();
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
     public interface Face{
 
         void getFamily(List<FamilyBean.ListBean> list);
@@ -117,5 +143,7 @@ public class FamilyP {
 
     public interface Face2{
         void addFamily();
+
+        void updateFamily();
     }
 }

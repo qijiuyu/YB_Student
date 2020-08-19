@@ -10,7 +10,7 @@ public class AddFamily implements Serializable {
 
     private int relation;
     private String relationname;
-    private String whethersupport;
+    private int whethersupport;
     private String name;
     private String company;
     private String occupation;
@@ -40,11 +40,11 @@ public class AddFamily implements Serializable {
         this.relationname = relationname;
     }
 
-    public String getWhethersupport() {
+    public int getWhethersupport() {
         return whethersupport;
     }
 
-    public void setWhethersupport(String whethersupport) {
+    public void setWhethersupport(int whethersupport) {
         this.whethersupport = whethersupport;
     }
 

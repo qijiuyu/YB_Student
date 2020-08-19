@@ -10,8 +10,10 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.user.mine.AddEducationAdapter;
 import com.ylean.yb.student.adapter.user.mine.FamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.callback.SelectCallBack;
 import com.ylean.yb.student.persenter.FamilyP;
 import com.ylean.yb.student.persenter.user.UserP;
+import com.ylean.yb.student.view.AddEducationView;
 import com.ylean.yb.student.view.AddFamilyView;
 import com.ylean.yb.student.view.SelectProvince;
 import com.zxdc.utils.library.bean.AddEducation;
@@ -203,12 +205,17 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
                 break;
             //添加家庭成员
             case R.id.tv_add_family:
-                new AddFamilyView(this).show();
+                new AddFamilyView(this, null, new SelectCallBack() {
+                    @Override
+                    public void selectBack(Object object) {
+                        //查询家庭成员数据
+                        familyP.getFamilyList();
+                    }
+                }).show();
                 break;
             //添加教育经历
             case R.id.tv_add_education:
-                 educationList.add(new AddEducation());
-                 addEducationAdapter.notifyDataSetChanged();
+                 new AddEducationView(this).show();
                  break;
             case R.id.tv_submit:
                  final String qq=etQq.getText().toString().trim();
@@ -345,7 +352,7 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
      */
     @Override
     public void updateSuccess() {
-
+        finish();
     }
 
 

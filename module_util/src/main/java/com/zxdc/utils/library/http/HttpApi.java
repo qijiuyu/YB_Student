@@ -3,9 +3,11 @@ package com.zxdc.utils.library.http;
 
 
 import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.bean.ProvinceBean;
+import com.zxdc.utils.library.bean.SchoolBean;
 import com.zxdc.utils.library.bean.UserInfo;
 
 import java.util.Map;
@@ -68,5 +70,19 @@ public interface HttpApi {
 
     @DELETE(HttpConstant.IP+"api/user/fm/delete")
     Call<BaseBean> deleteFamily(@Query("id") int id);
+
+    @FormUrlEncoded
+    @PUT(HttpConstant.IP+"api/user/fm/update")
+    Call<BaseBean> updateFamily(@FieldMap Map<String, String> map);
+
+    @GET(HttpConstant.IP+"api/sys/school/getInAllList")
+    Call<SchoolBean> getSchoolList();
+
+    @FormUrlEncoded
+    @POST(HttpConstant.IP+"api/sys/faculty/getalllist")
+    Call<FacultyBean> getFacultyList(@FieldMap Map<String, String> map);
+
+    @GET(HttpConstant.IP+"api/sys/major/getalllist")
+    Call<FacultyBean> getSpecialtyList();
 
 }

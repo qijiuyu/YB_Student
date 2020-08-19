@@ -8,23 +8,23 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
+import android.widget.EditText;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.callback.SelectRelationCallBack;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectReward extends Dialog implements View.OnClickListener {
+public class SelectSchoolType extends Dialog implements View.OnClickListener {
 
     private Activity context;
     private CycleWheelView wheel;
-    private List<String> listName=new ArrayList<String>(){{add("否");add("是");}};
-    private List<Integer> listCode=new ArrayList<Integer>(){{add(0);add(1);}};
+    private EditText etRelation;
+    private List<String> listName=new ArrayList<String>(){{add("高中");add("中职");add("高职");add("大学");}};
+    private List<Integer> listCode=new ArrayList<Integer>(){{add(0);add(1);add(2);add(3);}};
     private SelectRelationCallBack selectRelationCallBack;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.min_wheel_select);
+        setContentView(R.layout.dialog_select_relation);
         Window dialogWindow = getWindow();
         dialogWindow.setGravity(Gravity.CENTER | Gravity.BOTTOM);
         WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
@@ -33,7 +33,7 @@ public class SelectReward extends Dialog implements View.OnClickListener {
         initListener();
     }
 
-    public SelectReward(Activity context, SelectRelationCallBack selectRelationCallBack) {
+    public SelectSchoolType(Activity context, SelectRelationCallBack selectRelationCallBack) {
         super(context, R.style.ActionSheetDialogStyle);
         this.context = context;
         this.selectRelationCallBack=selectRelationCallBack;
@@ -41,10 +41,11 @@ public class SelectReward extends Dialog implements View.OnClickListener {
 
     private void initView() {
         wheel=findViewById(R.id.wheel);
+        etRelation=findViewById(R.id.et_relation);
         wheel.setLabels(listName);
         wheel.setSelection(0);
         try {
-            wheel.setWheelSize(3);
+            wheel.setWheelSize(5);
         } catch (CycleWheelView.CycleWheelViewException e) {
             e.printStackTrace();
         }
@@ -54,6 +55,16 @@ public class SelectReward extends Dialog implements View.OnClickListener {
         wheel.setSolid(Color.WHITE,Color.WHITE);
         wheel.setLabelColor(Color.GRAY);
         wheel.setLabelSelectColor(Color.BLACK);
+        wheel.setOnWheelItemSelectedListener(new CycleWheelView.WheelItemSelectedListener() {
+            @Override
+            public void onItemSelected(int position, String label) {
+                if(position==6){
+                    etRelation.setVisibility(View.VISIBLE);
+                }else{
+                    etRelation.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     private void initListener() {
@@ -66,12 +77,13 @@ public class SelectReward extends Dialog implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.tv_confirm:
                  selectRelationCallBack.onSuccess(wheel.getSelectLabel(),listCode.get(wheel.getSelection()));
+                 dismiss();
                  break;
             case R.id.tv_cancle:
+                 dismiss();
                  break;
              default:
                  break;
         }
-        dismiss();
     }
 }
