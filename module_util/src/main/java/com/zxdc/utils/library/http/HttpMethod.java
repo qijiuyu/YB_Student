@@ -13,6 +13,7 @@ import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.bean.SchoolBean;
+import com.zxdc.utils.library.bean.UploadFile;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.http.base.BaseRequst;
 import com.zxdc.utils.library.http.base.Http;
@@ -562,6 +563,34 @@ public class HttpMethod extends BaseRequst {
             public void onFailure(Call<EconomicBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 上传文件
+     */
+    public static void uploadFile(int relationtype,List<FileBean> list,final NetCallBack netCallBack){
+        Map<String,String> map=new HashMap<>();
+        map.put("iskdr","0");
+        map.put("relationtype",relationtype+"");
+        Http.upLoadFile("api/sys/upload", list, map, new okhttp3.Callback() {
+            public void onResponse(okhttp3.Call call, okhttp3.Response response){
+                DialogUtil.closeProgress();
+                try {
+                    String str = response.body().string();
+                    LogUtils.e("+++++++++++++++++"+str);
+                    final UploadFile uploadFile= (UploadFile) JsonUtil.stringToObject(str, UploadFile.class);
+                    netCallBack.onSuccess(uploadFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            public void onFailure(okhttp3.Call call, IOException e) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong(e.getMessage());
             }
         });
     }

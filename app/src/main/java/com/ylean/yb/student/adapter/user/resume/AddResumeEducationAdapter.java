@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.callback.TimeCallBack;
-import com.ylean.yb.student.enumer.AddEducationEnum;
 import com.ylean.yb.student.utils.SelectTimeUtils;
 import com.zxdc.utils.library.bean.AddEducation;
 

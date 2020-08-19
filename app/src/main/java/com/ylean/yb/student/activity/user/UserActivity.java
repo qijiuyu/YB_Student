@@ -1,6 +1,7 @@
 package com.ylean.yb.student.activity.user;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -140,6 +141,13 @@ public class UserActivity extends BaseActivity implements UserP.Face {
         }
         tvNickName.setText(userInfo.getData().getName());
         tvCredential.setText("身份证号:"+userInfo.getData().getIdnum());
+        Drawable drawable=null;
+        if(userInfo.getData().getSex().equals("男")){
+            drawable = getResources().getDrawable(R.mipmap.male);
+        }else{
+            drawable = getResources().getDrawable(R.mipmap.female);
+        }
+        tvNickName.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
     }
 
 
