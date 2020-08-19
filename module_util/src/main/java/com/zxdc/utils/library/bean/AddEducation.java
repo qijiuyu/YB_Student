@@ -4,103 +4,134 @@ import java.io.Serializable;
 
 public class AddEducation implements Serializable {
 
-    private String type;//学校类型
-    private String pcode;//省
-    private String pname;
-    private String ccode;//市
-    private String cname;
-    private String acode;//区
-    private String aname;
-    private String school;//所在学校
-    private String time;//入学时间
-    private String faculty;//院系名称
-    private String specialty;//专业名称
+    private int type;//学校类型
+    private Region region;
+    private int sid;//所在学校
+    private int facultyid;//院系
+    private int majorid;//专业
+    private String admissiontime;//入学时间
+    private int ftype=1;//院系类型 1 是选择 2 是手填
+    private int mtype=1;//专业类型 1 是选择 2是手填
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
-    public String getPcode() {
-        return pcode;
+    public Region getRegion() {
+        return region;
     }
 
-    public void setPcode(String pcode) {
-        this.pcode = pcode;
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
-    public String getPname() {
-        return pname;
+    public int getFtype() {
+        return ftype;
     }
 
-    public void setPname(String pname) {
-        this.pname = pname;
+    public void setFtype(int ftype) {
+        this.ftype = ftype;
     }
 
-    public String getCcode() {
-        return ccode;
+    public int getMtype() {
+        return mtype;
     }
 
-    public void setCcode(String ccode) {
-        this.ccode = ccode;
+    public void setMtype(int mtype) {
+        this.mtype = mtype;
     }
 
-    public String getCname() {
-        return cname;
+    public int getSid() {
+        return sid;
     }
 
-    public void setCname(String cname) {
-        this.cname = cname;
+    public void setSid(int sid) {
+        this.sid = sid;
     }
 
-    public String getAcode() {
-        return acode;
+    public int getFacultyid() {
+        return facultyid;
     }
 
-    public void setAcode(String acode) {
-        this.acode = acode;
+    public void setFacultyid(int facultyid) {
+        this.facultyid = facultyid;
     }
 
-    public String getAname() {
-        return aname;
+    public int getMajorid() {
+        return majorid;
     }
 
-    public void setAname(String aname) {
-        this.aname = aname;
+    public void setMajorid(int majorid) {
+        this.majorid = majorid;
     }
 
-    public String getSchool() {
-        return school;
+    public String getAdmissiontime() {
+        return admissiontime;
     }
 
-    public void setSchool(String school) {
-        this.school = school;
+    public void setAdmissiontime(String admissiontime) {
+        this.admissiontime = admissiontime;
     }
 
-    public String getTime() {
-        return time;
-    }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
+    public static class Region implements Serializable{
+        private String pcode;//省
+        private String pname;
+        private String ccode;//市
+        private String cname;
+        private String acode;//区
+        private String aname;
 
-    public String getFaculty() {
-        return faculty;
-    }
+        public String getPcode() {
+            return pcode;
+        }
 
-    public void setFaculty(String faculty) {
-        this.faculty = faculty;
-    }
+        public void setPcode(String pcode) {
+            this.pcode = pcode;
+        }
 
-    public String getSpecialty() {
-        return specialty;
-    }
+        public String getPname() {
+            return pname;
+        }
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
+        public void setPname(String pname) {
+            this.pname = pname;
+        }
+
+        public String getCcode() {
+            return ccode;
+        }
+
+        public void setCcode(String ccode) {
+            this.ccode = ccode;
+        }
+
+        public String getCname() {
+            return cname;
+        }
+
+        public void setCname(String cname) {
+            this.cname = cname;
+        }
+
+        public String getAcode() {
+            return acode;
+        }
+
+        public void setAcode(String acode) {
+            this.acode = acode;
+        }
+
+        public String getAname() {
+            return aname;
+        }
+
+        public void setAname(String aname) {
+            this.aname = aname;
+        }
     }
 }

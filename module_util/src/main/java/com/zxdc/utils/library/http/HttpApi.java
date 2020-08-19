@@ -82,7 +82,12 @@ public interface HttpApi {
     @POST(HttpConstant.IP+"api/sys/faculty/getalllist")
     Call<FacultyBean> getFacultyList(@FieldMap Map<String, String> map);
 
-    @GET(HttpConstant.IP+"api/sys/major/getalllist")
-    Call<FacultyBean> getSpecialtyList();
+    @FormUrlEncoded
+    @POST(HttpConstant.IP+"api/sys/major/getalllist")
+    Call<FacultyBean> getSpecialtyList(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.IP+"api/user/le/add")
+    Call<BaseBean> addEducation(@FieldMap Map<String, String> map);
 
 }

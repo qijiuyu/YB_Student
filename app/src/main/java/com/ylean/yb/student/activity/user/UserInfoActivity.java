@@ -13,7 +13,6 @@ import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.callback.SelectCallBack;
 import com.ylean.yb.student.persenter.FamilyP;
 import com.ylean.yb.student.persenter.user.UserP;
-import com.ylean.yb.student.view.AddEducationView;
 import com.ylean.yb.student.view.AddFamilyView;
 import com.ylean.yb.student.view.SelectProvince;
 import com.zxdc.utils.library.bean.AddEducation;
@@ -215,7 +214,8 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
                 break;
             //添加教育经历
             case R.id.tv_add_education:
-                 new AddEducationView(this).show();
+//                 new AddEducationView(this).show();
+                 setClass(AddEducationActivity.class,1000);
                  break;
             case R.id.tv_submit:
                  final String qq=etQq.getText().toString().trim();

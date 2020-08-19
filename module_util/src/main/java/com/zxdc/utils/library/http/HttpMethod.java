@@ -426,12 +426,32 @@ public class HttpMethod extends BaseRequst {
      * 获取所有专业
      */
     public static void getSpecialtyList(final NetCallBack netCallBack) {
-        Http.getRetrofit().create(HttpApi.class).getSpecialtyList().enqueue(new Callback<FacultyBean>() {
+        Map<String,String> map=new HashMap<>();
+        Http.getRetrofit().create(HttpApi.class).getSpecialtyList(map).enqueue(new Callback<FacultyBean>() {
             public void onResponse(Call<FacultyBean> call, Response<FacultyBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<FacultyBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 添加教育经历
+     */
+    public static void addEducation(String learningexperiences,final NetCallBack netCallBack) {
+        Map<String,String> map=new HashMap<>();
+        map.put("learningexperiences",learningexperiences);
+        Http.getRetrofit().create(HttpApi.class).addEducation(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

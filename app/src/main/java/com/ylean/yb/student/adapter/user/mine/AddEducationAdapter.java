@@ -23,15 +23,6 @@ public class AddEducationAdapter extends RecyclerView.Adapter<AddEducationAdapte
 
     private Activity activity;
     private List<AddEducation> list;
-    /**
-     * 当前状态
-     */
-    private AddEducationEnum addEducationEnum;
-
-    /**
-     * 当前输入的对象
-     */
-    private AddEducation education;
     public AddEducationAdapter(Activity activity, List<AddEducation> list) {
         super();
         this.activity = activity;
@@ -52,62 +43,11 @@ public class AddEducationAdapter extends RecyclerView.Adapter<AddEducationAdapte
        final AddEducation addEducation=list.get(i);
 
 
-        /**
-         * 选择学校类型
-         */
-       holder.tvType.setTag(addEducation);
-       holder.tvType.setOnClickListener(new View.OnClickListener() {
-           public void onClick(View v) {
-               education= (AddEducation) v.getTag();
-               new SchoolType(activity, new SelectRelationCallBack() {
-                   @Override
-                   public void onSuccess(Object object, Object object2) {
-                       holder.tvType.setText((String)object);
-                       education.setType((String)object2);
-                   }
-               }).show();
-           }
-       });
-
-
-        /**
-         * 选择入学时间
-         */
-        holder.tvTime.setTag(addEducation);
-        holder.tvTime.setOnClickListener(new View.OnClickListener() {
-           public void onClick(final View v) {
-               education= (AddEducation) v.getTag();
-               SelectTimeUtils.selectTime(activity, new TimeCallBack() {
-                   public void getTime(String time) {
-                       ((TextView)v).setText(time);
-                   }
-               });
-           }
-       });
 
 
     }
 
 
-
-    /**
-     * 监听输入框
-     */
-    TextWatcher textWatcher=new TextWatcher() {
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-        public void afterTextChanged(Editable s) {
-            String content=s.toString().trim();
-            if(TextUtils.isEmpty(content)){
-                return;
-            }
-
-        }
-    };
 
 
 

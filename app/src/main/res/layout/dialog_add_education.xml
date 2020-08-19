@@ -3,7 +3,7 @@
     android:id="@+id/rel"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/half_transparent"
+    android:background="#90000000"
     android:orientation="vertical">
 
     <LinearLayout
@@ -136,6 +136,38 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="所在学校"
+                android:textSize="14sp"
+                android:textColor="@color/color_333333"/>
+
+            <TextView
+                android:id="@+id/tv_school"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_memo"
+                android:layout_marginLeft="15dp"
+                android:hint="请选择所在学校"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:paddingLeft="7dp"
+                android:paddingRight="15dp"
+                android:maxLines="1"
+                android:drawableRight="@mipmap/bottom_sj"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:background="@drawable/bg_rel_border"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="院系名称"
                 android:textSize="14sp"
                 android:textColor="@color/color_333333"/>
@@ -179,38 +211,6 @@
                 android:background="@drawable/bg_memo"
                 android:layout_marginLeft="15dp"
                 android:hint="请选择专业名称"
-                android:textSize="13sp"
-                android:textColor="@android:color/black"
-                android:paddingLeft="7dp"
-                android:paddingRight="15dp"
-                android:maxLines="1"
-                android:drawableRight="@mipmap/bottom_sj"
-                android:gravity="center_vertical"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:paddingRight="15dp"
-            android:paddingLeft="15dp"
-            android:background="@drawable/bg_rel_border"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="所在学校"
-                android:textSize="14sp"
-                android:textColor="@color/color_333333"/>
-
-            <TextView
-                android:id="@+id/tv_school"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="@drawable/bg_memo"
-                android:layout_marginLeft="15dp"
-                android:hint="请选择所在学校"
                 android:textSize="13sp"
                 android:textColor="@android:color/black"
                 android:paddingLeft="7dp"
