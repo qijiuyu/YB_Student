@@ -1,6 +1,7 @@
 package com.ylean.yb.student.activity.declare;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,9 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.declare.DeclareP;
+import com.zxdc.utils.library.bean.BatchDetails;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
 import org.sufficientlysecure.htmltextview.HtmlTextView;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -20,7 +24,7 @@ import butterknife.OnClick;
 /**
  * 批次申报详情
  */
-public class DeclareDetailsActivity extends BaseActivity {
+public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Face2 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_code)
@@ -41,8 +45,13 @@ public class DeclareDetailsActivity extends BaseActivity {
     TextView tvSubmit;
     @BindView(R.id.tv_des)
     TextView tvDes;
+    @BindView(R.id.tv_school)
+    TextView tvSchool;
     @BindView(R.id.tv_html)
     HtmlTextView tvHtml;
+    //批次id
+    private int id;
+    private DeclareP declareP=new DeclareP(this,this);
 
     /**
      * 加载布局
@@ -61,6 +70,10 @@ public class DeclareDetailsActivity extends BaseActivity {
         super.initData();
         tvTitle.setText("批次申报详情");
         tvDes.setText(Html.fromHtml("注：未能展示出符合实际申报的批次，请从个人档案中正确维护教育经历！<font color=\"#FA4D4F\">去维护></font>"));
+
+        //获取批次id
+        id=getIntent().getIntExtra("id",0);
+        declareP.getBatchDetailed(id);
     }
 
 
@@ -94,7 +107,7 @@ public class DeclareDetailsActivity extends BaseActivity {
                     ToastUtil.showLong("请输入考号");
                     return;
                 }
-                setClass(AddDeclareActivity.class);
+                declareP.checkdeclareno(id,code);
                 dialog.dismiss();
             }
         });
@@ -104,5 +117,55 @@ public class DeclareDetailsActivity extends BaseActivity {
                 dialog.dismiss();
             }
         });
+    }
+
+
+    /**
+     * 返回详情
+     * @param batch
+     */
+    private BatchDetails.Batch batch;
+    @Override
+    public void getBatchDetailed(BatchDetails.Batch batch) {
+        this.batch=batch;
+        tvName.setText(batch.getName());
+        tvContent.setText(batch.getFactor());
+        tvNum.setText("已有："+batch.getApplynum()+"人 进行申请");
+        tvValidTime.setText("有效时间："+batch.getStarttime().split(" ")[0]+"-"+batch.getEndtime().split(" ")[0]);
+        tvSendTime.setText("发布时间："+batch.getCreatetime());
+        tvHtml.setHtml(batch.getRemarks(), new HtmlHttpImageGetter(tvHtml));
+        switch (batch.getType()){
+            case 0:
+                tvSchool.setText("高中");
+                break;
+            case 1:
+                tvSchool.setText("中职");
+                break;
+            case 2:
+                tvSchool.setText("高职");
+                break;
+            case 4:
+                tvSchool.setText("大学");
+                break;
+            case 5:
+                tvSchool.setText("硕士");
+                break;
+            case 6:
+                tvSchool.setText("博士");
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    /**
+     * 考号验证通过
+     */
+    @Override
+    public void checkdeclareno() {
+        Intent intent=new Intent(this,AddDeclareActivity.class);
+        intent.putExtra("batch",batch);
+        startActivity(intent);
     }
 }

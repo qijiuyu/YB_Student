@@ -1,6 +1,8 @@
 package com.ylean.yb.student.activity.declare;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -9,7 +11,17 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.declare.EconomicAdapter;
 import com.ylean.yb.student.adapter.user.mine.FamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
-import com.zxdc.utils.library.bean.AddFamily;
+import com.ylean.yb.student.callback.SelectCallBack;
+import com.ylean.yb.student.persenter.EconomicP;
+import com.ylean.yb.student.persenter.FamilyP;
+import com.ylean.yb.student.persenter.user.UserP;
+import com.ylean.yb.student.view.AddFamilyView;
+import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.BatchDetails;
+import com.zxdc.utils.library.bean.EconomicBean;
+import com.zxdc.utils.library.bean.FamilyBean;
+import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.view.MeasureListView;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +31,7 @@ import butterknife.OnClick;
 /**
  * 批次申报
  */
-public class AddDeclareActivity extends BaseActivity {
+public class AddDeclareActivity extends BaseActivity implements UserP.Face, FamilyP.Face , EconomicP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_code)
@@ -60,14 +72,20 @@ public class AddDeclareActivity extends BaseActivity {
     ImageView imgHead;
     @BindView(R.id.list_family)
     RecyclerView listFamily;
-    @BindView(R.id.tv_reward)
-    TextView tvReward;
     @BindView(R.id.list_economic)
     MeasureListView listEconomic;
-    private FamilyAdapter addFamilyAdapter;
-    private EconomicAdapter economicAdapter;
     //家庭成员集合
-    private List<AddFamily> familyList=new ArrayList<>();
+    private List<FamilyBean.ListBean> familyList=new ArrayList<>();
+    //资助经济集合
+    private List<EconomicBean.Economic> economicList=new ArrayList<>();
+    //批次申报详情对象
+    private BatchDetails.Batch batch;
+    //用户基本信息对象
+    private UserInfo userInfo;
+
+    private UserP userP=new UserP(this,this);
+    private FamilyP familyP=new FamilyP(this,this);
+    private EconomicP economicP=new EconomicP(this,this);
 
     /**
      * 加载布局
@@ -86,13 +104,20 @@ public class AddDeclareActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         tvTitle.setText("批次审报");
+        batch= (BatchDetails.Batch) getIntent().getSerializableExtra("batch");
+        if(batch!=null){
+            tvBatchNo.setText(batch.getName());
+            tvValidTime.setText(batch.getStarttime().split(" ")[0]+"-"+batch.getEndtime().split(" ")[0]);
+        }
 
-        //家庭成员列表
-//        listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-//        listFamily.setAdapter(addFamilyAdapter=new FamilyAdapter(this,familyList));
+        //查询用户基本信息
+        userP.getbaseinfo();
 
-        //经济情况列表
-        listEconomic.setAdapter(economicAdapter=new EconomicAdapter(this));
+        //查询家庭成员数据
+        familyP.getFamilyList();
+
+        //获取所有资助批次经济情况
+        economicP.getEconomicList();
     }
 
 
@@ -104,8 +129,13 @@ public class AddDeclareActivity extends BaseActivity {
                 break;
             //添加家庭成员
             case R.id.tv_add_family:
-                familyList.add(new AddFamily());
-                addFamilyAdapter.notifyDataSetChanged();
+                new AddFamilyView(this, null, new SelectCallBack() {
+                    @Override
+                    public void selectBack(Object object) {
+                        //查询家庭成员数据
+                        familyP.getFamilyList();
+                    }
+                }).show();
                 break;
             case R.id.tv_submit:
                  setClass(ApplySuccessActivity.class);
@@ -113,5 +143,65 @@ public class AddDeclareActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+
+    /**
+     * 获取用户基本信息
+     * @param userInfo
+     */
+    @Override
+    public void getbaseinfo(UserInfo userInfo) {
+        this.userInfo=userInfo;
+        tvName.setText(userInfo.getData().getName());
+        tvSex.setText(userInfo.getData().getSex());
+        tvNationality.setText(userInfo.getData().getNationality());
+        tvBirthday.setText(userInfo.getData().getBirthday().split(" ")[0]);
+        tvNational.setText(userInfo.getData().getNation());
+        tvCard.setText(userInfo.getData().getIdnum());
+        if(!TextUtils.isEmpty(userInfo.getData().getValiditystarttime()) && !TextUtils.isEmpty(userInfo.getData().getValidityendtime())){
+            tvCardTime.setText(userInfo.getData().getValiditystarttime().split(" ")[0]+"-"+userInfo.getData().getValidityendtime().split(" ")[0]);
+        }
+        tvEmail.setText(userInfo.getData().getEmail());
+        tvMobile.setText(userInfo.getData().getPhone());
+        if(!TextUtils.isEmpty(userInfo.getData().getAddress())){
+            final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getAddress(),Address.class);
+            tvHkAddress.setText(address.getAddress());
+        }
+    }
+
+
+    /**
+     * 查询家庭成员集合
+     * @param list
+     */
+    @Override
+    public void getFamily(List<FamilyBean.ListBean> list) {
+        this.familyList=list;
+        listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        listFamily.setAdapter(new FamilyAdapter(this,familyList,familyP));
+    }
+
+
+    /**
+     * 删除家庭成员
+     * @param listBean
+     */
+    @Override
+    public void deleteSuccess(FamilyBean.ListBean listBean) {
+        familyList.remove(listBean);
+        listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        listFamily.setAdapter(new FamilyAdapter(this,familyList,familyP));
+    }
+
+
+    /**
+     * 获取所有资助批次经济情况
+     * @param list
+     */
+    @Override
+    public void getEconomicList(List<EconomicBean.Economic> list) {
+        this.economicList=list;
+        listEconomic.setAdapter(new EconomicAdapter(this,list));
     }
 }

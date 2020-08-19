@@ -2,7 +2,9 @@ package com.zxdc.utils.library.http;
 
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
+import com.zxdc.utils.library.bean.BatchDetails;
 import com.zxdc.utils.library.bean.DeclareBean;
+import com.zxdc.utils.library.bean.EconomicBean;
 import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.FileBean;
@@ -512,5 +514,56 @@ public class HttpMethod extends BaseRequst {
         });
     }
 
+
+    /**
+     * 学生获取可申报批次详情
+     */
+    public static void getBatchDetailed(int bid,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getBatchDetailed(bid).enqueue(new Callback<BatchDetails>() {
+            public void onResponse(Call<BatchDetails> call, Response<BatchDetails> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BatchDetails> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 判断学生是否可以申报（学号）
+     */
+    public static void checkdeclareno(int bid,String num,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).checkdeclareno(bid,num).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取所有资助批次经济情况
+     */
+    public static void getEconomicList(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getEconomicList().enqueue(new Callback<EconomicBean>() {
+            public void onResponse(Call<EconomicBean> call, Response<EconomicBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<EconomicBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
 
 }

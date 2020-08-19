@@ -70,20 +70,42 @@ public class DeclareAdapter extends BaseAdapter {
                  holder.tvStatus.setBackgroundColor(activity.getResources().getColor(R.color.color_FFA000));
                  break;
             case 1:
+                 holder.tvStatus.setText("学校审核通过");
+                 holder.tvStatus.setBackgroundColor(activity.getResources().getColor(R.color.color_049640));
+                 break;
             case 3:
+                 holder.tvStatus.setText("教育局审核通过");
+                 holder.tvStatus.setBackgroundColor(activity.getResources().getColor(R.color.color_049640));
+                 break;
             case 5:
-                 holder.tvStatus.setText("审核通过");
+                 holder.tvStatus.setText("基金会审核通过");
                  holder.tvStatus.setBackgroundColor(activity.getResources().getColor(R.color.color_049640));
                  break;
             case 2:
-            case 4:
-            case 6:
-                 holder.tvStatus.setText("审核不通过");
+                 holder.tvStatus.setText("学校审核不通过");
                  holder.tvStatus.setBackgroundColor(activity.getResources().getColor(R.color.color_FA4D4F));
                  break;
-             default:
-                 holder.tvStatus.setText("驳回");
+            case 4:
+                 holder.tvStatus.setText("教育局审核不通过");
                  holder.tvStatus.setBackgroundColor(activity.getResources().getColor(R.color.color_FA4D4F));
+                 break;
+            case 6:
+                 holder.tvStatus.setText("基金会审核不通过");
+                 holder.tvStatus.setBackgroundColor(activity.getResources().getColor(R.color.color_FA4D4F));
+                 break;
+            case 7:
+                 holder.tvStatus.setText("教育局驳回");
+                 holder.tvStatus.setBackgroundColor(activity.getResources().getColor(R.color.color_FA4D4F));
+                 break;
+            case 8:
+                 holder.tvStatus.setText("基金会驳回");
+                 holder.tvStatus.setBackgroundColor(activity.getResources().getColor(R.color.color_FA4D4F));
+                 break;
+            case 9:
+                holder.tvStatus.setText("学校驳回");
+                holder.tvStatus.setBackgroundColor(activity.getResources().getColor(R.color.color_FA4D4F));
+                break;
+             default:
                  break;
         }
         return view;

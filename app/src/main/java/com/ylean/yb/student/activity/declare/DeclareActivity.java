@@ -16,7 +16,6 @@ import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.DeclareBean;
 import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.view.MeasureListView;
-
 import java.util.List;
 import butterknife.BindView;
 
@@ -51,7 +50,6 @@ public class DeclareActivity extends BaseActivity  implements DeclareP.Face {
     @Override
     protected void initData() {
         super.initData();
-//        setClass(DeclareDetailsActivity.class);
         tvTitle.setText("批次审报");
         linBack.setVisibility(View.GONE);
         //初始化头部view
@@ -82,7 +80,6 @@ public class DeclareActivity extends BaseActivity  implements DeclareP.Face {
      */
     @Override
     public void getBatch(List<BatchBean.Batch> list) {
-        LogUtils.e(list.size()+"++++++++++++++++++++++++++size");
         final MeasureListView listView=headView.findViewById(R.id.listView);
         TextView tvDes=headView.findViewById(R.id.tv_des);
         tvDes.setText(Html.fromHtml("注：未能展示出符合实际申报的批次，请从个人档案中正确维护教育经历！<font color=\"#FA4D4F\">去维护></font>"));

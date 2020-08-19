@@ -56,7 +56,6 @@
                     android:id="@+id/tv_batchNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2018年大学生批次"
                     android:textColor="@color/color_333333"
                     android:textSize="14sp"
                     android:layout_alignParentRight="true"
@@ -76,7 +75,6 @@
                     android:id="@+id/tv_valid_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2019.01.01 - 2019.02.15"
                     android:textColor="@color/color_333333"
                     android:textSize="14sp"
                     android:layout_alignParentRight="true"
@@ -125,7 +123,6 @@
                             android:id="@+id/tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="张三"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_centerVertical="true"
@@ -152,7 +149,6 @@
                             android:id="@+id/tv_sex"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="男"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_centerVertical="true"
@@ -179,7 +175,6 @@
                             android:id="@+id/tv_nationality"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="中国"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_centerVertical="true"
@@ -206,7 +201,6 @@
                             android:id="@+id/tv_national"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="汉族"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -233,7 +227,6 @@
                             android:id="@+id/tv_birthday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1991-05-12"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -287,7 +280,6 @@
                             android:id="@+id/tv_card"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="411328455699887745"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -314,7 +306,6 @@
                             android:id="@+id/tv_card_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2009.11.12-2023.12.23"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -344,7 +335,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="120dp"
                             android:gravity="right"
-                            android:text="宁夏回族自治区银川市凤凰北街102号院1201"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -371,7 +361,6 @@
                             android:id="@+id/tv_mobile"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="15011225569"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -398,7 +387,6 @@
                             android:id="@+id/tv_email"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2548888@qq.com"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -502,8 +490,8 @@
                     android:id="@+id/img_head"
                     android:layout_width="84dp"
                     android:layout_height="123dp"
-                    android:src="@mipmap/aa"
                     android:scaleType="fitXY"
+                    android:background="#f9f9f9"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="15.5dp"
                     android:layout_marginRight="15dp"/>
@@ -533,6 +521,8 @@
                     android:textSize="11sp"
                     android:textColor="@color/color_FA4D4F"
                     android:layout_centerVertical="true"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@mipmap/add_icon"
                     android:layout_alignParentRight="true"/>
 
             </RelativeLayout>
@@ -542,35 +532,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </android.support.v7.widget.RecyclerView>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="是否接受过燕宝奖励"
-                    android:textSize="14sp"
-                    android:textColor="@color/color_333333"
-                    android:layout_centerVertical="true"/>
-
-                <TextView
-                    android:id="@+id/tv_reward"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="请选择"
-                    android:textColor="@color/color_333333"
-                    android:textSize="14sp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:drawableRight="@mipmap/more_icon"
-                    android:drawablePadding="5dp"
-                    android:layout_marginRight="5dp"/>
-
-            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -645,7 +606,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="50dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/bg_sfz_zm"/>
+                    android:src="@mipmap/bg_sfz_fm"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -700,7 +661,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="50dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/bg_sfz_zm"/>
+                    android:src="@mipmap/hk_icon"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -719,7 +680,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="50dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/bg_sfz_zm"/>
+                    android:src="@mipmap/hk_icon"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -754,7 +715,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="50dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/bg_sfz_zm"/>
+                    android:src="@mipmap/tzs_icon"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -781,7 +742,7 @@
                     android:layout_marginRight="50dp"
                     android:layout_marginBottom="20dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/bg_sfz_zm"/>
+                    android:src="@mipmap/tzs_icon"/>
 
             </LinearLayout>
 

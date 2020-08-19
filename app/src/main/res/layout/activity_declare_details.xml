@@ -44,7 +44,6 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="11dp"/>
 
-
                 <ImageView
                     android:id="@+id/img_head"
                     android:layout_width="133dp"
@@ -55,10 +54,21 @@
                     android:layout_marginTop="41dp"/>
 
                 <TextView
+                    android:id="@+id/tv_school"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="大学"
+                    android:textStyle="bold"
+                    android:textSize="6sp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="117dp"
+                    android:layout_marginTop="122dp"/>
+
+                <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2018年大学生批次"
+                    android:text="名称:xxx"
                     android:textSize="16sp"
                     android:textColor="@color/color_333333"
                     android:textStyle="bold"
@@ -72,7 +82,7 @@
                     android:id="@+id/tv_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="要求二本以上且户籍为自治区以上且户籍为宁夏回族..."
+                    android:text="要求：xxx"
                     android:textSize="14sp"
                     android:textColor="@color/color_666666"
                     android:layout_marginLeft="154dp"
@@ -86,7 +96,7 @@
                     android:id="@+id/tv_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="已有：200人 进行申请"
+                    android:text="已有：0人 进行申请"
                     android:textColor="@color/color_666666"
                     android:textSize="12sp"
                     android:layout_marginLeft="154dp"

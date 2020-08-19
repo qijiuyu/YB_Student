@@ -6,9 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
+import com.zxdc.utils.library.bean.EconomicBean;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,15 +23,17 @@ import butterknife.ButterKnife;
 public class EconomicAdapter extends BaseAdapter {
 
     private Activity activity;
+    private List<EconomicBean.Economic> list;
 
-    public EconomicAdapter(Activity activity) {
+    public EconomicAdapter(Activity activity,List<EconomicBean.Economic> list) {
         super();
         this.activity = activity;
+        this.list=list;
     }
 
     @Override
     public int getCount() {
-        return 6;
+        return list==null ? 0 : list.size();
     }
 
     @Override
@@ -49,12 +55,35 @@ public class EconomicAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) view.getTag();
         }
+        final EconomicBean.Economic economic=list.get(position);
+        holder.tvName.setText(economic.getName());
+        if(economic.isSelect()){
+            holder.imgCheck.setImageResource(R.mipmap.check_yes);
+        }else{
+            holder.imgCheck.setImageResource(R.mipmap.check_no);
+        }
+
+        holder.linClick.setTag(economic);
+        holder.linClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EconomicBean.Economic economic= (EconomicBean.Economic) v.getTag();
+                if(economic.isSelect()){
+                    economic.setSelect(false);
+                }else{
+                    economic.setSelect(true);
+                }
+                notifyDataSetChanged();
+            }
+        });
         return view;
     }
 
 
     static
     class ViewHolder {
+        @BindView(R.id.lin_click)
+        LinearLayout linClick;
         @BindView(R.id.img_check)
         ImageView imgCheck;
         @BindView(R.id.tv_name)

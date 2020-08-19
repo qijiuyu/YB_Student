@@ -4,7 +4,9 @@ package com.zxdc.utils.library.http;
 
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
+import com.zxdc.utils.library.bean.BatchDetails;
 import com.zxdc.utils.library.bean.DeclareBean;
+import com.zxdc.utils.library.bean.EconomicBean;
 import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
@@ -100,5 +102,14 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/sys/declare/getBatch")
     Call<BatchBean> getBatch();
+
+    @GET(HttpConstant.IP+"api/sys/declare/getBatchDetailed")
+    Call<BatchDetails> getBatchDetailed(@Query("bid") int bid);
+
+    @GET(HttpConstant.IP+"api/sys/declare/checkdeclare")
+    Call<BaseBean> checkdeclareno(@Query("bid") int bid,@Query("num") String num);
+
+    @GET(HttpConstant.IP+"api/sys/economic/getAllList")
+    Call<EconomicBean> getEconomicList();
 
 }

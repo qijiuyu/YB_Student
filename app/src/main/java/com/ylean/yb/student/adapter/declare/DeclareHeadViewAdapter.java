@@ -1,6 +1,7 @@
 package com.ylean.yb.student.adapter.declare;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.declare.DeclareDetailsActivity;
 import com.zxdc.utils.library.bean.BatchBean;
 import java.util.List;
 import butterknife.BindView;
@@ -65,6 +67,42 @@ public class DeclareHeadViewAdapter extends BaseAdapter {
         holder.tvNum.setText("已有："+batch.getApplynum()+"人 进行申请");
         holder.tvValidTime.setText("有效时间："+batch.getStarttime().split(" ")[0]+"-"+batch.getEndtime().split(" ")[0]);
         holder.tvSendTime.setText("发布时间："+batch.getCreatetime());
+        switch (batch.getType()){
+            case 0:
+                 holder.tvSchool.setText("高中");
+                 break;
+            case 1:
+                holder.tvSchool.setText("中职");
+                break;
+            case 2:
+                holder.tvSchool.setText("高职");
+                break;
+            case 4:
+                holder.tvSchool.setText("大学");
+                break;
+            case 5:
+                holder.tvSchool.setText("硕士");
+                break;
+            case 6:
+                holder.tvSchool.setText("博士");
+                break;
+            default:
+                break;
+        }
+
+
+        /**
+         * 去申请
+         */
+        holder.tvSubmit.setTag(batch.getId());
+        holder.tvSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(activity, DeclareDetailsActivity.class);
+                intent.putExtra("id",(int)v.getTag());
+                activity.startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -83,6 +121,8 @@ public class DeclareHeadViewAdapter extends BaseAdapter {
         TextView tvValidTime;
         @BindView(R.id.tv_send_time)
         TextView tvSendTime;
+        @BindView(R.id.tv_school)
+        TextView tvSchool;
         @BindView(R.id.tv_submit)
         TextView tvSubmit;
 

@@ -116,7 +116,7 @@ public class DeclareAuditActivity extends BaseActivity {
         listFamily.setAdapter(showFamilyAdapter=new ShowFamilyAdapter(this));
 
         //经济情况列表
-        listEconomic.setAdapter(economicAdapter=new EconomicAdapter(this));
+//        listEconomic.setAdapter(economicAdapter=new EconomicAdapter(this));
     }
 
 

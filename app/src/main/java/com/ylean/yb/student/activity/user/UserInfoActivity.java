@@ -82,7 +82,6 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
     RecyclerView listFamily;
     @BindView(R.id.list_education)
     RecyclerView listEducation;
-    private FamilyAdapter addFamilyAdapter;
     private AddEducationAdapter addEducationAdapter;
     //家庭成员集合
     private List<FamilyBean.ListBean> familyList=new ArrayList<>();
@@ -222,7 +221,6 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
                 break;
             //添加教育经历
             case R.id.tv_add_education:
-//                 new AddEducationView(this).show();
                  setClass(AddEducationActivity.class,1000);
                  break;
             case R.id.tv_submit:
@@ -374,7 +372,7 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
     public void getFamily(List<FamilyBean.ListBean> list) {
         this.familyList=list;
         listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listFamily.setAdapter(addFamilyAdapter=new FamilyAdapter(this,familyList,familyP));
+        listFamily.setAdapter(new FamilyAdapter(this,familyList,familyP));
     }
 
 
@@ -386,6 +384,6 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
     public void deleteSuccess(FamilyBean.ListBean listBean) {
         familyList.remove(listBean);
         listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listFamily.setAdapter(addFamilyAdapter=new FamilyAdapter(this,familyList,familyP));
+        listFamily.setAdapter(new FamilyAdapter(this,familyList,familyP));
     }
 }
