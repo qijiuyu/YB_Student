@@ -1,6 +1,8 @@
 package com.zxdc.utils.library.http;
 
 import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.bean.BatchBean;
+import com.zxdc.utils.library.bean.DeclareBean;
 import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.FileBean;
@@ -457,5 +459,58 @@ public class HttpMethod extends BaseRequst {
             }
         });
     }
+
+
+    /**
+     * 获取学习经历集合
+     */
+    public static void getEducationList(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getEducationList().enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 学生获取申报记录
+     */
+    public static void getDeclareList(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getDeclareList().enqueue(new Callback<DeclareBean>() {
+            public void onResponse(Call<DeclareBean> call, Response<DeclareBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<DeclareBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 学生获取可申报批次
+     */
+    public static void getBatch(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getBatch().enqueue(new Callback<BatchBean>() {
+            public void onResponse(Call<BatchBean> call, Response<BatchBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BatchBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
 
 }

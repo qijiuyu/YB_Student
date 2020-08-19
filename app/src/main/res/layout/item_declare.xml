@@ -69,6 +69,7 @@
             android:ellipsize="end"/>
 
         <TextView
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="提交时间：2018.01.01 "

@@ -11,6 +11,7 @@ import com.ylean.yb.student.adapter.user.mine.AddEducationAdapter;
 import com.ylean.yb.student.adapter.user.mine.FamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.callback.SelectCallBack;
+import com.ylean.yb.student.persenter.EducationP;
 import com.ylean.yb.student.persenter.FamilyP;
 import com.ylean.yb.student.persenter.user.UserP;
 import com.ylean.yb.student.view.AddFamilyView;
@@ -31,7 +32,7 @@ import butterknife.OnClick;
 /**
  * 个人档案
  */
-public class UserInfoActivity extends BaseActivity implements UserP.Face2, FamilyP.Face {
+public class UserInfoActivity extends BaseActivity implements UserP.Face2, FamilyP.Face, EducationP.Face2 {
 
     @BindView(R.id.tv_userName)
     TextView tvUserName;
@@ -92,6 +93,7 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
 
     private UserP userP=new UserP(this,this);
     private FamilyP familyP=new FamilyP(this,this);
+    private EducationP educationP=new EducationP(this,this);
 
     /**
      * 加载布局
@@ -112,6 +114,12 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
 
         //展示用户基本信息
         showBaseInfo();
+
+        //查询家庭成员数据
+        familyP.getFamilyList();
+
+        //查询学习经历集合
+        educationP.getEducationList();
 
         listEducation.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         listEducation.setAdapter(addEducationAdapter=new AddEducationAdapter(this,educationList));
@@ -307,10 +315,12 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
             tvUserName.setText(userInfo.getData().getName());
             tvSex.setText(userInfo.getData().getSex());
             tvNationality.setText(userInfo.getData().getNationality());
-            tvBirthday.setText(userInfo.getData().getBirthday());
+            tvBirthday.setText(userInfo.getData().getBirthday().split(" ")[0]);
             tvNational.setText(userInfo.getData().getNation());
             tvCard.setText(userInfo.getData().getIdnum());
-            tvCardTime.setText(userInfo.getData().getValiditystarttime()+"-"+userInfo.getData().getValidityendtime());
+            if(!TextUtils.isEmpty(userInfo.getData().getValiditystarttime()) && !TextUtils.isEmpty(userInfo.getData().getValidityendtime())){
+                tvCardTime.setText(userInfo.getData().getValiditystarttime().split(" ")[0]+"-"+userInfo.getData().getValidityendtime().split(" ")[0]);
+            }
             tvEmail.setText(userInfo.getData().getEmail());
             etQq.setText(userInfo.getData().getQq());
             etWx.setText(userInfo.getData().getWechat());
@@ -377,13 +387,5 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
         familyList.remove(listBean);
         listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         listFamily.setAdapter(addFamilyAdapter=new FamilyAdapter(this,familyList,familyP));
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        //查询家庭成员数据
-        familyP.getFamilyList();
     }
 }

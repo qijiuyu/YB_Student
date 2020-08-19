@@ -3,6 +3,8 @@ package com.zxdc.utils.library.http;
 
 
 import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.bean.BatchBean;
+import com.zxdc.utils.library.bean.DeclareBean;
 import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
@@ -89,5 +91,14 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.IP+"api/user/le/add")
     Call<BaseBean> addEducation(@FieldMap Map<String, String> map);
+
+    @GET(HttpConstant.IP+"api/user/le/getList")
+    Call<BaseBean> getEducationList();
+
+    @GET(HttpConstant.IP+"api/sys/declare/getBatchHistory")
+    Call<DeclareBean> getDeclareList();
+
+    @GET(HttpConstant.IP+"api/sys/declare/getBatch")
+    Call<BatchBean> getBatch();
 
 }

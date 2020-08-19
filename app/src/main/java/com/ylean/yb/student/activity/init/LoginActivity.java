@@ -16,7 +16,7 @@ import com.zxdc.utils.library.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**
+/**18396831092 123456
  * 登录
  */
 public class LoginActivity extends BaseActivity implements LoginP.Face {
