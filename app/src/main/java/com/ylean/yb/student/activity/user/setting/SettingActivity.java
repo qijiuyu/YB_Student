@@ -10,6 +10,7 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.init.LoginActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.zxdc.utils.library.bean.BaseBean;
@@ -18,6 +19,7 @@ import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import java.io.File;
@@ -78,6 +80,7 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick({R.id.lin_back, R.id.tv_right, R.id.img_head, R.id.tv_mobile, R.id.rel_pwd, R.id.tv_login_out})
     public void onViewClicked(View view) {
+        Intent intent=new Intent();
         switch (view.getId()) {
             case R.id.lin_back:
                  finish();
@@ -95,6 +98,11 @@ public class SettingActivity extends BaseActivity {
                 setClass(UpdatePwdActivity1.class);
                 break;
             case R.id.tv_login_out:
+                SPUtil.getInstance(this).removeMessage(SPUtil.TOKEN);
+                intent.setClass(this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
                 break;
             default:
                 break;

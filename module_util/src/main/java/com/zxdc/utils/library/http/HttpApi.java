@@ -11,6 +11,7 @@ import com.zxdc.utils.library.bean.EconomicBean;
 import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
+import com.zxdc.utils.library.bean.LeaveBean;
 import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.SchoolBean;
@@ -120,4 +121,10 @@ public interface HttpApi {
     @GET(HttpConstant.IP+"api/sys/user/msg/getlist")
     Call<NewsBean> getNewsList(@Query("ctype") int ctype, @Query("page") int page, @Query("size") int size);
 
+    @GET(HttpConstant.IP+"api/sys/msg/lm/getslist")
+    Call<LeaveBean> getMyLeave(@Query("page") int page, @Query("size") int size);
+
+    @FormUrlEncoded
+    @POST(HttpConstant.IP+"api/sys/msg/lm/reply")
+    Call<BaseBean> reply(@FieldMap Map<String, String> map);
 }

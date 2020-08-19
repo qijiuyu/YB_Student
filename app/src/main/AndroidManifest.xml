@@ -108,6 +108,7 @@
         <activity android:name=".activity.init.RegisterActivity2"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.init.ValidationSuccessActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.AddEducationActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.leave.LeaveDetailsActivity"  android:screenOrientation="portrait"/>
 
 
         <provider
