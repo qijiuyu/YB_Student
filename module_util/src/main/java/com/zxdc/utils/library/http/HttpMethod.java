@@ -17,6 +17,7 @@ import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.bean.SchoolBean;
+import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.UploadFile;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.http.base.BaseRequst;
@@ -726,6 +727,41 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<InSchoolBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 获取问卷列表
+     */
+    public static void getSurveyList(int page,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getSurveyList(page,pageSize).enqueue(new Callback<SurveyBean>() {
+            public void onResponse(Call<SurveyBean> call, Response<SurveyBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<SurveyBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取问卷详情
+     */
+    public static void getSurveyDetails(int id,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getSurveyDetails(id).enqueue(new Callback<SurveyBean>() {
+            public void onResponse(Call<SurveyBean> call, Response<SurveyBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<SurveyBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

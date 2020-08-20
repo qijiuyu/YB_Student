@@ -16,6 +16,7 @@ import com.zxdc.utils.library.bean.LeaveBean;
 import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.SchoolBean;
+import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.UserInfo;
 
 import java.util.Map;
@@ -134,6 +135,12 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/sys/schoolsituation/getschoolsituationlist")
     Call<InSchoolBean> getInSchoolList(@Query("page") int page, @Query("size") int size);
+
+    @GET(HttpConstant.IP+"api/news/question/getvoucherlist")
+    Call<SurveyBean> getSurveyList(@Query("page") int page, @Query("size") int size);
+
+    @GET(HttpConstant.IP+"api/news/question/getvoucherdetail")
+    Call<SurveyBean> getSurveyDetails(@Query("id") int id);
 
 
 }

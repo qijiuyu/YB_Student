@@ -1,13 +1,16 @@
 package com.ylean.yb.student.fragment.user;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.user.news.SurveyDetailsActivity;
 import com.ylean.yb.student.adapter.user.news.SurveyAdapter;
 import com.ylean.yb.student.base.BaseFragment;
-import com.ylean.yb.student.persenter.user.NewsP;
-import com.zxdc.utils.library.bean.NewsBean;
+import com.ylean.yb.student.persenter.user.SurveyP;
+import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.view.MyRefreshLayoutListener;
 import com.zxdc.utils.library.view.refresh.MyRefreshLayout;
@@ -18,7 +21,7 @@ import butterknife.BindView;
 /**
  * Created by Administrator on 2020/3/29.
  */
-public class SurveyFragment extends BaseFragment implements MyRefreshLayoutListener, NewsP.Face  {
+public class SurveyFragment extends BaseFragment implements MyRefreshLayoutListener, SurveyP.Face {
 
     @BindView(R.id.listView)
     ListView listView;
@@ -27,10 +30,10 @@ public class SurveyFragment extends BaseFragment implements MyRefreshLayoutListe
     //页数
     private int page = 1;
     //消息集合
-    private List<NewsBean.News> listAll=new ArrayList<>();
+    private List<SurveyBean.Survey> listAll=new ArrayList<>();
     //列表适配器
     private SurveyAdapter adapter;
-    private NewsP newsP;
+    private SurveyP surveyP;
 
     /**
      * 加载布局
@@ -48,7 +51,7 @@ public class SurveyFragment extends BaseFragment implements MyRefreshLayoutListe
     @Override
     protected void initData() {
         super.initData();
-        newsP=new NewsP(activity,this);
+        surveyP=new SurveyP(activity,this);
 
         reList.setMyRefreshLayoutListener(this);
         listView.setAdapter(adapter=new SurveyAdapter(activity,listAll));
@@ -64,7 +67,7 @@ public class SurveyFragment extends BaseFragment implements MyRefreshLayoutListe
      * @param list
      */
     @Override
-    public void getNewsList(List<NewsBean.News> list) {
+    public void getSurveyList(List<SurveyBean.Survey> list) {
         reList.refreshComplete();
         reList.loadMoreComplete();
         listAll.addAll(list);
@@ -72,6 +75,18 @@ public class SurveyFragment extends BaseFragment implements MyRefreshLayoutListe
         if(list.size()< HttpMethod.pageSize){
             reList.setIsLoadingMoreEnabled(false);
         }
+
+        /**
+         * 进入详情页面
+         */
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent(activity, SurveyDetailsActivity.class);
+                intent.putExtra("survey",listAll.get(position));
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -83,7 +98,7 @@ public class SurveyFragment extends BaseFragment implements MyRefreshLayoutListe
     public void onRefresh(View view) {
         listAll.clear();
         page=1;
-        newsP.getNewsList(3,page);
+        surveyP.getSurveyList(page);
     }
 
 
@@ -94,7 +109,7 @@ public class SurveyFragment extends BaseFragment implements MyRefreshLayoutListe
     @Override
     public void onLoadMore(View view) {
         page++;
-        newsP.getNewsList(3,page);
+        surveyP.getSurveyList(page);
     }
 
 

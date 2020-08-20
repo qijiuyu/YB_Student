@@ -63,6 +63,7 @@ public class LoginActivity extends BaseActivity implements LoginP.Face {
             case R.id.lin_back:
                 finish();
                 break;
+            //注册
             case R.id.tv_register:
                  setClass(RegisterActivity.class);
                 break;
@@ -91,10 +92,6 @@ public class LoginActivity extends BaseActivity implements LoginP.Face {
                 }
                 if(TextUtils.isEmpty(pwd)){
                     ToastUtil.showLong("请输入密码");
-                    return;
-                }
-                if(TextUtils.isEmpty(code)){
-                    ToastUtil.showLong("请输入验证码");
                     return;
                 }
                 loginP.login(card,pwd);

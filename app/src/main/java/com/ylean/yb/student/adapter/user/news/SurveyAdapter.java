@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.ylean.yb.student.R;
 import com.zxdc.utils.library.bean.NewsBean;
+import com.zxdc.utils.library.bean.SurveyBean;
 
 import java.util.List;
 
@@ -19,9 +20,9 @@ import butterknife.ButterKnife;
 public class SurveyAdapter extends BaseAdapter {
 
     private Activity activity;
-    private List<NewsBean.News> list;
+    private List<SurveyBean.Survey> list;
 
-    public SurveyAdapter(Activity activity,List<NewsBean.News> list) {
+    public SurveyAdapter(Activity activity,List<SurveyBean.Survey> list) {
         super();
         this.activity = activity;
         this.list=list;
@@ -53,9 +54,9 @@ public class SurveyAdapter extends BaseAdapter {
             holder = (NoticeAdapter.ViewHolder) view.getTag();
         }
 
-        final NewsBean.News news=list.get(position);
-        holder.tvTitle.setText(news.getTitle());
-        holder.tvTime.setText(news.getCreatetime());
+        final SurveyBean.Survey survey=list.get(position);
+        holder.tvTitle.setText(survey.getTitle());
+        holder.tvTime.setText(survey.getCreatetime());
         return view;
     }
 

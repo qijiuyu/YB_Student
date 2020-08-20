@@ -189,5 +189,11 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face {
         Intent intent=new Intent(this,RegisterActivity2.class);
         intent.putExtra("userInfo",userInfo);
         startActivityForResult(intent,1000);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ToastUtil.showLong("注册成功");
+            }
+        });
     }
 }

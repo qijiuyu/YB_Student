@@ -113,6 +113,7 @@
         <activity android:name=".activity.user.resume.AddSchoolPositionActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.resume.AddSpecialtyActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.resume.AddCertificateActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.news.SurveyDetailsActivity"  android:screenOrientation="portrait"/>
 
 
         <provider
