@@ -63,7 +63,9 @@ public class DeclareAdapter extends BaseAdapter {
             }
         }
         holder.tvContent.setText("考入学校："+declare.getSiname());
-        holder.tvTime.setText("提交时间："+declare.getCreatetime());
+        if(!TextUtils.isEmpty(declare.getCreatetime())){
+            holder.tvTime.setText("提交时间："+declare.getCreatetime().split(" ")[0]);
+        }
         switch (declare.getBdstatus()){
             case 0:
                  holder.tvStatus.setText("未审核");

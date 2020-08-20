@@ -26,6 +26,15 @@ public class BatchDetails extends BaseBean {
         private int status;
         private int type;
         private String factor;
+        private int gbstatus;
+
+        public int getGbstatus() {
+            return gbstatus;
+        }
+
+        public void setGbstatus(int gbstatus) {
+            this.gbstatus = gbstatus;
+        }
 
         public int getApplynum() {
             return applynum;

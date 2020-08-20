@@ -54,12 +54,26 @@
                     android:layout_marginTop="41dp"/>
 
                 <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="46dp"
+                    android:text="状态"
+                    android:textSize="11sp"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:background="@drawable/bg_yellow"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"/>
+
+                <TextView
                     android:id="@+id/tv_school"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="大学"
                     android:textStyle="bold"
-                    android:textSize="6sp"
+                    android:textSize="9sp"
                     android:textColor="@android:color/white"
                     android:layout_marginLeft="117dp"
                     android:layout_marginTop="122dp"/>
