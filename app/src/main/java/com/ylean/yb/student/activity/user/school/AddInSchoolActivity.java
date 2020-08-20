@@ -1,12 +1,10 @@
 package com.ylean.yb.student.activity.user.school;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -15,12 +13,11 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.declare.ApplySuccessActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
-
+import com.ylean.yb.student.view.SelectInSchoolStatusView;
+import com.zxdc.utils.library.bean.InSchoolBean;
 import java.io.File;
 import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -41,6 +38,7 @@ public class AddInSchoolActivity extends BaseActivity {
     ImageView imgInSchool;
     @BindView(R.id.et_remark)
     EditText etRemark;
+    private InSchoolBean.InSchool inSchool;
     /**
      * 1：成绩单
      * 2：在校情况
@@ -64,6 +62,12 @@ public class AddInSchoolActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         tvTitle.setText("在校情况说明");
+
+        inSchool= (InSchoolBean.InSchool) getIntent().getSerializableExtra("inSchool");
+        if(inSchool!=null){
+            tvName.setText(inSchool.getName());
+            tvContent.setText(inSchool.getContent());
+        }
     }
 
     @OnClick({R.id.lin_back, R.id.tv_status, R.id.img_results, R.id.img_inSchool, R.id.img_template, R.id.tv_submit})
@@ -72,7 +76,9 @@ public class AddInSchoolActivity extends BaseActivity {
             case R.id.lin_back:
                  finish();
                 break;
+            //选择当前状态
             case R.id.tv_status:
+                 new SelectInSchoolStatusView(this,tvStatus).show();
                 break;
             case R.id.img_results:
                 imgType=1;

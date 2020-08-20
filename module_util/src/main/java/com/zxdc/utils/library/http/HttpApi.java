@@ -11,6 +11,7 @@ import com.zxdc.utils.library.bean.EconomicBean;
 import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
+import com.zxdc.utils.library.bean.InSchoolBean;
 import com.zxdc.utils.library.bean.LeaveBean;
 import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
@@ -130,6 +131,9 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/user/bk/getbankinfo")
     Call<BaseBean> getbankinfo();
+
+    @GET(HttpConstant.IP+"api/sys/schoolsituation/getschoolsituationlist")
+    Call<InSchoolBean> getInSchoolList(@Query("page") int page, @Query("size") int size);
 
 
 }

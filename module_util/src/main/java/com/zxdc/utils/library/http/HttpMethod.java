@@ -10,6 +10,7 @@ import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
+import com.zxdc.utils.library.bean.InSchoolBean;
 import com.zxdc.utils.library.bean.LeaveBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.NewsBean;
@@ -709,6 +710,24 @@ public class HttpMethod extends BaseRequst {
             public void onFailure(okhttp3.Call call, IOException e) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong(e.getMessage());
+            }
+        });
+    }
+
+
+
+    /**
+     * 获得在校情况列表
+     */
+    public static void getInSchoolList(int page,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getInSchoolList(page,pageSize).enqueue(new Callback<InSchoolBean>() {
+            public void onResponse(Call<InSchoolBean> call, Response<InSchoolBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<InSchoolBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
             }
         });
     }
