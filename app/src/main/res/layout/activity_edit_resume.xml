@@ -561,6 +561,8 @@
                     android:text="继续添加教育经历"
                     android:textSize="11sp"
                     android:textColor="@color/color_FA4D4F"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@mipmap/add_icon"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"/>
 
@@ -594,6 +596,8 @@
                     android:text="继续添加在校荣誉"
                     android:textSize="11sp"
                     android:textColor="@color/color_FA4D4F"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@mipmap/add_icon"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"/>
 

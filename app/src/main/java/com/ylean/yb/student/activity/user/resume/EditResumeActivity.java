@@ -13,6 +13,7 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.user.AddEducationActivity;
 import com.ylean.yb.student.adapter.user.resume.AddResumeCertificateAdapter;
 import com.ylean.yb.student.adapter.user.resume.AddResumeEducationAdapter;
 import com.ylean.yb.student.adapter.user.resume.AddResumeHonorAdapter;
@@ -103,8 +104,6 @@ public class EditResumeActivity extends BaseActivity {
     private AddResumePositionAdapter positionAdapter;
     private AddResumeSpecialtyAdapter specialtyAdapter;
     private AddResumeCertificateAdapter certificateAdapter;
-    //教育集合
-    private List<AddEducation> educationList=new ArrayList<>();
     //在校荣誉集合
     private List<AddHonor> honorList=new ArrayList<>();
     //校内职务集合
@@ -133,9 +132,6 @@ public class EditResumeActivity extends BaseActivity {
         tvTitle.setText("编辑简历");
         tvRight.setText("完成");
 
-        listEducation.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listEducation.setAdapter(educationAdapter=new AddResumeEducationAdapter(this,educationList));
-
         listHonor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         listHonor.setAdapter(honorAdapter=new AddResumeHonorAdapter(this,honorList));
 
@@ -156,28 +152,23 @@ public class EditResumeActivity extends BaseActivity {
                 break;
             //添加教育经历
             case R.id.tv_add_education:
-                 educationList.add(new AddEducation());
-                 educationAdapter.notifyDataSetChanged();
+                setClass(AddEducationActivity.class,1000);
                 break;
             //添加在校荣誉
             case R.id.tv_add_honor:
-                 honorList.add(new AddHonor());
-                honorAdapter.notifyDataSetChanged();
+                setClass(AddSchoolHonorActivity.class,1001);
                  break;
             //添加校内职务
             case R.id.tv_add_position:
-                 positionList.add(new AddResumePostion());
-                 positionAdapter.notifyDataSetChanged();
+                setClass(AddSchoolPositionActivity.class,1002);
                  break;
             //添加技能特长
             case R.id.tv_add_specialty:
-                 specialtyList.add(new AddResumeSpecialty());
-                 specialtyAdapter.notifyDataSetChanged();
+                setClass(AddSpecialtyActivity.class,1003);
                  break;
             //添加证书
             case R.id.tv_add_certificate:
-                 certificateList.add(new AddResumeCertificate());
-                 certificateAdapter.notifyDataSetChanged();
+                setClass(AddCertificateActivity.class,1004);
                  break;
             //添加附件
             case R.id.img_file:
