@@ -2,6 +2,7 @@ package com.ylean.yb.student.persenter.user;
 
 import android.app.Activity;
 
+import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
@@ -80,6 +81,32 @@ public class SurveyP {
     }
 
 
+    /**
+     * 答题
+     */
+    public void solvevoucher(int id,String paramter){
+        DialogUtil.showProgress(activity,"提交中");
+        HttpMethod.solvevoucher(id, paramter, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                    face2.solvevoucher();
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
 
     public interface Face{
 
@@ -89,5 +116,7 @@ public class SurveyP {
     public interface Face2{
 
         void getSurveyDetails(List<SurveyDetails.Ques> list);
+
+        void solvevoucher();
     }
 }

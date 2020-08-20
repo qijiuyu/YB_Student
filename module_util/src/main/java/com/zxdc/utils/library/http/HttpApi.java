@@ -143,5 +143,9 @@ public interface HttpApi {
     @GET(HttpConstant.IP+"api/news/question/voucherdetail")
     Call<SurveyDetails> getSurveyDetails(@Query("id") int id);
 
+    @FormUrlEncoded
+    @POST(HttpConstant.IP+"api/news/question/solvevoucher")
+    Call<BaseBean> solvevoucher(@FieldMap Map<String, String> map);
+
 
 }

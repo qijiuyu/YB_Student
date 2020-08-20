@@ -52,7 +52,9 @@ public class SurveyDetails extends BaseBean {
         private int type;
         private List<Ans> anslist;
         //选中的答案
-        private int selectAnsid;
+        private String selectValue="";
+        //输入的答案
+        private String editVlue;
 
         public int getQuesid() {
             return quesid;
@@ -86,12 +88,20 @@ public class SurveyDetails extends BaseBean {
             this.anslist = anslist;
         }
 
-        public int getSelectAnsid() {
-            return selectAnsid;
+        public String getSelectValue() {
+            return selectValue;
         }
 
-        public void setSelectAnsid(int selectAnsid) {
-            this.selectAnsid = selectAnsid;
+        public void setSelectValue(String selectValue) {
+            this.selectValue = selectValue;
+        }
+
+        public String getEditVlue() {
+            return editVlue;
+        }
+
+        public void setEditVlue(String editVlue) {
+            this.editVlue = editVlue;
         }
     }
 

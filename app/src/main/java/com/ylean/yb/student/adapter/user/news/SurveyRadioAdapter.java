@@ -54,18 +54,17 @@ public class SurveyRadioAdapter extends BaseAdapter {
 
         final SurveyDetails.Ans ans = list.get(position);
         holder.tvTitle.setText(ans.getContent());
-        if(ques.getQuesid()==ans.getAnsid()){
+        if(ques.getSelectValue().equals(ans.getOptionvalue())){
             holder.imgRedio.setImageResource(R.mipmap.radio_yes);
         }else{
             holder.imgRedio.setImageResource(R.mipmap.radio_no);
         }
 
-        holder.linClick.setTag(ans.getAnsid());
+        holder.linClick.setTag(ans.getOptionvalue());
         holder.linClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int ansid= (int) v.getTag();
-                ques.setQuesid(ansid);
+                ques.setSelectValue((String) v.getTag());
                 notifyDataSetChanged();
             }
         });
