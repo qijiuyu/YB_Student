@@ -55,7 +55,7 @@ public class SurveyAdapter extends BaseAdapter {
         }
 
         final SurveyBean.Survey survey=list.get(position);
-        holder.tvTitle.setText(survey.getTitle());
+        holder.tvTitle.setText(survey.getName());
         holder.tvTime.setText(survey.getCreatetime());
         return view;
     }

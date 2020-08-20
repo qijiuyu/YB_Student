@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.SurveyBean;
+import com.zxdc.utils.library.bean.SurveyDetails;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
@@ -61,7 +62,14 @@ public class SurveyP {
         HttpMethod.getSurveyDetails(id, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
+                final SurveyDetails surveyDetails= (SurveyDetails) object;
+                if(surveyDetails.isSussess()){
 
+                    face2.getSurveyDetails(surveyDetails.getData().getQueslist());
+
+                }else{
+                    ToastUtil.showLong(surveyDetails.getDesc());
+                }
             }
 
             @Override
@@ -80,5 +88,6 @@ public class SurveyP {
 
     public interface Face2{
 
+        void getSurveyDetails(List<SurveyDetails.Ques> list);
     }
 }

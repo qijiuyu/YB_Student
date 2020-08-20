@@ -17,10 +17,7 @@ public class SurveyBean extends BaseBean {
 
     public static class Survey implements Serializable{
         private int id;
-        private String title;
-        private int quescount;
-        private int responsecount;
-        private int status;
+        private String name;
         private String createtime;
 
         public int getId() {
@@ -31,36 +28,12 @@ public class SurveyBean extends BaseBean {
             this.id = id;
         }
 
-        public String getTitle() {
-            return title;
+        public String getName() {
+            return name;
         }
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public int getQuescount() {
-            return quescount;
-        }
-
-        public void setQuescount(int quescount) {
-            this.quescount = quescount;
-        }
-
-        public int getResponsecount() {
-            return responsecount;
-        }
-
-        public void setResponsecount(int responsecount) {
-            this.responsecount = responsecount;
-        }
-
-        public int getStatus() {
-            return status;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
+        public void setName(String name) {
+            this.name = name;
         }
 
         public String getCreatetime() {
