@@ -8,6 +8,7 @@
     <include layout="@layout/head"/>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -203,7 +204,6 @@
                             android:id="@+id/tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="张三"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_centerVertical="true"
@@ -230,7 +230,6 @@
                             android:id="@+id/tv_sex"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="男"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_centerVertical="true"
@@ -257,7 +256,6 @@
                             android:id="@+id/tv_nationality"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="中国"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_centerVertical="true"
@@ -284,7 +282,6 @@
                             android:id="@+id/tv_national"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="汉族"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -311,7 +308,6 @@
                             android:id="@+id/tv_birthday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1991-05-12"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -365,7 +361,6 @@
                             android:id="@+id/tv_card"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="411328455699887745"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -392,7 +387,6 @@
                             android:id="@+id/tv_card_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2009.11.12-2023.12.23"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -422,7 +416,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="120dp"
                             android:gravity="right"
-                            android:text="宁夏回族自治区银川市凤凰北街102号院1201"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -449,7 +442,6 @@
                             android:id="@+id/tv_mobile"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="15011225569"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -476,7 +468,6 @@
                             android:id="@+id/tv_email"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2548888@qq.com"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -503,7 +494,6 @@
                             android:id="@+id/tv_bank_code"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="622700004323456****"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -530,7 +520,6 @@
                             android:id="@+id/tv_high_school"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="河南职高"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -557,7 +546,6 @@
                             android:id="@+id/tv_university"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="襄阳职业技术学院"
                             android:textColor="@color/color_333333"
                             android:textSize="14sp"
                             android:layout_alignParentRight="true"
@@ -611,33 +599,6 @@
                     android:layout_height="wrap_content"
                     android:divider="@null">
                 </com.zxdc.utils.library.view.MeasureListView>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="15dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="是否接受过燕宝奖励"
-                        android:textSize="14sp"
-                        android:textColor="@color/color_333333"
-                        android:layout_centerVertical="true"/>
-
-                    <TextView
-                        android:id="@+id/tv_reward"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="是"
-                        android:textColor="@color/color_333333"
-                        android:textSize="14sp"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="5dp"/>
-
-                </RelativeLayout>
 
             </LinearLayout>
 

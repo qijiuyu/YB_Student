@@ -1,5 +1,6 @@
 package com.ylean.yb.student.activity.declare;
 
+import android.content.Intent;
 import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;
@@ -66,17 +67,20 @@ public class DeclareActivity extends BaseActivity implements DeclareP.Face {
      * @param list
      */
     @Override
-    public void getDeclareList(List<DeclareBean.Declare> list) {
+    public void getDeclareList(final List<DeclareBean.Declare> list) {
         listView.setAdapter(new DeclareAdapter(this, list));
         if(list==null || list.size()==0){
             linNo2.setVisibility(View.VISIBLE);
         }else{
             linNo2.setVisibility(View.GONE);
         }
+
+        //进入审核详情
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                setClass(DeclareAuditActivity.class);
+                Intent intent=new Intent(activity,DeclareAuditActivity.class);
+                intent.putExtra("declare",list.get(position));
+                startActivity(intent);
             }
         });
     }

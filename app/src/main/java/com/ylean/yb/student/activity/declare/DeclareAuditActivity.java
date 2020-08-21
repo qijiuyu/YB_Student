@@ -1,23 +1,36 @@
 package com.ylean.yb.student.activity.declare;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.declare.EconomicAdapter;
 import com.ylean.yb.student.adapter.declare.ShowFamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.FamilyP;
+import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.DeclareBean;
+import com.zxdc.utils.library.bean.FamilyBean;
+import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.util.JsonUtil;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.view.ClickTextView;
 import com.zxdc.utils.library.view.MeasureListView;
+import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
  * 批次审核页面
  */
-public class DeclareAuditActivity extends BaseActivity {
+public class DeclareAuditActivity extends BaseActivity implements FamilyP.Face{
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
     @BindView(R.id.img_audit1)
     ImageView imgAudit1;
     @BindView(R.id.img_audit2)
@@ -68,8 +81,6 @@ public class DeclareAuditActivity extends BaseActivity {
     ImageView imgHead;
     @BindView(R.id.list_family)
     MeasureListView listFamily;
-    @BindView(R.id.tv_reward)
-    TextView tvReward;
     @BindView(R.id.list_economic)
     MeasureListView listEconomic;
     @BindView(R.id.img_zm)
@@ -86,8 +97,11 @@ public class DeclareAuditActivity extends BaseActivity {
     ImageView imgOther;
     @BindView(R.id.tv_submit)
     ClickTextView tvSubmit;
-    private ShowFamilyAdapter showFamilyAdapter;
     private EconomicAdapter economicAdapter;
+    //列表对象
+    private DeclareBean.Declare declare;
+
+    private FamilyP familyP = new FamilyP(this, this);
 
     /**
      * 加载布局
@@ -106,9 +120,13 @@ public class DeclareAuditActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         tvTitle.setText("审核记录");
+        declare= (DeclareBean.Declare) getIntent().getSerializableExtra("declare");
 
-        //家庭成员列表
-        listFamily.setAdapter(showFamilyAdapter=new ShowFamilyAdapter(this));
+        //显示用户基本信息
+        showUserInfo();
+
+        //查询家庭成员数据
+        familyP.getFamilyList();
 
         //经济情况列表
 //        listEconomic.setAdapter(economicAdapter=new EconomicAdapter(this));
@@ -126,5 +144,49 @@ public class DeclareAuditActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+
+    /**
+     * 显示用户基本信息
+     */
+    private void showUserInfo() {
+        final UserInfo userInfo= (UserInfo) SPUtil.getInstance(this).getObject(SPUtil.USER_BASE_INFO,UserInfo.class);
+        if(userInfo==null){
+            return;
+        }
+        if(!TextUtils.isEmpty(userInfo.getData().getPhoto())){
+            Glide.with(this).load(userInfo.getData().getPhoto()).into(imgHead);
+        }
+        tvName.setText(userInfo.getData().getName());
+        tvSex.setText(userInfo.getData().getSex());
+        tvNationality.setText(userInfo.getData().getNationality());
+        tvBirthday.setText(userInfo.getData().getBirthday().split(" ")[0]);
+        tvNational.setText(userInfo.getData().getNation());
+        tvCard.setText(userInfo.getData().getIdnum());
+        if (!TextUtils.isEmpty(userInfo.getData().getValiditystarttime()) && !TextUtils.isEmpty(userInfo.getData().getValidityendtime())) {
+            tvCardTime.setText(userInfo.getData().getValiditystarttime().split(" ")[0] + "-" + userInfo.getData().getValidityendtime().split(" ")[0]);
+        }
+        tvEmail.setText(userInfo.getData().getEmail());
+        tvMobile.setText(userInfo.getData().getPhone());
+        if (!TextUtils.isEmpty(userInfo.getData().getAddress())) {
+            final Address address = (Address) JsonUtil.stringToObject(userInfo.getData().getAddress(), Address.class);
+            tvHkAddress.setText(address.getAddress());
+        }
+        scrollView.scrollTo(0,0);
+    }
+
+
+    /**
+     * 查询家庭成员集合
+     * @param list
+     */
+    @Override
+    public void getFamily(List<FamilyBean.ListBean> list) {
+        listFamily.setAdapter(new ShowFamilyAdapter(this,list));
+    }
+
+    @Override
+    public void deleteSuccess(FamilyBean.ListBean listBean) {
     }
 }

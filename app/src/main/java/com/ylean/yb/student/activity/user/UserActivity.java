@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.activity.declare.AddDeclareActivity;
 import com.ylean.yb.student.activity.init.LoginActivity;
 import com.ylean.yb.student.activity.user.activity.MyActivity;
 import com.ylean.yb.student.activity.user.apply.ApplyRecordActivity;
@@ -21,6 +20,7 @@ import com.ylean.yb.student.activity.user.setting.SettingActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.user.UserP;
 import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import butterknife.BindView;
@@ -73,7 +73,7 @@ public class UserActivity extends BaseActivity implements UserP.Face {
         switch (view.getId()) {
             //消息
             case R.id.img_news:
-                setClass(AddDeclareActivity.class);
+                setClass(NewsActivity.class);
 //                setClass(LoginActivity.class);
                 break;
             //设置
@@ -149,6 +149,9 @@ public class UserActivity extends BaseActivity implements UserP.Face {
             drawable = getResources().getDrawable(R.mipmap.female);
         }
         tvNickName.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+
+        //存储用户信息
+        SPUtil.getInstance(this).addObject(SPUtil.USER_BASE_INFO,userInfo);
     }
 
 

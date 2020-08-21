@@ -19,6 +19,8 @@ public class SPUtil {
     public final static String IS_FIRST_OPEN="IS_FIRST_OPEN";
     //登录的token
     public final static String TOKEN="TOKEN";
+    //用户基本信息
+    public final static String USER_BASE_INFO="USER_BASE_INFO";
     private static SPUtil sharUtil = null;
     public static Gson gson=new Gson();
     private SPUtil(Context context, String sharname) {

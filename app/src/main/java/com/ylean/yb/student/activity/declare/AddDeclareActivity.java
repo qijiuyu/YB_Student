@@ -23,7 +23,6 @@ import com.ylean.yb.student.persenter.EconomicP;
 import com.ylean.yb.student.persenter.FamilyP;
 import com.ylean.yb.student.persenter.UploadFileP;
 import com.ylean.yb.student.persenter.declare.ApplyDeclareP;
-import com.ylean.yb.student.persenter.user.UserP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.ylean.yb.student.view.AddFamilyView;
 import com.zxdc.utils.library.bean.Address;
@@ -33,6 +32,7 @@ import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.util.JsonUtil;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.MeasureListView;
 import java.io.File;
@@ -44,7 +44,7 @@ import butterknife.OnClick;
 /**
  * 批次申报
  */
-public class AddDeclareActivity extends BaseActivity implements UserP.Face, FamilyP.Face, EconomicP.Face, UploadFileP.Face, ApplyDeclareP.Face {
+public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, EconomicP.Face, UploadFileP.Face, ApplyDeclareP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.scrollView)
@@ -119,7 +119,6 @@ public class AddDeclareActivity extends BaseActivity implements UserP.Face, Fami
     //图片链接
     private String cardZ,cardF,hk1,hk2,notice,other;
 
-    private UserP userP = new UserP(this, this);
     private FamilyP familyP = new FamilyP(this, this);
     private EconomicP economicP = new EconomicP(this, this);
     private UploadFileP uploadFileP=new UploadFileP(this,this);
@@ -149,8 +148,8 @@ public class AddDeclareActivity extends BaseActivity implements UserP.Face, Fami
             tvValidTime.setText(batch.getStarttime().split(" ")[0] + "-" + batch.getEndtime().split(" ")[0]);
         }
 
-        //查询用户基本信息
-        userP.getbaseinfo();
+        //显示用户基本信息
+        showUserInfo();
 
         //查询家庭成员数据
         familyP.getFamilyList();
@@ -271,12 +270,13 @@ public class AddDeclareActivity extends BaseActivity implements UserP.Face, Fami
 
 
     /**
-     * 获取用户基本信息
-     *
-     * @param userInfo
+     * 显示用户基本信息
      */
-    @Override
-    public void getbaseinfo(UserInfo userInfo) {
+    private void showUserInfo() {
+        final UserInfo userInfo= (UserInfo) SPUtil.getInstance(this).getObject(SPUtil.USER_BASE_INFO,UserInfo.class);
+        if(userInfo==null){
+            return;
+        }
         if(!TextUtils.isEmpty(userInfo.getData().getPhoto())){
             Glide.with(this).load(userInfo.getData().getPhoto()).into(imgHead);
         }
