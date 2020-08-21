@@ -147,5 +147,9 @@ public interface HttpApi {
     @POST(HttpConstant.IP+"api/news/question/solvevoucher")
     Call<BaseBean> solvevoucher(@FieldMap Map<String, String> map);
 
+    @FormUrlEncoded
+    @PUT(HttpConstant.IP+"api/sys/declare/declare")
+    Call<BaseBean> applyDeclare(@FieldMap Map<String, String> map);
+
 
 }

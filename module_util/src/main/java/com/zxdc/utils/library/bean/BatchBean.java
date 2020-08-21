@@ -26,7 +26,6 @@ public class BatchBean extends BaseBean {
         private String starttime;
         private int status;
         private int type;
-        private int gbstatus;
 
         public int getApplynum() {
             return applynum;
@@ -106,14 +105,6 @@ public class BatchBean extends BaseBean {
 
         public void setType(int type) {
             this.type = type;
-        }
-
-        public int getGbstatus() {
-            return gbstatus;
-        }
-
-        public void setGbstatus(int gbstatus) {
-            this.gbstatus = gbstatus;
         }
     }
 }

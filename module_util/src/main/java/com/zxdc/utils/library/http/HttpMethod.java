@@ -1,5 +1,7 @@
 package com.zxdc.utils.library.http;
 
+import android.text.TextUtils;
+
 import com.zxdc.utils.library.bean.AboutBean;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
@@ -779,6 +781,45 @@ public class HttpMethod extends BaseRequst {
         map.put("paramter",paramter);
 
         Http.getRetrofit().create(HttpApi.class).solvevoucher(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 学生申报批次
+     */
+    public static void applyDeclare(int bid,String jkids,String idpositive,String idback,String householder,String oneself,String acceptanceletter,String relevantdoc,final NetCallBack netCallBack) {
+        Map<String,String> map=new HashMap<>();
+        map.put("bid",bid+"");
+        map.put("jkids",jkids);
+        if(!TextUtils.isEmpty(idpositive)){
+            map.put("idpositive",idpositive);
+        }
+        if(!TextUtils.isEmpty(idback)){
+            map.put("idback",idback);
+        }
+        if(!TextUtils.isEmpty(householder)){
+            map.put("householder",householder);
+        }
+        if(!TextUtils.isEmpty(oneself)){
+            map.put("oneself",oneself);
+        }
+        if(!TextUtils.isEmpty(acceptanceletter)){
+            map.put("acceptanceletter",acceptanceletter);
+        }
+        if(!TextUtils.isEmpty(relevantdoc)){
+            map.put("relevantdoc",relevantdoc);
+        }
+        Http.getRetrofit().create(HttpApi.class).applyDeclare(map).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());

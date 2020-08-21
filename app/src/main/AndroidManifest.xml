@@ -61,7 +61,7 @@
         </activity>
 
         <activity android:name=".activity.init.GuideActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.TabActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.TabActivity"  android:screenOrientation="portrait"   android:launchMode="singleTask"/>
         <activity android:name=".activity.main.MainActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.declare.DeclareActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.love.LoveActivity"  android:screenOrientation="portrait"/>

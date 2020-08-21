@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.luck.picture.lib.PictureSelector;
@@ -17,9 +18,11 @@ import com.ylean.yb.student.adapter.declare.EconomicAdapter;
 import com.ylean.yb.student.adapter.user.mine.FamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.callback.SelectCallBack;
+import com.ylean.yb.student.enumer.ApplyEnum;
 import com.ylean.yb.student.persenter.EconomicP;
 import com.ylean.yb.student.persenter.FamilyP;
 import com.ylean.yb.student.persenter.UploadFileP;
+import com.ylean.yb.student.persenter.declare.ApplyDeclareP;
 import com.ylean.yb.student.persenter.user.UserP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.ylean.yb.student.view.AddFamilyView;
@@ -30,6 +33,7 @@ import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.util.JsonUtil;
+import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.MeasureListView;
 import java.io.File;
 import java.util.ArrayList;
@@ -40,11 +44,11 @@ import butterknife.OnClick;
 /**
  * 批次申报
  */
-public class AddDeclareActivity extends BaseActivity implements UserP.Face, FamilyP.Face, EconomicP.Face, UploadFileP.Face {
+public class AddDeclareActivity extends BaseActivity implements UserP.Face, FamilyP.Face, EconomicP.Face, UploadFileP.Face, ApplyDeclareP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_code)
-    TextView tvCode;
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
     @BindView(R.id.tv_batchNo)
     TextView tvBatchNo;
     @BindView(R.id.tv_valid_time)
@@ -119,6 +123,7 @@ public class AddDeclareActivity extends BaseActivity implements UserP.Face, Fami
     private FamilyP familyP = new FamilyP(this, this);
     private EconomicP economicP = new EconomicP(this, this);
     private UploadFileP uploadFileP=new UploadFileP(this,this);
+    private ApplyDeclareP applyDeclareP=new ApplyDeclareP(this,this);
 
     /**
      * 加载布局
@@ -196,7 +201,41 @@ public class AddDeclareActivity extends BaseActivity implements UserP.Face, Fami
                 SelectPhotoUtil.SelectPhoto(this,1);
                 break;
             case R.id.tv_submit:
-                setClass(ApplySuccessActivity.class);
+                StringBuilder economicId=new StringBuilder();
+                for (int i=0;i<economicList.size();i++){
+                     if(economicList.get(i).isSelect()){
+                         economicId.append(economicList.get(i).getId()+",");
+                     }
+                }
+                if(TextUtils.isEmpty(economicId)){
+                    ToastUtil.showLong("请选择经济情况");
+                    return;
+                }else{
+                    economicId.insert(0,"[");
+                    economicId.deleteCharAt(economicId.length()-1);
+                    economicId.append("]");
+                }
+                if(TextUtils.isEmpty(cardZ)){
+                    ToastUtil.showLong("请上传身份证正面照片");
+                    return;
+                }
+                if(TextUtils.isEmpty(cardF)){
+                    ToastUtil.showLong("请上传身份证反面照片");
+                    return;
+                }
+                if(TextUtils.isEmpty(hk1)){
+                    ToastUtil.showLong("请上传户口本户主照片");
+                    return;
+                }
+                if(TextUtils.isEmpty(hk2)){
+                    ToastUtil.showLong("请上传户口本本人照片");
+                    return;
+                }
+                if(TextUtils.isEmpty(notice)){
+                    ToastUtil.showLong("请上传录取通知书照片");
+                    return;
+                }
+                applyDeclareP.applyDeclare(batch.getId(),economicId.toString(),cardZ,cardF,hk1,hk2,notice,other);
                 break;
             default:
                 break;
@@ -256,6 +295,7 @@ public class AddDeclareActivity extends BaseActivity implements UserP.Face, Fami
             final Address address = (Address) JsonUtil.stringToObject(userInfo.getData().getAddress(), Address.class);
             tvHkAddress.setText(address.getAddress());
         }
+        scrollView.scrollTo(0,0);
     }
 
 
@@ -294,6 +334,7 @@ public class AddDeclareActivity extends BaseActivity implements UserP.Face, Fami
     public void getEconomicList(List<EconomicBean.Economic> list) {
         this.economicList = list;
         listEconomic.setAdapter(new EconomicAdapter(this, list));
+        scrollView.scrollTo(0,0);
     }
 
 
@@ -344,5 +385,17 @@ public class AddDeclareActivity extends BaseActivity implements UserP.Face, Fami
                   break;
           }
       }
+    }
+
+
+    /**
+     * 申报成功
+     */
+    @Override
+    public void applySuccess() {
+        Intent intent=new Intent(this,ApplySuccessActivity.class);
+        intent.putExtra("applyEnum", ApplyEnum.批次申报成功);
+        startActivity(intent);
+        finish();
     }
 }

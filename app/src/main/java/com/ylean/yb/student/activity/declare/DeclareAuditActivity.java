@@ -1,20 +1,15 @@
 package com.ylean.yb.student.activity.declare;
 
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.declare.EconomicAdapter;
 import com.ylean.yb.student.adapter.declare.ShowFamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.zxdc.utils.library.view.ClickTextView;
 import com.zxdc.utils.library.view.MeasureListView;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

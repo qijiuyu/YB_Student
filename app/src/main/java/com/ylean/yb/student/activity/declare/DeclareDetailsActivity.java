@@ -27,8 +27,6 @@ import butterknife.OnClick;
 public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Face2 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_code)
-    TextView tvCode;
     @BindView(R.id.img_head)
     ImageView imgHead;
     @BindView(R.id.tv_status)
@@ -133,7 +131,7 @@ public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Fac
         tvName.setText(batch.getName());
         tvContent.setText(batch.getFactor());
         tvNum.setText("已有："+batch.getApplynum()+"人 进行申请");
-        tvValidTime.setText("有效时间："+batch.getStarttime().split(" ")[0]+"至"+batch.getEndtime().split(" ")[0]);
+        tvValidTime.setText("有效时间："+batch.getStarttime().split(" ")[0]+"一"+batch.getEndtime().split(" ")[0]);
         tvSendTime.setText("发布时间："+batch.getCreatetime());
         tvHtml.setHtml(batch.getRemarks(), new HtmlHttpImageGetter(tvHtml));
         switch (batch.getType()){
@@ -159,7 +157,7 @@ public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Fac
                 break;
         }
 
-        switch (batch.getGbstatus()){
+        switch (batch.getStatus()){
             case 0:
                 tvStatus.setText("未开始");
                 break;

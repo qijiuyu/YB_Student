@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.declare.AddDeclareActivity;
 import com.ylean.yb.student.activity.init.LoginActivity;
 import com.ylean.yb.student.activity.user.activity.MyActivity;
 import com.ylean.yb.student.activity.user.apply.ApplyRecordActivity;
@@ -72,7 +73,7 @@ public class UserActivity extends BaseActivity implements UserP.Face {
         switch (view.getId()) {
             //消息
             case R.id.img_news:
-                setClass(NewsActivity.class);
+                setClass(AddDeclareActivity.class);
 //                setClass(LoginActivity.class);
                 break;
             //设置

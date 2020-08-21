@@ -8,11 +8,121 @@
 
     <include layout="@layout/head"/>
 
-    <ListView
-        android:id="@+id/listView"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null">
-    </ListView>
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="170dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/bg_white">
+
+                <com.zxdc.utils.library.view.MeasureListView
+                    android:id="@+id/list_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@null">
+                </com.zxdc.utils.library.view.MeasureListView>
+
+                <LinearLayout
+                    android:id="@+id/lin_no"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/no_data"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="暂无可申报的批次"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_999999"
+                        android:layout_marginTop="5dp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="注：未能展示出符合实际申报的批次，请从个人档案中正确维护教育经历！"
+                android:textSize="12sp"
+                android:textColor="@color/color_333333"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="申报记录"
+                android:textColor="@color/color_333333"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="170dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bg_white">
+
+                <com.zxdc.utils.library.view.MeasureListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@null">
+                </com.zxdc.utils.library.view.MeasureListView>
+
+                <LinearLayout
+                    android:id="@+id/lin_no2"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/no_data"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="暂无可申报的批次"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_999999"
+                        android:layout_marginTop="5dp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

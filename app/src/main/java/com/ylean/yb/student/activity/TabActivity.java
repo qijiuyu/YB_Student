@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import androidx.annotation.RequiresApi;
-
 import com.gyf.barlibrary.ImmersionBar;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.declare.DeclareActivity;
@@ -21,10 +20,8 @@ import com.ylean.yb.student.utils.PermissionUtil;
 import com.zxdc.utils.library.util.ActivitysLifecycle;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.util.error.CockroachUtil;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
