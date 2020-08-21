@@ -9,9 +9,27 @@ public class AddEducation implements Serializable {
     private int sid;//所在学校
     private int facultyid;//院系
     private int majorid;//专业
+    private String grades;//班级
+    private int education;//学历
     private String admissiontime;//入学时间
     private int ftype=1;//院系类型 1 是选择 2 是手填
     private int mtype=1;//专业类型 1 是选择 2是手填
+
+    public String getGrades() {
+        return grades;
+    }
+
+    public void setGrades(String grades) {
+        this.grades = grades;
+    }
+
+    public int getEducation() {
+        return education;
+    }
+
+    public void setEducation(int education) {
+        this.education = education;
+    }
 
     public int getType() {
         return type;

@@ -3,10 +3,13 @@ package com.ylean.yb.student.persenter;
 import android.app.Activity;
 
 import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.bean.EducationBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
+
+import java.util.List;
 
 public class EducationP {
 
@@ -33,7 +36,14 @@ public class EducationP {
         HttpMethod.getEducationList(new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
+                final EducationBean educationBean= (EducationBean) object;
+                if(educationBean.isSussess()){
 
+                    face2.getEducationList(educationBean.getData());
+
+                }else{
+                    ToastUtil.showLong(educationBean.getDesc());
+                }
             }
 
             @Override
@@ -71,11 +81,41 @@ public class EducationP {
     }
 
 
+    /**
+     * 删除教育经历
+     */
+    public void deleteEducation(final EducationBean.Education education){
+        DialogUtil.showProgress(activity,"删除中");
+        HttpMethod.deleteEducation(education.getId(), new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                    face2.deleteEducation(education);
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+
+    }
+
+
     public interface Face{
         void addSuccess();
     }
 
     public interface Face2{
 
+        void getEducationList(List<EducationBean.Education> list);
+
+        void deleteEducation(EducationBean.Education education);
     }
 }

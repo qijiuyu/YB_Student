@@ -8,11 +8,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.activity.init.LoginActivity;
 import com.ylean.yb.student.activity.user.activity.MyActivity;
 import com.ylean.yb.student.activity.user.apply.ApplyRecordActivity;
 import com.ylean.yb.student.activity.user.bank.MyBankActivity;
 import com.ylean.yb.student.activity.user.leave.MyLeaveActivity;
+import com.ylean.yb.student.activity.user.min.UserInfoActivity;
 import com.ylean.yb.student.activity.user.news.NewsActivity;
 import com.ylean.yb.student.activity.user.resume.MyResumeActivity;
 import com.ylean.yb.student.activity.user.school.InSchoolActivity;
@@ -20,7 +20,6 @@ import com.ylean.yb.student.activity.user.setting.SettingActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.user.UserP;
 import com.zxdc.utils.library.bean.UserInfo;
-import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import butterknife.BindView;
@@ -84,9 +83,7 @@ public class UserActivity extends BaseActivity implements UserP.Face {
                 break;
             //个人档案
             case R.id.img_head:
-                 intent.setClass(this,UserInfoActivity.class);
-                 intent.putExtra("userInfo",userInfo);
-                 startActivity(intent);
+                 setClass(UserInfoActivity.class);
                  break;
             //申请记录
             case R.id.rel_sqjl:

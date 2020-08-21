@@ -8,6 +8,7 @@ import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
 import com.zxdc.utils.library.bean.DeclareBean;
 import com.zxdc.utils.library.bean.EconomicBean;
+import com.zxdc.utils.library.bean.EducationBean;
 import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.FileBean;
@@ -476,12 +477,12 @@ public class HttpMethod extends BaseRequst {
      * 获取学习经历集合
      */
     public static void getEducationList(final NetCallBack netCallBack) {
-        Http.getRetrofit().create(HttpApi.class).getEducationList().enqueue(new Callback<BaseBean>() {
-            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+        Http.getRetrofit().create(HttpApi.class).getEducationList().enqueue(new Callback<EducationBean>() {
+            public void onResponse(Call<EducationBean> call, Response<EducationBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());
             }
-            public void onFailure(Call<BaseBean> call, Throwable t) {
+            public void onFailure(Call<EducationBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }
@@ -831,5 +832,22 @@ public class HttpMethod extends BaseRequst {
         });
     }
 
+
+
+    /**
+     * 删除教育经历
+     */
+    public static void deleteEducation(int id,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).deleteEducation(id).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
 
 }

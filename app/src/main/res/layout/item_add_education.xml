@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentView="@+id/lin"
+        app:rightMenuView="@+id/right">
+
     <LinearLayout
+        android:id="@+id/lin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:background="@android:color/white">
 
         <LinearLayout
@@ -33,13 +39,11 @@
                 android:layout_height="30dp"
                 android:background="@drawable/bg_memo"
                 android:layout_marginLeft="15dp"
-                android:hint="请选择学校类型"
                 android:textSize="13sp"
                 android:textColor="@android:color/black"
                 android:paddingLeft="7dp"
                 android:paddingRight="15dp"
                 android:maxLines="1"
-                android:drawableRight="@mipmap/bottom_sj"
                 android:gravity="center_vertical"/>
 
         </LinearLayout>
@@ -71,9 +75,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:drawableRight="@mipmap/bottom_sj"
                     android:paddingRight="7dp"
-                    android:text="河南省"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
@@ -89,9 +91,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:drawableRight="@mipmap/bottom_sj"
                     android:paddingRight="7dp"
-                    android:text="郑州市"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
@@ -107,9 +107,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:drawableRight="@mipmap/bottom_sj"
                     android:paddingRight="7dp"
-                    android:text="高新区"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
@@ -143,13 +141,134 @@
                 android:layout_height="30dp"
                 android:background="@drawable/bg_memo"
                 android:layout_marginLeft="15dp"
-                android:hint="请选择所在学校"
                 android:textSize="13sp"
                 android:textColor="@android:color/black"
                 android:paddingLeft="7dp"
                 android:paddingRight="15dp"
                 android:maxLines="1"
-                android:drawableRight="@mipmap/bottom_sj"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_faculty"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:background="@drawable/bg_rel_border"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="院系名称"
+                android:textSize="14sp"
+                android:textColor="@color/color_333333"/>
+
+            <TextView
+                android:id="@+id/tv_faculty"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_memo"
+                android:layout_marginLeft="15dp"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:paddingLeft="7dp"
+                android:paddingRight="15dp"
+                android:maxLines="1"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_specialty"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:background="@drawable/bg_rel_border"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="专业名称"
+                android:textSize="14sp"
+                android:textColor="@color/color_333333"/>
+
+            <TextView
+                android:id="@+id/tv_specialty"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_memo"
+                android:layout_marginLeft="15dp"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:paddingLeft="7dp"
+                android:paddingRight="15dp"
+                android:maxLines="1"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_class"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:background="@drawable/bg_rel_border"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="班级"
+                android:textSize="14sp"
+                android:textColor="@color/color_333333"/>
+
+            <TextView
+                android:id="@+id/tv_class"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_memo"
+                android:layout_marginLeft="43dp"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:paddingLeft="7dp"
+                android:paddingRight="15dp"
+                android:maxLines="1"
+                android:gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:background="@drawable/bg_rel_border"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="学历"
+                android:textSize="14sp"
+                android:textColor="@color/color_333333"/>
+
+            <TextView
+                android:id="@+id/tv_education"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_memo"
+                android:layout_marginLeft="43dp"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:paddingLeft="7dp"
+                android:paddingRight="15dp"
+                android:maxLines="1"
                 android:gravity="center_vertical"/>
 
         </LinearLayout>
@@ -174,13 +293,11 @@
                 android:layout_height="30dp"
                 android:background="@drawable/bg_memo"
                 android:layout_marginLeft="15dp"
-                android:hint="请选择入学时间"
                 android:textSize="13sp"
                 android:textColor="@android:color/black"
                 android:paddingLeft="7dp"
                 android:paddingRight="15dp"
                 android:maxLines="1"
-                android:drawableRight="@mipmap/bottom_sj"
                 android:gravity="center_vertical"/>
 
         </LinearLayout>
@@ -191,5 +308,35 @@
             android:background="#f9f9f9"/>
 
     </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="54dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_FA4D4F"
+                android:text="删除"
+                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/tv_update"
+                android:layout_width="54dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_DCDDDE"
+                android:text="编辑"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout>
 
 </LinearLayout>

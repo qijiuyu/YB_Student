@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.user.min.UserInfoActivity;
 import com.ylean.yb.student.adapter.declare.DeclareAdapter;
 import com.ylean.yb.student.adapter.declare.DeclareHeadViewAdapter;
 import com.ylean.yb.student.base.BaseActivity;
@@ -58,6 +59,12 @@ public class DeclareActivity extends BaseActivity implements DeclareP.Face {
         tvTitle.setText("批次审报");
         linBack.setVisibility(View.GONE);
         tvDes.setText(Html.fromHtml("注：未能展示出符合实际申报的批次，请从个人档案中正确维护教育经历！<font color=\"#FA4D4F\">去维护></font>"));
+        tvDes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setClass(UserInfoActivity.class);
+            }
+        });
     }
 
 

@@ -8,6 +8,7 @@ import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
 import com.zxdc.utils.library.bean.DeclareBean;
 import com.zxdc.utils.library.bean.EconomicBean;
+import com.zxdc.utils.library.bean.EducationBean;
 import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
@@ -101,7 +102,7 @@ public interface HttpApi {
     Call<BaseBean> addEducation(@FieldMap Map<String, String> map);
 
     @GET(HttpConstant.IP+"api/user/le/getList")
-    Call<BaseBean> getEducationList();
+    Call<EducationBean> getEducationList();
 
     @GET(HttpConstant.IP+"api/sys/declare/getBatchHistory")
     Call<DeclareBean> getDeclareList();
@@ -151,5 +152,7 @@ public interface HttpApi {
     @PUT(HttpConstant.IP+"api/sys/declare/declare")
     Call<BaseBean> applyDeclare(@FieldMap Map<String, String> map);
 
+    @DELETE(HttpConstant.IP+"api/user/le/delete")
+    Call<BaseBean> deleteEducation(@Query("id") int id);
 
 }

@@ -1,5 +1,6 @@
-package com.ylean.yb.student.activity.user;
+package com.ylean.yb.student.activity.user.min;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -7,7 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.adapter.user.mine.AddEducationAdapter;
+import com.ylean.yb.student.adapter.user.mine.EducationAdapter;
 import com.ylean.yb.student.adapter.user.mine.FamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.callback.SelectCallBack;
@@ -18,11 +19,13 @@ import com.ylean.yb.student.view.AddFamilyView;
 import com.ylean.yb.student.view.SelectProvince;
 import com.zxdc.utils.library.bean.AddEducation;
 import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.EducationBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ProvinceCallBack;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.util.JsonUtil;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,11 +85,10 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
     RecyclerView listFamily;
     @BindView(R.id.list_education)
     RecyclerView listEducation;
-    private AddEducationAdapter addEducationAdapter;
     //家庭成员集合
     private List<FamilyBean.ListBean> familyList=new ArrayList<>();
     //教育集合
-    private List<AddEducation> educationList=new ArrayList<>();
+    private List<EducationBean.Education> educationList=new ArrayList<>();
     //用户基本信息对象
     private UserInfo userInfo;
 
@@ -109,7 +111,6 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
     @Override
     protected void initData() {
         super.initData();
-        userInfo= (UserInfo) getIntent().getSerializableExtra("userInfo");
 
         //展示用户基本信息
         showBaseInfo();
@@ -119,9 +120,6 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
 
         //查询学习经历集合
         educationP.getEducationList();
-
-        listEducation.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listEducation.setAdapter(addEducationAdapter=new AddEducationAdapter(this,educationList));
     }
 
     @OnClick({R.id.tv_province, R.id.tv_city, R.id.tv_area, R.id.tv_province1, R.id.tv_city1, R.id.tv_area1, R.id.tv_add_family,R.id.tv_add_education,R.id.tv_submit})
@@ -309,48 +307,49 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
      * 展示用户基本信息
      */
     private void showBaseInfo(){
-        if(userInfo!=null){
-            tvUserName.setText(userInfo.getData().getName());
-            tvSex.setText(userInfo.getData().getSex());
-            tvNationality.setText(userInfo.getData().getNationality());
-            tvBirthday.setText(userInfo.getData().getBirthday().split(" ")[0]);
-            tvNational.setText(userInfo.getData().getNation());
-            tvCard.setText(userInfo.getData().getIdnum());
-            if(!TextUtils.isEmpty(userInfo.getData().getValiditystarttime()) && !TextUtils.isEmpty(userInfo.getData().getValidityendtime())){
-                tvCardTime.setText(userInfo.getData().getValiditystarttime().split(" ")[0]+"-"+userInfo.getData().getValidityendtime().split(" ")[0]);
-            }
-            tvEmail.setText(userInfo.getData().getEmail());
-            etQq.setText(userInfo.getData().getQq());
-            etWx.setText(userInfo.getData().getWechat());
+        userInfo= (UserInfo) SPUtil.getInstance(this).getObject(SPUtil.USER_BASE_INFO,UserInfo.class);
+        if(userInfo==null){
+            return;
+        }
+        tvUserName.setText(userInfo.getData().getName());
+        tvSex.setText(userInfo.getData().getSex());
+        tvNationality.setText(userInfo.getData().getNationality());
+        tvBirthday.setText(userInfo.getData().getBirthday().split(" ")[0]);
+        tvNational.setText(userInfo.getData().getNation());
+        tvCard.setText(userInfo.getData().getIdnum());
+        if(!TextUtils.isEmpty(userInfo.getData().getValiditystarttime()) && !TextUtils.isEmpty(userInfo.getData().getValidityendtime())){
+            tvCardTime.setText(userInfo.getData().getValiditystarttime().split(" ")[0]+"-"+userInfo.getData().getValidityendtime().split(" ")[0]);
+        }
+        tvEmail.setText(userInfo.getData().getEmail());
+        etQq.setText(userInfo.getData().getQq());
+        etWx.setText(userInfo.getData().getWechat());
 
-            /**
-             * 户口地址
-             */
-            if(!TextUtils.isEmpty(userInfo.getData().getAddress())){
-                final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getAddress(),Address.class);
-                tvProvince.setText(address.getPname());
-                tvProvince.setTag(address.getPcode());
-                tvCity.setText(address.getCname());
-                tvCity.setTag(address.getCcode());
-                tvArea.setText(address.getAname());
-                tvArea.setTag(address.getAcode());
-                etAddress.setText(address.getAddress());
-            }
+        /**
+         * 户口地址
+         */
+        if(!TextUtils.isEmpty(userInfo.getData().getAddress())){
+            final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getAddress(),Address.class);
+            tvProvince.setText(address.getPname());
+            tvProvince.setTag(address.getPcode());
+            tvCity.setText(address.getCname());
+            tvCity.setTag(address.getCcode());
+            tvArea.setText(address.getAname());
+            tvArea.setTag(address.getAcode());
+            etAddress.setText(address.getAddress());
+        }
 
-            /**
-             * 家庭地址
-             */
-            if(!TextUtils.isEmpty(userInfo.getData().getResidenceaddress())){
-                final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getResidenceaddress(),Address.class);
-                tvProvince1.setText(address.getPname());
-                tvProvince1.setTag(address.getPcode());
-                tvCity1.setText(address.getCname());
-                tvCity1.setTag(address.getCcode());
-                tvArea1.setText(address.getAname());
-                tvArea1.setTag(address.getAcode());
-                etAddress1.setText(address.getAddress());
-            }
-
+        /**
+         * 家庭地址
+         */
+        if(!TextUtils.isEmpty(userInfo.getData().getResidenceaddress())){
+            final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getResidenceaddress(),Address.class);
+            tvProvince1.setText(address.getPname());
+            tvProvince1.setTag(address.getPcode());
+            tvCity1.setText(address.getCname());
+            tvCity1.setTag(address.getCcode());
+            tvArea1.setText(address.getAname());
+            tvArea1.setTag(address.getAcode());
+            etAddress1.setText(address.getAddress());
         }
     }
 
@@ -383,7 +382,38 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
     @Override
     public void deleteSuccess(FamilyBean.ListBean listBean) {
         familyList.remove(listBean);
-        listFamily.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         listFamily.setAdapter(new FamilyAdapter(this,familyList,familyP));
+    }
+
+
+    /**
+     * 获取教育经历集合
+     * @param list
+     */
+    @Override
+    public void getEducationList(List<EducationBean.Education> list) {
+        this.educationList=list;
+        listEducation.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        listEducation.setAdapter(new EducationAdapter(this,educationList,educationP));
+    }
+
+
+    /**
+     * 删除教育经历
+     */
+    @Override
+    public void deleteEducation(EducationBean.Education education) {
+        educationList.remove(education);
+        listEducation.setAdapter(new EducationAdapter(this,educationList,educationP));
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1000){
+            //查询学习经历集合
+            educationP.getEducationList();
+        }
     }
 }
