@@ -47,7 +47,7 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="王五先生"
+                    android:text="姓名"
                     android:textColor="@color/color_333333"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -58,7 +58,7 @@
                     android:id="@+id/tv_nationality"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="国籍：中国"
+                    android:text="国籍"
                     android:textSize="14sp"
                     android:textColor="@color/color_333333"
                     android:layout_marginLeft="100dp"
@@ -69,7 +69,7 @@
                     android:id="@+id/tv_national"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="民族：汉"
+                    android:text="民族"
                     android:textSize="14sp"
                     android:textColor="@color/color_333333"
                     android:layout_marginLeft="100dp"
@@ -80,7 +80,7 @@
                     android:id="@+id/tv_birthday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="出生日期：1879.10.12"
+                    android:text="出生日期"
                     android:textSize="14sp"
                     android:textColor="@color/color_333333"
                     android:layout_below="@id/img_head"
@@ -196,14 +196,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="户口所在地"
+                        android:text="现居住地址"
                         android:textSize="14sp"
                         android:textColor="@color/color_333333"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="15dp">
+                        android:layout_marginLeft="10dp">
 
                         <TextView
                             android:id="@+id/tv_province"
@@ -214,7 +214,6 @@
                             android:layout_marginRight="5dp"
                             android:drawableRight="@mipmap/bottom_sj"
                             android:paddingRight="7dp"
-                            android:text="河南省"
                             android:maxLines="1"
                             android:ellipsize="end"
                             android:gravity="center_vertical"
@@ -232,7 +231,6 @@
                             android:layout_marginRight="5dp"
                             android:drawableRight="@mipmap/bottom_sj"
                             android:paddingRight="7dp"
-                            android:text="郑州市"
                             android:maxLines="1"
                             android:ellipsize="end"
                             android:gravity="center_vertical"
@@ -250,7 +248,6 @@
                             android:layout_marginRight="5dp"
                             android:drawableRight="@mipmap/bottom_sj"
                             android:paddingRight="7dp"
-                            android:text="高新区"
                             android:maxLines="1"
                             android:ellipsize="end"
                             android:gravity="center_vertical"
@@ -320,8 +317,8 @@
                         android:text="期望薪资"
                         android:textColor="@color/color_333333"/>
 
-                    <EditText
-                        android:id="@+id/et_salary"
+                    <TextView
+                        android:id="@+id/tv_salary"
                         android:layout_width="match_parent"
                         android:layout_height="28dp"
                         android:background="@drawable/bg_memo"
@@ -358,7 +355,6 @@
                             android:layout_marginRight="5dp"
                             android:drawableRight="@mipmap/bottom_sj"
                             android:paddingRight="7dp"
-                            android:text="河南省"
                             android:maxLines="1"
                             android:ellipsize="end"
                             android:gravity="center_vertical"
@@ -376,7 +372,6 @@
                             android:layout_marginRight="5dp"
                             android:drawableRight="@mipmap/bottom_sj"
                             android:paddingRight="7dp"
-                            android:text="郑州市"
                             android:maxLines="1"
                             android:ellipsize="end"
                             android:gravity="center_vertical"
@@ -394,7 +389,6 @@
                             android:layout_marginRight="5dp"
                             android:drawableRight="@mipmap/bottom_sj"
                             android:paddingRight="7dp"
-                            android:text="高新区"
                             android:maxLines="1"
                             android:ellipsize="end"
                             android:gravity="center_vertical"
@@ -461,7 +455,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -474,7 +468,7 @@
                         android:id="@+id/et_introduce"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minLines="5"
+                        android:minLines="4"
                         android:padding="10dp"
                         android:gravity="top"
                         android:background="@drawable/bg_memo"

@@ -1,9 +1,10 @@
 package com.ylean.yb.student.activity.user.resume;
 
-import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.user.resume.MyCertificateAdapter;
 import com.ylean.yb.student.adapter.user.resume.MyEducationAdapter;
@@ -11,11 +12,13 @@ import com.ylean.yb.student.adapter.user.resume.MyHonorAdapter;
 import com.ylean.yb.student.adapter.user.resume.MyPositionAdapter;
 import com.ylean.yb.student.adapter.user.resume.MySpecialtyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
+import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.util.JsonUtil;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import com.zxdc.utils.library.view.MeasureListView;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -90,6 +93,9 @@ public class MyResumeActivity extends BaseActivity {
         tvTitle.setText("我的简历");
         tvRight.setText("投递记录");
 
+        //展示用户基本信息
+        showUserBase();
+
         listEducation.setAdapter(new MyEducationAdapter(this));
         listHonor.setAdapter(new MyHonorAdapter(this));
         listPosition.setAdapter(new MyPositionAdapter(this));
@@ -112,6 +118,32 @@ public class MyResumeActivity extends BaseActivity {
                 break;
             default:
                 break;
+        }
+    }
+
+
+    /**
+     * 展示用户基本信息
+     */
+    private void showUserBase(){
+        final UserInfo userInfo= (UserInfo) SPUtil.getInstance(this).getObject(SPUtil.USER_BASE_INFO,UserInfo.class);
+        if(userInfo==null){
+            return;
+        }
+        if(!TextUtils.isEmpty(userInfo.getData().getPhoto())){
+            Glide.with(this).load(userInfo.getData().getPhoto()).into(imgHead);
+        }
+        tvName.setText(userInfo.getData().getName());
+        tvNationality.setText(userInfo.getData().getNationality());
+        tvNational.setText(userInfo.getData().getNation());
+        tvBirthday.setText("出生日期："+userInfo.getData().getBirthday());
+        tvMobile.setText("联系电话："+userInfo.getData().getPhone());
+        tvEmail.setText("邮箱："+userInfo.getData().getEmail());
+        tvWx.setText("微信号："+userInfo.getData().getWechat());
+        tvQq.setText("QQ："+userInfo.getData().getQq());
+        if (!TextUtils.isEmpty(userInfo.getData().getResidenceaddress())) {
+            final Address address = (Address) JsonUtil.stringToObject(userInfo.getData().getResidenceaddress(), Address.class);
+            tvAddress.setText("现居住地址："+address.getAddress());
         }
     }
 }

@@ -3,6 +3,7 @@ package com.ylean.yb.student.activity.user.resume;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,11 +21,23 @@ import com.ylean.yb.student.adapter.user.resume.AddResumeHonorAdapter;
 import com.ylean.yb.student.adapter.user.resume.AddResumePositionAdapter;
 import com.ylean.yb.student.adapter.user.resume.AddResumeSpecialtyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.callback.TimeCallBack;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
+import com.ylean.yb.student.utils.SelectTimeUtils;
+import com.ylean.yb.student.view.SelectProvince;
+import com.ylean.yb.student.view.SelectSalaryView;
+import com.ylean.yb.student.view.SelectWorkTypeView;
 import com.zxdc.utils.library.bean.AddHonor;
 import com.zxdc.utils.library.bean.AddResumeCertificate;
 import com.zxdc.utils.library.bean.AddResumePostion;
 import com.zxdc.utils.library.bean.AddResumeSpecialty;
+import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.ProvinceBean;
+import com.zxdc.utils.library.bean.ProvinceCallBack;
+import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.util.JsonUtil;
+import com.zxdc.utils.library.util.SPUtil;
+import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 
 import java.io.File;
@@ -68,8 +81,8 @@ public class EditResumeActivity extends BaseActivity {
     TextView tvArea;
     @BindView(R.id.et_address)
     EditText etAddress;
-    @BindView(R.id.et_salary)
-    EditText etSalary;
+    @BindView(R.id.tv_salary)
+    TextView tvSalary;
     @BindView(R.id.tv_province1)
     TextView tvProvince1;
     @BindView(R.id.tv_city1)
@@ -131,6 +144,9 @@ public class EditResumeActivity extends BaseActivity {
         tvTitle.setText("编辑简历");
         tvRight.setText("完成");
 
+        //展示用户基本信息
+        showUserBase();
+
         listHonor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         listHonor.setAdapter(honorAdapter=new AddResumeHonorAdapter(this,honorList));
 
@@ -144,11 +160,110 @@ public class EditResumeActivity extends BaseActivity {
         listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,certificateList));
     }
 
-    @OnClick({R.id.lin_back, R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})
+    @OnClick({R.id.lin_back, R.id.tv_province, R.id.tv_city, R.id.tv_area,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1,R.id.tv_salary,R.id.tv_work_time,R.id.tv_job_type,R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})
     public void onViewClicked(View view) {
+        final String province=tvProvince.getText().toString().trim();
+        final String city=tvCity.getText().toString().trim();
+        final String area=tvArea.getText().toString().trim();
+        final String province1=tvProvince1.getText().toString().trim();
+        final String city1=tvCity1.getText().toString().trim();
+        final String area1=tvArea1.getText().toString().trim();
         switch (view.getId()) {
             case R.id.lin_back:
                 break;
+            //选择省
+            case R.id.tv_province:
+                new SelectProvince(this, 0, null, new ProvinceCallBack() {
+                    public void onSuccess(ProvinceBean.ListBean listBean) {
+                        tvProvince.setText(listBean.getName());
+                        tvProvince.setTag(listBean.getCode());
+                        tvCity.setText(null);
+                        tvArea.setText(null);
+                    }
+                }).show();
+                break;
+            //选择市
+            case R.id.tv_city:
+                if(TextUtils.isEmpty(province)){
+                    ToastUtil.showLong("请先选择省");
+                    return;
+                }
+                new SelectProvince(this, 1, (String) tvProvince.getTag(), new ProvinceCallBack() {
+                    public void onSuccess(ProvinceBean.ListBean listBean) {
+                        tvCity.setText(listBean.getName());
+                        tvCity.setTag(listBean.getCode());
+                        tvArea.setText(null);
+                    }
+                }).show();
+                break;
+            //选择区
+            case R.id.tv_area:
+                if(TextUtils.isEmpty(city)){
+                    ToastUtil.showLong("请先选择市");
+                    return;
+                }
+                new SelectProvince(this, 2, (String) tvCity.getTag(), new ProvinceCallBack() {
+                    public void onSuccess(ProvinceBean.ListBean listBean) {
+                        tvArea.setText(listBean.getName());
+                        tvArea.setTag(listBean.getCode());
+                    }
+                }).show();
+                break;
+            //选择省
+            case R.id.tv_province1:
+                new SelectProvince(this, 0, null, new ProvinceCallBack() {
+                    public void onSuccess(ProvinceBean.ListBean listBean) {
+                        tvProvince1.setText(listBean.getName());
+                        tvProvince1.setTag(listBean.getCode());
+                        tvCity1.setText(null);
+                        tvArea1.setText(null);
+                    }
+                }).show();
+                break;
+            //选择市
+            case R.id.tv_city1:
+                if(TextUtils.isEmpty(province1)){
+                    ToastUtil.showLong("请先选择省");
+                    return;
+                }
+                new SelectProvince(this, 1, (String) tvProvince1.getTag(), new ProvinceCallBack() {
+                    public void onSuccess(ProvinceBean.ListBean listBean) {
+                        tvCity1.setText(listBean.getName());
+                        tvCity1.setTag(listBean.getCode());
+                        tvArea1.setText(null);
+                    }
+                }).show();
+                break;
+            //选择区
+            case R.id.tv_area1:
+                if(TextUtils.isEmpty(city1)){
+                    ToastUtil.showLong("请先选择市");
+                    return;
+                }
+                new SelectProvince(this, 2, (String) tvCity1.getTag(), new ProvinceCallBack() {
+                    public void onSuccess(ProvinceBean.ListBean listBean) {
+                        tvArea1.setText(listBean.getName());
+                        tvArea1.setTag(listBean.getCode());
+                    }
+                }).show();
+                break;
+            //选择薪资
+            case R.id.tv_salary:
+                 new SelectSalaryView(this,tvSalary).show();
+                 break;
+            //选择到岗时间
+            case R.id.tv_work_time:
+                 SelectTimeUtils.selectTime(this, new TimeCallBack() {
+                     @Override
+                     public void getTime(String time) {
+                         tvWorkTime.setText(time);
+                     }
+                 });
+                 break;
+            //选择工作类型
+            case R.id.tv_job_type:
+                 new SelectWorkTypeView(this,tvJobType).show();
+                 break;
             //添加教育经历
             case R.id.tv_add_education:
                 setClass(AddEducationActivity.class,1000);
@@ -202,6 +317,42 @@ public class EditResumeActivity extends BaseActivity {
                 break;
             default:
                 break;
+        }
+    }
+
+
+    /**
+     * 展示用户基本信息
+     */
+    private void showUserBase(){
+        final UserInfo userInfo= (UserInfo) SPUtil.getInstance(this).getObject(SPUtil.USER_BASE_INFO,UserInfo.class);
+        if(userInfo==null){
+            return;
+        }
+        if(!TextUtils.isEmpty(userInfo.getData().getPhoto())){
+            Glide.with(this).load(userInfo.getData().getPhoto()).into(imgHead);
+        }
+        tvName.setText(userInfo.getData().getName());
+        tvNationality.setText(userInfo.getData().getNationality());
+        tvNational.setText(userInfo.getData().getNation());
+        tvBirthday.setText("出生日期："+userInfo.getData().getBirthday());
+        etMobile.setText("联系电话："+userInfo.getData().getPhone());
+        etEmail.setText("邮箱："+userInfo.getData().getEmail());
+        etWx.setText("微信号："+userInfo.getData().getWechat());
+        etQq.setText("QQ："+userInfo.getData().getQq());
+
+        /**
+         * 家庭地址
+         */
+        if(!TextUtils.isEmpty(userInfo.getData().getResidenceaddress())){
+            final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getResidenceaddress(),Address.class);
+            tvProvince.setText(address.getPname());
+            tvProvince.setTag(address.getPcode());
+            tvCity.setText(address.getCname());
+            tvCity.setTag(address.getCcode());
+            tvArea.setText(address.getAname());
+            tvArea.setTag(address.getAcode());
+            etAddress.setText("现居住地址："+address.getAddress());
         }
     }
 }

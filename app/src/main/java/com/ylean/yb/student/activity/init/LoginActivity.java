@@ -82,6 +82,7 @@ public class LoginActivity extends BaseActivity implements LoginP.Face {
                     return;
                 }
                 break;
+            //手机号变更
             case R.id.tv_update_mobile:
                 break;
             //登录
