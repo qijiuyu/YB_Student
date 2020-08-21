@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.TabActivity;
+import com.ylean.yb.student.activity.user.apply.BankAuditActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.enumer.ApplyEnum;
 import butterknife.BindView;
@@ -43,6 +44,10 @@ public class ApplySuccessActivity extends BaseActivity {
                 tvName.setText("您批次申请已提交成功！");
                 tvDes.setText("基金会会尽快进行审核，请关注审核进度情况");
                 break;
+            case 银行卡变更成功:
+                 tvName.setText("您的银行卡变更申请已提交成功！");
+                 tvDes.setText("基金会会尽快进行审核，请关注审核进度情况");
+                 break;
             default:
                 break;
         }
@@ -61,8 +66,11 @@ public class ApplySuccessActivity extends BaseActivity {
             case R.id.tv_record:
                 switch (applyEnum) {
                     case 批次申报成功:
-                        setClass(DeclareAuditActivity.class);
-                        break;
+                         setClass(DeclareAuditActivity.class);
+                         break;
+                    case 银行卡变更成功:
+                         setClass(BankAuditActivity.class);
+                         break;
                     default:
                         break;
                 }

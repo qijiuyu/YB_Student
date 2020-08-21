@@ -11,7 +11,9 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.declare.ApplySuccessActivity;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.enumer.ApplyEnum;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.FileBean;
@@ -81,7 +83,6 @@ public class UpdateBankActivity extends BaseActivity {
             case R.id.img_template:
                 break;
             case R.id.tv_submit:
-//                setClass(ApplySuccessActivity.class);
                 final String bankCode=etBankCode.getText().toString().trim();
                 if(TextUtils.isEmpty(bankCode)){
                     ToastUtil.showLong("请输入银行卡卡号");
@@ -153,6 +154,9 @@ public class UpdateBankActivity extends BaseActivity {
             public void onSuccess(Object object) {
                 final BaseBean baseBean= (BaseBean) object;
                 if(baseBean.isSussess()){
+                    Intent intent=new Intent(activity, ApplySuccessActivity.class);
+                    intent.putExtra("applyEnum", ApplyEnum.银行卡变更成功);
+                    startActivity(intent);
                     finish();
                 }else{
                     runOnUiThread(new Runnable() {

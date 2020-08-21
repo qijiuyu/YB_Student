@@ -3,6 +3,7 @@ package com.zxdc.utils.library.http;
 
 
 import com.zxdc.utils.library.bean.AboutBean;
+import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
@@ -133,7 +134,10 @@ public interface HttpApi {
     Call<BaseBean> reply(@FieldMap Map<String, String> map);
 
     @GET(HttpConstant.IP+"api/user/bk/getbankinfo")
-    Call<BaseBean> getbankinfo();
+    Call<BankBaseBean> getbankinfo();
+
+    @GET(HttpConstant.IP+"api/user/bk/getbankhistoryinfos")
+    Call<BankBaseBean> getBankHistory();
 
     @GET(HttpConstant.IP+"api/sys/schoolsituation/getschoolsituationlist")
     Call<InSchoolBean> getInSchoolList(@Query("page") int page, @Query("size") int size);

@@ -1,7 +1,7 @@
 package com.ylean.yb.student.enumer;
 
 public enum ApplyEnum {
-    批次申报成功(1),  其他(100);
+    批次申报成功(1), 银行卡变更成功(2),  其他(100);
 
     private final int value;
 
@@ -13,6 +13,8 @@ public enum ApplyEnum {
         switch (value) {
             case 1:
                 return 批次申报成功;
+            case 2:
+                return 银行卡变更成功;
             default:
                 return 其他;
         }

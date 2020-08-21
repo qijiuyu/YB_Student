@@ -3,6 +3,7 @@ package com.zxdc.utils.library.http;
 import android.text.TextUtils;
 
 import com.zxdc.utils.library.bean.AboutBean;
+import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
@@ -681,12 +682,29 @@ public class HttpMethod extends BaseRequst {
      * 获取银行卡基本信息
      */
     public static void getbankinfo(final NetCallBack netCallBack) {
-        Http.getRetrofit().create(HttpApi.class).getbankinfo().enqueue(new Callback<BaseBean>() {
-            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+        Http.getRetrofit().create(HttpApi.class).getbankinfo().enqueue(new Callback<BankBaseBean>() {
+            public void onResponse(Call<BankBaseBean> call, Response<BankBaseBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());
             }
-            public void onFailure(Call<BaseBean> call, Throwable t) {
+            public void onFailure(Call<BankBaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取银行卡历史信息
+     */
+    public static void getBankHistory(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getBankHistory().enqueue(new Callback<BankBaseBean>() {
+            public void onResponse(Call<BankBaseBean> call, Response<BankBaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BankBaseBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

@@ -10,9 +10,12 @@ import com.ylean.yb.student.adapter.user.bank.HistoryBankAdapter;
 import com.ylean.yb.student.adapter.user.bank.MyBankAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.user.MyBankP;
+import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.view.MeasureListView;
 import com.zxdc.utils.library.view.MyRefreshLayoutListener;
 import com.zxdc.utils.library.view.refresh.MyRefreshLayout;
+import java.util.ArrayList;
+import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -27,15 +30,19 @@ public class MyBankActivity extends BaseActivity implements MyRefreshLayoutListe
     @BindView(R.id.re_list)
     MyRefreshLayout reList;
     private MeasureListView historyList;
-    private MyBankAdapter myBankAdapter;
     /**
      * 头部view
      */
     private View headView;
-    private MyBankP myBankP=new MyBankP(this,this);
+    /**
+     * 银行卡基本信息与历史信息
+     */
+    private List<BankBaseBean.BankBase> bankList = new ArrayList<>();
+    private MyBankP myBankP = new MyBankP(this, this);
 
     /**
      * 加载布局
+     *
      * @return
      */
     @Override
@@ -52,11 +59,20 @@ public class MyBankActivity extends BaseActivity implements MyRefreshLayoutListe
         super.initData();
         tvTitle.setText("我的银行卡");
 
+        //获取头部view
+        headView = LayoutInflater.from(this).inflate(R.layout.view_bank_head, null);
+        historyList = headView.findViewById(R.id.listView);
+        listView.addHeaderView(headView);
+
+        //获取银行卡基本信息
         myBankP.getbankinfo();
+
+        //获取银行卡历史信息
+        myBankP.getBankHistory();
 
         reList.setMyRefreshLayoutListener(this);
         listView.setDivider(null);
-        listView.setAdapter(myBankAdapter=new MyBankAdapter(this));
+        listView.setAdapter(new MyBankAdapter(this));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -65,34 +81,30 @@ public class MyBankActivity extends BaseActivity implements MyRefreshLayoutListe
         });
 
 
-        //显示历史银行卡
-        showHistory();
     }
 
 
     /**
-     * 显示历史银行卡
+     * 获取银行卡基本信息
+     *
+     * @param bankBase
      */
-    private void showHistory(){
-        //加载历史银行卡view
-        headView= LayoutInflater.from(this).inflate(R.layout.view_bank_head,null);
-        listView.addHeaderView(headView);
-        historyList=headView.findViewById(R.id.listView);
-        historyList.setAdapter(new HistoryBankAdapter(this));
+    @Override
+    public void getbankinfo(BankBaseBean.BankBase bankBase) {
+        bankList.add(0, bankBase);
+        historyList.setAdapter(new HistoryBankAdapter(this, bankList));
     }
 
 
-
-
-    @OnClick({R.id.lin_back})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.lin_back:
-                 finish();
-                break;
-            default:
-                break;
-        }
+    /**
+     * 获取历史银行卡
+     *
+     * @param bankBase
+     */
+    @Override
+    public void getBankHistory(BankBaseBean.BankBase bankBase) {
+        bankList.add(bankBase);
+        historyList.setAdapter(new HistoryBankAdapter(this, bankList));
     }
 
     @Override
@@ -103,5 +115,11 @@ public class MyBankActivity extends BaseActivity implements MyRefreshLayoutListe
     @Override
     public void onLoadMore(View view) {
 
+    }
+
+
+    @OnClick(R.id.lin_back)
+    public void onViewClicked() {
+        finish();
     }
 }

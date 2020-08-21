@@ -2,15 +2,20 @@ package com.ylean.yb.student.adapter.user.bank;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.user.bank.UpdateBankActivity;
+import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.view.CircleImageView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,15 +23,17 @@ import butterknife.ButterKnife;
 public class HistoryBankAdapter extends BaseAdapter {
 
     private Activity activity;
+    private List<BankBaseBean.BankBase> list;
 
-    public HistoryBankAdapter(Activity activity) {
+    public HistoryBankAdapter(Activity activity,List<BankBaseBean.BankBase> list) {
         super();
         this.activity = activity;
+        this.list=list;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return list.size();
     }
 
     @Override
@@ -48,6 +55,53 @@ public class HistoryBankAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) view.getTag();
         }
+
+        final BankBaseBean.BankBase bankBase=list.get(position);
+        //显示图片
+        String imgUrl = bankBase.getBankimgurl();
+        if(!TextUtils.isEmpty(imgUrl)){
+            holder.imgHead.setTag(R.id.imageid, imgUrl);
+            if (holder.imgHead.getTag(R.id.imageid) != null && imgUrl == holder.imgHead.getTag(R.id.imageid)) {
+                Glide.with(activity).load(imgUrl).into(holder.imgHead);
+            }
+        }
+
+        holder.tvBankName.setText(bankBase.getBankname());
+        holder.tvBankCode.setText(bankBase.getBanknum());
+        switch (bankBase.getBankstatus()){
+            case 0:
+                 holder.tvStatus.setText("未提交");
+                 break;
+            case 1:
+                holder.tvStatus.setText("已提交");
+                break;
+            case 2:
+                holder.tvStatus.setText("未开卡");
+                break;
+            case 3:
+                holder.tvStatus.setText("已开卡");
+                break;
+            case 4:
+                holder.tvStatus.setText("已邮寄");
+                break;
+            case 5:
+                holder.tvStatus.setText("正在使用");
+                break;
+            case 6:
+                holder.tvStatus.setText("已更改");
+                break;
+            case 7:
+                holder.tvStatus.setText("失败");
+                break;
+            case 8:
+                holder.tvStatus.setText("开卡中");
+                break;
+            default:
+                break;
+        }
+        holder.tvCardholder.setText("持卡人姓名："+bankBase.getUname());
+        holder.tvMobile.setText("手机号："+bankBase.getPhone());
+        holder.tvCard.setText("身份证号："+bankBase.getIdnum());
 
         if(position==0){
             holder.view.setVisibility(View.GONE);
