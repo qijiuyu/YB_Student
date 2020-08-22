@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
+import com.zxdc.utils.library.bean.ResumeBean;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,15 +18,17 @@ import butterknife.ButterKnife;
 public class MyCertificateAdapter extends BaseAdapter {
 
     private Activity activity;
+    private List<ResumeBean.Certificate> list;
 
-    public MyCertificateAdapter(Activity activity) {
+    public MyCertificateAdapter(Activity activity,List<ResumeBean.Certificate> list) {
         super();
         this.activity = activity;
+        this.list=list;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return list==null ? 0 : list.size();
     }
 
     @Override
@@ -46,6 +51,10 @@ public class MyCertificateAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
+        final ResumeBean.Certificate certificate=list.get(position);
+        holder.tvTime.setText("获得时间："+certificate.getAcquisitionTime());
+        holder.tvName.setText("证书名称："+certificate.getName());
+        holder.tvMemo.setText("成绩/证书介绍："+certificate.getRemarks());
         return view;
     }
 

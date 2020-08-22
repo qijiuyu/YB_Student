@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
+import com.zxdc.utils.library.bean.Speciality;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,15 +18,17 @@ import butterknife.ButterKnife;
 public class MySpecialtyAdapter extends BaseAdapter {
 
     private Activity activity;
+    private List<Speciality> list;
 
-    public MySpecialtyAdapter(Activity activity) {
+    public MySpecialtyAdapter(Activity activity,List<Speciality> list) {
         super();
         this.activity = activity;
+        this.list=list;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return list==null ? 0 : list.size();
     }
 
     @Override
@@ -46,6 +51,8 @@ public class MySpecialtyAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
+        final Speciality speciality=list.get(position);
+        holder.tvName.setText("技能/语言："+speciality.getName()+"               掌握程度："+speciality.getLevel());
         return view;
     }
 

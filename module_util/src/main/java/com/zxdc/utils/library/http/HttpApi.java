@@ -17,6 +17,7 @@ import com.zxdc.utils.library.bean.InSchoolBean;
 import com.zxdc.utils.library.bean.LeaveBean;
 import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
+import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.SchoolBean;
 import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
@@ -158,5 +159,8 @@ public interface HttpApi {
 
     @DELETE(HttpConstant.IP+"api/user/le/delete")
     Call<BaseBean> deleteEducation(@Query("id") int id);
+
+    @GET(HttpConstant.IP+"api/syn/resumeInfo/getResumeInfoByToken")
+    Call<ResumeBean> getMyResume();
 
 }

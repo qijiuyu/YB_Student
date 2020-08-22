@@ -3,7 +3,6 @@ package com.ylean.yb.student.activity.user.resume;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.user.resume.MyCertificateAdapter;
@@ -12,19 +11,24 @@ import com.ylean.yb.student.adapter.user.resume.MyHonorAdapter;
 import com.ylean.yb.student.adapter.user.resume.MyPositionAdapter;
 import com.ylean.yb.student.adapter.user.resume.MySpecialtyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.user.MyResumeP;
 import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.ResumeBean;
+import com.zxdc.utils.library.bean.Salary;
+import com.zxdc.utils.library.bean.Speciality;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import com.zxdc.utils.library.view.MeasureListView;
+import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
  * 我的简历
  */
-public class MyResumeActivity extends BaseActivity {
+public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_right)
@@ -74,6 +78,8 @@ public class MyResumeActivity extends BaseActivity {
     @BindView(R.id.list_certificate)
     MeasureListView listCertificate;
 
+    private MyResumeP myResumeP=new MyResumeP(this,this);
+
     /**
      * 加载布局
      * @return
@@ -96,11 +102,8 @@ public class MyResumeActivity extends BaseActivity {
         //展示用户基本信息
         showUserBase();
 
-        listEducation.setAdapter(new MyEducationAdapter(this));
-        listHonor.setAdapter(new MyHonorAdapter(this));
-        listPosition.setAdapter(new MyPositionAdapter(this));
-        listSpecialty.setAdapter(new MySpecialtyAdapter(this));
-        listCertificate.setAdapter(new MyCertificateAdapter(this));
+        //查询我的简历
+        myResumeP.getMyResume();
     }
 
 
@@ -145,5 +148,55 @@ public class MyResumeActivity extends BaseActivity {
             final Address address = (Address) JsonUtil.stringToObject(userInfo.getData().getResidenceaddress(), Address.class);
             tvAddress.setText("现居住地址："+address.getAddress());
         }
+    }
+
+
+    /**
+     * 查询我的简历
+     * @param resume
+     */
+    @Override
+    public void getMyResume(ResumeBean.Resume resume) {
+        if(!TextUtils.isEmpty(resume.getExpectedCapital())){
+            final Salary salary= (Salary) JsonUtil.stringToObject(resume.getExpectedCapital(),Salary.class);
+            tvSalary.setText("期望薪资："+salary.getMin()+"-"+salary.getMax()+"/月");
+        }
+        if(!TextUtils.isEmpty(resume.getWorkPlace())){
+            final Address address = (Address) JsonUtil.stringToObject(resume.getWorkPlace(), Address.class);
+            tvJobAddress.setText("工作地点："+address.getPname()+","+address.getCname()+","+address.getAname());
+        }
+        tvIntroduce.setText("自我介绍："+resume.getIntroduce());
+        tvWorkTime.setText("到岗时间："+resume.getArrivalTime());
+        switch (resume.getdType()){
+            case 10:
+                 tvWorkType.setText("工作类型：全职");
+                 break;
+            case 20:
+                tvWorkType.setText("工作类型：兼职");
+                break;
+            case 30:
+                tvWorkType.setText("工作类型：实习");
+                break;
+            default:
+                break;
+        }
+
+        //学习经历
+        listEducation.setAdapter(new MyEducationAdapter(this,resume.getLearningExperienceList()));
+
+        //在校荣誉
+        listHonor.setAdapter(new MyHonorAdapter(this,resume.getInSchoolHonorList()));
+
+        //校内职务
+        listPosition.setAdapter(new MyPositionAdapter(this,resume.getSchoolDutiesList()));
+
+        //技能特长
+        if(!TextUtils.isEmpty(resume.getSpeciality())){
+            List<Speciality> list=JsonUtil.stringToList(resume.getSpeciality(),Speciality.class);
+            listSpecialty.setAdapter(new MySpecialtyAdapter(this,list));
+        }
+
+        //证书
+        listCertificate.setAdapter(new MyCertificateAdapter(this,resume.getCertificatesList()));
     }
 }

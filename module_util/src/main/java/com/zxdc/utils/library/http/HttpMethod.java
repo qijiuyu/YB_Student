@@ -20,6 +20,7 @@ import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.Register;
+import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.SchoolBean;
 import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
@@ -862,6 +863,24 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 查询我的简历
+     */
+    public static void getMyResume(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getMyResume().enqueue(new Callback<ResumeBean>() {
+            public void onResponse(Call<ResumeBean> call, Response<ResumeBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<ResumeBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

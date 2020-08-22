@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
+import com.zxdc.utils.library.bean.ResumeBean;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,15 +18,17 @@ import butterknife.ButterKnife;
 public class MyHonorAdapter extends BaseAdapter {
 
     private Activity activity;
+    private List<ResumeBean.Honor> list;
 
-    public MyHonorAdapter(Activity activity) {
+    public MyHonorAdapter(Activity activity,List<ResumeBean.Honor> list) {
         super();
         this.activity = activity;
+        this.list=list;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return list==null ? 0 : list.size();
     }
 
     @Override
@@ -46,6 +51,10 @@ public class MyHonorAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
+        final ResumeBean.Honor honor=list.get(position);
+        holder.tvTime.setText("时间："+honor.getAcquisitionTime());
+        holder.tvType.setText("奖项："+honor.getPrize());
+        holder.tvLevel.setText("级别："+honor.getLevel());
         return view;
     }
 

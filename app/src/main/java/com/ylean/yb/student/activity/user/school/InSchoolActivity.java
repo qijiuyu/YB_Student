@@ -1,6 +1,7 @@
 package com.ylean.yb.student.activity.user.school;
 
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
@@ -26,6 +27,8 @@ public class InSchoolActivity extends BaseActivity implements MyRefreshLayoutLis
     ListView listView;
     @BindView(R.id.re_list)
     MyRefreshLayout reList;
+    @BindView(R.id.lin_no)
+    LinearLayout linNo;
     //页数
     private int page = 1;
     private List<InSchoolBean.InSchool> listAll=new ArrayList<>();
@@ -76,6 +79,11 @@ public class InSchoolActivity extends BaseActivity implements MyRefreshLayoutLis
         adapter.notifyDataSetChanged();
         if(list.size()< HttpMethod.pageSize){
             reList.setIsLoadingMoreEnabled(false);
+        }
+        if(listAll.size()==0){
+            linNo.setVisibility(View.VISIBLE);
+        }else{
+            linNo.setVisibility(View.GONE);
         }
     }
 

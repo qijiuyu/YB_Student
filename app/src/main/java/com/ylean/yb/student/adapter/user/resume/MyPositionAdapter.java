@@ -1,6 +1,7 @@
 package com.ylean.yb.student.adapter.user.resume;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
+import com.zxdc.utils.library.bean.ResumeBean;
+import com.zxdc.utils.library.bean.Times;
+import com.zxdc.utils.library.util.JsonUtil;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,15 +21,17 @@ import butterknife.ButterKnife;
 public class MyPositionAdapter extends BaseAdapter {
 
     private Activity activity;
+    private List<ResumeBean.Position> list;
 
-    public MyPositionAdapter(Activity activity) {
+    public MyPositionAdapter(Activity activity,List<ResumeBean.Position> list) {
         super();
         this.activity = activity;
+        this.list=list;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return list==null ? 0 : list.size();
     }
 
     @Override
@@ -46,6 +54,13 @@ public class MyPositionAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
+        final ResumeBean.Position po=list.get(position);
+        if(!TextUtils.isEmpty(po.getTimes())){
+            final Times times= (Times) JsonUtil.stringToObject(po.getTimes(),Times.class);
+            holder.tvTime.setText("时间："+times.getStartTime()+"-"+times.getEndTime());
+        }
+        holder.tvName.setText("职务名称："+po.getName());
+        holder.tvMemo.setText("职务描述："+po.getDescription());
         return view;
     }
 
