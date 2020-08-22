@@ -73,11 +73,21 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face {
 
     @OnClick({R.id.lin_back, R.id.tv_send_code, R.id.img_zm, R.id.img_fm, R.id.tv_next})
     public void onViewClicked(View view) {
+        final String mobile=etMobile.getText().toString().trim();
         switch (view.getId()) {
             case R.id.lin_back:
                 finish();
                 break;
+            //获取验证码
             case R.id.tv_send_code:
+                if(TextUtils.isEmpty(mobile)){
+                    ToastUtil.showLong("请输入手机号");
+                    return;
+                }
+                if(mobile.length()<11){
+                    ToastUtil.showLong("请输入正确的手机号");
+                    return;
+                }
                 break;
             //身份证正面
             case R.id.img_zm:
@@ -91,7 +101,6 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face {
                 break;
             case R.id.tv_next:
                 final String card=etCard.getText().toString().trim();
-                final String mobile=etMobile.getText().toString().trim();
                 final String pwd=etPwd.getText().toString().trim();
                 final String code=etCode.getText().toString().trim();
                 if(TextUtils.isEmpty(card)){

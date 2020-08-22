@@ -163,4 +163,8 @@ public interface HttpApi {
     @GET(HttpConstant.IP+"api/syn/resumeInfo/getResumeInfoByToken")
     Call<ResumeBean> getMyResume();
 
+    @FormUrlEncoded
+    @POST(HttpConstant.IP+"api/sys/schoolsituation/updstudentapply")
+    Call<BaseBean> updateInSchool(@FieldMap Map<String, String> map);
+
 }

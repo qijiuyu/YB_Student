@@ -1,19 +1,15 @@
 package com.ylean.yb.student.activity.user.resume;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.callback.TimeCallBack;
 import com.ylean.yb.student.utils.SelectTimeUtils;
 import com.zxdc.utils.library.util.ToastUtil;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -26,6 +22,8 @@ public class AddCertificateActivity extends BaseActivity {
     EditText etName;
     @BindView(R.id.et_memo)
     EditText etMemo;
+    //简历id
+    private int resumeId;
 
     /**
      * 加载布局
@@ -43,6 +41,7 @@ public class AddCertificateActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        resumeId=getIntent().getIntExtra("resumeId",0);
     }
 
 

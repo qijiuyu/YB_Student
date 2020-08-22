@@ -1,6 +1,7 @@
 package com.ylean.yb.student.activity.user.school;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,9 +13,12 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.declare.ApplySuccessActivity;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.user.InSchoolP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.ylean.yb.student.view.SelectInSchoolStatusView;
 import com.zxdc.utils.library.bean.InSchoolBean;
+import com.zxdc.utils.library.util.ToastUtil;
+
 import java.io.File;
 import java.util.List;
 import butterknife.BindView;
@@ -23,7 +27,7 @@ import butterknife.OnClick;
 /**
  * 在校情况说明
  */
-public class AddInSchoolActivity extends BaseActivity {
+public class AddInSchoolActivity extends BaseActivity implements InSchoolP.Face2 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_name)
@@ -44,6 +48,8 @@ public class AddInSchoolActivity extends BaseActivity {
      * 2：在校情况
      */
     private int imgType;
+
+    private InSchoolP inSchoolP=new InSchoolP(this,this);
 
     /**
      * 加载布局
@@ -91,7 +97,13 @@ public class AddInSchoolActivity extends BaseActivity {
             case R.id.img_template:
                 break;
             case R.id.tv_submit:
-                setClass(ApplySuccessActivity.class);
+                final String status=tvStatus.getText().toString().trim();
+                final String remark=etRemark.getText().toString().trim();
+                if(TextUtils.isEmpty(status)){
+                    ToastUtil.showLong("请选择当前状态");
+                    return;
+                }
+                inSchoolP.updateInSchool(inSchool.getId(),(int)tvStatus.getTag(),"","",remark);
                 break;
             default:
                 break;
@@ -129,5 +141,14 @@ public class AddInSchoolActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+
+    /**
+     * 更新成功
+     */
+    @Override
+    public void updateSuccess() {
+        setClass(ApplySuccessActivity.class);
     }
 }

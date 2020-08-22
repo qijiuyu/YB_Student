@@ -887,4 +887,28 @@ public class HttpMethod extends BaseRequst {
         });
     }
 
+
+    /**
+     * 编辑在校情况说明
+     */
+    public static void updateInSchool(int did,int status,String schoolreport,String descriptionfile,final String content,final NetCallBack netCallBack) {
+        Map<String,String> map=new HashMap<>();
+        map.put("did",did+"");
+        map.put("status",status+"");
+        map.put("schoolreport",schoolreport);
+        map.put("descriptionfile",descriptionfile);
+        map.put("content",content);
+
+        Http.getRetrofit().create(HttpApi.class).updateInSchool(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
 }

@@ -1,7 +1,9 @@
 package com.ylean.yb.student.activity.user.resume;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
@@ -33,6 +35,8 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
     TextView tvTitle;
     @BindView(R.id.tv_right)
     TextView tvRight;
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
     @BindView(R.id.img_head)
     CircleImageView imgHead;
     @BindView(R.id.tv_name)
@@ -77,6 +81,8 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
     MeasureListView listSpecialty;
     @BindView(R.id.list_certificate)
     MeasureListView listCertificate;
+    //简历对象
+    private ResumeBean.Resume resume;
 
     private MyResumeP myResumeP=new MyResumeP(this,this);
 
@@ -109,15 +115,20 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
 
     @OnClick({R.id.lin_back, R.id.tv_right, R.id.tv_edit})
     public void onViewClicked(View view) {
+        Intent intent=new Intent();
         switch (view.getId()) {
             case R.id.lin_back:
                  finish();
                 break;
             case R.id.tv_right:
-                 setClass(DeliveryRecordActivity.class);
+                 intent.setClass(this,DeliveryRecordActivity.class);
+                 intent.putExtra("resumeId",resume.getId());
+                 startActivity(intent);
                 break;
             case R.id.tv_edit:
-                setClass(EditResumeActivity.class);
+                intent.setClass(this,EditResumeActivity.class);
+                intent.putExtra("resume",resume);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -157,6 +168,7 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
      */
     @Override
     public void getMyResume(ResumeBean.Resume resume) {
+        this.resume=resume;
         if(!TextUtils.isEmpty(resume.getExpectedCapital())){
             final Salary salary= (Salary) JsonUtil.stringToObject(resume.getExpectedCapital(),Salary.class);
             tvSalary.setText("期望薪资："+salary.getMin()+"-"+salary.getMax()+"/月");
@@ -198,5 +210,7 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
 
         //证书
         listCertificate.setAdapter(new MyCertificateAdapter(this,resume.getCertificatesList()));
+
+        scrollView.scrollTo(0,0);
     }
 }

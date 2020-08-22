@@ -34,6 +34,7 @@ import com.zxdc.utils.library.bean.AddResumeSpecialty;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ProvinceCallBack;
+import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.SPUtil;
@@ -111,6 +112,8 @@ public class EditResumeActivity extends BaseActivity {
     RecyclerView listCertificate;
     @BindView(R.id.img_file)
     ImageView imgFile;
+    //简历对象
+    private ResumeBean.Resume resume;
     private AddResumeEducationAdapter educationAdapter;
     private AddResumeHonorAdapter honorAdapter;
     private AddResumePositionAdapter positionAdapter;
@@ -143,6 +146,7 @@ public class EditResumeActivity extends BaseActivity {
         super.initData();
         tvTitle.setText("编辑简历");
         tvRight.setText("完成");
+        resume= (ResumeBean.Resume) getIntent().getSerializableExtra("resume");
 
         //展示用户基本信息
         showUserBase();
@@ -168,6 +172,7 @@ public class EditResumeActivity extends BaseActivity {
         final String province1=tvProvince1.getText().toString().trim();
         final String city1=tvCity1.getText().toString().trim();
         final String area1=tvArea1.getText().toString().trim();
+        Intent intent=new Intent();
         switch (view.getId()) {
             case R.id.lin_back:
                 break;
@@ -282,7 +287,9 @@ public class EditResumeActivity extends BaseActivity {
                  break;
             //添加证书
             case R.id.tv_add_certificate:
-                setClass(AddCertificateActivity.class,1004);
+                 intent.setClass(this,AddCertificateActivity.class);
+                 intent.putExtra("resumeId",resume.getId());
+                 startActivityForResult(intent,1004);
                  break;
             //添加附件
             case R.id.img_file:
