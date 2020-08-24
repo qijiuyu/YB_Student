@@ -3,8 +3,6 @@ package com.zxdc.utils.library.http.base;
 
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
-
 import com.zxdc.utils.library.base.BaseApplication;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.http.HandlerConstant;
@@ -57,18 +55,18 @@ public class Http {
     }
 
 
-    public static Retrofit getRetrofitNoInterceptor() {
-        Retrofit.Builder builder = new Retrofit.Builder();
-        builder.baseUrl(baseUrl);
-        builder.addConverterFactory(GsonConverterFactory.create());
-        OkHttpClient.Builder okBuilder = new OkHttpClient().newBuilder();
-        okBuilder.connectTimeout(15, TimeUnit.SECONDS);
-        okBuilder.writeTimeout(15, TimeUnit.SECONDS);
-        okBuilder.readTimeout(15, TimeUnit.SECONDS);
-//        okBuilder.addInterceptor(new LogInterceptor());
-        builder.callFactory(okBuilder.build());
-        Retrofit retrofit = builder.build();
-        return retrofit;
+    public static void HttpRequest(String json, String url, final Callback callback){
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json;charset=utf-8"), json);
+        Request request = new Request.Builder()
+                .url(HttpConstant.IP + url+"?ch=2&token="+ SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN))
+                .post(requestBody)
+                .build();
+        okhttp3.Call call = new OkHttpClient.Builder()
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .build().newCall(request);
+        call.enqueue(callback);
     }
 
 
@@ -172,30 +170,6 @@ public class Http {
             }
 
         });
-    }
-
-
-    /**
-     * 微信的get请求
-     * @param url
-     */
-    public static void getMonth(String url, final Handler mHandler, final int index){
-        try {
-            Request request = new Request.Builder().url(url).build();
-            Call call = new OkHttpClient.Builder().readTimeout(60 * 5, TimeUnit.SECONDS).build().newCall(request);
-            call.enqueue(new Callback() {
-                public void onFailure(Call call, IOException e) {
-                    sendMessage(null,mHandler,index);
-                }
-                public void onResponse(Call call, Response response) throws IOException {
-                    if(response.body()!=null){
-                        sendMessage(response.body().string(),mHandler,index);
-                    }
-                }
-            });
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
 

@@ -173,7 +173,6 @@
                                 android:id="@+id/tv_total_activity"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="100"
                                 android:textColor="@android:color/black"
                                 android:textSize="24sp"/>
 
@@ -217,7 +216,6 @@
                                 android:id="@+id/tv_total_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="100"
                                 android:textColor="@android:color/black"
                                 android:textSize="24sp"/>
 

@@ -19,7 +19,10 @@ import com.ylean.yb.student.activity.user.school.InSchoolActivity;
 import com.ylean.yb.student.activity.user.setting.SettingActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.user.UserP;
+import com.zxdc.utils.library.bean.ActivityNum;
+import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import butterknife.BindView;
@@ -139,7 +142,7 @@ public class UserActivity extends BaseActivity implements UserP.Face {
         }
         tvNickName.setText(userInfo.getData().getName());
         tvCredential.setText("身份证号:"+userInfo.getData().getIdnum());
-        Drawable drawable=null;
+        Drawable drawable;
         if(userInfo.getData().getSex().equals("男")){
             drawable = getResources().getDrawable(R.mipmap.male);
         }else{
@@ -152,12 +155,32 @@ public class UserActivity extends BaseActivity implements UserP.Face {
     }
 
 
+    /**
+     * 我的社团活动数量
+     * @param numBean
+     */
+    @Override
+    public void getOwnActivityNum(final ActivityNum.NumBean numBean) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                tvTotalActivity.setText(numBean.getActivityNum()+"");
+                tvTotalTime.setText(numBean.getTotalPublicWelfare()+"");
+            }
+        });
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
         final String token= SPUtil.getInstance(this).getString(SPUtil.TOKEN);
         if(!TextUtils.isEmpty(token)){
+            //获取学生基本信息
             userP.getbaseinfo();
+
+            //我的社团活动数量
+            userP.getOwnActivityNum(JsonUtil.objectToString(new PageParam(1,10)));
         }
     }
 }

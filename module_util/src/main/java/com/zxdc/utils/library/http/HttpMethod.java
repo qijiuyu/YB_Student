@@ -1,8 +1,8 @@
 package com.zxdc.utils.library.http;
 
 import android.text.TextUtils;
-
 import com.zxdc.utils.library.bean.AboutBean;
+import com.zxdc.utils.library.bean.ActivityNum;
 import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
@@ -910,5 +910,28 @@ public class HttpMethod extends BaseRequst {
             }
         });
     }
+
+
+
+    /**
+     * 我的社团活动数量
+     */
+    public static void getOwnActivityNum(String pageParam, final NetCallBack netCallBack) {
+        Http.HttpRequest(pageParam, "api/syn/publicWelfare/getOwnActivityNum", new okhttp3.Callback() {
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                DialogUtil.closeProgress();
+                final ActivityNum activityNum= (ActivityNum) JsonUtil.stringToObject(response.body().string(),ActivityNum.class);
+                netCallBack.onSuccess(activityNum);
+            }
+
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                DialogUtil.closeProgress();
+            }
+        });
+    }
+
+
 
 }
