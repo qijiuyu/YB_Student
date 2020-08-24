@@ -367,9 +367,18 @@ public class ResumeBean extends BaseBean {
 
 
     public static class Certificate implements Serializable{
-        private String acquisitionTime;
-        private String name;
-        private String remarks;
+        private int id;
+        private String acquisitionTime="";
+        private String name="";
+        private String remarks="";
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
 
         public String getAcquisitionTime() {
             return acquisitionTime;

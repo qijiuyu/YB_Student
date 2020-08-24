@@ -12,10 +12,16 @@ public class MyResumeP {
 
     private Activity activity;
     private Face face;
+    private Face2 face2;
 
     public MyResumeP(Activity activity,Face face){
         this.activity=activity;
         this.face=face;
+    }
+
+    public MyResumeP(Activity activity,Face2 face2){
+        this.activity=activity;
+        this.face2=face2;
     }
 
 
@@ -45,7 +51,30 @@ public class MyResumeP {
     }
 
 
+    /**
+     * 新增或编辑简历信息(简历证书)
+     */
+    public void SaveOrUpdateCertificates(String parameter){
+        DialogUtil.showProgress(activity,"数据加载中");
+        HttpMethod.SaveOrUpdateCertificates(parameter, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
     public interface Face{
         void getMyResume(ResumeBean.Resume resume);
+    }
+
+    public interface Face2{
+        void SaveOrUpdateCertificates();
     }
 }

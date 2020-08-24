@@ -160,8 +160,9 @@ public class EditResumeActivity extends BaseActivity {
         listSpecialty.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         listSpecialty.setAdapter(specialtyAdapter=new AddResumeSpecialtyAdapter(this,specialtyList));
 
+        //展示证书信息
         listCertificate.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,certificateList));
+        listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,resume.getCertificatesList()));
     }
 
     @OnClick({R.id.lin_back, R.id.tv_province, R.id.tv_city, R.id.tv_area,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1,R.id.tv_salary,R.id.tv_work_time,R.id.tv_job_type,R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})

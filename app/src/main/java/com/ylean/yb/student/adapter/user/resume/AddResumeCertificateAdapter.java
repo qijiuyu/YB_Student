@@ -1,38 +1,26 @@
 package com.ylean.yb.student.adapter.user.resume;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.callback.TimeCallBack;
-import com.ylean.yb.student.utils.SelectTimeUtils;
-import com.zxdc.utils.library.bean.AddResumeCertificate;
+import com.ylean.yb.student.activity.user.resume.AddCertificateActivity;
+import com.zxdc.utils.library.bean.ResumeBean;
 import java.util.List;
 
 public class AddResumeCertificateAdapter extends RecyclerView.Adapter<AddResumeCertificateAdapter.MyHolder> {
 
     private Activity activity;
-    private List<AddResumeCertificate> list;
-
-    /**
-     * 当前输入的对象
-     */
-    private AddResumeCertificate certificate;
-    public AddResumeCertificateAdapter(Activity activity, List<AddResumeCertificate> list) {
+    private List<ResumeBean.Certificate> list;
+    public AddResumeCertificateAdapter(Activity activity, List<ResumeBean.Certificate> list) {
         super();
         this.activity = activity;
         this.list=list;
-        if(list.size()==0){
-            list.add(new AddResumeCertificate());
-        }
     }
 
     public MyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -43,48 +31,26 @@ public class AddResumeCertificateAdapter extends RecyclerView.Adapter<AddResumeC
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int i) {
-       final AddResumeCertificate addResumeCertificate=list.get(i);
+       final ResumeBean.Certificate certificate=list.get(i);
+       holder.tvTime.setText(certificate.getAcquisitionTime());
+       holder.tvName.setText(certificate.getName());
+       holder.tvMemo.setText(certificate.getRemarks());
 
 
         /**
-         * 选择时间
+         * 编辑
          */
-        holder.tvTime.setTag(addResumeCertificate);
-        holder.tvTime.setOnClickListener(new View.OnClickListener() {
-           public void onClick(final View v) {
-               certificate= (AddResumeCertificate) v.getTag();
-               SelectTimeUtils.selectTime(activity, new TimeCallBack() {
-                   public void getTime(String time) {
-                       ((TextView)v).setText(time);
-                   }
-               });
+        holder.tvUpdate.setTag(certificate);
+       holder.tvUpdate.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               ResumeBean.Certificate certificate= (ResumeBean.Certificate) v.getTag();
+               Intent intent=new Intent(activity, AddCertificateActivity.class);
+               intent.putExtra("certificate",certificate);
+               activity.startActivityForResult(intent,1004);
            }
        });
-
-
     }
-
-
-
-    /**
-     * 监听输入框
-     */
-    TextWatcher textWatcher=new TextWatcher() {
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-        public void afterTextChanged(Editable s) {
-            String content=s.toString().trim();
-            if(TextUtils.isEmpty(content)){
-                return;
-            }
-
-        }
-    };
-
 
 
     @Override
@@ -93,13 +59,14 @@ public class AddResumeCertificateAdapter extends RecyclerView.Adapter<AddResumeC
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        TextView tvTime;
-        EditText etName,etMemo;
+        TextView tvTime,tvName,tvMemo,tvDelete,tvUpdate;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
-            etName=itemView.findViewById(R.id.et_name);
-            etMemo=itemView.findViewById(R.id.et_memo);
+            tvName=itemView.findViewById(R.id.tv_name);
+            tvMemo=itemView.findViewById(R.id.tv_memo);
             tvTime=itemView.findViewById(R.id.tv_time);
+            tvDelete=itemView.findViewById(R.id.tv_delete);
+            tvUpdate=itemView.findViewById(R.id.tv_update);
         }
     }
 }

@@ -11,6 +11,7 @@ import com.ylean.yb.student.adapter.user.bank.MyBankAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.user.MyBankP;
 import com.zxdc.utils.library.bean.BankBaseBean;
+import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.view.MeasureListView;
 import com.zxdc.utils.library.view.MyRefreshLayoutListener;
 import com.zxdc.utils.library.view.refresh.MyRefreshLayout;
@@ -86,11 +87,13 @@ public class MyBankActivity extends BaseActivity implements MyRefreshLayoutListe
 
     /**
      * 获取银行卡基本信息
-     *
      * @param bankBase
      */
     @Override
     public void getbankinfo(BankBaseBean.BankBase bankBase) {
+        if(bankBase==null){
+            return;
+        }
         bankList.add(0, bankBase);
         historyList.setAdapter(new HistoryBankAdapter(this, bankList));
     }
@@ -103,6 +106,9 @@ public class MyBankActivity extends BaseActivity implements MyRefreshLayoutListe
      */
     @Override
     public void getBankHistory(BankBaseBean.BankBase bankBase) {
+        if(bankBase==null){
+            return;
+        }
         bankList.add(bankBase);
         historyList.setAdapter(new HistoryBankAdapter(this, bankList));
     }

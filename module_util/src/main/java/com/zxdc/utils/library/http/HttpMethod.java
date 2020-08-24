@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -923,6 +924,29 @@ public class HttpMethod extends BaseRequst {
                 DialogUtil.closeProgress();
                 final ActivityNum activityNum= (ActivityNum) JsonUtil.stringToObject(response.body().string(),ActivityNum.class);
                 netCallBack.onSuccess(activityNum);
+            }
+
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                DialogUtil.closeProgress();
+            }
+        });
+    }
+
+
+
+    /**
+     * 新增或编辑简历信息(简历证书)
+     */
+    public static void SaveOrUpdateCertificates(String parameter, final NetCallBack netCallBack) {
+        Http.HttpRequest(parameter, "api/syn/resumeInfo/saveOrUpdateCertificates", new okhttp3.Callback() {
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                DialogUtil.closeProgress();
+                final String message=response.body().string();
+                LogUtils.e("++++++++++++++"+message);
+                final BaseBean baseBean= (BaseBean) JsonUtil.stringToObject(message,BaseBean.class);
+                netCallBack.onSuccess(baseBean);
             }
 
             @Override
