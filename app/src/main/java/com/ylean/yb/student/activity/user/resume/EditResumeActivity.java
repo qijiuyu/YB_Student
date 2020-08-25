@@ -257,7 +257,8 @@ public class EditResumeActivity extends BaseActivity{
                 break;
             //选择求职职位
             case R.id.tv_position:
-                 setClass(SelectPositionActivity.class);
+                 intent.setClass(this,SelectPositionActivity.class);
+                 startActivityForResult(intent,800);
                  break;
             //选择薪资
             case R.id.tv_salary:
@@ -331,6 +332,16 @@ public class EditResumeActivity extends BaseActivity{
                 break;
             default:
                 break;
+        }
+        switch (resultCode){
+            //获取选择的职位
+            case 800:
+                 final List<ResumePostion.Position> list=JsonUtil.stringToList(data.getStringExtra("position"),ResumePostion.Position.class);
+                 tvPosition.setText(null);
+                 for (int i=0;i<list.size();i++){
+                      tvPosition.append(list.get(i).getPositionName()+",");
+                 }
+                 break;
         }
     }
 
