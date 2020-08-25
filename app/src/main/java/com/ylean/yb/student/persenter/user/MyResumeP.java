@@ -4,9 +4,12 @@ import android.app.Activity;
 
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.ResumeBean;
+import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
+
+import java.util.List;
 
 public class MyResumeP {
 
@@ -70,22 +73,7 @@ public class MyResumeP {
     }
 
 
-    /**
-     * 根据组合条件查询职位信息
-     */
-    public void getResumePostion(String parameter){
-        HttpMethod.getResumePostion(parameter, new NetCallBack() {
-            @Override
-            public void onSuccess(Object object) {
 
-            }
-
-            @Override
-            public void onFail() {
-
-            }
-        });
-    }
 
 
     public interface Face{
@@ -93,6 +81,6 @@ public class MyResumeP {
     }
 
     public interface Face2{
-        void SaveOrUpdateCertificates();
+
     }
 }

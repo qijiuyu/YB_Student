@@ -22,6 +22,7 @@ public class ResumePostion extends BaseBean {
         private String positionInfo="";
         private int eduReq;
         private int industrytype;
+        private int selectId;//选中的id
 
         public int getPositionId() {
             return positionId;
@@ -69,6 +70,14 @@ public class ResumePostion extends BaseBean {
 
         public void setIndustrytype(int industrytype) {
             this.industrytype = industrytype;
+        }
+
+        public int getSelectId() {
+            return selectId;
+        }
+
+        public void setSelectId(int selectId) {
+            this.selectId = selectId;
         }
     }
 }

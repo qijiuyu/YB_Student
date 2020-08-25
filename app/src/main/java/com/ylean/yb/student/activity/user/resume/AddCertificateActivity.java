@@ -11,6 +11,7 @@ import com.ylean.yb.student.callback.TimeCallBack;
 import com.ylean.yb.student.persenter.user.MyResumeP;
 import com.ylean.yb.student.utils.SelectTimeUtils;
 import com.zxdc.utils.library.bean.ResumeBean;
+import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.LogUtils;
@@ -102,13 +103,4 @@ public class AddCertificateActivity extends BaseActivity implements MyResumeP.Fa
         }
     }
 
-
-    /**
-     * 编辑完成
-     */
-    @Override
-    public void SaveOrUpdateCertificates() {
-        setResult(1004,new Intent());
-        finish();
-    }
 }

@@ -22,6 +22,7 @@ import com.ylean.yb.student.adapter.user.resume.AddResumePositionAdapter;
 import com.ylean.yb.student.adapter.user.resume.AddResumeSpecialtyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.callback.TimeCallBack;
+import com.ylean.yb.student.persenter.user.MyResumeP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.ylean.yb.student.utils.SelectTimeUtils;
 import com.ylean.yb.student.view.SelectProvince;
@@ -35,6 +36,7 @@ import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ProvinceCallBack;
 import com.zxdc.utils.library.bean.ResumeBean;
+import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.SPUtil;
@@ -51,7 +53,7 @@ import butterknife.OnClick;
 /**
  * 编辑简历
  */
-public class EditResumeActivity extends BaseActivity {
+public class EditResumeActivity extends BaseActivity{
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_right)
@@ -165,7 +167,7 @@ public class EditResumeActivity extends BaseActivity {
         listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,resume.getCertificatesList()));
     }
 
-    @OnClick({R.id.lin_back, R.id.tv_province, R.id.tv_city, R.id.tv_area,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1,R.id.tv_salary,R.id.tv_work_time,R.id.tv_job_type,R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})
+    @OnClick({R.id.lin_back, R.id.tv_province, R.id.tv_city, R.id.tv_area,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1,R.id.tv_position,R.id.tv_salary,R.id.tv_work_time,R.id.tv_job_type,R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})
     public void onViewClicked(View view) {
         final String province=tvProvince.getText().toString().trim();
         final String city=tvCity.getText().toString().trim();
@@ -253,6 +255,10 @@ public class EditResumeActivity extends BaseActivity {
                     }
                 }).show();
                 break;
+            //选择求职职位
+            case R.id.tv_position:
+                 setClass(SelectPositionActivity.class);
+                 break;
             //选择薪资
             case R.id.tv_salary:
                  new SelectSalaryView(this,tvSalary).show();
