@@ -7,6 +7,12 @@
 
     <include layout="@layout/head"/>
 
-    <include layout="@layout/listview"/>
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:focusable="true"
+        android:scrollbars="none" />
 
 </LinearLayout>

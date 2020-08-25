@@ -8,6 +8,7 @@ import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
+import com.zxdc.utils.library.bean.CollMoneyBean;
 import com.zxdc.utils.library.bean.DeclareBean;
 import com.zxdc.utils.library.bean.EconomicBean;
 import com.zxdc.utils.library.bean.EducationBean;
@@ -172,5 +173,8 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.IP+"api/sys/schoolsituation/updstudentapply")
     Call<BaseBean> updateInSchool(@FieldMap Map<String, String> map);
+
+    @GET(HttpConstant.IP+"api/sys/student/finace/receivablesinfo")
+    Call<CollMoneyBean> getCollMoneyList();
 
 }

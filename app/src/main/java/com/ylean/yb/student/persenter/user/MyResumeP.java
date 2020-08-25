@@ -70,6 +70,24 @@ public class MyResumeP {
     }
 
 
+    /**
+     * 根据组合条件查询职位信息
+     */
+    public void getResumePostion(String parameter){
+        HttpMethod.getResumePostion(parameter, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
     public interface Face{
         void getMyResume(ResumeBean.Resume resume);
     }

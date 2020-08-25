@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
+import com.zxdc.utils.library.bean.CollMoneyBean;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,15 +18,17 @@ import butterknife.ButterKnife;
 public class MyBankAdapter extends BaseAdapter {
 
     private Activity activity;
+    private List<CollMoneyBean.CollMoney> list;
 
-    public MyBankAdapter(Activity activity) {
+    public MyBankAdapter(Activity activity,List<CollMoneyBean.CollMoney> list) {
         super();
         this.activity = activity;
+        this.list=list;
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return list==null ? 0 : list.size();
     }
 
     @Override
@@ -46,6 +51,12 @@ public class MyBankAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
+        final CollMoneyBean.CollMoney collMoney=list.get(position);
+        holder.tvTitle.setText(collMoney.getBname());
+        holder.tvTime.setText(collMoney.getYears()+"年");
+        holder.tvMoney.setText("¥"+collMoney.getMoney()+"年");
+        holder.tvSend.setText("¥"+collMoney.getYmoney()+"/"+collMoney.getYcount()+"次");
+        holder.tvGetMoney.setText("¥"+collMoney.getDmoney()+"/"+collMoney.getDcount()+"次");
         return view;
     }
 

@@ -7,6 +7,7 @@ import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
+import com.zxdc.utils.library.bean.CollMoneyBean;
 import com.zxdc.utils.library.bean.DeclareBean;
 import com.zxdc.utils.library.bean.EconomicBean;
 import com.zxdc.utils.library.bean.EducationBean;
@@ -21,6 +22,7 @@ import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.bean.ResumeBean;
+import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.SchoolBean;
 import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
@@ -956,6 +958,45 @@ public class HttpMethod extends BaseRequst {
         });
     }
 
+
+    /**
+     * -根据组合条件查询职位信息
+     */
+    public static void getResumePostion(String parameter, final NetCallBack netCallBack) {
+        Http.HttpRequest(parameter, "api/syn/positionInfo/condition", new okhttp3.Callback() {
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                DialogUtil.closeProgress();
+                final String message=response.body().string();
+                LogUtils.e("++++++++++++++"+message);
+                final ResumePostion resumePostion= (ResumePostion) JsonUtil.stringToObject(message,ResumePostion.class);
+                netCallBack.onSuccess(resumePostion);
+            }
+
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                DialogUtil.closeProgress();
+            }
+        });
+    }
+
+
+
+    /**
+     * 收款信息
+     */
+    public static void getCollMoneyList(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getCollMoneyList().enqueue(new Callback<CollMoneyBean>() {
+            public void onResponse(Call<CollMoneyBean> call, Response<CollMoneyBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<CollMoneyBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
 
 
 }

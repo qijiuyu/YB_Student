@@ -3,10 +3,13 @@ package com.ylean.yb.student.persenter.user;
 import android.app.Activity;
 
 import com.zxdc.utils.library.bean.BankBaseBean;
+import com.zxdc.utils.library.bean.CollMoneyBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
+
+import java.util.List;
 
 public class MyBankP {
 
@@ -73,10 +76,38 @@ public class MyBankP {
 
 
 
+    /**
+     * 收款信息
+     */
+    public void getCollMoneyList(){
+        HttpMethod.getCollMoneyList(new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final CollMoneyBean moneyBean= (CollMoneyBean) object;
+                if(moneyBean.isSussess()){
+
+                    face.getCollMoneyList(moneyBean.getData());
+
+                }else{
+                    ToastUtil.showLong(moneyBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
+
     public interface Face{
 
         void getbankinfo(BankBaseBean.BankBase bankBase);
 
         void getBankHistory(BankBaseBean.BankBase bankBase);
+
+        void getCollMoneyList(List<CollMoneyBean.CollMoney> list);
     }
 }

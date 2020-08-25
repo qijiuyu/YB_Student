@@ -11,10 +11,8 @@ import com.ylean.yb.student.adapter.user.bank.MyBankAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.user.MyBankP;
 import com.zxdc.utils.library.bean.BankBaseBean;
-import com.zxdc.utils.library.util.LogUtils;
+import com.zxdc.utils.library.bean.CollMoneyBean;
 import com.zxdc.utils.library.view.MeasureListView;
-import com.zxdc.utils.library.view.MyRefreshLayoutListener;
-import com.zxdc.utils.library.view.refresh.MyRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
@@ -23,13 +21,11 @@ import butterknife.OnClick;
 /**
  * 我的银行卡
  */
-public class MyBankActivity extends BaseActivity implements MyRefreshLayoutListener, MyBankP.Face {
+public class MyBankActivity extends BaseActivity implements MyBankP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.listView)
     ListView listView;
-    @BindView(R.id.re_list)
-    MyRefreshLayout reList;
     private MeasureListView historyList;
     /**
      * 头部view
@@ -71,16 +67,8 @@ public class MyBankActivity extends BaseActivity implements MyRefreshLayoutListe
         //获取银行卡历史信息
         myBankP.getBankHistory();
 
-        reList.setMyRefreshLayoutListener(this);
-        listView.setDivider(null);
-        listView.setAdapter(new MyBankAdapter(this));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                setClass(MoneyIssueActivity.class);
-            }
-        });
-
+        //收款信息
+        myBankP.getCollMoneyList();
 
     }
 
@@ -113,15 +101,22 @@ public class MyBankActivity extends BaseActivity implements MyRefreshLayoutListe
         historyList.setAdapter(new HistoryBankAdapter(this, bankList));
     }
 
-    @Override
-    public void onRefresh(View view) {
 
+    /**
+     * 获取收款明细
+     * @param list
+     */
+    @Override
+    public void getCollMoneyList(List<CollMoneyBean.CollMoney> list) {
+        listView.setAdapter(new MyBankAdapter(this,list));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                setClass(MoneyIssueActivity.class);
+            }
+        });
     }
 
-    @Override
-    public void onLoadMore(View view) {
-
-    }
 
 
     @OnClick(R.id.lin_back)

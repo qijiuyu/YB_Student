@@ -67,7 +67,7 @@
             android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="￥6000.00/年"
+            android:text="￥.00/年"
             android:textSize="14sp"
             android:textColor="@color/color_333333"
             android:layout_alignParentRight="true"
@@ -87,7 +87,7 @@
             android:id="@+id/tv_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="18000.00/3次"
+            android:text="0.00/3次"
             android:textSize="14sp"
             android:textColor="@color/color_333333"
             android:layout_alignParentRight="true"
@@ -110,7 +110,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="131dp"
             android:layout_marginRight="15dp"
-            android:text="18000.00/3次"
+            android:text="0.00/3次"
             android:textColor="@color/color_333333"
             android:textSize="14sp" />
 
