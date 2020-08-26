@@ -1018,4 +1018,26 @@ public class HttpMethod extends BaseRequst {
     }
 
 
+
+    /**
+     * 新增或编辑简历信息(简历特长)
+     */
+    public static void saveOrUpdateSpeciality(String parameter, final NetCallBack netCallBack) {
+        Http.HttpRequest(parameter, "api/syn/resumeInfo/saveOrUpdateSpeciality", new okhttp3.Callback() {
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                DialogUtil.closeProgress();
+                final String message=response.body().string();
+                LogUtils.e("++++++++++++++"+message);
+                final BaseBean baseBean= (BaseBean) JsonUtil.stringToObject(message,BaseBean.class);
+                netCallBack.onSuccess(baseBean);
+            }
+
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                DialogUtil.closeProgress();
+            }
+        });
+    }
+
 }

@@ -2,6 +2,7 @@ package com.ylean.yb.student.persenter.user;
 
 import android.app.Activity;
 
+import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.ResumePostion;
@@ -16,6 +17,7 @@ public class MyResumeP {
     private Activity activity;
     private Face face;
     private Face2 face2;
+    private Face3 face3;
 
     public MyResumeP(Activity activity,Face face){
         this.activity=activity;
@@ -25,6 +27,11 @@ public class MyResumeP {
     public MyResumeP(Activity activity,Face2 face2){
         this.activity=activity;
         this.face2=face2;
+    }
+
+    public MyResumeP(Activity activity,Face3 face3){
+        this.activity=activity;
+        this.face3=face3;
     }
 
 
@@ -73,6 +80,37 @@ public class MyResumeP {
     }
 
 
+    /**
+     * 新增或编辑简历信息(简历特长)
+     */
+    public void saveOrUpdateSpeciality(String parameter){
+        DialogUtil.showProgress(activity,"数据加载中");
+        HttpMethod.saveOrUpdateSpeciality(parameter, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                    face3.onSuccess();
+
+                }else{
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtil.showLong(baseBean.getDesc());
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
 
 
 
@@ -83,4 +121,10 @@ public class MyResumeP {
     public interface Face2{
 
     }
+
+    public interface Face3{
+
+        void onSuccess();
+    }
+
 }

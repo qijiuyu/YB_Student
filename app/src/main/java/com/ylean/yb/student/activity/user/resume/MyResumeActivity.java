@@ -203,7 +203,7 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
         listPosition.setAdapter(new MyPositionAdapter(this,resume.getSchoolDutiesList()));
 
         //技能特长
-        if(!TextUtils.isEmpty(resume.getSpeciality())){
+        if(!TextUtils.isEmpty(resume.getSpeciality()) && !resume.getSpeciality().equals("null")){
             List<Speciality> list=JsonUtil.stringToList(resume.getSpeciality(),Speciality.class);
             listSpecialty.setAdapter(new MySpecialtyAdapter(this,list));
         }

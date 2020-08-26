@@ -305,7 +305,9 @@ public class EditResumeActivity extends BaseActivity{
                  break;
             //添加技能特长
             case R.id.tv_add_specialty:
-                setClass(AddSpecialtyActivity.class,1003);
+                 intent.setClass(this,AddSpecialtyActivity.class);
+                 intent.putExtra("resumeId",resume.getId());
+                 startActivityForResult(intent,1003);
                  break;
             //添加证书
             case R.id.tv_add_certificate:
