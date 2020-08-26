@@ -55,6 +55,7 @@
             android:textSize="14sp"
             android:textColor="@color/color_333333"
             android:maxLength="18"
+            android:inputType="number"
             android:digits="0987654321xX"/>
 
     </RelativeLayout>

@@ -10,6 +10,7 @@ import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
 import com.zxdc.utils.library.bean.CollMoneyBean;
 import com.zxdc.utils.library.bean.DeclareBean;
+import com.zxdc.utils.library.bean.DictBean;
 import com.zxdc.utils.library.bean.EconomicBean;
 import com.zxdc.utils.library.bean.EducationBean;
 import com.zxdc.utils.library.bean.FacultyBean;
@@ -176,5 +177,8 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/sys/student/finace/receivablesinfo")
     Call<CollMoneyBean> getCollMoneyList();
+
+    @GET(HttpConstant.IP+"api/sys/dic/getTypeAllList")
+    Call<DictBean> getDict(@Query("type") int type);
 
 }

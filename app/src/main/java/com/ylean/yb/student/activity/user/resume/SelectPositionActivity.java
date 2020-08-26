@@ -1,28 +1,24 @@
 package com.ylean.yb.student.activity.user.resume;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.user.resume.SelectPositionAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.user.SelectPositionP;
 import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.ResumePostion;
-import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.MyRefreshLayoutListener;
 import com.zxdc.utils.library.view.refresh.MyRefreshLayout;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -40,7 +36,10 @@ public class SelectPositionActivity extends BaseActivity implements MyRefreshLay
     //页码
     private int page = 1;
     private SelectPositionAdapter adapter;
+    //职位集合
     private List<ResumePostion.Position> listAll = new ArrayList<>();
+    //已选中的职位id
+    private List<Integer> ids=new ArrayList<>();
 
     private SelectPositionP selectPositionP = new SelectPositionP(this, this);
 
@@ -63,6 +62,15 @@ public class SelectPositionActivity extends BaseActivity implements MyRefreshLay
         super.initData();
         tvTitle.setText("选择求职职位");
         tvRight.setText("完成");
+
+        //获取设置过的职位
+        final String content=getIntent().getStringExtra("selectPosition");
+        if(!TextUtils.isEmpty(content)){
+            List<ResumePostion.Position> selectPosition=JsonUtil.stringToList(content,ResumePostion.Position.class);
+            for (int i=0;i<selectPosition.size();i++){
+                 ids.add(selectPosition.get(i).getId());
+            }
+        }
 
         reList.setMyRefreshLayoutListener(this);
         listView.setAdapter(adapter = new SelectPositionAdapter(this, listAll));
@@ -113,6 +121,12 @@ public class SelectPositionActivity extends BaseActivity implements MyRefreshLay
                 reList.refreshComplete();
                 reList.loadMoreComplete();
                 listAll.addAll(list);
+
+                for (int i=0,len=listAll.size();i<len;i++){
+                     if(ids.contains(listAll.get(i).getId())){
+                         listAll.get(i).setSelectId(listAll.get(i).getId());
+                     }
+                }
                 adapter.notifyDataSetChanged();
                 if (list.size() < 100) {
                     reList.setIsLoadingMoreEnabled(false);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,6 +34,7 @@ import com.zxdc.utils.library.bean.AddResumeCertificate;
 import com.zxdc.utils.library.bean.AddResumePostion;
 import com.zxdc.utils.library.bean.AddResumeSpecialty;
 import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.DictBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ProvinceCallBack;
 import com.zxdc.utils.library.bean.ResumeBean;
@@ -116,6 +118,11 @@ public class EditResumeActivity extends BaseActivity{
     ImageView imgFile;
     //简历对象
     private ResumeBean.Resume resume;
+    //选择的求职职位
+    private List<ResumePostion.Position> selectPosition=new ArrayList<>();
+    //选择的行业类型
+    private List<DictBean.Dict> selectIndustry=new ArrayList<>();
+
     private AddResumeEducationAdapter educationAdapter;
     private AddResumeHonorAdapter honorAdapter;
     private AddResumePositionAdapter positionAdapter;
@@ -167,7 +174,7 @@ public class EditResumeActivity extends BaseActivity{
         listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,resume.getCertificatesList()));
     }
 
-    @OnClick({R.id.lin_back, R.id.tv_province, R.id.tv_city, R.id.tv_area,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1,R.id.tv_position,R.id.tv_salary,R.id.tv_work_time,R.id.tv_job_type,R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})
+    @OnClick({R.id.lin_back, R.id.tv_province, R.id.tv_city, R.id.tv_area,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1,R.id.tv_position,R.id.tv_industry,R.id.tv_salary,R.id.tv_work_time,R.id.tv_job_type,R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})
     public void onViewClicked(View view) {
         final String province=tvProvince.getText().toString().trim();
         final String city=tvCity.getText().toString().trim();
@@ -258,7 +265,14 @@ public class EditResumeActivity extends BaseActivity{
             //选择求职职位
             case R.id.tv_position:
                  intent.setClass(this,SelectPositionActivity.class);
+                 intent.putExtra("selectPosition",JsonUtil.objectToString(selectPosition));
                  startActivityForResult(intent,800);
+                 break;
+            //选择行业类型
+            case R.id.tv_industry:
+                 intent.setClass(this,SelectIndustryActivity.class);
+                 intent.putExtra("selectIndustry",JsonUtil.objectToString(selectIndustry));
+                 startActivityForResult(intent,900);
                  break;
             //选择薪资
             case R.id.tv_salary:
@@ -336,11 +350,21 @@ public class EditResumeActivity extends BaseActivity{
         switch (resultCode){
             //获取选择的职位
             case 800:
-                 final List<ResumePostion.Position> list=JsonUtil.stringToList(data.getStringExtra("position"),ResumePostion.Position.class);
+                 selectPosition=JsonUtil.stringToList(data.getStringExtra("position"),ResumePostion.Position.class);
                  tvPosition.setText(null);
-                 for (int i=0;i<list.size();i++){
-                      tvPosition.append(list.get(i).getPositionName()+",");
+                 for (int i=0;i<selectPosition.size();i++){
+                      tvPosition.append(selectPosition.get(i).getPositionName()+",");
                  }
+                 break;
+            //获取选择的行业类型
+            case 900:
+                selectIndustry=JsonUtil.stringToList(data.getStringExtra("dict"),DictBean.Dict.class);
+                tvIndustry.setText(null);
+                for (int i=0;i<selectIndustry.size();i++){
+                    tvIndustry.append(selectIndustry.get(i).getName()+",");
+                }
+                 break;
+             default:
                  break;
         }
     }

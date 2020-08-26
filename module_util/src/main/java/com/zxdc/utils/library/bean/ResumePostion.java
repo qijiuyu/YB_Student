@@ -16,7 +16,7 @@ public class ResumePostion extends BaseBean {
     }
 
     public static class Position implements Serializable{
-        private int positionId;
+        private int id;
         private String positionName;
         private String positionLocation="";
         private String positionInfo="";
@@ -24,12 +24,12 @@ public class ResumePostion extends BaseBean {
         private int industrytype;
         private int selectId;//选中的id
 
-        public int getPositionId() {
-            return positionId;
+        public int getId() {
+            return id;
         }
 
-        public void setPositionId(int positionId) {
-            this.positionId = positionId;
+        public void setId(int id) {
+            this.id = id;
         }
 
         public String getPositionName() {

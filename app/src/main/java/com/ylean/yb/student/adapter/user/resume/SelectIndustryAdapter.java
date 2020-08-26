@@ -9,17 +9,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
-import com.zxdc.utils.library.bean.ResumePostion;
+import com.zxdc.utils.library.bean.DictBean;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SelectPositionAdapter extends BaseAdapter {
+public class SelectIndustryAdapter extends BaseAdapter {
 
     private Activity activity;
-    private List<ResumePostion.Position> list;
+    private List<DictBean.Dict> list;
 
-    public SelectPositionAdapter(Activity activity, List<ResumePostion.Position> list) {
+    public SelectIndustryAdapter(Activity activity, List<DictBean.Dict> list) {
         super();
         this.activity = activity;
         this.list = list;
@@ -50,23 +50,23 @@ public class SelectPositionAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        final ResumePostion.Position po=list.get(position);
-        holder.tvName.setText(po.getPositionName());
-        if(po.getSelectId()!=0){
+        final DictBean.Dict dict=list.get(position);
+        holder.tvName.setText(dict.getName());
+        if(dict.getSelectId()!=0){
             holder.imgSelect.setImageResource(R.mipmap.check_yes);
         }else{
             holder.imgSelect.setImageResource(R.mipmap.check_no);
         }
 
-        holder.linClick.setTag(po);
+        holder.linClick.setTag(dict);
         holder.linClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ResumePostion.Position po= (ResumePostion.Position) v.getTag();
-                if(po.getSelectId()==0){
-                    po.setSelectId(po.getId());
+                DictBean.Dict dict= (DictBean.Dict) v.getTag();
+                if(dict.getSelectId()==0){
+                    dict.setSelectId(dict.getId());
                 }else{
-                    po.setSelectId(0);
+                    dict.setSelectId(0);
                 }
                 notifyDataSetChanged();
             }

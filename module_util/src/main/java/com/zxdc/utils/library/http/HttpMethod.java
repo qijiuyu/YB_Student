@@ -9,6 +9,7 @@ import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
 import com.zxdc.utils.library.bean.CollMoneyBean;
 import com.zxdc.utils.library.bean.DeclareBean;
+import com.zxdc.utils.library.bean.DictBean;
 import com.zxdc.utils.library.bean.EconomicBean;
 import com.zxdc.utils.library.bean.EducationBean;
 import com.zxdc.utils.library.bean.FacultyBean;
@@ -963,7 +964,7 @@ public class HttpMethod extends BaseRequst {
      * -根据组合条件查询职位信息
      */
     public static void getResumePostion(String parameter, final NetCallBack netCallBack) {
-        Http.HttpRequest(parameter, "api/syn/positionInfo/condition", new okhttp3.Callback() {
+        Http.HttpRequest(parameter, "api/syn/positionInfo/findPositionByCondition", new okhttp3.Callback() {
             @Override
             public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                 DialogUtil.closeProgress();
@@ -992,6 +993,24 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<CollMoneyBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 根据type获取字典集合
+     */
+    public static void getDict(int type,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getDict(type).enqueue(new Callback<DictBean>() {
+            public void onResponse(Call<DictBean> call, Response<DictBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<DictBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }
