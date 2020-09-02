@@ -22,12 +22,12 @@ public class SelectSalaryView extends Dialog implements View.OnClickListener {
 
     private Activity context;
     private CycleWheelView wheel;
-    private List<String> listName=new ArrayList<String>(){{add("3000-5000");add("6000-8000");add("9000-12000");}};
-    private List<Integer> listCode=new ArrayList<Integer>(){{add(1);add(2);add(3);}};
+    private List<String> listName=new ArrayList<String>(){{add("1500-2000元/月");add("2000-4000/月");add("4000-6000元/月");add("6000-8000元/月");add("8000-10000元/月");add("10000-12000元/月");}};
+    private List<Integer> listCode=new ArrayList<Integer>(){{add(1);add(2);add(3);add(4);add(5);add(6);}};
     private TextView textView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.min_wheel_select);
+        setContentView(R.layout.wheel_select);
         Window dialogWindow = getWindow();
         dialogWindow.setGravity(Gravity.CENTER | Gravity.BOTTOM);
         WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
@@ -47,7 +47,7 @@ public class SelectSalaryView extends Dialog implements View.OnClickListener {
         wheel.setLabels(listName);
         wheel.setSelection(0);
         try {
-            wheel.setWheelSize(3);
+            wheel.setWheelSize(5);
         } catch (CycleWheelView.CycleWheelViewException e) {
             e.printStackTrace();
         }

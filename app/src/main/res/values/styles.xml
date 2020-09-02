@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <declare-styleable name="TagsLayout">
+        <attr name="tagVerticalSpace" format="dimension" />
+        <attr name="tagHorizontalSpace" format="dimension" />
+    </declare-styleable>
+
 </resources>

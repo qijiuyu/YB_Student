@@ -31,6 +31,8 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
     TextView tvHistory;
     @BindView(R.id.list_bank)
     MeasureListView listBank;
+    @BindView(R.id.lin_nobank)
+    LinearLayout linBank;
     /**
      * 银行卡基本信息与历史信息
      */
@@ -68,7 +70,7 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
     }
 
 
-    @OnClick({R.id.lin_back, R.id.tv_history})
+    @OnClick({R.id.lin_back, R.id.tv_history,R.id.lin_nobank})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lin_back:
@@ -76,6 +78,9 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
                 break;
             case R.id.tv_history:
                 break;
+            case R.id.lin_nobank:
+                 setClass(UpdateBankActivity.class);
+                 break;
             default:
                 break;
         }
@@ -90,6 +95,7 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
     @Override
     public void getbankinfo(BankBaseBean.BankBase bankBase) {
         if (bankBase == null) {
+            linBank.setVisibility(View.VISIBLE);
             return;
         }
         bankList.add(0, bankBase);

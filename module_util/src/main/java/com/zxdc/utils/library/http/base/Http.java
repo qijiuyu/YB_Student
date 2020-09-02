@@ -76,6 +76,7 @@ public class Http {
     public static void upLoadFile(String url, List<FileBean> list, Map<String, String> map, Callback callback) {
         //添加token参数
         map.put("token", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
+        map.put("ch","2");
         //创建RequestBody
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         if(null!=list){
@@ -104,6 +105,7 @@ public class Http {
     public static void upLoadFile2(String url, List<FileBean> list, Map<String, String> map, Callback callback) {
         //添加token参数
         map.put("token", SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
+        map.put("ch","2");
         //创建RequestBody
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         if(null!=list){

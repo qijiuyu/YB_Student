@@ -47,12 +47,45 @@
 
             </RelativeLayout>
 
-            <com.zxdc.utils.library.view.MeasureListView
-                android:id="@+id/list_bank"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:divider="@null">
-            </com.zxdc.utils.library.view.MeasureListView>
+                android:minHeight="170dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp">
+
+                <com.zxdc.utils.library.view.MeasureListView
+                    android:id="@+id/list_bank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@null">
+                </com.zxdc.utils.library.view.MeasureListView>
+
+                <LinearLayout
+                    android:id="@+id/lin_nobank"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/add_photo_icon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="添加银行卡"
+                        android:textSize="12sp"
+                        android:textColor="@color/color_999999"
+                        android:layout_marginTop="5dp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"

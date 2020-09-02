@@ -729,8 +729,8 @@ public class HttpMethod extends BaseRequst {
                 try {
                     String str = response.body().string();
                     LogUtils.e("+++++++++++++++++"+str);
-                    final Register userInfo= (Register) JsonUtil.stringToObject(str, Register.class);
-                    netCallBack.onSuccess(userInfo);
+                    final BaseBean baseBean= (BaseBean) JsonUtil.stringToObject(str, BaseBean.class);
+                    netCallBack.onSuccess(baseBean);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

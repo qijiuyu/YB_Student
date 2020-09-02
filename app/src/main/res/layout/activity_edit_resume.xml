@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lee="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f9f9f9"
@@ -323,6 +324,7 @@
                         android:layout_height="28dp"
                         android:background="@drawable/bg_memo"
                         android:hint="请输入期望薪资"
+                        android:gravity="center_vertical"
                         android:textSize="13sp"
                         android:textColor="@color/color_333333"
                         android:paddingLeft="10dp"/>
@@ -335,7 +337,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="工作地点"
                         android:textSize="14sp"
@@ -343,19 +345,18 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp">
+                        android:layout_height="30dp">
 
                         <TextView
                             android:id="@+id/tv_province1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:drawableRight="@mipmap/bottom_sj"
                             android:paddingRight="7dp"
                             android:maxLines="1"
+                            android:hint="省"
                             android:ellipsize="end"
                             android:gravity="center_vertical"
                             android:paddingLeft="5dp"
@@ -373,6 +374,7 @@
                             android:drawableRight="@mipmap/bottom_sj"
                             android:paddingRight="7dp"
                             android:maxLines="1"
+                            android:hint="市"
                             android:ellipsize="end"
                             android:gravity="center_vertical"
                             android:paddingLeft="5dp"
@@ -386,10 +388,10 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
                             android:drawableRight="@mipmap/bottom_sj"
                             android:paddingRight="7dp"
                             android:maxLines="1"
+                            android:hint="区"
                             android:ellipsize="end"
                             android:gravity="center_vertical"
                             android:paddingLeft="5dp"
@@ -401,61 +403,82 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:gravity="center_vertical">
+                    android:minHeight="45dp">
 
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="求职职位"
-                        android:textColor="@color/color_333333"/>
+                        android:textColor="@color/color_333333"
+                        android:layout_centerVertical="true"/>
 
-                    <TextView
+                    <com.ylean.yb.student.view.TagsLayout
                         android:id="@+id/tv_position"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="28dp"
-                        android:background="@drawable/bg_memo"
-                        android:hint="请选择求职职位"
+                        android:layout_marginLeft="80dp"
+                        lee:tagHorizontalSpace="10dp"
+                        lee:tagVerticalSpace="5dp"
+                        android:layout_marginRight="50dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/tv_add_position_tag"
+                        android:layout_width="50dp"
+                        android:layout_height="25dp"
+                        android:gravity="center"
+                        android:text="添加"
+                        android:textColor="@android:color/white"
                         android:textSize="13sp"
-                        android:textColor="@color/color_333333"
-                        android:paddingLeft="10dp"
-                        android:gravity="center_vertical"
-                        android:paddingRight="10dp"
-                        android:drawableRight="@mipmap/bottom_sj"/>
+                        android:background="@drawable/bg_btn"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:gravity="center_vertical">
+                    android:minHeight="45dp">
 
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:text="求职行业"
-                        android:textColor="@color/color_333333"/>
+                        android:textColor="@color/color_333333"
+                        android:layout_centerVertical="true"/>
 
-                    <TextView
+                    <com.ylean.yb.student.view.TagsLayout
                         android:id="@+id/tv_industry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="28dp"
-                        android:background="@drawable/bg_memo"
-                        android:hint="请选择求职行业"
-                        android:textSize="13sp"
-                        android:textColor="@color/color_333333"
-                        android:paddingLeft="10dp"
-                        android:gravity="center_vertical"
-                        android:paddingRight="10dp"
-                        android:drawableRight="@mipmap/bottom_sj"/>
+                        android:layout_marginLeft="80dp"
+                        lee:tagHorizontalSpace="10dp"
+                        lee:tagVerticalSpace="5dp"
+                        android:layout_marginRight="50dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_centerVertical="true"/>
 
-                </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_add_industry_tag"
+                        android:layout_width="50dp"
+                        android:layout_height="25dp"
+                        android:gravity="center"
+                        android:text="添加"
+                        android:textColor="@android:color/white"
+                        android:textSize="13sp"
+                        android:background="@drawable/bg_btn"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

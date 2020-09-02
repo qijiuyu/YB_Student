@@ -5,7 +5,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,6 +31,7 @@ import com.ylean.yb.student.utils.SelectTimeUtils;
 import com.ylean.yb.student.view.SelectProvince;
 import com.ylean.yb.student.view.SelectSalaryView;
 import com.ylean.yb.student.view.SelectWorkTypeView;
+import com.ylean.yb.student.view.TagsLayout;
 import com.zxdc.utils.library.bean.AddHonor;
 import com.zxdc.utils.library.bean.AddResumeCertificate;
 import com.zxdc.utils.library.bean.AddResumePostion;
@@ -95,9 +98,9 @@ public class EditResumeActivity extends BaseActivity{
     @BindView(R.id.tv_area1)
     TextView tvArea1;
     @BindView(R.id.tv_position)
-    TextView tvPosition;
+    TagsLayout tvPosition;
     @BindView(R.id.tv_industry)
-    TextView tvIndustry;
+    TagsLayout tvIndustry;
     @BindView(R.id.et_introduce)
     EditText etIntroduce;
     @BindView(R.id.tv_work_time)
@@ -174,7 +177,7 @@ public class EditResumeActivity extends BaseActivity{
         listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,resume.getCertificatesList()));
     }
 
-    @OnClick({R.id.lin_back, R.id.tv_province, R.id.tv_city, R.id.tv_area,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1,R.id.tv_position,R.id.tv_industry,R.id.tv_salary,R.id.tv_work_time,R.id.tv_job_type,R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})
+    @OnClick({R.id.lin_back, R.id.tv_province, R.id.tv_city, R.id.tv_area,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1,R.id.tv_add_position_tag,R.id.tv_add_industry_tag,R.id.tv_salary,R.id.tv_work_time,R.id.tv_job_type,R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})
     public void onViewClicked(View view) {
         final String province=tvProvince.getText().toString().trim();
         final String city=tvCity.getText().toString().trim();
@@ -263,13 +266,13 @@ public class EditResumeActivity extends BaseActivity{
                 }).show();
                 break;
             //选择求职职位
-            case R.id.tv_position:
+            case R.id.tv_add_position_tag:
                  intent.setClass(this,SelectPositionActivity.class);
                  intent.putExtra("selectPosition",JsonUtil.objectToString(selectPosition));
                  startActivityForResult(intent,800);
                  break;
             //选择行业类型
-            case R.id.tv_industry:
+            case R.id.tv_add_industry_tag:
                  intent.setClass(this,SelectIndustryActivity.class);
                  intent.putExtra("selectIndustry",JsonUtil.objectToString(selectIndustry));
                  startActivityForResult(intent,900);
@@ -327,6 +330,7 @@ public class EditResumeActivity extends BaseActivity{
     }
 
 
+    ViewGroup.MarginLayoutParams lp;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -353,17 +357,33 @@ public class EditResumeActivity extends BaseActivity{
             //获取选择的职位
             case 800:
                  selectPosition=JsonUtil.stringToList(data.getStringExtra("position"),ResumePostion.Position.class);
-                 tvPosition.setText(null);
+                 tvPosition.removeAllViews();
+                 lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                  for (int i=0;i<selectPosition.size();i++){
-                      tvPosition.append(selectPosition.get(i).getPositionName()+",");
+                     TextView textView = new TextView(this);
+                     textView.setText(selectPosition.get(i).getPositionName());
+                     textView.setTextColor(getResources().getColor(android.R.color.black));
+                     textView.setTextSize(13);
+                     textView.setBackgroundResource(R.drawable.bg_tag_history);
+                     textView.setPadding(10, 10, 10, 10);
+                     textView.setGravity(Gravity.CENTER);
+                     tvPosition.addView(textView, lp);
                  }
                  break;
             //获取选择的行业类型
             case 900:
                 selectIndustry=JsonUtil.stringToList(data.getStringExtra("dict"),DictBean.Dict.class);
-                tvIndustry.setText(null);
+                tvIndustry.removeAllViews();
+                lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 for (int i=0;i<selectIndustry.size();i++){
-                    tvIndustry.append(selectIndustry.get(i).getName()+",");
+                    TextView textView = new TextView(this);
+                    textView.setText(selectIndustry.get(i).getName());
+                    textView.setTextColor(getResources().getColor(android.R.color.black));
+                    textView.setTextSize(13);
+                    textView.setBackgroundResource(R.drawable.bg_tag_history);
+                    textView.setPadding(10, 10, 10, 10);
+                    textView.setGravity(Gravity.CENTER);
+                    tvIndustry.addView(textView, lp);
                 }
                  break;
              default:

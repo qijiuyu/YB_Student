@@ -34,7 +34,9 @@ public class MyBankP {
 
                     face.getbankinfo(bankBaseBean.getData());
 
-                }else{
+                }else if(bankBaseBean.getCode()==-201){
+
+                    face.getbankinfo(null);
                     ToastUtil.showLong(bankBaseBean.getDesc());
                 }
 
