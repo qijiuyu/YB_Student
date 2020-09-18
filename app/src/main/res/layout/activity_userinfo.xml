@@ -10,6 +10,21 @@
        android:layout_height="45dp"
        android:background="@color/color_FA4D4F">
 
+       <LinearLayout
+           android:id="@+id/lin_back"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerVertical="true"
+           android:layout_marginLeft="15dp">
+
+           <ImageView
+               android:layout_width="9.5dp"
+               android:layout_height="18dp"
+               android:src="@mipmap/black_bank"
+               android:layout_marginRight="20dp"/>
+
+       </LinearLayout>
+
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
@@ -33,6 +48,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:layout_marginTop="-5dp"
                 android:background="@drawable/bg_userinfo_head"/>
 
             <LinearLayout

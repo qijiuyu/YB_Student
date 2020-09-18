@@ -52,6 +52,9 @@ public class LoginActivity extends BaseActivity implements LoginP.Face {
         super.initData();
         tvTitle.setText("登录");
         tvRegister.setText(Html.fromHtml("还没有账号，立即<font color=\"#FA4D4F\">注册</font>"));
+
+        etCard.setText("18396831092");
+        etPwd.setText("123456");
     }
 
     @OnClick({R.id.lin_back, R.id.tv_register, R.id.tv_forget, R.id.tv_send_code, R.id.tv_update_mobile, R.id.tv_login})

@@ -122,7 +122,7 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
         educationP.getEducationList();
     }
 
-    @OnClick({R.id.tv_province, R.id.tv_city, R.id.tv_area, R.id.tv_province1, R.id.tv_city1, R.id.tv_area1, R.id.tv_add_family,R.id.tv_add_education,R.id.tv_submit})
+    @OnClick({R.id.lin_back,R.id.tv_province, R.id.tv_city, R.id.tv_area, R.id.tv_province1, R.id.tv_city1, R.id.tv_area1, R.id.tv_add_family,R.id.tv_add_education,R.id.tv_submit})
     public void onViewClicked(View view) {
         final String province=tvProvince.getText().toString().trim();
         final String city=tvCity.getText().toString().trim();
@@ -131,6 +131,9 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
         final String city1=tvCity1.getText().toString().trim();
         final String area1=tvArea1.getText().toString().trim();
         switch (view.getId()) {
+            case R.id.lin_back:
+                  finish();
+                 break;
             //选择省
             case R.id.tv_province:
                 new SelectProvince(this, 0, null, new ProvinceCallBack() {

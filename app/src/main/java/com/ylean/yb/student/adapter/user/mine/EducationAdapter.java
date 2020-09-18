@@ -1,6 +1,7 @@
 package com.ylean.yb.student.adapter.user.mine;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.user.min.AddEducationActivity;
 import com.ylean.yb.student.persenter.EducationP;
 import com.zxdc.utils.library.bean.EducationBean;
 
@@ -97,6 +99,21 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.MyHo
             @Override
             public void onClick(View v) {
                 educationP.deleteEducation((EducationBean.Education) v.getTag());
+            }
+        });
+
+
+        /**
+         * 编辑
+         */
+        holder.tvUpdate.setTag(education);
+        holder.tvUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EducationBean.Education education= (EducationBean.Education) v.getTag();
+                Intent intent=new Intent(activity, AddEducationActivity.class);
+                intent.putExtra("education",education);
+                activity.startActivityForResult(intent,1000);
             }
         });
     }

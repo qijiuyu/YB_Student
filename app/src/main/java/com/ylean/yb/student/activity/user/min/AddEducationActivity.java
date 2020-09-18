@@ -19,6 +19,7 @@ import com.ylean.yb.student.view.SelectProvince;
 import com.ylean.yb.student.view.SelectSchoolType;
 import com.ylean.yb.student.view.SelectSchoolView;
 import com.zxdc.utils.library.bean.AddEducation;
+import com.zxdc.utils.library.bean.EducationBean;
 import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ProvinceCallBack;
@@ -61,8 +62,11 @@ public class AddEducationActivity extends BaseActivity implements SchoolP.Face, 
     EditText etClass;
     @BindView(R.id.lin_class)
     LinearLayout linClass;
-    private SchoolP schoolP;
-    private EducationP educationP;
+    //编辑的学习对象
+    private EducationBean.Education education;
+
+    private SchoolP schoolP = new SchoolP(this, this);
+    private EducationP educationP=new EducationP(this, this);
 
     /**
      * 加载布局
@@ -81,8 +85,7 @@ public class AddEducationActivity extends BaseActivity implements SchoolP.Face, 
     @Override
     protected void initData() {
         super.initData();
-        schoolP = new SchoolP(this, this);
-        educationP = new EducationP(this, this);
+        education= (EducationBean.Education) getIntent().getSerializableExtra("education");
     }
 
 

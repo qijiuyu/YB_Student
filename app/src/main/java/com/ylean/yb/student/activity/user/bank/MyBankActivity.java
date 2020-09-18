@@ -70,7 +70,7 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
     }
 
 
-    @OnClick({R.id.lin_back, R.id.tv_history,R.id.lin_nobank})
+    @OnClick({R.id.lin_back, R.id.tv_history})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lin_back:
@@ -78,9 +78,6 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
                 break;
             case R.id.tv_history:
                 break;
-            case R.id.lin_nobank:
-                 setClass(UpdateBankActivity.class);
-                 break;
             default:
                 break;
         }
