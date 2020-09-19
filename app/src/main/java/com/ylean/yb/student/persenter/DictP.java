@@ -33,6 +33,9 @@ public class DictP {
             @Override
             public void onSuccess(Object object) {
                 final DictBean dictBean= (DictBean) object;
+                if(dictBean==null){
+                    return;
+                }
                 if(dictBean.isSussess()){
 
                     face.getDict(dictBean.getData());

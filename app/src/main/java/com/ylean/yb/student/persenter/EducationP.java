@@ -37,6 +37,9 @@ public class EducationP {
             @Override
             public void onSuccess(Object object) {
                 final EducationBean educationBean= (EducationBean) object;
+                if(educationBean==null){
+                    return;
+                }
                 if(educationBean.isSussess()){
 
                     face2.getEducationList(educationBean.getData());

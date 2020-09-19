@@ -30,6 +30,9 @@ public class MyBankP {
             @Override
             public void onSuccess(Object object) {
                 final BankBaseBean bankBaseBean= (BankBaseBean) object;
+                if(bankBaseBean==null){
+                    return;
+                }
                 if(bankBaseBean.isSussess()){
 
                     face.getbankinfo(bankBaseBean.getData());
@@ -59,6 +62,9 @@ public class MyBankP {
             @Override
             public void onSuccess(Object object) {
                 final BankBaseBean bankBaseBean= (BankBaseBean) object;
+                if(bankBaseBean==null){
+                    return;
+                }
                 if(bankBaseBean.isSussess()){
 
                     face.getBankHistory(bankBaseBean.getData());
@@ -86,10 +92,11 @@ public class MyBankP {
             @Override
             public void onSuccess(Object object) {
                 final CollMoneyBean moneyBean= (CollMoneyBean) object;
+                if(moneyBean==null){
+                    return;
+                }
                 if(moneyBean.isSussess()){
-
                     face.getCollMoneyList(moneyBean.getData());
-
                 }else{
                     ToastUtil.showLong(moneyBean.getDesc());
                 }

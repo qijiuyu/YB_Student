@@ -2,6 +2,7 @@ package com.zxdc.utils.library.http;
 
 
 
+import com.zxdc.utils.library.base.BaseApplication;
 import com.zxdc.utils.library.bean.AboutBean;
 import com.zxdc.utils.library.bean.ActivityNum;
 import com.zxdc.utils.library.bean.BankBaseBean;

@@ -1,6 +1,8 @@
 package com.zxdc.utils.library.http;
 
 import android.text.TextUtils;
+
+import com.google.gson.Gson;
 import com.zxdc.utils.library.bean.AboutBean;
 import com.zxdc.utils.library.bean.ActivityNum;
 import com.zxdc.utils.library.bean.BankBaseBean;
@@ -926,6 +928,7 @@ public class HttpMethod extends BaseRequst {
             public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                 DialogUtil.closeProgress();
                 final ActivityNum activityNum= (ActivityNum) JsonUtil.stringToObject(response.body().string(),ActivityNum.class);
+                LogUtils.e("++++++++++++++"+new Gson().toJson(activityNum));
                 netCallBack.onSuccess(activityNum);
             }
 

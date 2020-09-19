@@ -30,6 +30,9 @@ public class EconomicP {
             @Override
             public void onSuccess(Object object) {
                 final EconomicBean economicBean= (EconomicBean) object;
+                if(economicBean==null){
+                    return;
+                }
                 if(economicBean.isSussess()){
 
                     face.getEconomicList(economicBean.getData());

@@ -109,6 +109,10 @@ public class HistoryBankAdapter extends BaseAdapter {
             holder.view.setVisibility(View.VISIBLE);
         }
 
+
+        /**
+         * 变更银行卡
+         */
         holder.tvUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

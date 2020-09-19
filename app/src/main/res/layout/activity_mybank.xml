@@ -50,9 +50,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="170dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp">
+                android:minHeight="170dp">
 
                 <com.zxdc.utils.library.view.MeasureListView
                     android:id="@+id/list_bank"
