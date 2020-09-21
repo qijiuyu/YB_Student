@@ -28,7 +28,6 @@ public class ResumeBean extends BaseBean {
         private String arrivalTime="";
         private int dType;
         private int status;
-        private String speciality="";
         private String enclosure="";
         private String introduce="";
 
@@ -36,6 +35,7 @@ public class ResumeBean extends BaseBean {
         private List<Honor> inSchoolHonorList;
         private List<Position> schoolDutiesList;
         private List<Certificate> certificatesList;
+        private List<Speciality> speciality;
 
 
         public int getId() {
@@ -134,14 +134,6 @@ public class ResumeBean extends BaseBean {
             this.status = status;
         }
 
-        public String getSpeciality() {
-            return speciality;
-        }
-
-        public void setSpeciality(String speciality) {
-            this.speciality = speciality;
-        }
-
         public String getEnclosure() {
             return enclosure;
         }
@@ -188,6 +180,14 @@ public class ResumeBean extends BaseBean {
 
         public void setCertificatesList(List<Certificate> certificatesList) {
             this.certificatesList = certificatesList;
+        }
+
+        public List<Speciality> getSpeciality() {
+            return speciality;
+        }
+
+        public void setSpeciality(List<Speciality> speciality) {
+            this.speciality = speciality;
         }
     }
 
@@ -402,6 +402,28 @@ public class ResumeBean extends BaseBean {
 
         public void setRemarks(String remarks) {
             this.remarks = remarks;
+        }
+    }
+
+
+    public static class Speciality implements Serializable{
+        private String level;
+        private String name;
+
+        public String getLevel() {
+            return level;
+        }
+
+        public void setLevel(String level) {
+            this.level = level;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
     }
 }

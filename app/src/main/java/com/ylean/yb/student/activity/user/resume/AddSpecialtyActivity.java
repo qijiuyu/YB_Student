@@ -8,6 +8,7 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.user.MyResumeP;
 import com.ylean.yb.student.view.SelectMasterView;
+import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.LogUtils;
@@ -29,6 +30,8 @@ public class AddSpecialtyActivity extends BaseActivity implements MyResumeP.Face
     TextView tvMaster;
     //简历id
     private int resumeId;
+    //历史集合
+    private ResumeBean.Speciality speciality;
     private MyResumeP myResumeP=new MyResumeP(this,this);
 
     /**
@@ -48,6 +51,7 @@ public class AddSpecialtyActivity extends BaseActivity implements MyResumeP.Face
     protected void initData() {
         super.initData();
         resumeId=getIntent().getIntExtra("resumeId",0);
+        speciality= (ResumeBean.Speciality) getIntent().getSerializableExtra("speciality");
     }
 
 

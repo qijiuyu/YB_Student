@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.user.activity.MyActivity;
@@ -22,7 +21,6 @@ import com.ylean.yb.student.persenter.user.UserP;
 import com.zxdc.utils.library.bean.ActivityNum;
 import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.UserInfo;
-import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import butterknife.BindView;
@@ -161,13 +159,8 @@ public class UserActivity extends BaseActivity implements UserP.Face {
      */
     @Override
     public void getOwnActivityNum(final ActivityNum.NumBean numBean) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                tvTotalActivity.setText(numBean.getActivityNum()+"");
-                tvTotalTime.setText(numBean.getTotalPublicWelfare()+"");
-            }
-        });
+        tvTotalActivity.setText(numBean.getActivityNum()+"");
+        tvTotalTime.setText(numBean.getTotalPublicWelfare()+"");
     }
 
 

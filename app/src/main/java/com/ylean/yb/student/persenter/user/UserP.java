@@ -34,6 +34,9 @@ public class UserP {
             @Override
             public void onSuccess(Object object) {
                 final UserInfo userInfo= (UserInfo) object;
+                if(userInfo==null){
+                    return;
+                }
                 if(userInfo.isSussess()){
 
                     face.getbaseinfo(userInfo);
@@ -61,6 +64,9 @@ public class UserP {
             @Override
             public void onSuccess(Object object) {
                 final BaseBean baseBean= (BaseBean) object;
+                if(baseBean==null){
+                    return;
+                }
                 if(baseBean.isSussess()){
 
                     face2.updateSuccess();
@@ -86,6 +92,9 @@ public class UserP {
             @Override
             public void onSuccess(Object object) {
                 final ActivityNum activityNum= (ActivityNum) object;
+                if(activityNum==null){
+                    return;
+                }
                 if(activityNum.isSussess()){
 
                     face.getOwnActivityNum(activityNum.getData());

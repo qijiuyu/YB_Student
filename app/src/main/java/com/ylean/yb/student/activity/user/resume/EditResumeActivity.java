@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +21,9 @@ import com.ylean.yb.student.adapter.user.resume.AddResumeCertificateAdapter;
 import com.ylean.yb.student.adapter.user.resume.AddResumeEducationAdapter;
 import com.ylean.yb.student.adapter.user.resume.AddResumeHonorAdapter;
 import com.ylean.yb.student.adapter.user.resume.AddResumePositionAdapter;
-import com.ylean.yb.student.adapter.user.resume.AddResumeSpecialtyAdapter;
+import com.ylean.yb.student.adapter.user.resume.EditResumeSpecialtyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.callback.TimeCallBack;
-import com.ylean.yb.student.persenter.user.MyResumeP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.ylean.yb.student.utils.SelectTimeUtils;
 import com.ylean.yb.student.view.SelectProvince;
@@ -129,7 +127,7 @@ public class EditResumeActivity extends BaseActivity{
     private AddResumeEducationAdapter educationAdapter;
     private AddResumeHonorAdapter honorAdapter;
     private AddResumePositionAdapter positionAdapter;
-    private AddResumeSpecialtyAdapter specialtyAdapter;
+    private EditResumeSpecialtyAdapter specialtyAdapter;
     private AddResumeCertificateAdapter certificateAdapter;
     //在校荣誉集合
     private List<AddHonor> honorList=new ArrayList<>();
@@ -170,7 +168,7 @@ public class EditResumeActivity extends BaseActivity{
         listPosition.setAdapter(positionAdapter=new AddResumePositionAdapter(this,positionList));
 
         listSpecialty.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listSpecialty.setAdapter(specialtyAdapter=new AddResumeSpecialtyAdapter(this,specialtyList));
+        listSpecialty.setAdapter(specialtyAdapter=new EditResumeSpecialtyAdapter(this,resume.getSpeciality(),resume.getId()));
 
         //展示证书信息
         listCertificate.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));

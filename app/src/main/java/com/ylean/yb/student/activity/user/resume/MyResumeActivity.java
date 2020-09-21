@@ -1,6 +1,7 @@
 package com.ylean.yb.student.activity.user.resume;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ScrollView;
@@ -203,14 +204,16 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
         listPosition.setAdapter(new MyPositionAdapter(this,resume.getSchoolDutiesList()));
 
         //技能特长
-        if(!TextUtils.isEmpty(resume.getSpeciality()) && !resume.getSpeciality().equals("null")){
-            List<Speciality> list=JsonUtil.stringToList(resume.getSpeciality(),Speciality.class);
-            listSpecialty.setAdapter(new MySpecialtyAdapter(this,list));
-        }
+        listSpecialty.setAdapter(new MySpecialtyAdapter(this,resume.getSpeciality()));
 
         //证书
         listCertificate.setAdapter(new MyCertificateAdapter(this,resume.getCertificatesList()));
 
-        scrollView.scrollTo(0,0);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.scrollTo(0,0);
+            }
+        },200);
     }
 }

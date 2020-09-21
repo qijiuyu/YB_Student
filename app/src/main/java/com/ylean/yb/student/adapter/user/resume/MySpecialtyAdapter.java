@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
+import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.Speciality;
 
 import java.util.List;
@@ -18,9 +19,9 @@ import butterknife.ButterKnife;
 public class MySpecialtyAdapter extends BaseAdapter {
 
     private Activity activity;
-    private List<Speciality> list;
+    private List<ResumeBean.Speciality> list;
 
-    public MySpecialtyAdapter(Activity activity,List<Speciality> list) {
+    public MySpecialtyAdapter(Activity activity,List<ResumeBean.Speciality> list) {
         super();
         this.activity = activity;
         this.list=list;
@@ -51,7 +52,7 @@ public class MySpecialtyAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        final Speciality speciality=list.get(position);
+        final ResumeBean.Speciality speciality=list.get(position);
         holder.tvName.setText("技能/语言："+speciality.getName()+"               掌握程度："+speciality.getLevel());
         return view;
     }
