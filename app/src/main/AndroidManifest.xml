@@ -116,6 +116,7 @@
         <activity android:name=".activity.user.news.SurveyDetailsActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.resume.SelectPositionActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.resume.SelectIndustryActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.bank.ProgressActivity"  android:screenOrientation="portrait"/>
 
 
         <provider

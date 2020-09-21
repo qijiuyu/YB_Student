@@ -93,7 +93,7 @@ public class AddCertificateActivity extends BaseActivity implements MyResumeP.Fa
                 resumeCertificate.setCertificatesPOJOS(list);
 
                 LogUtils.e("+++++++++++"+JsonUtil.objectToString(resumeCertificate));
-                myResumeP.SaveOrUpdateCertificates(JsonUtil.objectToString(resumeCertificate));
+                myResumeP.SaveOrUpdateCertificates(resumeCertificate);
                 break;
             case R.id.rel:
                  finish();

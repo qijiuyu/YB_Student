@@ -6,6 +6,8 @@ import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.ResumePostion;
+import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
+import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
@@ -64,9 +66,9 @@ public class MyResumeP {
     /**
      * 新增或编辑简历信息(简历证书)
      */
-    public void SaveOrUpdateCertificates(String parameter){
+    public void SaveOrUpdateCertificates(ResumeCertificate resumeCertificate){
         DialogUtil.showProgress(activity,"数据加载中");
-        HttpMethod.SaveOrUpdateCertificates(parameter, new NetCallBack() {
+        HttpMethod.SaveOrUpdateCertificates(resumeCertificate, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
 
@@ -83,9 +85,9 @@ public class MyResumeP {
     /**
      * 新增或编辑简历信息(简历特长)
      */
-    public void saveOrUpdateSpeciality(String parameter){
+    public void saveOrUpdateSpeciality(AddSpecialtyP addSpecialtyP){
         DialogUtil.showProgress(activity,"数据加载中");
-        HttpMethod.saveOrUpdateSpeciality(parameter, new NetCallBack() {
+        HttpMethod.saveOrUpdateSpeciality(addSpecialtyP, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
                 final BaseBean baseBean= (BaseBean) object;
@@ -94,12 +96,7 @@ public class MyResumeP {
                     face3.onSuccess();
 
                 }else{
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ToastUtil.showLong(baseBean.getDesc());
-                        }
-                    });
+                    ToastUtil.showLong(baseBean.getDesc());
                 }
             }
 

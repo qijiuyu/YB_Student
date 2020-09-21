@@ -76,7 +76,7 @@ public class AddSpecialtyActivity extends BaseActivity implements MyResumeP.Face
 
                 LogUtils.e("++++++++++"+JsonUtil.objectToString(addSpecialtyP));
                 //新增或编辑简历信息(简历特长)
-                myResumeP.saveOrUpdateSpeciality(JsonUtil.objectToString(addSpecialtyP));
+                myResumeP.saveOrUpdateSpeciality(addSpecialtyP);
                 break;
             case R.id.rel:
                 finish();

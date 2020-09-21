@@ -115,24 +115,19 @@ public class SelectPositionActivity extends BaseActivity implements MyRefreshLay
      */
     @Override
     public void getResumePostion(final List<ResumePostion.Position> list) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                reList.refreshComplete();
-                reList.loadMoreComplete();
-                listAll.addAll(list);
+        reList.refreshComplete();
+        reList.loadMoreComplete();
+        listAll.addAll(list);
 
-                for (int i=0,len=listAll.size();i<len;i++){
-                     if(ids.contains(listAll.get(i).getId())){
-                         listAll.get(i).setSelectId(listAll.get(i).getId());
-                     }
-                }
-                adapter.notifyDataSetChanged();
-                if (list.size() < 100) {
-                    reList.setIsLoadingMoreEnabled(false);
-                }
+        for (int i=0,len=listAll.size();i<len;i++){
+            if(ids.contains(listAll.get(i).getId())){
+                listAll.get(i).setSelectId(listAll.get(i).getId());
             }
-        });
+        }
+        adapter.notifyDataSetChanged();
+        if (list.size() < 100) {
+            reList.setIsLoadingMoreEnabled(false);
+        }
     }
 
 
@@ -145,7 +140,7 @@ public class SelectPositionActivity extends BaseActivity implements MyRefreshLay
     public void onRefresh(View view) {
         listAll.clear();
         page = 1;
-        selectPositionP.getResumePostion(JsonUtil.objectToString(new PageParam(page, 100)));
+        selectPositionP.getResumePostion(new PageParam(page, 100));
     }
 
 
@@ -157,6 +152,6 @@ public class SelectPositionActivity extends BaseActivity implements MyRefreshLay
     @Override
     public void onLoadMore(View view) {
         page++;
-        selectPositionP.getResumePostion(JsonUtil.objectToString(new PageParam(page, 100)));
+        selectPositionP.getResumePostion(new PageParam(page, 100));
     }
 }

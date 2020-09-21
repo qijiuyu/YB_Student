@@ -1,11 +1,10 @@
 package com.zxdc.utils.library.http;
 
 
-
-import com.zxdc.utils.library.base.BaseApplication;
 import com.zxdc.utils.library.bean.AboutBean;
 import com.zxdc.utils.library.bean.ActivityNum;
 import com.zxdc.utils.library.bean.BankBaseBean;
+import com.zxdc.utils.library.bean.BankProgress;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
@@ -23,10 +22,13 @@ import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ResumeBean;
+import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.SchoolBean;
 import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
 import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
+import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.util.SPUtil;
 
 import java.util.Map;
@@ -181,5 +183,20 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/sys/dic/getTypeAllList")
     Call<DictBean> getDict(@Query("type") int type);
+
+    @GET(HttpConstant.IP+"api/user/bk/getbankspeedinfo")
+    Call<BankProgress> getBankProgress();
+
+    @POST(HttpConstant.IP+"api/syn/resumeInfo/saveOrUpdateSpeciality")
+    Call<BaseBean> saveOrUpdateSpeciality(@Body AddSpecialtyP addSpecialtyP);
+
+    @POST(HttpConstant.IP+"api/syn/positionInfo/findPositionByCondition")
+    Call<ResumePostion> getResumePostion(@Body PageParam pageParam);
+
+    @POST(HttpConstant.IP+"api/syn/resumeInfo/saveOrUpdateCertificates")
+    Call<BaseBean> SaveOrUpdateCertificates(@Body ResumeCertificate resumeCertificate);
+
+    @POST(HttpConstant.IP+"api/syn/publicWelfare/getOwnActivityNum")
+    Call<ActivityNum> getOwnActivityNum(@Body PageParam pageParam);
 
 }

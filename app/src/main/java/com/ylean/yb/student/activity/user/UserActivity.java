@@ -180,7 +180,7 @@ public class UserActivity extends BaseActivity implements UserP.Face {
             userP.getbaseinfo();
 
             //我的社团活动数量
-            userP.getOwnActivityNum(JsonUtil.objectToString(new PageParam(1,10)));
+            userP.getOwnActivityNum(new PageParam(1,10));
         }
     }
 }

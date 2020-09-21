@@ -1,7 +1,6 @@
 package com.ylean.yb.student.persenter.user;
 
 import android.app.Activity;
-
 import com.zxdc.utils.library.bean.ActivityNum;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.NetCallBack;
@@ -9,7 +8,6 @@ import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
-import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.ToastUtil;
 
 public class UserP {
@@ -83,7 +81,7 @@ public class UserP {
     /**
      * 我的社团活动数量
      */
-    public void getOwnActivityNum(String pageParam){
+    public void getOwnActivityNum(PageParam pageParam){
         HttpMethod.getOwnActivityNum(pageParam, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {

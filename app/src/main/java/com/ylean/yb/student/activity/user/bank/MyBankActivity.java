@@ -37,7 +37,7 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
      * 银行卡基本信息与历史信息
      */
     private List<BankBaseBean.BankBase> bankList = new ArrayList<>();
-    private MyBankP myBankP = new MyBankP(this, this);
+    private MyBankP myBankP = new MyBankP(this);
 
     /**
      * 加载布局
@@ -56,6 +56,7 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
     @Override
     protected void initData() {
         super.initData();
+        myBankP.setFace(this);
         tvTitle.setText("我的银行卡");
 
         //获取银行卡基本信息

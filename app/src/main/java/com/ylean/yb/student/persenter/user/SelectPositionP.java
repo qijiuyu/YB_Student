@@ -3,6 +3,7 @@ package com.ylean.yb.student.persenter.user;
 import android.app.Activity;
 
 import com.zxdc.utils.library.bean.NetCallBack;
+import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.ToastUtil;
@@ -22,8 +23,8 @@ public class SelectPositionP {
     /**
      * 根据组合条件查询职位信息
      */
-    public void getResumePostion(String parameter){
-        HttpMethod.getResumePostion(parameter, new NetCallBack() {
+    public void getResumePostion(PageParam pageParam){
+        HttpMethod.getResumePostion(pageParam, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
                 final ResumePostion resumePostion= (ResumePostion) object;
@@ -32,12 +33,7 @@ public class SelectPositionP {
                     face.getResumePostion(resumePostion.getData());
 
                 }else{
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ToastUtil.showLong(resumePostion.getDesc());
-                        }
-                    });
+                    ToastUtil.showLong(resumePostion.getDesc());
                 }
             }
 

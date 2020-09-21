@@ -1,11 +1,10 @@
 package com.zxdc.utils.library.http;
 
 import android.text.TextUtils;
-
-import com.google.gson.Gson;
 import com.zxdc.utils.library.bean.AboutBean;
 import com.zxdc.utils.library.bean.ActivityNum;
 import com.zxdc.utils.library.bean.BankBaseBean;
+import com.zxdc.utils.library.bean.BankProgress;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
@@ -22,6 +21,7 @@ import com.zxdc.utils.library.bean.InSchoolBean;
 import com.zxdc.utils.library.bean.LeaveBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.NewsBean;
+import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.bean.ResumeBean;
@@ -31,6 +31,8 @@ import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
 import com.zxdc.utils.library.bean.UploadFile;
 import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
+import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.http.base.BaseRequst;
 import com.zxdc.utils.library.http.base.Http;
 import com.zxdc.utils.library.util.DialogUtil;
@@ -41,7 +43,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -922,19 +923,15 @@ public class HttpMethod extends BaseRequst {
     /**
      * 我的社团活动数量
      */
-    public static void getOwnActivityNum(String pageParam, final NetCallBack netCallBack) {
-        Http.HttpRequest(pageParam, "api/syn/publicWelfare/getOwnActivityNum", new okhttp3.Callback() {
-            @Override
-            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+    public static void getOwnActivityNum(PageParam pageParam, final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getOwnActivityNum(pageParam).enqueue(new Callback<ActivityNum>() {
+            public void onResponse(Call<ActivityNum> call, Response<ActivityNum> response) {
                 DialogUtil.closeProgress();
-                final ActivityNum activityNum= (ActivityNum) JsonUtil.stringToObject(response.body().string(),ActivityNum.class);
-                LogUtils.e("++++++++++++++"+new Gson().toJson(activityNum));
-                netCallBack.onSuccess(activityNum);
+                netCallBack.onSuccess(response.body());
             }
-
-            @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
+            public void onFailure(Call<ActivityNum> call, Throwable t) {
                 DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
             }
         });
     }
@@ -944,20 +941,15 @@ public class HttpMethod extends BaseRequst {
     /**
      * 新增或编辑简历信息(简历证书)
      */
-    public static void SaveOrUpdateCertificates(String parameter, final NetCallBack netCallBack) {
-        Http.HttpRequest(parameter, "api/syn/resumeInfo/saveOrUpdateCertificates", new okhttp3.Callback() {
-            @Override
-            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+    public static void SaveOrUpdateCertificates(ResumeCertificate resumeCertificate, final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).SaveOrUpdateCertificates(resumeCertificate).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
-                final String message=response.body().string();
-                LogUtils.e("++++++++++++++"+message);
-                final BaseBean baseBean= (BaseBean) JsonUtil.stringToObject(message,BaseBean.class);
-                netCallBack.onSuccess(baseBean);
+                netCallBack.onSuccess(response.body());
             }
-
-            @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
+            public void onFailure(Call<BaseBean> call, Throwable t) {
                 DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
             }
         });
     }
@@ -966,20 +958,15 @@ public class HttpMethod extends BaseRequst {
     /**
      * -根据组合条件查询职位信息
      */
-    public static void getResumePostion(String parameter, final NetCallBack netCallBack) {
-        Http.HttpRequest(parameter, "api/syn/positionInfo/findPositionByCondition", new okhttp3.Callback() {
-            @Override
-            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+    public static void getResumePostion(PageParam pageParam, final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getResumePostion(pageParam).enqueue(new Callback<ResumePostion>() {
+            public void onResponse(Call<ResumePostion> call, Response<ResumePostion> response) {
                 DialogUtil.closeProgress();
-                final String message=response.body().string();
-                LogUtils.e("++++++++++++++"+message);
-                final ResumePostion resumePostion= (ResumePostion) JsonUtil.stringToObject(message,ResumePostion.class);
-                netCallBack.onSuccess(resumePostion);
+                netCallBack.onSuccess(response.body());
             }
-
-            @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
+            public void onFailure(Call<ResumePostion> call, Throwable t) {
                 DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
             }
         });
     }
@@ -1025,20 +1012,33 @@ public class HttpMethod extends BaseRequst {
     /**
      * 新增或编辑简历信息(简历特长)
      */
-    public static void saveOrUpdateSpeciality(String parameter, final NetCallBack netCallBack) {
-        Http.HttpRequest(parameter, "api/syn/resumeInfo/saveOrUpdateSpeciality", new okhttp3.Callback() {
-            @Override
-            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+    public static void saveOrUpdateSpeciality(AddSpecialtyP addSpecialtyP, final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).saveOrUpdateSpeciality(addSpecialtyP).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
-                final String message=response.body().string();
-                LogUtils.e("++++++++++++++"+message);
-                final BaseBean baseBean= (BaseBean) JsonUtil.stringToObject(message,BaseBean.class);
-                netCallBack.onSuccess(baseBean);
+                netCallBack.onSuccess(response.body());
             }
-
-            @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
+            public void onFailure(Call<BaseBean> call, Throwable t) {
                 DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 获取银行卡办里进度
+     */
+    public static void getBankProgress(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getBankProgress().enqueue(new Callback<BankProgress>() {
+            public void onResponse(Call<BankProgress> call, Response<BankProgress> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BankProgress> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
             }
         });
     }

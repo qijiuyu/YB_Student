@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.user.bank.ProgressActivity;
 import com.ylean.yb.student.activity.user.bank.UpdateBankActivity;
 import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.view.CircleImageView;
@@ -71,12 +72,16 @@ public class HistoryBankAdapter extends BaseAdapter {
         switch (bankBase.getBankstatus()){
             case 0:
                  holder.tvStatus.setText("未提交");
+                 holder.tvPlay1.setVisibility(View.GONE);
                  break;
             case 1:
                 holder.tvStatus.setText("已提交");
+                holder.tvPlay1.setVisibility(View.VISIBLE);
+                holder.tvPlay1.setText("办理进度");
                 break;
             case 2:
                 holder.tvStatus.setText("未开卡");
+                holder.tvPlay1.setVisibility(View.GONE);
                 break;
             case 3:
                 holder.tvStatus.setText("已开卡");
@@ -113,10 +118,27 @@ public class HistoryBankAdapter extends BaseAdapter {
         /**
          * 变更银行卡
          */
-        holder.tvUpdate.setOnClickListener(new View.OnClickListener() {
+        holder.tvPlay1.setTag(bankBase);
+        holder.tvPlay1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(activity, UpdateBankActivity.class);
+                final BankBaseBean.BankBase bankBase= (BankBaseBean.BankBase) v.getTag();
+                Intent intent=new Intent();
+                switch (bankBase.getBankstatus()){
+                    //已提交： 可以查看办理进度
+                    case 1:
+                         intent.setClass(activity, ProgressActivity.class);
+                         break;
+                    //已邮寄：去验证
+                    case 4:
+                         break;
+                    //已更改： 可以变更了
+                    case 6:
+                         intent.setClass(activity,UpdateBankActivity.class);
+                         break;
+                     default:
+                         break;
+                }
                 activity.startActivity(intent);
             }
         });
@@ -142,8 +164,10 @@ public class HistoryBankAdapter extends BaseAdapter {
         TextView tvMobile;
         @BindView(R.id.tv_card)
         TextView tvCard;
-        @BindView(R.id.tv_update)
-        TextView tvUpdate;
+        @BindView(R.id.tv_play1)
+        TextView tvPlay1;
+        @BindView(R.id.tv_play2)
+        TextView tvPlay2;
         @BindView(R.id.view)
         View view;
 

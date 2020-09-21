@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <com.zxdc.utils.library.view.CircleImageView
+            android:id="@+id/img_status"
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/round_red"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#bdbdbd"
+            android:layout_below="@id/img_status"
+            android:layout_marginLeft="25.5dp"/>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="卡片寄送成功，银行已寄给 王五学生，请与他
+进行联系，联系方式：王五 15515454545"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="45dp"
+            android:lineSpacingExtra="5dp"
+            android:maxLines="2"
+            android:ellipsize="end"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2019.09.30"
+            android:textSize="11sp"
+            android:textColor="@color/color_999999"
+            android:layout_below="@id/tv_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="10dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
