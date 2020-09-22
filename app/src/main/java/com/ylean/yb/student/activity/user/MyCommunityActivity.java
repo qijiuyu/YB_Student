@@ -1,24 +1,26 @@
-package com.ylean.yb.student.activity.planning;
+package com.ylean.yb.student.activity.user;
 
 import android.view.KeyEvent;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
+
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.webview.BaseWebView;
 import com.zxdc.utils.library.http.HttpConstant;
 import com.zxdc.utils.library.util.SPUtil;
+
 import butterknife.BindView;
 
 /**
- * 职业规划
+ * 我的社团
  */
-public class PlanningActivity extends BaseWebView {
+public class MyCommunityActivity extends BaseWebView {
 
     @BindView(R.id.webview)
     WebView webview;
 
     /**
      * 加载布局
-     * @return
      */
     @Override
     protected int getLayoutId() {
@@ -33,7 +35,20 @@ public class PlanningActivity extends BaseWebView {
     protected void initData() {
         super.initData();
         initWebView(webview);
-        webview.loadUrl(HttpConstant.H5+"employmentlink.html?token="+ SPUtil.getInstance(this).getString(SPUtil.TOKEN));
+        webview.loadUrl(HttpConstant.H5+"mysocietyDetaile.html?token="+ SPUtil.getInstance(this).getString(SPUtil.TOKEN));
+    }
+
+
+    /**
+     * 退出
+     */
+    @JavascriptInterface
+    public void back(){
+        if (webview.canGoBack()) {
+            webview.goBack();
+        } else {
+            finish();
+        }
     }
 
 
@@ -49,4 +64,5 @@ public class PlanningActivity extends BaseWebView {
         super.onDestroy();
         webview.clearCache(true);
     }
+
 }

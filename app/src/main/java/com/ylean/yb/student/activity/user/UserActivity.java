@@ -96,6 +96,7 @@ public class UserActivity extends BaseActivity implements UserP.Face {
                 break;
             //我的社团
             case R.id.rel_st:
+                setClass(MyCommunityActivity.class);
                 break;
             //我的银行卡
             case R.id.rel_bank:
@@ -107,6 +108,7 @@ public class UserActivity extends BaseActivity implements UserP.Face {
                 break;
             //导师咨询
             case R.id.rel_zx:
+                setClass(MentorActivity.class);
                 break;
             //创业分享
             case R.id.rel_share:

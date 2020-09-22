@@ -1,8 +1,11 @@
 package com.ylean.yb.student.application;
 
+import android.text.TextUtils;
+
 import com.tencent.bugly.crashreport.CrashReport;
 import com.zxdc.utils.library.base.BaseApplication;
 import com.zxdc.utils.library.util.ActivitysLifecycle;
+import com.zxdc.utils.library.util.SPUtil;
 
 public class MyApplication extends BaseApplication {
 
@@ -29,5 +32,17 @@ public class MyApplication extends BaseApplication {
         }catch (Exception e){
 
         }
+    }
+
+
+    /**
+     * 判断是否登录
+     * @return
+     */
+    public static boolean isLogin(){
+        if(TextUtils.isEmpty(SPUtil.getInstance(getContext()).getString(SPUtil.TOKEN))){
+            return false;
+        }
+        return true;
     }
 }

@@ -3,6 +3,7 @@ package com.ylean.yb.student.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,12 +13,15 @@ import androidx.annotation.RequiresApi;
 import com.gyf.barlibrary.ImmersionBar;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.declare.DeclareActivity;
+import com.ylean.yb.student.activity.init.LoginActivity;
 import com.ylean.yb.student.activity.love.LoveActivity;
 import com.ylean.yb.student.activity.main.MainActivity;
 import com.ylean.yb.student.activity.planning.PlanningActivity;
 import com.ylean.yb.student.activity.user.UserActivity;
+import com.ylean.yb.student.application.MyApplication;
 import com.ylean.yb.student.utils.PermissionUtil;
 import com.zxdc.utils.library.util.ActivitysLifecycle;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.util.error.CockroachUtil;
 import java.util.ArrayList;
@@ -25,6 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.cache.Sp;
 
 public class TabActivity extends android.app.TabActivity {
 
@@ -92,6 +97,7 @@ public class TabActivity extends android.app.TabActivity {
 
     @OnClick({R.id.lin_main, R.id.lin_declare, R.id.lin_love, R.id.lin_planning, R.id.lin_user})
     public void onViewClicked(View view) {
+        Intent intent=new Intent(this, LoginActivity.class);
         switch (view.getId()) {
             case R.id.lin_main:
                 updateTag(0);
@@ -100,10 +106,18 @@ public class TabActivity extends android.app.TabActivity {
                 updateTag(1);
                 break;
             case R.id.lin_love:
-                updateTag(2);
+                if(MyApplication.isLogin()){
+                    updateTag(2);
+                }else{
+                    startActivity(intent);
+                }
                 break;
             case R.id.lin_planning:
-                updateTag(3);
+                if(MyApplication.isLogin()){
+                    updateTag(3);
+                }else{
+                    startActivity(intent);
+                }
                 break;
             case R.id.lin_user:
                 updateTag(4);

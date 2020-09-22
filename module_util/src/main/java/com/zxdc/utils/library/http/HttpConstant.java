@@ -12,4 +12,6 @@ public class HttpConstant {
     //测试IP
     public static final String IP = "http://yb.api.yl-mall.cn/";
 
+    public static final String H5=IP+"app/student/h5/";
+
 }
