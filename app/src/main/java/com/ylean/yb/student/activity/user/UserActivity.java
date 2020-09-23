@@ -112,6 +112,7 @@ public class UserActivity extends BaseActivity implements UserP.Face {
                 break;
             //创业分享
             case R.id.rel_share:
+                setClass(ShareActivity.class);
                 break;
             //我的简历
             case R.id.rel_resume:
