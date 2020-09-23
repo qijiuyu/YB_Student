@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.adapter.main.MainDTAdapter;
 import com.ylean.yb.student.adapter.main.MainJLAdapter;
 import com.ylean.yb.student.adapter.main.MainJZAdapter;
 import com.ylean.yb.student.base.BaseFragment;
@@ -33,6 +34,8 @@ public class MainFragment extends BaseFragment {
     RecyclerView listJl;
     @BindView(R.id.list_jz)
     RecyclerView listJz;
+    @BindView(R.id.list_dt)
+    RecyclerView listDt;
 
     /**
      * 加载布局
@@ -61,6 +64,9 @@ public class MainFragment extends BaseFragment {
 
         listJz.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
         listJz.setAdapter(new MainJZAdapter(activity));
+
+        listDt.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+        listDt.setAdapter(new MainDTAdapter(activity));
     }
 
 
