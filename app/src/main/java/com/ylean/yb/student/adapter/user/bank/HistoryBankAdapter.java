@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.user.bank.ProgressActivity;
 import com.ylean.yb.student.activity.user.bank.UpdateBankActivity;
+import com.ylean.yb.student.activity.user.bank.ValidationActivity;
 import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.view.CircleImageView;
 
@@ -88,6 +89,8 @@ public class HistoryBankAdapter extends BaseAdapter {
                 break;
             case 4:
                 holder.tvStatus.setText("已邮寄");
+                holder.tvPlay1.setVisibility(View.VISIBLE);
+                holder.tvPlay1.setText("去验证");
                 break;
             case 5:
                 holder.tvStatus.setText("正在使用");
@@ -131,6 +134,7 @@ public class HistoryBankAdapter extends BaseAdapter {
                          break;
                     //已邮寄：去验证
                     case 4:
+                         intent.setClass(activity, ValidationActivity.class);
                          break;
                     //已更改： 可以变更了
                     case 6:

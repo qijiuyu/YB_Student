@@ -199,4 +199,8 @@ public interface HttpApi {
     @POST(HttpConstant.IP+"api/syn/publicWelfare/getOwnActivityNum")
     Call<ActivityNum> getOwnActivityNum(@Body PageParam pageParam);
 
+    @FormUrlEncoded
+    @PUT(HttpConstant.IP+"api/user/bk/verification")
+    Call<BaseBean> verBank(@FieldMap Map<String, String> map);
+
 }

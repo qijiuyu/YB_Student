@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.bean.BankProgress;
+import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.CollMoneyBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.http.HttpMethod;
@@ -17,6 +18,7 @@ public class MyBankP {
     private Activity activity;
     private Face face;
     private Face2 face2;
+    private Face3 face3;
 
     public MyBankP(Activity activity){
         this.activity=activity;
@@ -28,6 +30,10 @@ public class MyBankP {
 
     public void setFace2(Face2 face2){
         this.face2=face2;
+    }
+
+    public void setFace3(Face3 face3){
+        this.face3=face3;
     }
 
 
@@ -149,6 +155,35 @@ public class MyBankP {
     }
 
 
+    /**
+     * 验证银行卡
+     */
+    public void verBank(String num){
+        DialogUtil.showProgress(activity,"验证中");
+        HttpMethod.verBank(num, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean==null){
+                    return;
+                }
+                if(baseBean.isSussess()){
+
+                    face3.verBankSuccess();
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
 
     public interface Face{
 
@@ -162,5 +197,10 @@ public class MyBankP {
 
     public interface Face2{
         void getBankProgress(List<BankProgress.Progress> list);
+    }
+
+
+    public interface Face3{
+        void verBankSuccess();
     }
 }
