@@ -23,7 +23,7 @@ import butterknife.OnClick;
 /**
  * 添加技能特长
  */
-public class AddSpecialtyActivity extends BaseActivity implements MyResumeP.Face3 {
+public class AddSpecialtyActivity extends BaseActivity implements MyResumeP.Face2 {
     @BindView(R.id.et_language)
     EditText etLanguage;
     @BindView(R.id.tv_master)
@@ -53,7 +53,7 @@ public class AddSpecialtyActivity extends BaseActivity implements MyResumeP.Face
     @Override
     protected void initData() {
         super.initData();
-        myResumeP.setFace3(this);
+        myResumeP.setFace2(this);
 
 
         //获取简历对象
@@ -92,7 +92,6 @@ public class AddSpecialtyActivity extends BaseActivity implements MyResumeP.Face
                 }
                 AddSpecialtyP addSpecialtyP=new AddSpecialtyP();
                 addSpecialtyP.setId(resume.getId());
-
 
                 List<AddSpecialtyP.DataBean> list=new ArrayList<>();
                 //先添加好老数据

@@ -32,6 +32,8 @@ import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
 import com.zxdc.utils.library.bean.UploadFile;
 import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.bean.parameter.AddSchoolHonor;
+import com.zxdc.utils.library.bean.parameter.AddSchoolPosition;
 import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
 import com.zxdc.utils.library.bean.parameter.GetDeliveryRecord;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
@@ -1075,6 +1077,41 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<DeliveryBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 新增或编辑简历信息(在校荣誉)
+     */
+    public static void saveOrUpdateInSchoolHonor(AddSchoolHonor addSchoolHonor, final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).saveOrUpdateInSchoolHonor(addSchoolHonor).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 新增或编辑简历信息(校内职务)
+     */
+    public static void saveOrUpdateSchoolDuties(AddSchoolPosition addSchoolPosition, final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).saveOrUpdateSchoolDuties(addSchoolPosition).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

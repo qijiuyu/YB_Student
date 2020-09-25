@@ -161,12 +161,14 @@ public class EditResumeActivity extends BaseActivity{
         //展示用户基本信息
         showUserBase();
 
+        //展示在校荣誉
         listHonor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listHonor.setAdapter(honorAdapter=new AddResumeHonorAdapter(this,honorList));
+        listHonor.setAdapter(honorAdapter=new AddResumeHonorAdapter(this,resume));
 
         listPosition.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listPosition.setAdapter(positionAdapter=new AddResumePositionAdapter(this,positionList));
+        listPosition.setAdapter(positionAdapter=new AddResumePositionAdapter(this,resume));
 
+        //展示特长信息
         listSpecialty.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         listSpecialty.setAdapter(specialtyAdapter=new EditResumeSpecialtyAdapter(this,resume));
 
@@ -298,11 +300,15 @@ public class EditResumeActivity extends BaseActivity{
                 break;
             //添加在校荣誉
             case R.id.tv_add_honor:
-                setClass(AddSchoolHonorActivity.class,1001);
+                intent.setClass(this,AddSchoolHonorActivity.class);
+                intent.putExtra("resume",resume);
+                startActivityForResult(intent,1001);
                  break;
             //添加校内职务
             case R.id.tv_add_position:
-                setClass(AddSchoolPositionActivity.class,1002);
+                intent.setClass(this,AddSchoolPositionActivity.class);
+                intent.putExtra("resume",resume);
+                startActivityForResult(intent,1002);
                  break;
             //添加技能特长
             case R.id.tv_add_specialty:

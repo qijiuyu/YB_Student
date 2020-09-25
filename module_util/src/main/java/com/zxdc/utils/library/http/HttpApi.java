@@ -28,6 +28,8 @@ import com.zxdc.utils.library.bean.SchoolBean;
 import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
 import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.bean.parameter.AddSchoolHonor;
+import com.zxdc.utils.library.bean.parameter.AddSchoolPosition;
 import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
 import com.zxdc.utils.library.bean.parameter.GetDeliveryRecord;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
@@ -207,5 +209,11 @@ public interface HttpApi {
 
     @POST(HttpConstant.IP+"api/syn/positionInfo/findApplyPositionInfoByPage")
     Call<DeliveryBean> getDeliveryRecord(@Body GetDeliveryRecord getDeliveryRecord);
+
+    @POST(HttpConstant.IP+"api/syn/resumeInfo/saveOrUpdateInSchoolHonor")
+    Call<BaseBean> saveOrUpdateInSchoolHonor(@Body AddSchoolHonor addSchoolHonor);
+
+    @POST(HttpConstant.IP+"api/syn/resumeInfo/saveOrUpdateSchoolDuties")
+    Call<BaseBean> saveOrUpdateSchoolDuties(@Body AddSchoolPosition addSchoolPosition);
 
 }

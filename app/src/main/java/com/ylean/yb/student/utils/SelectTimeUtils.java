@@ -3,12 +3,10 @@ package com.ylean.yb.student.utils;
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
-
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.ylean.yb.student.callback.TimeCallBack;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -104,8 +102,8 @@ public class SelectTimeUtils {
      */
     public static boolean judgeTime(String time1,String time2){
         try {
-            long long1=format.parse(time1).getTime();
-            long long2=format.parse(time2).getTime();
+            long long1=format2.parse(time1).getTime();
+            long long2=format2.parse(time2).getTime();
             if(long1>long2){
                 return true;
             }

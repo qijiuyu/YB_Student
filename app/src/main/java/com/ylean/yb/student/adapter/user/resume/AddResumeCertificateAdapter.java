@@ -61,13 +61,12 @@ public class AddResumeCertificateAdapter extends RecyclerView.Adapter<AddResumeC
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        TextView tvTime,tvName,tvMemo,tvDelete,tvUpdate;
+        TextView tvTime,tvName,tvMemo,tvUpdate;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             tvName=itemView.findViewById(R.id.tv_name);
             tvMemo=itemView.findViewById(R.id.tv_memo);
             tvTime=itemView.findViewById(R.id.tv_time);
-            tvDelete=itemView.findViewById(R.id.tv_delete);
             tvUpdate=itemView.findViewById(R.id.tv_update);
         }
     }
