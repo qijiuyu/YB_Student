@@ -1,6 +1,5 @@
 package com.ylean.yb.student.activity.user.resume;
 
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -11,7 +10,6 @@ import com.ylean.yb.student.callback.TimeCallBack;
 import com.ylean.yb.student.persenter.user.MyResumeP;
 import com.ylean.yb.student.utils.SelectTimeUtils;
 import com.zxdc.utils.library.bean.ResumeBean;
-import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.LogUtils;
@@ -31,12 +29,12 @@ public class AddCertificateActivity extends BaseActivity implements MyResumeP.Fa
     EditText etName;
     @BindView(R.id.et_memo)
     EditText etMemo;
-    //简历id
-    private int resumeId;
-    //要编辑的证书对象
-    private ResumeBean.Certificate certificate;
+    //简历对象
+    private ResumeBean.Resume resume;
+    //要编辑的位置
+    private int position;
 
-    private MyResumeP myResumeP=new MyResumeP(this,this);
+    private MyResumeP myResumeP=new MyResumeP(this);
 
     /**
      * 加载布局
@@ -54,8 +52,19 @@ public class AddCertificateActivity extends BaseActivity implements MyResumeP.Fa
     @Override
     protected void initData() {
         super.initData();
-        resumeId=getIntent().getIntExtra("resumeId",0);
-        certificate= (ResumeBean.Certificate) getIntent().getSerializableExtra("certificate");
+        myResumeP.setFace2(this);
+
+
+        //获取简历对象
+        resume= (ResumeBean.Resume) getIntent().getSerializableExtra("resume");
+        //获取要编辑的位置
+        position=getIntent().getIntExtra("position",-1);
+        if(position!=-1){
+            final ResumeBean.Certificate certificate=resume.getCertificatesList().get(position);
+            tvTime.setText(certificate.getAcquisitionTime());
+            etName.setText(certificate.getName());
+            etMemo.setText(certificate.getRemarks());
+        }
     }
 
 
@@ -82,14 +91,21 @@ public class AddCertificateActivity extends BaseActivity implements MyResumeP.Fa
                     return;
                 }
                 ResumeCertificate resumeCertificate=new ResumeCertificate();
+                resumeCertificate.setId(resume.getId());
+
                 List<ResumeCertificate.DataBean> list=new ArrayList<>();
-                ResumeCertificate.DataBean dataBean=new ResumeCertificate.DataBean();
-                dataBean.setAcquisitionTime(time);
-                dataBean.setName(name);
-                dataBean.setRemarks(memo);
-//                dataBean.setResumeId(resumeId);
-                list.add(dataBean);
-                resumeCertificate.setId(resumeId);
+                for (int i=0;i<resume.getCertificatesList().size();i++){
+                     list.add(new ResumeCertificate.DataBean(resume.getCertificatesList().get(i).getAcquisitionTime(),resume.getCertificatesList().get(i).getName(),resume.getCertificatesList().get(i).getRemarks()));
+                }
+
+                //判断是新增数据，还是编辑老数据
+                if(position!=-1){
+                    list.get(position).setAcquisitionTime(time);
+                    list.get(position).setName(name);
+                    list.get(position).setRemarks(memo);
+                }else{
+                    list.add(new ResumeCertificate.DataBean(time,name,memo));
+                }
                 resumeCertificate.setCertificatesPOJOS(list);
 
                 LogUtils.e("+++++++++++"+JsonUtil.objectToString(resumeCertificate));
@@ -103,4 +119,12 @@ public class AddCertificateActivity extends BaseActivity implements MyResumeP.Fa
         }
     }
 
+
+    /**
+     * 操作成功
+     */
+    @Override
+    public void onSuccess() {
+        finish();
+    }
 }

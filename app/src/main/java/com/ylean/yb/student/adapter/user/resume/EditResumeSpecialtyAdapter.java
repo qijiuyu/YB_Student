@@ -20,13 +20,14 @@ public class EditResumeSpecialtyAdapter extends RecyclerView.Adapter<EditResumeS
 
     private Activity activity;
     private List<ResumeBean.Speciality> list;
-    private int resumeId;//简历id
-    public EditResumeSpecialtyAdapter(Activity activity, String msg,int resumeId) {
+    //简历对象
+    private ResumeBean.Resume resume;
+    public EditResumeSpecialtyAdapter(Activity activity,ResumeBean.Resume resume) {
         super();
         this.activity = activity;
-        this.resumeId=resumeId;
-        if(!TextUtils.isEmpty(msg)){
-            list= JsonUtil.stringToList(msg,ResumeBean.Speciality.class);
+        this.resume=resume;
+        if(!TextUtils.isEmpty(resume.getSpeciality())){
+            list= JsonUtil.stringToList(resume.getSpeciality(),ResumeBean.Speciality.class);
         }
     }
 
@@ -46,14 +47,14 @@ public class EditResumeSpecialtyAdapter extends RecyclerView.Adapter<EditResumeS
         /**
          * 编辑
          */
-        holder.tvUpdate.setTag(speciality);
-       holder.tvUpdate.setOnClickListener(new View.OnClickListener() {
+        holder.tvUpdate.setTag(i);
+        holder.tvUpdate.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               final ResumeBean.Speciality speciality= (ResumeBean.Speciality) v.getTag();
+               final int position= (int) v.getTag();
                Intent intent=new Intent(activity, AddSpecialtyActivity.class);
-               intent.putExtra("resumeId",resumeId);
-               intent.putExtra("speciality",speciality);
+               intent.putExtra("resume",resume);
+               intent.putExtra("position",position);
                activity.startActivityForResult(intent,1003);
            }
        });

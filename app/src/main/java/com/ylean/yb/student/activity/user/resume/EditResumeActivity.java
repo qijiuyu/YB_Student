@@ -168,11 +168,11 @@ public class EditResumeActivity extends BaseActivity{
         listPosition.setAdapter(positionAdapter=new AddResumePositionAdapter(this,positionList));
 
         listSpecialty.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listSpecialty.setAdapter(specialtyAdapter=new EditResumeSpecialtyAdapter(this,resume.getSpeciality(),resume.getId()));
+        listSpecialty.setAdapter(specialtyAdapter=new EditResumeSpecialtyAdapter(this,resume));
 
         //展示证书信息
         listCertificate.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,resume.getCertificatesList()));
+        listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,resume));
     }
 
     @OnClick({R.id.lin_back, R.id.tv_province, R.id.tv_city, R.id.tv_area,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1,R.id.tv_add_position_tag,R.id.tv_add_industry_tag,R.id.tv_salary,R.id.tv_work_time,R.id.tv_job_type,R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})
@@ -307,13 +307,13 @@ public class EditResumeActivity extends BaseActivity{
             //添加技能特长
             case R.id.tv_add_specialty:
                  intent.setClass(this,AddSpecialtyActivity.class);
-                 intent.putExtra("resumeId",resume.getId());
+                 intent.putExtra("resume",resume);
                  startActivityForResult(intent,1003);
                  break;
             //添加证书
             case R.id.tv_add_certificate:
                  intent.setClass(this,AddCertificateActivity.class);
-                 intent.putExtra("resumeId",resume.getId());
+                 intent.putExtra("resume",resume);
                  startActivityForResult(intent,1004);
                  break;
             //添加附件

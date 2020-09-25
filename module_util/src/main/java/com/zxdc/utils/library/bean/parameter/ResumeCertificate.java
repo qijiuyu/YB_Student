@@ -26,17 +26,14 @@ public class ResumeCertificate implements Serializable {
     }
 
     public static class DataBean implements Serializable{
-        private int resumeId;
         private String acquisitionTime;
         private String name;
         private String remarks;
 
-        public int getResumeId() {
-            return resumeId;
-        }
-
-        public void setResumeId(int resumeId) {
-            this.resumeId = resumeId;
+        public DataBean(String acquisitionTime, String name, String remarks) {
+            this.acquisitionTime = acquisitionTime;
+            this.name = name;
+            this.remarks = remarks;
         }
 
         public String getAcquisitionTime() {

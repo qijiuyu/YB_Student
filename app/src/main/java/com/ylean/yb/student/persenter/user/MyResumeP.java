@@ -5,14 +5,11 @@ import android.app.Activity;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.ResumeBean;
-import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
-
-import java.util.List;
 
 public class MyResumeP {
 
@@ -21,18 +18,19 @@ public class MyResumeP {
     private Face2 face2;
     private Face3 face3;
 
-    public MyResumeP(Activity activity,Face face){
+    public MyResumeP(Activity activity){
         this.activity=activity;
+    }
+
+    public void setFace(Face face){
         this.face=face;
     }
 
-    public MyResumeP(Activity activity,Face2 face2){
-        this.activity=activity;
+    public void setFace2(Face2 face2){
         this.face2=face2;
     }
 
-    public MyResumeP(Activity activity,Face3 face3){
-        this.activity=activity;
+    public void setFace3(Face3 face3){
         this.face3=face3;
     }
 
@@ -71,7 +69,12 @@ public class MyResumeP {
         HttpMethod.SaveOrUpdateCertificates(resumeCertificate, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
-
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+                    face2.onSuccess();
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
             }
 
             @Override
@@ -117,6 +120,7 @@ public class MyResumeP {
 
     public interface Face2{
 
+       void onSuccess();
     }
 
     public interface Face3{

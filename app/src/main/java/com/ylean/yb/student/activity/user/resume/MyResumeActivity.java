@@ -18,13 +18,11 @@ import com.ylean.yb.student.persenter.user.MyResumeP;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.Salary;
-import com.zxdc.utils.library.bean.Speciality;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import com.zxdc.utils.library.view.MeasureListView;
-import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -85,7 +83,7 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
     //简历对象
     private ResumeBean.Resume resume;
 
-    private MyResumeP myResumeP=new MyResumeP(this,this);
+    private MyResumeP myResumeP=new MyResumeP(this);
 
     /**
      * 加载布局
@@ -103,6 +101,7 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
     @Override
     protected void initData() {
         super.initData();
+        myResumeP.setFace(this);
         tvTitle.setText("我的简历");
         tvRight.setText("投递记录");
 

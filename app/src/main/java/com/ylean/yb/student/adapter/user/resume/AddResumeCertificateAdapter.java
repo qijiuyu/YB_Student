@@ -16,11 +16,12 @@ import java.util.List;
 public class AddResumeCertificateAdapter extends RecyclerView.Adapter<AddResumeCertificateAdapter.MyHolder> {
 
     private Activity activity;
-    private List<ResumeBean.Certificate> list;
-    public AddResumeCertificateAdapter(Activity activity, List<ResumeBean.Certificate> list) {
+    //简历对象
+    private ResumeBean.Resume resume;
+    public AddResumeCertificateAdapter(Activity activity,ResumeBean.Resume resume) {
         super();
         this.activity = activity;
-        this.list=list;
+        this.resume=resume;
     }
 
     public MyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -31,7 +32,7 @@ public class AddResumeCertificateAdapter extends RecyclerView.Adapter<AddResumeC
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int i) {
-       final ResumeBean.Certificate certificate=list.get(i);
+       final ResumeBean.Certificate certificate=resume.getCertificatesList().get(i);
        holder.tvTime.setText(certificate.getAcquisitionTime());
        holder.tvName.setText(certificate.getName());
        holder.tvMemo.setText(certificate.getRemarks());
@@ -40,13 +41,14 @@ public class AddResumeCertificateAdapter extends RecyclerView.Adapter<AddResumeC
         /**
          * 编辑
          */
-        holder.tvUpdate.setTag(certificate);
-       holder.tvUpdate.setOnClickListener(new View.OnClickListener() {
+        holder.tvUpdate.setTag(i);
+        holder.tvUpdate.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               ResumeBean.Certificate certificate= (ResumeBean.Certificate) v.getTag();
+               final int position= (int) v.getTag();
                Intent intent=new Intent(activity, AddCertificateActivity.class);
-               intent.putExtra("certificate",certificate);
+               intent.putExtra("position",position);
+               intent.putExtra("resume",resume);
                activity.startActivityForResult(intent,1004);
            }
        });
@@ -55,7 +57,7 @@ public class AddResumeCertificateAdapter extends RecyclerView.Adapter<AddResumeC
 
     @Override
     public int getItemCount() {
-        return list==null ? 0 : list.size();
+        return resume.getCertificatesList()==null ? 0 : resume.getCertificatesList().size();
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {

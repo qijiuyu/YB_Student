@@ -28,11 +28,14 @@ public class AddSpecialtyActivity extends BaseActivity implements MyResumeP.Face
     EditText etLanguage;
     @BindView(R.id.tv_master)
     TextView tvMaster;
-    //简历id
-    private int resumeId;
-    //要编辑的对象
-    private ResumeBean.Speciality speciality;
-    private MyResumeP myResumeP=new MyResumeP(this,this);
+    //简历对象
+    private ResumeBean.Resume resume;
+    //特长老数据集合
+    private List<ResumeBean.Speciality> oldList=new ArrayList<>();
+    //要编辑的位置
+    private int position;
+
+    private MyResumeP myResumeP=new MyResumeP(this);
 
     /**
      * 加载布局
@@ -50,11 +53,21 @@ public class AddSpecialtyActivity extends BaseActivity implements MyResumeP.Face
     @Override
     protected void initData() {
         super.initData();
-        resumeId=getIntent().getIntExtra("resumeId",0);
-        speciality= (ResumeBean.Speciality) getIntent().getSerializableExtra("speciality");
-        if(speciality!=null){
-            etLanguage.setText(speciality.getName());
-            tvMaster.setText(speciality.getLevel());
+        myResumeP.setFace3(this);
+
+
+        //获取简历对象
+        resume= (ResumeBean.Resume) getIntent().getSerializableExtra("resume");
+        //获取要编辑的列表位置
+        position=getIntent().getIntExtra("position",-1);
+
+        if(!TextUtils.isEmpty(resume.getSpeciality())) {
+            oldList = JsonUtil.stringToList(resume.getSpeciality(), ResumeBean.Speciality.class);
+            //显示要编辑的数据
+            if(position!=-1){
+                etLanguage.setText(oldList.get(position).getName());
+                tvMaster.setText(oldList.get(position).getLevel());
+            }
         }
     }
 
@@ -78,11 +91,24 @@ public class AddSpecialtyActivity extends BaseActivity implements MyResumeP.Face
                     return;
                 }
                 AddSpecialtyP addSpecialtyP=new AddSpecialtyP();
-                addSpecialtyP.setId(resumeId);
-                List<AddSpecialtyP.DataBean> list=new ArrayList<>();
-                list.add(new AddSpecialtyP.DataBean(language,master));
-                addSpecialtyP.setSpeciality(list);
+                addSpecialtyP.setId(resume.getId());
 
+
+                List<AddSpecialtyP.DataBean> list=new ArrayList<>();
+                //先添加好老数据
+                for (int i=0;i<oldList.size();i++){
+                    list.add(new AddSpecialtyP.DataBean(oldList.get(i).getName(),oldList.get(i).getLevel()));
+                }
+
+                //判断是新增数据，还是编辑老数据
+                if(position!=-1){
+                    list.get(position).setName(language);
+                    list.get(position).setLevel(master);
+                }else{
+                    list.add(new AddSpecialtyP.DataBean(language,master));
+                }
+
+                addSpecialtyP.setSpeciality(list);
                 LogUtils.e("++++++++++"+JsonUtil.objectToString(addSpecialtyP));
                 //新增或编辑简历信息(简历特长)
                 myResumeP.saveOrUpdateSpeciality(addSpecialtyP);
@@ -95,8 +121,11 @@ public class AddSpecialtyActivity extends BaseActivity implements MyResumeP.Face
         }
     }
 
+    /**
+     * 操作成功
+     */
     @Override
     public void onSuccess() {
-
+        finish();
     }
 }
