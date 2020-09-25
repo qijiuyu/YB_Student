@@ -1,39 +1,30 @@
 package com.ylean.yb.student.adapter.user.resume;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.callback.TimeCallBack;
-import com.ylean.yb.student.utils.SelectTimeUtils;
-import com.zxdc.utils.library.bean.AddEducation;
-
-import java.util.List;
+import com.ylean.yb.student.activity.user.resume.AddEducationActivity;
+import com.ylean.yb.student.activity.user.resume.AddSchoolHonorActivity;
+import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.ResumeBean;
+import com.zxdc.utils.library.util.JsonUtil;
 
 public class AddResumeEducationAdapter extends RecyclerView.Adapter<AddResumeEducationAdapter.MyHolder> {
 
     private Activity activity;
-    private List<AddEducation> list;
-
-    /**
-     * 当前输入的对象
-     */
-    private AddEducation education;
-    public AddResumeEducationAdapter(Activity activity, List<AddEducation> list) {
+    //简历对象
+    private ResumeBean.Resume resume;
+    public AddResumeEducationAdapter(Activity activity,ResumeBean.Resume resume) {
         super();
         this.activity = activity;
-        this.list=list;
-        if(list.size()==0){
-            list.add(new AddEducation());
-        }
+        this.resume=resume;
     }
 
     public MyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -44,57 +35,97 @@ public class AddResumeEducationAdapter extends RecyclerView.Adapter<AddResumeEdu
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int i) {
-       final AddEducation addEducation=list.get(i);
+       final ResumeBean.Education education=resume.getLearningExperienceList().get(i);
+        if(education.getType()==3){
+            holder.tvClass.setVisibility(View.GONE);
+            holder.tvFacultyName.setVisibility(View.VISIBLE);
+            holder.tvSpecialtyName.setVisibility(View.VISIBLE);
+        }else{
+            holder.tvClass.setVisibility(View.VISIBLE);
+            holder.tvFacultyName.setVisibility(View.GONE);
+            holder.tvSpecialtyName.setVisibility(View.GONE);
+        }
+
+        switch (education.getType()){
+            case 0:
+                holder.tvType.setText("高中");
+                break;
+            case 1:
+                holder.tvType.setText("中职");
+                break;
+            case 2:
+                holder.tvType.setText("高职");
+                break;
+            case 3:
+                holder.tvType.setText("大学");
+                break;
+            default:
+                break;
+        }
+
+        switch (education.getEducation()){
+            case 0:
+                holder.tvEducation.setText("高中");
+                break;
+            case 1:
+                holder.tvEducation.setText("中职");
+                break;
+            case 2:
+                holder.tvEducation.setText("高职");
+                break;
+            case 3:
+                holder.tvEducation.setText("大学专科");
+                break;
+            case 4:
+                holder.tvEducation.setText("大学本科");
+                break;
+            case 5:
+                holder.tvEducation.setText("硕士");
+                break;
+            case 6:
+                holder.tvEducation.setText("博士");
+                break;
+            default:
+                break;
+        }
+        if(!TextUtils.isEmpty(education.getRegion())){
+            final Address address = (Address) JsonUtil.stringToObject(education.getRegion(), Address.class);
+            holder.tvProvince.setText(address.getPname());
+            holder.tvCity.setText(address.getCname());
+            holder.tvArea.setText(address.getAname());
+        }
+        holder.tvSchool.setText(education.getSchoolName());
+        holder.tvFacultyName.setText(education.getFaculty());
+        holder.tvSpecialtyName.setText(education.getMajor());
+        holder.tvClass.setText(education.getGrades());
+        holder.tvTime.setText(education.getAdmissiontime());
 
 
         /**
-         * 选择入学时间
+         * 编辑
          */
-        holder.tvTime.setTag(addEducation);
-        holder.tvTime.setOnClickListener(new View.OnClickListener() {
-           public void onClick(final View v) {
-               education= (AddEducation) v.getTag();
-               SelectTimeUtils.selectTime(activity, new TimeCallBack() {
-                   public void getTime(String time) {
-                       ((TextView)v).setText(time);
-                   }
-               });
-           }
-       });
-
+        holder.tvUpdate.setTag(i);
+        holder.tvUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final int position= (int) v.getTag();
+                Intent intent=new Intent(activity, AddEducationActivity.class);
+                intent.putExtra("position",position);
+                intent.putExtra("resume",resume);
+                activity.startActivityForResult(intent,1000);
+            }
+        });
 
     }
-
-
-
-    /**
-     * 监听输入框
-     */
-    TextWatcher textWatcher=new TextWatcher() {
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-        public void afterTextChanged(Editable s) {
-            String content=s.toString().trim();
-            if(TextUtils.isEmpty(content)){
-                return;
-            }
-
-        }
-    };
-
 
 
     @Override
     public int getItemCount() {
-        return list==null ? 0 : list.size();
+        return resume.getLearningExperienceList()==null ? 0 : resume.getLearningExperienceList().size();
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        TextView tvType,tvProvince,tvCity,tvArea,tvSchool,tvTime;
+        TextView tvType,tvProvince,tvCity,tvArea,tvSchool,tvFacultyName,tvSpecialtyName,tvClass,tvEducation,tvTime,tvUpdate;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             tvType=itemView.findViewById(R.id.tv_type);
@@ -102,7 +133,12 @@ public class AddResumeEducationAdapter extends RecyclerView.Adapter<AddResumeEdu
             tvCity=itemView.findViewById(R.id.tv_city);
             tvArea=itemView.findViewById(R.id.tv_area);
             tvSchool=itemView.findViewById(R.id.tv_school);
+            tvFacultyName=itemView.findViewById(R.id.tv_faculty);
+            tvSpecialtyName=itemView.findViewById(R.id.tv_specialty);
+            tvClass=itemView.findViewById(R.id.tv_class);
+            tvEducation=itemView.findViewById(R.id.tv_education);
             tvTime=itemView.findViewById(R.id.tv_time);
+            tvUpdate=itemView.findViewById(R.id.tv_update);
         }
     }
 }

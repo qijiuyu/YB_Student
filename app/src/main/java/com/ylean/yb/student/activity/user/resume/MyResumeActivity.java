@@ -213,6 +213,6 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
             public void run() {
                 scrollView.scrollTo(0,0);
             }
-        },200);
+        },100);
     }
 }

@@ -32,6 +32,7 @@ import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
 import com.zxdc.utils.library.bean.UploadFile;
 import com.zxdc.utils.library.bean.UserInfo;
+import com.zxdc.utils.library.bean.parameter.AddResumeEducation;
 import com.zxdc.utils.library.bean.parameter.AddSchoolHonor;
 import com.zxdc.utils.library.bean.parameter.AddSchoolPosition;
 import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
@@ -1107,6 +1108,23 @@ public class HttpMethod extends BaseRequst {
      */
     public static void saveOrUpdateSchoolDuties(AddSchoolPosition addSchoolPosition, final NetCallBack netCallBack) {
         Http.getRetrofit().create(HttpApi.class).saveOrUpdateSchoolDuties(addSchoolPosition).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 新新增或编辑简历学习经历
+     */
+    public static void saveOrUpdateLearnings(AddResumeEducation addResumeEducation, final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).saveOrUpdateLearnings(addResumeEducation).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());

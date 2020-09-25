@@ -16,7 +16,6 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.activity.user.min.AddEducationActivity;
 import com.ylean.yb.student.adapter.user.resume.AddResumeCertificateAdapter;
 import com.ylean.yb.student.adapter.user.resume.AddResumeEducationAdapter;
 import com.ylean.yb.student.adapter.user.resume.AddResumeHonorAdapter;
@@ -129,14 +128,6 @@ public class EditResumeActivity extends BaseActivity{
     private AddResumePositionAdapter positionAdapter;
     private EditResumeSpecialtyAdapter specialtyAdapter;
     private AddResumeCertificateAdapter certificateAdapter;
-    //在校荣誉集合
-    private List<AddHonor> honorList=new ArrayList<>();
-    //校内职务集合
-    private List<AddResumePostion> positionList=new ArrayList<>();
-    //技能特长集合
-    private List<AddResumeSpecialty> specialtyList=new ArrayList<>();
-    //证书集合
-    private List<AddResumeCertificate> certificateList=new ArrayList<>();
 
     /**
      * 加载布局
@@ -160,6 +151,10 @@ public class EditResumeActivity extends BaseActivity{
 
         //展示用户基本信息
         showUserBase();
+
+        //展示学习经历
+        listEducation.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        listEducation.setAdapter(educationAdapter=new AddResumeEducationAdapter(this,resume));
 
         //展示在校荣誉
         listHonor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
@@ -296,7 +291,9 @@ public class EditResumeActivity extends BaseActivity{
                  break;
             //添加教育经历
             case R.id.tv_add_education:
-                setClass(AddEducationActivity.class,1000);
+                intent.setClass(this, AddEducationActivity.class);
+                intent.putExtra("resume",resume);
+                startActivityForResult(intent,1000);
                 break;
             //添加在校荣誉
             case R.id.tv_add_honor:

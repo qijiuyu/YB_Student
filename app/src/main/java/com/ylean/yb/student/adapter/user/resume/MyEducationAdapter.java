@@ -109,6 +109,8 @@ public class MyEducationAdapter extends BaseAdapter {
             holder.tvSchoolAddress.setText("所在地区："+address.getPname()+","+address.getCname()+","+address.getAname());
         }
         holder.tvSchoolName.setText("所在学校："+education.getSchoolName());
+        holder.tvFacultyName.setText("院系名称："+education.getFaculty());
+        holder.tvSpecialtyName.setText("专业名称："+education.getMajor());
         holder.tvClass.setText("班级："+education.getGrades());
         holder.tvTime.setText("入学时间："+education.getAdmissiontime());
         return view;

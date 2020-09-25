@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.ResumeBean;
+import com.zxdc.utils.library.bean.parameter.AddResumeEducation;
 import com.zxdc.utils.library.bean.parameter.AddSchoolHonor;
 import com.zxdc.utils.library.bean.parameter.AddSchoolPosition;
 import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
@@ -141,6 +142,32 @@ public class MyResumeP {
     public void saveOrUpdateSchoolDuties(AddSchoolPosition addSchoolPosition){
         DialogUtil.showProgress(activity,"数据提交中");
         HttpMethod.saveOrUpdateSchoolDuties(addSchoolPosition, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                    face2.onSuccess();
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
+    /**
+     * 新新增或编辑简历学习经历
+     */
+    public void saveOrUpdateLearnings(AddResumeEducation addResumeEducation){
+        DialogUtil.showProgress(activity,"数据提交中");
+        HttpMethod.saveOrUpdateLearnings(addResumeEducation, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
                 final BaseBean baseBean= (BaseBean) object;

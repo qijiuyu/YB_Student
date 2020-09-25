@@ -120,6 +120,7 @@
         <activity android:name=".activity.user.MyCommunityActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.MentorActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.bank.ValidationActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.resume.AddEducationActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
 
 
         <provider
