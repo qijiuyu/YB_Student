@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
+import com.zxdc.utils.library.bean.DeliveryBean;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,15 +18,17 @@ import butterknife.ButterKnife;
 public class DeliveryRecordAdapter extends BaseAdapter {
 
     private Activity activity;
+    private List<DeliveryBean.ListBean> list;
 
-    public DeliveryRecordAdapter(Activity activity) {
+    public DeliveryRecordAdapter(Activity activity,List<DeliveryBean.ListBean> list) {
         super();
         this.activity = activity;
+        this.list=list;
     }
 
     @Override
     public int getCount() {
-        return 5;
+        return list==null ? 0 : list.size();
     }
 
     @Override
@@ -46,6 +51,14 @@ public class DeliveryRecordAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
+        final DeliveryBean.ListBean listBean=list.get(position);
+        holder.tvTitle.setText(listBean.getName());
+        holder.tvMoney.setText(listBean.getSalary()+"/月");
+        holder.tvContent.setText(listBean.getPositionInfo());
+        holder.tvAddress.setText(listBean.getPositionLocation());
+        holder.tvYear.setText(listBean.getWorkYear()+"年");
+        holder.tvPeople.setText(listBean.getNumPerson()+"人");
+        holder.tvTime.setText("申请于："+listBean.getCreateTime());
         return view;
     }
 
@@ -66,6 +79,8 @@ public class DeliveryRecordAdapter extends BaseAdapter {
         TextView tvSchool;
         @BindView(R.id.tv_people)
         TextView tvPeople;
+        @BindView(R.id.tv_time)
+        TextView tvTime;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

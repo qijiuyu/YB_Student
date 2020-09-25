@@ -10,6 +10,7 @@ import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
 import com.zxdc.utils.library.bean.CollMoneyBean;
 import com.zxdc.utils.library.bean.DeclareBean;
+import com.zxdc.utils.library.bean.DeliveryBean;
 import com.zxdc.utils.library.bean.DictBean;
 import com.zxdc.utils.library.bean.EconomicBean;
 import com.zxdc.utils.library.bean.EducationBean;
@@ -28,6 +29,7 @@ import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
+import com.zxdc.utils.library.bean.parameter.GetDeliveryRecord;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.util.SPUtil;
 
@@ -202,5 +204,8 @@ public interface HttpApi {
     @FormUrlEncoded
     @PUT(HttpConstant.IP+"api/user/bk/verification")
     Call<BaseBean> verBank(@FieldMap Map<String, String> map);
+
+    @POST(HttpConstant.IP+"api/syn/positionInfo/findApplyPositionInfoByPage")
+    Call<DeliveryBean> getDeliveryRecord(@Body GetDeliveryRecord getDeliveryRecord);
 
 }

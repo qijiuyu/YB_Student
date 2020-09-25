@@ -3,7 +3,6 @@ package com.ylean.yb.student.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,7 +20,6 @@ import com.ylean.yb.student.activity.user.UserActivity;
 import com.ylean.yb.student.application.MyApplication;
 import com.ylean.yb.student.utils.PermissionUtil;
 import com.zxdc.utils.library.util.ActivitysLifecycle;
-import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.util.error.CockroachUtil;
 import java.util.ArrayList;
@@ -29,7 +27,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.jpush.android.cache.Sp;
 
 public class TabActivity extends android.app.TabActivity {
 
@@ -120,7 +117,11 @@ public class TabActivity extends android.app.TabActivity {
                 }
                 break;
             case R.id.lin_user:
-                updateTag(4);
+                if(MyApplication.isLogin()){
+                    updateTag(4);
+                }else{
+                    startActivity(intent);
+                }
                 break;
             default:
                 break;

@@ -74,7 +74,6 @@ public class UserActivity extends BaseActivity implements UserP.Face {
             //消息
             case R.id.img_news:
                 setClass(NewsActivity.class);
-//                setClass(LoginActivity.class);
                 break;
             //设置
             case R.id.img_setting:

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.user.resume.AddSpecialtyActivity;
 import com.zxdc.utils.library.bean.ResumeBean;
+import com.zxdc.utils.library.util.JsonUtil;
+
 import java.util.List;
 
 public class EditResumeSpecialtyAdapter extends RecyclerView.Adapter<EditResumeSpecialtyAdapter.MyHolder> {
@@ -18,11 +21,13 @@ public class EditResumeSpecialtyAdapter extends RecyclerView.Adapter<EditResumeS
     private Activity activity;
     private List<ResumeBean.Speciality> list;
     private int resumeId;//简历id
-    public EditResumeSpecialtyAdapter(Activity activity, List<ResumeBean.Speciality> list,int resumeId) {
+    public EditResumeSpecialtyAdapter(Activity activity, String msg,int resumeId) {
         super();
         this.activity = activity;
-        this.list=list;
         this.resumeId=resumeId;
+        if(!TextUtils.isEmpty(msg)){
+            list= JsonUtil.stringToList(msg,ResumeBean.Speciality.class);
+        }
     }
 
     public MyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

@@ -35,7 +35,7 @@ public class ResumeBean extends BaseBean {
         private List<Honor> inSchoolHonorList;
         private List<Position> schoolDutiesList;
         private List<Certificate> certificatesList;
-        private List<Speciality> speciality;
+        private String speciality;
 
 
         public int getId() {
@@ -182,11 +182,11 @@ public class ResumeBean extends BaseBean {
             this.certificatesList = certificatesList;
         }
 
-        public List<Speciality> getSpeciality() {
+        public String getSpeciality() {
             return speciality;
         }
 
-        public void setSpeciality(List<Speciality> speciality) {
+        public void setSpeciality(String speciality) {
             this.speciality = speciality;
         }
     }

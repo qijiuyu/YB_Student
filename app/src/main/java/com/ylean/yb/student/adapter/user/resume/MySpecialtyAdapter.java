@@ -1,6 +1,7 @@
 package com.ylean.yb.student.adapter.user.resume;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.Speciality;
+import com.zxdc.utils.library.util.JsonUtil;
 
 import java.util.List;
 
@@ -21,10 +23,12 @@ public class MySpecialtyAdapter extends BaseAdapter {
     private Activity activity;
     private List<ResumeBean.Speciality> list;
 
-    public MySpecialtyAdapter(Activity activity,List<ResumeBean.Speciality> list) {
+    public MySpecialtyAdapter(Activity activity,String msg) {
         super();
         this.activity = activity;
-        this.list=list;
+        if(!TextUtils.isEmpty(msg)){
+            list= JsonUtil.stringToList(msg,ResumeBean.Speciality.class);
+        }
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
 import com.zxdc.utils.library.bean.CollMoneyBean;
 import com.zxdc.utils.library.bean.DeclareBean;
+import com.zxdc.utils.library.bean.DeliveryBean;
 import com.zxdc.utils.library.bean.DictBean;
 import com.zxdc.utils.library.bean.EconomicBean;
 import com.zxdc.utils.library.bean.EducationBean;
@@ -32,6 +33,7 @@ import com.zxdc.utils.library.bean.SurveyDetails;
 import com.zxdc.utils.library.bean.UploadFile;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
+import com.zxdc.utils.library.bean.parameter.GetDeliveryRecord;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.http.base.BaseRequst;
 import com.zxdc.utils.library.http.base.Http;
@@ -1056,6 +1058,23 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 查询投递记录
+     */
+    public static void getDeliveryRecord(GetDeliveryRecord getDeliveryRecord,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getDeliveryRecord(getDeliveryRecord).enqueue(new Callback<DeliveryBean>() {
+            public void onResponse(Call<DeliveryBean> call, Response<DeliveryBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<DeliveryBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

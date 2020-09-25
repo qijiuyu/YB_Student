@@ -30,7 +30,7 @@ public class AddSpecialtyActivity extends BaseActivity implements MyResumeP.Face
     TextView tvMaster;
     //简历id
     private int resumeId;
-    //历史集合
+    //要编辑的对象
     private ResumeBean.Speciality speciality;
     private MyResumeP myResumeP=new MyResumeP(this,this);
 
@@ -52,12 +52,17 @@ public class AddSpecialtyActivity extends BaseActivity implements MyResumeP.Face
         super.initData();
         resumeId=getIntent().getIntExtra("resumeId",0);
         speciality= (ResumeBean.Speciality) getIntent().getSerializableExtra("speciality");
+        if(speciality!=null){
+            etLanguage.setText(speciality.getName());
+            tvMaster.setText(speciality.getLevel());
+        }
     }
 
 
     @OnClick({R.id.tv_master, R.id.tv_add, R.id.rel})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            //选择掌握程度
             case R.id.tv_master:
                  new SelectMasterView(this,tvMaster).show();
                 break;

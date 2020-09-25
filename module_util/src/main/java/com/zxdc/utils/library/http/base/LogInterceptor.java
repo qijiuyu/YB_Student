@@ -43,9 +43,15 @@ public class LogInterceptor implements Interceptor {
      */
     public Request addGetParameter(Request request){
         LogUtils.e("参数：token="+SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
+        String params;
+        if(request.url().toString().contains("?")){
+            params="&ch=2&token="+SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN);
+        }else{
+            params="?ch=2&token="+SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN);
+        }
         Request newRequest = request.newBuilder()
                 .method(request.method(), request.body())
-                .url(request.url()+"?ch=2&token="+SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN))
+                .url(request.url()+params)
                 .build();
         return newRequest;
     }
