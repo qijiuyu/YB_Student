@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.user.resume.MyCertificateAdapter;
@@ -21,9 +22,7 @@ import com.ylean.yb.student.view.TagsLayout;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.Salary;
-import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.util.JsonUtil;
-import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import com.zxdc.utils.library.view.MeasureListView;
 import butterknife.BindView;
@@ -108,9 +107,6 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
         tvTitle.setText("我的简历");
         tvRight.setText("投递记录");
 
-        //展示用户基本信息
-        showUserBase();
-
         //查询我的简历
         myResumeP.getMyResume();
     }
@@ -139,31 +135,6 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
     }
 
 
-    /**
-     * 展示用户基本信息
-     */
-    private void showUserBase(){
-        final UserInfo userInfo= (UserInfo) SPUtil.getInstance(this).getObject(SPUtil.USER_BASE_INFO,UserInfo.class);
-        if(userInfo==null){
-            return;
-        }
-        if(!TextUtils.isEmpty(userInfo.getData().getPhoto())){
-            Glide.with(this).load(userInfo.getData().getPhoto()).into(imgHead);
-        }
-        tvName.setText(userInfo.getData().getName());
-        tvNationality.setText(userInfo.getData().getNationality());
-        tvNational.setText(userInfo.getData().getNation());
-        tvBirthday.setText("出生日期："+userInfo.getData().getBirthday());
-        tvMobile.setText("联系电话："+userInfo.getData().getPhone());
-        tvEmail.setText("邮箱："+userInfo.getData().getEmail());
-        tvWx.setText("微信号："+userInfo.getData().getWechat());
-        tvQq.setText("QQ："+userInfo.getData().getQq());
-        if (!TextUtils.isEmpty(userInfo.getData().getResidenceaddress())) {
-            final Address address = (Address) JsonUtil.stringToObject(userInfo.getData().getResidenceaddress(), Address.class);
-            tvAddress.setText("现居住地址："+address.getAddress());
-        }
-    }
-
 
     /**
      * 查询我的简历
@@ -172,80 +143,107 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
     @Override
     public void getMyResume(ResumeBean.Resume resume) {
         this.resume=resume;
-        if(!TextUtils.isEmpty(resume.getExpectedCapital())){
-            final Salary salary= (Salary) JsonUtil.stringToObject(resume.getExpectedCapital(),Salary.class);
-            tvSalary.setText("期望薪资："+salary.getMin()+"-"+salary.getMax()+"/月");
-        }
-        if(!TextUtils.isEmpty(resume.getWorkPlace())){
-            final Address address = (Address) JsonUtil.stringToObject(resume.getWorkPlace(), Address.class);
-            tvJobAddress.setText("工作地点："+address.getPname()+","+address.getCname()+","+address.getAname());
-        }
-
-        ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if(resume.getPositionTypeList()!=null){
-            tvPosition.removeAllViews();
-            for (int i=0;i<resume.getPositionTypeList().size();i++){
-                TextView textView = new TextView(this);
-                textView.setText(resume.getPositionTypeList().get(i).getName());
-                textView.setTextColor(getResources().getColor(android.R.color.black));
-                textView.setTextSize(13);
-                textView.setBackgroundResource(R.drawable.bg_tag_history);
-                textView.setPadding(10, 10, 10, 10);
-                textView.setGravity(Gravity.CENTER);
-                tvPosition.addView(textView, lp);
+        try {
+            /**
+             * 基本信息
+             */
+            if(resume.getStudentVO()!=null){
+                Glide.with(this).load(resume.getStudentVO().getImgUrl()).into(imgHead);
+                tvName.setText(resume.getStudentVO().getName());
+                tvNationality.setText(resume.getStudentVO().getNationality());
+                tvNational.setText(resume.getStudentVO().getNation());
+                tvBirthday.setText("出生日期："+resume.getStudentVO().getBirthday());
+                tvMobile.setText("联系电话："+resume.getPhone());
+                tvEmail.setText("邮箱："+resume.getMail());
+                tvWx.setText("微信号："+resume.getWx());
+                tvQq.setText("QQ："+resume.getQq());
+                if (!TextUtils.isEmpty(resume.getStudentVO().getAddress())) {
+                    final Address address = (Address) JsonUtil.stringToObject(resume.getStudentVO().getAddress(), Address.class);
+                    tvAddress.setText("现居住地址："+address.getAddress());
+                }
             }
-        }
 
-        if(resume.getJobIndustryList()!=null){
-            tvJobType.removeAllViews();
-            for (int i=0;i<resume.getJobIndustryList().size();i++){
-                TextView textView = new TextView(this);
-                textView.setText(resume.getJobIndustryList().get(i).getIndustryTypeName());
-                textView.setTextColor(getResources().getColor(android.R.color.black));
-                textView.setTextSize(13);
-                textView.setBackgroundResource(R.drawable.bg_tag_history);
-                textView.setPadding(10, 10, 10, 10);
-                textView.setGravity(Gravity.CENTER);
-                tvJobType.addView(textView, lp);
+
+            /**
+             * 求职意向信息
+             */
+            if(!TextUtils.isEmpty(resume.getExpectedCapital())){
+                final Salary salary= (Salary) JsonUtil.stringToObject(resume.getExpectedCapital(),Salary.class);
+                tvSalary.setText("期望薪资："+salary.getMin()+"-"+salary.getMax()+"/月");
             }
-        }
-
-        tvIntroduce.setText("自我介绍："+resume.getIntroduce());
-        tvWorkTime.setText("到岗时间："+resume.getArrivalTime());
-        switch (resume.getdType()){
-            case 10:
-                 tvWorkType.setText("工作类型：全职");
-                 break;
-            case 20:
-                tvWorkType.setText("工作类型：兼职");
-                break;
-            case 30:
-                tvWorkType.setText("工作类型：实习");
-                break;
-            default:
-                break;
-        }
-
-        //学习经历
-        listEducation.setAdapter(new MyEducationAdapter(this,resume.getLearningExperienceList()));
-
-        //在校荣誉
-        listHonor.setAdapter(new MyHonorAdapter(this,resume.getInSchoolHonorList()));
-
-        //校内职务
-        listPosition.setAdapter(new MyPositionAdapter(this,resume.getSchoolDutiesList()));
-
-        //技能特长
-        listSpecialty.setAdapter(new MySpecialtyAdapter(this,resume.getSpeciality()));
-
-        //证书
-        listCertificate.setAdapter(new MyCertificateAdapter(this,resume.getCertificatesList()));
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.scrollTo(0,0);
+            if(!TextUtils.isEmpty(resume.getWorkPlace())){
+                final Address address = (Address) JsonUtil.stringToObject(resume.getWorkPlace(), Address.class);
+                tvJobAddress.setText("工作地点："+address.getPname()+","+address.getCname()+","+address.getAname());
             }
-        },100);
+
+            ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            if(resume.getPositionTypeList()!=null){
+                tvPosition.removeAllViews();
+                for (int i=0;i<resume.getPositionTypeList().size();i++){
+                    TextView textView = new TextView(this);
+                    textView.setText(resume.getPositionTypeList().get(i).getName());
+                    textView.setTextColor(getResources().getColor(android.R.color.black));
+                    textView.setTextSize(13);
+                    textView.setBackgroundResource(R.drawable.bg_tag_history);
+                    textView.setPadding(10, 10, 10, 10);
+                    textView.setGravity(Gravity.CENTER);
+                    tvPosition.addView(textView, lp);
+                }
+            }
+
+            if(resume.getJobIndustryList()!=null){
+                tvJobType.removeAllViews();
+                for (int i=0;i<resume.getJobIndustryList().size();i++){
+                    TextView textView = new TextView(this);
+                    textView.setText(resume.getJobIndustryList().get(i).getIndustryTypeName());
+                    textView.setTextColor(getResources().getColor(android.R.color.black));
+                    textView.setTextSize(13);
+                    textView.setBackgroundResource(R.drawable.bg_tag_history);
+                    textView.setPadding(10, 10, 10, 10);
+                    textView.setGravity(Gravity.CENTER);
+                    tvJobType.addView(textView, lp);
+                }
+            }
+
+            tvIntroduce.setText("自我介绍："+resume.getIntroduce());
+            tvWorkTime.setText("到岗时间："+resume.getArrivalTime());
+            switch (resume.getdType()){
+                case 10:
+                    tvWorkType.setText("工作类型：全职");
+                    break;
+                case 20:
+                    tvWorkType.setText("工作类型：兼职");
+                    break;
+                case 30:
+                    tvWorkType.setText("工作类型：实习");
+                    break;
+                default:
+                    break;
+            }
+
+            //学习经历
+            listEducation.setAdapter(new MyEducationAdapter(this,resume.getLearningExperienceList()));
+
+            //在校荣誉
+            listHonor.setAdapter(new MyHonorAdapter(this,resume.getInSchoolHonorList()));
+
+            //校内职务
+            listPosition.setAdapter(new MyPositionAdapter(this,resume.getSchoolDutiesList()));
+
+            //技能特长
+            listSpecialty.setAdapter(new MySpecialtyAdapter(this,resume.getSpeciality()));
+
+            //证书
+            listCertificate.setAdapter(new MyCertificateAdapter(this,resume.getCertificatesList()));
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    scrollView.scrollTo(0,0);
+                }
+            },100);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

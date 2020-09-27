@@ -30,8 +30,13 @@ public class ResumeBean extends BaseBean {
         private int status;
         private String enclosure="";
         private String introduce="";
+        private String phone;
+        private String wx;
+        private String qq;
+        private String mail;
         private List<PositionType> positionTypeList;
         private List<Industry> jobIndustryList;
+        private Student studentVO;
 
         private List<Education> learningExperienceList;
         private List<Honor> inSchoolHonorList;
@@ -94,6 +99,14 @@ public class ResumeBean extends BaseBean {
 
         public void setCurrentResidence(String currentResidence) {
             this.currentResidence = currentResidence;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
         }
 
         public String getExpectedCapital() {
@@ -206,6 +219,123 @@ public class ResumeBean extends BaseBean {
 
         public void setJobIndustryList(List<Industry> jobIndustryList) {
             this.jobIndustryList = jobIndustryList;
+        }
+
+        public Student getStudentVO() {
+            return studentVO;
+        }
+
+        public void setStudentVO(Student studentVO) {
+            this.studentVO = studentVO;
+        }
+
+        public String getWx() {
+            return wx;
+        }
+
+        public void setWx(String wx) {
+            this.wx = wx;
+        }
+
+        public String getQq() {
+            return qq;
+        }
+
+        public void setQq(String qq) {
+            this.qq = qq;
+        }
+
+        public String getMail() {
+            return mail;
+        }
+
+        public void setMail(String mail) {
+            this.mail = mail;
+        }
+    }
+
+
+    public static class Student implements Serializable{
+        private int id;
+        private String name;
+        private int education;
+        private String sex;
+        private String birthday;
+        private String nation;
+        private String nationality;
+        private String address;
+        private String imgUrl;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getEducation() {
+            return education;
+        }
+
+        public void setEducation(int education) {
+            this.education = education;
+        }
+
+        public String getSex() {
+            return sex;
+        }
+
+        public void setSex(String sex) {
+            this.sex = sex;
+        }
+
+        public String getBirthday() {
+            return birthday;
+        }
+
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
+        }
+
+        public String getNation() {
+            return nation;
+        }
+
+        public void setNation(String nation) {
+            this.nation = nation;
+        }
+
+        public String getNationality() {
+            return nationality;
+        }
+
+        public void setNationality(String nationality) {
+            this.nationality = nationality;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getImgUrl() {
+            return imgUrl;
+        }
+
+        public void setImgUrl(String imgUrl) {
+            this.imgUrl = imgUrl;
         }
     }
 

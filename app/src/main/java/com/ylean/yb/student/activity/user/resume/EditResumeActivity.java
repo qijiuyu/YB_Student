@@ -36,11 +36,9 @@ import com.zxdc.utils.library.bean.ProvinceCallBack;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.Salary;
-import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.bean.parameter.JobIntention;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.LogUtils;
-import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import java.io.File;
@@ -151,25 +149,6 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 
 
         //展示用户基本信息
         showUserBase();
-
-        //展示学习经历
-        listEducation.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listEducation.setAdapter(educationAdapter=new AddResumeEducationAdapter(this,resume));
-
-        //展示在校荣誉
-        listHonor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listHonor.setAdapter(honorAdapter=new AddResumeHonorAdapter(this,resume));
-
-        listPosition.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listPosition.setAdapter(positionAdapter=new AddResumePositionAdapter(this,resume));
-
-        //展示特长信息
-        listSpecialty.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listSpecialty.setAdapter(specialtyAdapter=new EditResumeSpecialtyAdapter(this,resume));
-
-        //展示证书信息
-        listCertificate.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,resume));
     }
 
     @OnClick({R.id.lin_back, R.id.tv_province, R.id.tv_city, R.id.tv_area,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1,R.id.tv_add_position_tag,R.id.tv_add_industry_tag,R.id.tv_salary,R.id.tv_work_time,R.id.tv_job_type,R.id.tv_save,R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})
@@ -484,27 +463,20 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 
      * 展示用户基本信息
      */
     private void showUserBase(){
-        final UserInfo userInfo= (UserInfo) SPUtil.getInstance(this).getObject(SPUtil.USER_BASE_INFO,UserInfo.class);
-        if(userInfo==null){
-            return;
-        }
-        if(!TextUtils.isEmpty(userInfo.getData().getPhoto())){
-            Glide.with(this).load(userInfo.getData().getPhoto()).into(imgHead);
-        }
-        tvName.setText(userInfo.getData().getName());
-        tvNationality.setText(userInfo.getData().getNationality());
-        tvNational.setText(userInfo.getData().getNation());
-        tvBirthday.setText("出生日期："+userInfo.getData().getBirthday());
-        etMobile.setText("联系电话："+userInfo.getData().getPhone());
-        etEmail.setText("邮箱："+userInfo.getData().getEmail());
-        etWx.setText("微信号："+userInfo.getData().getWechat());
-        etQq.setText("QQ："+userInfo.getData().getQq());
-
         /**
-         * 家庭地址
+         * 基本信息
          */
-        if(!TextUtils.isEmpty(userInfo.getData().getResidenceaddress())){
-            final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getResidenceaddress(),Address.class);
+        Glide.with(this).load(resume.getStudentVO().getImgUrl()).into(imgHead);
+        tvName.setText(resume.getStudentVO().getName());
+        tvNationality.setText(resume.getStudentVO().getNationality());
+        tvNational.setText(resume.getStudentVO().getNation());
+        tvBirthday.setText(resume.getStudentVO().getBirthday());
+        etMobile.setText(resume.getPhone());
+        etEmail.setText(resume.getMail());
+        etWx.setText(resume.getWx());
+        etQq.setText(resume.getQq());
+        if (!TextUtils.isEmpty(resume.getStudentVO().getAddress())) {
+            final Address address = (Address) JsonUtil.stringToObject(resume.getStudentVO().getAddress(), Address.class);
             tvProvince.setText(address.getPname());
             tvProvince.setTag(address.getPcode());
             tvCity.setText(address.getCname());
@@ -591,6 +563,26 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 
             default:
                 break;
         }
+
+
+        //展示学习经历
+        listEducation.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        listEducation.setAdapter(educationAdapter=new AddResumeEducationAdapter(this,resume));
+
+        //展示在校荣誉
+        listHonor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        listHonor.setAdapter(honorAdapter=new AddResumeHonorAdapter(this,resume));
+
+        listPosition.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        listPosition.setAdapter(positionAdapter=new AddResumePositionAdapter(this,resume));
+
+        //展示特长信息
+        listSpecialty.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        listSpecialty.setAdapter(specialtyAdapter=new EditResumeSpecialtyAdapter(this,resume));
+
+        //展示证书信息
+        listCertificate.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,resume));
     }
 
     @Override
