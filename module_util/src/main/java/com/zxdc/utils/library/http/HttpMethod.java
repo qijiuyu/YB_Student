@@ -31,6 +31,7 @@ import com.zxdc.utils.library.bean.SchoolBean;
 import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
 import com.zxdc.utils.library.bean.UploadFile;
+import com.zxdc.utils.library.bean.UploadPic;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.bean.parameter.AddResumeEducation;
 import com.zxdc.utils.library.bean.parameter.AddSchoolHonor;
@@ -39,6 +40,7 @@ import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
 import com.zxdc.utils.library.bean.parameter.GetDeliveryRecord;
 import com.zxdc.utils.library.bean.parameter.JobIntention;
 import com.zxdc.utils.library.bean.parameter.Position;
+import com.zxdc.utils.library.bean.parameter.ResumeBase;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.http.base.BaseRequst;
 import com.zxdc.utils.library.http.base.Http;
@@ -295,8 +297,8 @@ public class HttpMethod extends BaseRequst {
                 try {
                     String str = response.body().string();
                     LogUtils.e("+++++++++++++++++"+str);
-                    final BaseBean baseBean= (BaseBean) JsonUtil.stringToObject(str, BaseBean.class);
-                    netCallBack.onSuccess(baseBean);
+                    final UploadPic uploadPic= (UploadPic) JsonUtil.stringToObject(str, UploadPic.class);
+                    netCallBack.onSuccess(uploadPic);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1144,6 +1146,23 @@ public class HttpMethod extends BaseRequst {
      */
     public static void saveOrUpdateJobIdea(JobIntention jobIntention, final NetCallBack netCallBack) {
         Http.getRetrofit().create(HttpApi.class).saveOrUpdateJobIdea(jobIntention).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 新增或编辑简历基本信息
+     */
+    public static void saveOrUpdateResumePerson(ResumeBase resumeBase, final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).saveOrUpdateResumePerson(resumeBase).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());

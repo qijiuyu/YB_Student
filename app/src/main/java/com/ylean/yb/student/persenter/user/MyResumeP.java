@@ -10,6 +10,7 @@ import com.zxdc.utils.library.bean.parameter.AddSchoolHonor;
 import com.zxdc.utils.library.bean.parameter.AddSchoolPosition;
 import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
 import com.zxdc.utils.library.bean.parameter.JobIntention;
+import com.zxdc.utils.library.bean.parameter.ResumeBase;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
@@ -20,6 +21,7 @@ public class MyResumeP {
     private Activity activity;
     private Face face;
     private Face2 face2;
+    private Face3 face3;
 
     public MyResumeP(Activity activity){
         this.activity=activity;
@@ -31,6 +33,10 @@ public class MyResumeP {
 
     public void setFace2(Face2 face2){
         this.face2=face2;
+    }
+
+    public void setFace3(Face3 face3){
+        this.face3=face3;
     }
 
 
@@ -219,6 +225,32 @@ public class MyResumeP {
     }
 
 
+    /**
+     * 新增或编辑简历基本信息
+     */
+    public void saveOrUpdateResumePerson(ResumeBase resumeBase){
+        DialogUtil.showProgress(activity,"数据提交中");
+        HttpMethod.saveOrUpdateResumePerson(resumeBase, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                    face3.baseSuccess();
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
 
 
     public interface Face{
@@ -228,6 +260,10 @@ public class MyResumeP {
     public interface Face2{
 
        void onSuccess();
+    }
+
+    public interface Face3{
+        void baseSuccess();
     }
 
 }

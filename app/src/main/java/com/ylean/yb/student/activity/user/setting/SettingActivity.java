@@ -12,15 +12,11 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.init.LoginActivity;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.user.SettingP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
-import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.FileBean;
-import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.UserInfo;
-import com.zxdc.utils.library.http.HttpMethod;
-import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.SPUtil;
-import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.CircleImageView;
 import java.io.File;
 import java.util.ArrayList;
@@ -31,7 +27,7 @@ import butterknife.OnClick;
 /**
  * 设置页面
  */
-public class SettingActivity extends BaseActivity {
+public class SettingActivity extends BaseActivity implements SettingP.Face {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -47,6 +43,8 @@ public class SettingActivity extends BaseActivity {
     EditText etEmail;
     //用户信息对象
     private UserInfo userInfo;
+
+    private SettingP settingP=new SettingP(this);
 
     /**
      * 加载布局
@@ -65,8 +63,10 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        settingP.setFace(this);
         tvTitle.setText("设置");
         tvRight.setText("完成");
+
         userInfo= (UserInfo) getIntent().getSerializableExtra("userInfo");
         if(userInfo!=null){
             if(!TextUtils.isEmpty(userInfo.getData().getPhoto())){
@@ -118,7 +118,6 @@ public class SettingActivity extends BaseActivity {
             case SelectPhotoUtil.CODE_CAMERA_REQUEST:
                 if (resultCode == RESULT_OK) {
                     File tempFile = new File(SelectPhotoUtil.pai);
-                    Glide.with(this).load(tempFile).into(imgHead);
                     //上传用户头像
                     uploadImg(tempFile);
                 }
@@ -129,7 +128,6 @@ public class SettingActivity extends BaseActivity {
                 if(list.size()==0){
                     return;
                 }
-                Glide.with(this).load(list.get(0).getCompressPath()).into(imgHead);
                 //上传用户头像
                 uploadImg(new File(list.get(0).getCompressPath()));
                 break;
@@ -144,30 +142,21 @@ public class SettingActivity extends BaseActivity {
      * @param file
      */
     private void uploadImg(File file){
-        DialogUtil.showProgress(this,"上传中");
         List<FileBean> list=new ArrayList<>();
         list.add(new FileBean("photo",file));
-        HttpMethod.updatephotoimg(list, new NetCallBack() {
+        settingP.uploadImg(list);
+
+    }
+
+    /**
+     * 头像上传成功
+     */
+    @Override
+    public void uploadSuccess(final String imgPath) {
+        runOnUiThread(new Runnable() {
             @Override
-            public void onSuccess(Object object) {
-                final BaseBean baseBean= (BaseBean) object;
-                if(baseBean.isSussess()){
-
-                    ToastUtil.showLong("设置成功");
-
-                }else{
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ToastUtil.showLong(baseBean.getDesc());
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFail() {
-
+            public void run() {
+                Glide.with(activity).load(imgPath).into(imgHead);
             }
         });
     }

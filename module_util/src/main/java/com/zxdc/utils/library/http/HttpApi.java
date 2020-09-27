@@ -35,6 +35,7 @@ import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
 import com.zxdc.utils.library.bean.parameter.GetDeliveryRecord;
 import com.zxdc.utils.library.bean.parameter.JobIntention;
 import com.zxdc.utils.library.bean.parameter.Position;
+import com.zxdc.utils.library.bean.parameter.ResumeBase;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.util.SPUtil;
 
@@ -224,5 +225,8 @@ public interface HttpApi {
 
     @POST(HttpConstant.IP+"api/syn/resumeInfo/saveOrUpdateJobIdea")
     Call<BaseBean> saveOrUpdateJobIdea(@Body JobIntention jobIntention);
+
+    @POST(HttpConstant.IP+"api/syn/resumeInfo/saveOrUpdateResumePerson")
+    Call<BaseBean> saveOrUpdateResumePerson(@Body ResumeBase resumeBase);
 
 }

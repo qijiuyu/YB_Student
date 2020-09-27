@@ -23,6 +23,7 @@ import com.ylean.yb.student.adapter.user.resume.EditResumeSpecialtyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.callback.TimeCallBack;
 import com.ylean.yb.student.persenter.user.MyResumeP;
+import com.ylean.yb.student.persenter.user.SettingP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.ylean.yb.student.utils.SelectTimeUtils;
 import com.ylean.yb.student.view.SelectProvince;
@@ -31,12 +32,14 @@ import com.ylean.yb.student.view.SelectWorkTypeView;
 import com.ylean.yb.student.view.TagsLayout;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.DictBean;
+import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ProvinceCallBack;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.Salary;
 import com.zxdc.utils.library.bean.parameter.JobIntention;
+import com.zxdc.utils.library.bean.parameter.ResumeBase;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.ToastUtil;
@@ -50,7 +53,7 @@ import butterknife.OnClick;
 /**
  * 编辑简历
  */
-public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 {
+public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2, SettingP.Face,MyResumeP.Face3 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_right)
@@ -117,6 +120,11 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 
     private List<ResumePostion.Position> selectPosition=new ArrayList<>();
     //选择的行业类型
     private List<DictBean.Dict> selectIndustry=new ArrayList<>();
+    /**
+     * 1：选择头像
+     * 2：选择附件
+     */
+    private int selectImg=1;
 
     private AddResumeEducationAdapter educationAdapter;
     private AddResumeHonorAdapter honorAdapter;
@@ -125,6 +133,7 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 
     private AddResumeCertificateAdapter certificateAdapter;
 
     private MyResumeP myResumeP=new MyResumeP(this);
+    private SettingP settingP=new SettingP(this);
 
     /**
      * 加载布局
@@ -143,6 +152,8 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 
     protected void initData() {
         super.initData();
         myResumeP.setFace2(this);
+        myResumeP.setFace3(this);
+        settingP.setFace(this);
         tvTitle.setText("编辑简历");
         tvRight.setText("完成");
         resume= (ResumeBean.Resume) getIntent().getSerializableExtra("resume");
@@ -151,7 +162,7 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 
         showUserBase();
     }
 
-    @OnClick({R.id.lin_back, R.id.tv_province, R.id.tv_city, R.id.tv_area,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1,R.id.tv_add_position_tag,R.id.tv_add_industry_tag,R.id.tv_salary,R.id.tv_work_time,R.id.tv_job_type,R.id.tv_save,R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})
+    @OnClick({R.id.lin_back,R.id.img_head, R.id.tv_province, R.id.tv_city, R.id.tv_area,R.id.tv_save_base,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1,R.id.tv_add_position_tag,R.id.tv_add_industry_tag,R.id.tv_salary,R.id.tv_work_time,R.id.tv_job_type,R.id.tv_save,R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})
     public void onViewClicked(View view) {
         final String province=tvProvince.getText().toString().trim();
         final String city=tvCity.getText().toString().trim();
@@ -160,9 +171,15 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 
         final String city1=tvCity1.getText().toString().trim();
         final String area1=tvArea1.getText().toString().trim();
         Intent intent=new Intent();
+        Address address=null;
         switch (view.getId()) {
             case R.id.lin_back:
                 break;
+            //选择头像
+            case R.id.img_head:
+                selectImg=1;
+                SelectPhotoUtil.SelectPhoto(this,1);
+                 break;
             //选择省
             case R.id.tv_province:
                 new SelectProvince(this, 0, null, new ProvinceCallBack() {
@@ -201,6 +218,68 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 
                     }
                 }).show();
                 break;
+            //保存基本信息
+            case R.id.tv_save_base:
+                 String mobile=etMobile.getText().toString().trim();
+                 String mail=etEmail.getText().toString().trim();
+                 String wx=etWx.getText().toString().trim();
+                 String qq=etQq.getText().toString().trim();
+                 String strAddress=etAddress.getText().toString().trim();
+                 if(TextUtils.isEmpty(mobile)){
+                     ToastUtil.showLong("请输入联系电话");
+                     return;
+                 }
+                if(TextUtils.isEmpty(mail)){
+                    ToastUtil.showLong("请输入邮箱");
+                    return;
+                }
+                if(TextUtils.isEmpty(wx)){
+                    ToastUtil.showLong("请输入微信");
+                    return;
+                }
+                if(TextUtils.isEmpty(qq)){
+                    ToastUtil.showLong("请输入qq");
+                    return;
+                }
+                if (TextUtils.isEmpty(province)) {
+                    ToastUtil.showLong("请选择所在省");
+                    return;
+                }
+                if (TextUtils.isEmpty(city)) {
+                    ToastUtil.showLong("请选择所在市");
+                    return;
+                }
+                if (TextUtils.isEmpty(area)) {
+                    ToastUtil.showLong("请选择所在区");
+                    return;
+                }
+                if(TextUtils.isEmpty(strAddress)){
+                    ToastUtil.showLong("请输入详细居住地址");
+                    return;
+                }
+
+                ResumeBase resumeBase=new ResumeBase();
+                address=new Address();//居住地点
+                address.setPcode((String) tvProvince.getTag());
+                address.setPname(province);
+                address.setCcode((String) tvCity.getTag());
+                address.setCname(city);
+                address.setAcode((String) tvArea.getTag());
+                address.setAname(area);
+                resumeBase.setCurrentResidence(address);
+
+                resumeBase.setId(resume.getId());
+                if(imgHead.getTag()!=null){
+                    resumeBase.setImg((String) imgHead.getTag());
+                }
+                resumeBase.setMail(mail);
+                resumeBase.setPhone(mobile);
+                resumeBase.setWx(wx);
+                resumeBase.setQq(qq);
+
+                LogUtils.e("+++++++++"+JsonUtil.objectToString(resumeBase));
+                myResumeP.saveOrUpdateResumePerson(resumeBase);
+                 break;
             //选择省
             case R.id.tv_province1:
                 new SelectProvince(this, 0, null, new ProvinceCallBack() {
@@ -340,7 +419,7 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 
                     }
                     jobIntention.setJobPositionTypePOJOS(positionList);
 
-                    Address address=new Address();//工作地点
+                    address=new Address();//工作地点
                     address.setPcode((String) tvProvince1.getTag());
                     address.setPname(province1);
                     address.setCcode((String) tvCity1.getTag());
@@ -387,6 +466,7 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 
                  break;
             //添加附件
             case R.id.img_file:
+                 selectImg=2;
                  SelectPhotoUtil.SelectPhoto(this,1);
                  break;
             case R.id.tv_right:
@@ -405,17 +485,31 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 
             //返回拍照图片
             case SelectPhotoUtil.CODE_CAMERA_REQUEST:
                 if (resultCode == RESULT_OK) {
-                    File tempFile = new File(SelectPhotoUtil.pai);
-                    Glide.with(this).load(tempFile).into(imgFile);
+                    final File tempFile = new File(SelectPhotoUtil.pai);
+                    if(selectImg==1){
+                        //上传头像
+                        List<FileBean> fileList=new ArrayList<FileBean>(){{add(new FileBean("photo",tempFile));}};
+                        settingP.uploadImg(fileList);
+
+                    }else{
+                        Glide.with(this).load(tempFile).into(imgHead);
+                    }
                 }
                 break;
             //返回相册选择图片
             case PictureConfig.CHOOSE_REQUEST:
-                List<LocalMedia> list= PictureSelector.obtainMultipleResult(data);
+                final List<LocalMedia> list= PictureSelector.obtainMultipleResult(data);
                 if(list.size()==0){
                     return;
                 }
-                Glide.with(this).load(list.get(0).getCompressPath()).into(imgFile);
+                if(selectImg==1){
+                    //上传头像
+                    List<FileBean> fileList=new ArrayList<FileBean>(){{add(new FileBean("photo",new File(list.get(0).getCompressPath())));}};
+                    settingP.uploadImg(fileList);
+
+                }else{
+                    Glide.with(this).load(list.get(0).getCompressPath()).into(imgHead);
+                }
                 break;
             default:
                 break;
@@ -463,128 +557,164 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2 
      * 展示用户基本信息
      */
     private void showUserBase(){
-        /**
-         * 基本信息
-         */
-        Glide.with(this).load(resume.getStudentVO().getImgUrl()).into(imgHead);
-        tvName.setText(resume.getStudentVO().getName());
-        tvNationality.setText(resume.getStudentVO().getNationality());
-        tvNational.setText(resume.getStudentVO().getNation());
-        tvBirthday.setText(resume.getStudentVO().getBirthday());
-        etMobile.setText(resume.getPhone());
-        etEmail.setText(resume.getMail());
-        etWx.setText(resume.getWx());
-        etQq.setText(resume.getQq());
-        if (!TextUtils.isEmpty(resume.getStudentVO().getAddress())) {
-            final Address address = (Address) JsonUtil.stringToObject(resume.getStudentVO().getAddress(), Address.class);
-            tvProvince.setText(address.getPname());
-            tvProvince.setTag(address.getPcode());
-            tvCity.setText(address.getCname());
-            tvCity.setTag(address.getCcode());
-            tvArea.setText(address.getAname());
-            tvArea.setTag(address.getAcode());
-            etAddress.setText("现居住地址："+address.getAddress());
-        }
-
-
-        //期望薪资
-        if(!TextUtils.isEmpty(resume.getExpectedCapital())) {
-            final Salary salary = (Salary) JsonUtil.stringToObject(resume.getExpectedCapital(), Salary.class);
-            tvSalary.setText(salary.getMin()+"-"+salary.getMax()+"元/月");
-            tvSalary.setTag(R.id.tag1,salary.getMin());
-            tvSalary.setTag(R.id.tag2,salary.getMax());
-        }
-
-        //工作地点
-        if(!TextUtils.isEmpty(resume.getWorkPlace())) {
-            final Address address = (Address) JsonUtil.stringToObject(resume.getWorkPlace(), Address.class);
-            tvProvince1.setText(address.getPname());
-            tvProvince1.setTag(address.getPcode());
-            tvCity1.setText(address.getCname());
-            tvCity1.setTag(address.getCcode());
-            tvArea1.setText(address.getAname());
-            tvArea1.setTag(address.getAcode());
-        }
-
-        lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if(resume.getPositionTypeList()!=null){
-            tvPosition.removeAllViews();
-            for (int i=0;i<resume.getPositionTypeList().size();i++){
-                 ResumePostion.Position position=new ResumePostion.Position();
-                 position.setId(resume.getPositionTypeList().get(i).getId());
-                 position.setName(resume.getPositionTypeList().get(i).getName());
-                 selectPosition.add(position);
+        try {
+            /**
+             * 基本信息
+             */
+            Glide.with(this).load(resume.getImg()).into(imgHead);
+            imgHead.setTag(resume.getImg());
+            if(resume.getStudentVO()!=null){
+                tvName.setText(resume.getStudentVO().getName());
+                tvNationality.setText(resume.getStudentVO().getNationality());
+                tvNational.setText(resume.getStudentVO().getNation());
+                tvBirthday.setText("出生日期："+resume.getStudentVO().getBirthday());
+                etMobile.setText(resume.getPhone());
+                etEmail.setText(resume.getMail());
+                etWx.setText(resume.getWx());
+                etQq.setText(resume.getQq());
+                if (!TextUtils.isEmpty(resume.getStudentVO().getAddress())) {
+                    final Address address = (Address) JsonUtil.stringToObject(resume.getStudentVO().getAddress(), Address.class);
+                    tvProvince.setText(address.getPname());
+                    tvProvince.setTag(address.getPcode());
+                    tvCity.setText(address.getCname());
+                    tvCity.setTag(address.getCcode());
+                    tvArea.setText(address.getAname());
+                    tvArea.setTag(address.getAcode());
+                    etAddress.setText("现居住地址："+address.getAddress());
+                }
             }
-            for (int i=0;i<selectPosition.size();i++){
-                TextView textView = new TextView(this);
-                textView.setText(selectPosition.get(i).getName());
-                textView.setTextColor(getResources().getColor(android.R.color.black));
-                textView.setTextSize(13);
-                textView.setBackgroundResource(R.drawable.bg_tag_history);
-                textView.setPadding(10, 10, 10, 10);
-                textView.setGravity(Gravity.CENTER);
-                tvPosition.addView(textView, lp);
+
+
+
+            //期望薪资
+            if(!TextUtils.isEmpty(resume.getExpectedCapital())) {
+                final Salary salary = (Salary) JsonUtil.stringToObject(resume.getExpectedCapital(), Salary.class);
+                tvSalary.setText(salary.getMin()+"-"+salary.getMax()+"元/月");
+                tvSalary.setTag(R.id.tag1,salary.getMin());
+                tvSalary.setTag(R.id.tag2,salary.getMax());
             }
-        }
 
-        if(resume.getJobIndustryList()!=null){
-            tvIndustry.removeAllViews();
-            for (int i=0;i<resume.getJobIndustryList().size();i++){
-                DictBean.Dict dict=new DictBean.Dict();
-                dict.setId(resume.getJobIndustryList().get(i).getId());
-                dict.setName(resume.getJobIndustryList().get(i).getIndustryTypeName());
-                selectIndustry.add(dict);
+            //工作地点
+            if(!TextUtils.isEmpty(resume.getWorkPlace())) {
+                final Address address = (Address) JsonUtil.stringToObject(resume.getWorkPlace(), Address.class);
+                tvProvince1.setText(address.getPname());
+                tvProvince1.setTag(address.getPcode());
+                tvCity1.setText(address.getCname());
+                tvCity1.setTag(address.getCcode());
+                tvArea1.setText(address.getAname());
+                tvArea1.setTag(address.getAcode());
             }
-            for (int i=0;i<selectIndustry.size();i++){
-                TextView textView = new TextView(this);
-                textView.setText(selectIndustry.get(i).getName());
-                textView.setTextColor(getResources().getColor(android.R.color.black));
-                textView.setTextSize(13);
-                textView.setBackgroundResource(R.drawable.bg_tag_history);
-                textView.setPadding(10, 10, 10, 10);
-                textView.setGravity(Gravity.CENTER);
-                tvIndustry.addView(textView, lp);
+
+            lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            if(resume.getPositionTypeList()!=null){
+                tvPosition.removeAllViews();
+                for (int i=0;i<resume.getPositionTypeList().size();i++){
+                    ResumePostion.Position position=new ResumePostion.Position();
+                    position.setId(resume.getPositionTypeList().get(i).getId());
+                    position.setName(resume.getPositionTypeList().get(i).getName());
+                    selectPosition.add(position);
+                }
+                for (int i=0;i<selectPosition.size();i++){
+                    TextView textView = new TextView(this);
+                    textView.setText(selectPosition.get(i).getName());
+                    textView.setTextColor(getResources().getColor(android.R.color.black));
+                    textView.setTextSize(13);
+                    textView.setBackgroundResource(R.drawable.bg_tag_history);
+                    textView.setPadding(10, 10, 10, 10);
+                    textView.setGravity(Gravity.CENTER);
+                    tvPosition.addView(textView, lp);
+                }
             }
+
+            if(resume.getJobIndustryList()!=null){
+                tvIndustry.removeAllViews();
+                for (int i=0;i<resume.getJobIndustryList().size();i++){
+                    DictBean.Dict dict=new DictBean.Dict();
+                    dict.setId(resume.getJobIndustryList().get(i).getId());
+                    dict.setName(resume.getJobIndustryList().get(i).getIndustryTypeName());
+                    selectIndustry.add(dict);
+                }
+                for (int i=0;i<selectIndustry.size();i++){
+                    TextView textView = new TextView(this);
+                    textView.setText(selectIndustry.get(i).getName());
+                    textView.setTextColor(getResources().getColor(android.R.color.black));
+                    textView.setTextSize(13);
+                    textView.setBackgroundResource(R.drawable.bg_tag_history);
+                    textView.setPadding(10, 10, 10, 10);
+                    textView.setGravity(Gravity.CENTER);
+                    tvIndustry.addView(textView, lp);
+                }
+            }
+
+            etIntroduce.setText(resume.getIntroduce());
+            tvWorkTime.setText(resume.getArrivalTime());
+            tvJobType.setTag(resume.getdType());
+            switch (resume.getdType()){
+                case 10:
+                    tvJobType.setText("全职");
+                    break;
+                case 20:
+                    tvJobType.setText("兼职");
+                    break;
+                case 30:
+                    tvJobType.setText("实习");
+                    break;
+                default:
+                    break;
+            }
+
+
+            //展示学习经历
+            listEducation.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+            listEducation.setAdapter(educationAdapter=new AddResumeEducationAdapter(this,resume));
+
+            //展示在校荣誉
+            listHonor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+            listHonor.setAdapter(honorAdapter=new AddResumeHonorAdapter(this,resume));
+
+            listPosition.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+            listPosition.setAdapter(positionAdapter=new AddResumePositionAdapter(this,resume));
+
+            //展示特长信息
+            listSpecialty.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+            listSpecialty.setAdapter(specialtyAdapter=new EditResumeSpecialtyAdapter(this,resume));
+
+            //展示证书信息
+            listCertificate.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+            listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,resume));
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
-        etIntroduce.setText(resume.getIntroduce());
-        tvWorkTime.setText(resume.getArrivalTime());
-        tvJobType.setTag(resume.getdType());
-        switch (resume.getdType()){
-            case 10:
-                tvJobType.setText("全职");
-                break;
-            case 20:
-                tvJobType.setText("兼职");
-                break;
-            case 30:
-                tvJobType.setText("实习");
-                break;
-            default:
-                break;
-        }
-
-
-        //展示学习经历
-        listEducation.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listEducation.setAdapter(educationAdapter=new AddResumeEducationAdapter(this,resume));
-
-        //展示在校荣誉
-        listHonor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listHonor.setAdapter(honorAdapter=new AddResumeHonorAdapter(this,resume));
-
-        listPosition.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listPosition.setAdapter(positionAdapter=new AddResumePositionAdapter(this,resume));
-
-        //展示特长信息
-        listSpecialty.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listSpecialty.setAdapter(specialtyAdapter=new EditResumeSpecialtyAdapter(this,resume));
-
-        //展示证书信息
-        listCertificate.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,resume));
     }
 
+
+    /**
+     * 头像上传成功
+     */
+    @Override
+    public void uploadSuccess(final String imgPath) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Glide.with(activity).load(imgPath).into(imgHead);
+                imgHead.setTag(imgPath);
+            }
+        });
+    }
+
+
+    /**
+     * 编辑基本信息成功
+     */
+    @Override
+    public void baseSuccess() {
+
+    }
+
+
+    /**
+     * 编辑求职意向成功
+     */
     @Override
     public void onSuccess() {
 

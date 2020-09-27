@@ -148,7 +148,7 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
              * 基本信息
              */
             if(resume.getStudentVO()!=null){
-                Glide.with(this).load(resume.getStudentVO().getImgUrl()).into(imgHead);
+                Glide.with(this).load(resume.getImg()).into(imgHead);
                 tvName.setText(resume.getStudentVO().getName());
                 tvNationality.setText(resume.getStudentVO().getNationality());
                 tvNational.setText(resume.getStudentVO().getNation());
