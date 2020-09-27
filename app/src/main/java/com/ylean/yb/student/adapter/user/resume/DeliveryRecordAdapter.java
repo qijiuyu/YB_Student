@@ -57,6 +57,7 @@ public class DeliveryRecordAdapter extends BaseAdapter {
         holder.tvContent.setText(listBean.getPositionInfo());
         holder.tvAddress.setText(listBean.getPositionLocation());
         holder.tvYear.setText(listBean.getWorkYear()+"年");
+        holder.tvSchool.setText(listBean.getEduReqName());
         holder.tvPeople.setText(listBean.getNumPerson()+"人");
         holder.tvTime.setText("申请于："+listBean.getCreateTime());
         return view;

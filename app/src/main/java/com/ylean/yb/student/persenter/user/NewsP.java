@@ -27,6 +27,9 @@ public class NewsP{
             @Override
             public void onSuccess(Object object) {
                 final NewsBean newsBean= (NewsBean) object;
+                if(newsBean==null){
+                    return;
+                }
                 if(newsBean.isSussess()){
 
                     face.getNewsList(newsBean.getData());

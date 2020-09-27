@@ -323,10 +323,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="28dp"
                         android:background="@drawable/bg_memo"
-                        android:hint="请输入期望薪资"
+                        android:hint="请选择期望薪资"
                         android:gravity="center_vertical"
                         android:textSize="13sp"
                         android:textColor="@color/color_333333"
+                        android:drawableRight="@mipmap/bottom_sj"
+                        android:paddingRight="7dp"
                         android:paddingLeft="10dp"/>
 
                 </LinearLayout>
@@ -557,6 +559,20 @@
                         android:drawableRight="@mipmap/bottom_sj"/>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="保存"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp"
+                    android:background="@drawable/bg_btn"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="20dp"/>
 
             </LinearLayout>
 

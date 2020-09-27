@@ -37,6 +37,8 @@ import com.zxdc.utils.library.bean.parameter.AddSchoolHonor;
 import com.zxdc.utils.library.bean.parameter.AddSchoolPosition;
 import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
 import com.zxdc.utils.library.bean.parameter.GetDeliveryRecord;
+import com.zxdc.utils.library.bean.parameter.JobIntention;
+import com.zxdc.utils.library.bean.parameter.Position;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.http.base.BaseRequst;
 import com.zxdc.utils.library.http.base.Http;
@@ -961,10 +963,10 @@ public class HttpMethod extends BaseRequst {
 
 
     /**
-     * -根据组合条件查询职位信息
+     * -查询职位类型信息
      */
-    public static void getResumePostion(PageParam pageParam, final NetCallBack netCallBack) {
-        Http.getRetrofit().create(HttpApi.class).getResumePostion(pageParam).enqueue(new Callback<ResumePostion>() {
+    public static void getResumePostion(Position position, final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getResumePostion(position).enqueue(new Callback<ResumePostion>() {
             public void onResponse(Call<ResumePostion> call, Response<ResumePostion> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());
@@ -1125,6 +1127,23 @@ public class HttpMethod extends BaseRequst {
      */
     public static void saveOrUpdateLearnings(AddResumeEducation addResumeEducation, final NetCallBack netCallBack) {
         Http.getRetrofit().create(HttpApi.class).saveOrUpdateLearnings(addResumeEducation).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 新增或编辑简历求职意向
+     */
+    public static void saveOrUpdateJobIdea(JobIntention jobIntention, final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).saveOrUpdateJobIdea(jobIntention).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());

@@ -30,6 +30,8 @@ public class ResumeBean extends BaseBean {
         private int status;
         private String enclosure="";
         private String introduce="";
+        private List<PositionType> positionTypeList;
+        private List<Industry> jobIndustryList;
 
         private List<Education> learningExperienceList;
         private List<Honor> inSchoolHonorList;
@@ -188,6 +190,22 @@ public class ResumeBean extends BaseBean {
 
         public void setSpeciality(String speciality) {
             this.speciality = speciality;
+        }
+
+        public List<PositionType> getPositionTypeList() {
+            return positionTypeList;
+        }
+
+        public void setPositionTypeList(List<PositionType> positionTypeList) {
+            this.positionTypeList = positionTypeList;
+        }
+
+        public List<Industry> getJobIndustryList() {
+            return jobIndustryList;
+        }
+
+        public void setJobIndustryList(List<Industry> jobIndustryList) {
+            this.jobIndustryList = jobIndustryList;
         }
     }
 
@@ -423,6 +441,50 @@ public class ResumeBean extends BaseBean {
 
         public void setName(String name) {
             this.name = name;
+        }
+    }
+
+
+    public static class PositionType implements Serializable{
+        private int id;
+        private String name;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+
+    public static class Industry implements Serializable{
+        private int id;
+        private String industryTypeName;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getIndustryTypeName() {
+            return industryTypeName;
+        }
+
+        public void setIndustryTypeName(String industryTypeName) {
+            this.industryTypeName = industryTypeName;
         }
     }
 }

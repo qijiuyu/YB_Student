@@ -23,6 +23,7 @@ public class DeliveryBean extends BaseBean {
         private int numPerson;
         private int workYear;
         private int eduReq;
+        private String eduReqName="";
         private String createTime;
 
         public String getName() {
@@ -87,6 +88,14 @@ public class DeliveryBean extends BaseBean {
 
         public void setCreateTime(String createTime) {
             this.createTime = createTime;
+        }
+
+        public String getEduReqName() {
+            return eduReqName;
+        }
+
+        public void setEduReqName(String eduReqName) {
+            this.eduReqName = eduReqName;
         }
     }
 }

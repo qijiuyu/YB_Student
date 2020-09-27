@@ -22,8 +22,7 @@ public class SelectSalaryView extends Dialog implements View.OnClickListener {
 
     private Activity context;
     private CycleWheelView wheel;
-    private List<String> listName=new ArrayList<String>(){{add("1500-2000元/月");add("2000-4000/月");add("4000-6000元/月");add("6000-8000元/月");add("8000-10000元/月");add("10000-12000元/月");}};
-    private List<Integer> listCode=new ArrayList<Integer>(){{add(1);add(2);add(3);add(4);add(5);add(6);}};
+    private List<String> listName=new ArrayList<String>(){{add("1500-2000元/月");add("2000-4000元/月");add("4000-6000元/月");add("6000-8000元/月");add("8000-10000元/月");add("10000-12000元/月");}};
     private TextView textView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +68,11 @@ public class SelectSalaryView extends Dialog implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.tv_confirm:
                  textView.setText(wheel.getSelectLabel());
-                 textView.setTag(listCode.get(wheel.getSelection()));
+                 String[] moneys=wheel.getSelectLabel().replace("元/月","").split("-");
+                 if(moneys!=null && moneys.length==2){
+                     textView.setTag(R.id.tag1,Integer.parseInt(moneys[0]));
+                     textView.setTag(R.id.tag2,Integer.parseInt(moneys[1]));
+                 }
                  dismiss();
                  break;
             case R.id.tv_cancle:

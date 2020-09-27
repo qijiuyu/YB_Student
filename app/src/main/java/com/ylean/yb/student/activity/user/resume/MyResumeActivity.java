@@ -3,7 +3,9 @@ package com.ylean.yb.student.activity.user.resume;
 import android.content.Intent;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -15,6 +17,7 @@ import com.ylean.yb.student.adapter.user.resume.MyPositionAdapter;
 import com.ylean.yb.student.adapter.user.resume.MySpecialtyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.user.MyResumeP;
+import com.ylean.yb.student.view.TagsLayout;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.Salary;
@@ -61,9 +64,9 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
     @BindView(R.id.tv_job_address)
     TextView tvJobAddress;
     @BindView(R.id.tv_position)
-    TextView tvPosition;
+    TagsLayout tvPosition;
     @BindView(R.id.tv_job_type)
-    TextView tvJobType;
+    TagsLayout tvJobType;
     @BindView(R.id.tv_introduce)
     TextView tvIntroduce;
     @BindView(R.id.tv_work_time)
@@ -177,6 +180,36 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
             final Address address = (Address) JsonUtil.stringToObject(resume.getWorkPlace(), Address.class);
             tvJobAddress.setText("工作地点："+address.getPname()+","+address.getCname()+","+address.getAname());
         }
+
+        ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if(resume.getPositionTypeList()!=null){
+            tvPosition.removeAllViews();
+            for (int i=0;i<resume.getPositionTypeList().size();i++){
+                TextView textView = new TextView(this);
+                textView.setText(resume.getPositionTypeList().get(i).getName());
+                textView.setTextColor(getResources().getColor(android.R.color.black));
+                textView.setTextSize(13);
+                textView.setBackgroundResource(R.drawable.bg_tag_history);
+                textView.setPadding(10, 10, 10, 10);
+                textView.setGravity(Gravity.CENTER);
+                tvPosition.addView(textView, lp);
+            }
+        }
+
+        if(resume.getJobIndustryList()!=null){
+            tvJobType.removeAllViews();
+            for (int i=0;i<resume.getJobIndustryList().size();i++){
+                TextView textView = new TextView(this);
+                textView.setText(resume.getJobIndustryList().get(i).getIndustryTypeName());
+                textView.setTextColor(getResources().getColor(android.R.color.black));
+                textView.setTextSize(13);
+                textView.setBackgroundResource(R.drawable.bg_tag_history);
+                textView.setPadding(10, 10, 10, 10);
+                textView.setGravity(Gravity.CENTER);
+                tvJobType.addView(textView, lp);
+            }
+        }
+
         tvIntroduce.setText("自我介绍："+resume.getIntroduce());
         tvWorkTime.setText("到岗时间："+resume.getArrivalTime());
         switch (resume.getdType()){

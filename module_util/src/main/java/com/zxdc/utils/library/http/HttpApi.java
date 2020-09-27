@@ -33,6 +33,8 @@ import com.zxdc.utils.library.bean.parameter.AddSchoolHonor;
 import com.zxdc.utils.library.bean.parameter.AddSchoolPosition;
 import com.zxdc.utils.library.bean.parameter.AddSpecialtyP;
 import com.zxdc.utils.library.bean.parameter.GetDeliveryRecord;
+import com.zxdc.utils.library.bean.parameter.JobIntention;
+import com.zxdc.utils.library.bean.parameter.Position;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.util.SPUtil;
 
@@ -195,8 +197,8 @@ public interface HttpApi {
     @POST(HttpConstant.IP+"api/syn/resumeInfo/saveOrUpdateSpeciality")
     Call<BaseBean> saveOrUpdateSpeciality(@Body AddSpecialtyP addSpecialtyP);
 
-    @POST(HttpConstant.IP+"api/syn/positionInfo/findPositionByCondition")
-    Call<ResumePostion> getResumePostion(@Body PageParam pageParam);
+    @POST(HttpConstant.IP+"api/syn/positionType/findPostionTypeByPage")
+    Call<ResumePostion> getResumePostion(@Body Position position);
 
     @POST(HttpConstant.IP+"api/syn/resumeInfo/saveOrUpdateCertificates")
     Call<BaseBean> SaveOrUpdateCertificates(@Body ResumeCertificate resumeCertificate);
@@ -219,5 +221,8 @@ public interface HttpApi {
 
     @POST(HttpConstant.IP+"api/syn/resumeInfo/saveOrUpdateLearnings")
     Call<BaseBean> saveOrUpdateLearnings(@Body AddResumeEducation addResumeEducation);
+
+    @POST(HttpConstant.IP+"api/syn/resumeInfo/saveOrUpdateJobIdea")
+    Call<BaseBean> saveOrUpdateJobIdea(@Body JobIntention jobIntention);
 
 }

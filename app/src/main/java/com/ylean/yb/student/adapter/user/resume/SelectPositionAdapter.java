@@ -51,7 +51,7 @@ public class SelectPositionAdapter extends BaseAdapter {
         }
 
         final ResumePostion.Position po=list.get(position);
-        holder.tvName.setText(po.getPositionName());
+        holder.tvName.setText(po.getName());
         if(po.getSelectId()!=0){
             holder.imgSelect.setImageResource(R.mipmap.check_yes);
         }else{

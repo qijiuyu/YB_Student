@@ -17,11 +17,9 @@ public class ResumePostion extends BaseBean {
 
     public static class Position implements Serializable{
         private int id;
-        private String positionName;
-        private String positionLocation="";
-        private String positionInfo="";
-        private int eduReq;
-        private int industrytype;
+        private String name;
+        private String gradationCode="";
+        private int status;
         private int selectId;//选中的id
 
         public int getId() {
@@ -32,44 +30,28 @@ public class ResumePostion extends BaseBean {
             this.id = id;
         }
 
-        public String getPositionName() {
-            return positionName;
+        public String getName() {
+            return name;
         }
 
-        public void setPositionName(String positionName) {
-            this.positionName = positionName;
+        public void setName(String name) {
+            this.name = name;
         }
 
-        public String getPositionLocation() {
-            return positionLocation;
+        public String getGradationCode() {
+            return gradationCode;
         }
 
-        public void setPositionLocation(String positionLocation) {
-            this.positionLocation = positionLocation;
+        public void setGradationCode(String gradationCode) {
+            this.gradationCode = gradationCode;
         }
 
-        public String getPositionInfo() {
-            return positionInfo;
+        public int getStatus() {
+            return status;
         }
 
-        public void setPositionInfo(String positionInfo) {
-            this.positionInfo = positionInfo;
-        }
-
-        public int getEduReq() {
-            return eduReq;
-        }
-
-        public void setEduReq(int eduReq) {
-            this.eduReq = eduReq;
-        }
-
-        public int getIndustrytype() {
-            return industrytype;
-        }
-
-        public void setIndustrytype(int industrytype) {
-            this.industrytype = industrytype;
+        public void setStatus(int status) {
+            this.status = status;
         }
 
         public int getSelectId() {

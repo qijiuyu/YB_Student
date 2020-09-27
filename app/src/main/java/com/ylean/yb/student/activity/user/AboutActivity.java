@@ -1,5 +1,6 @@
 package com.ylean.yb.student.activity.user;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
@@ -83,7 +84,9 @@ public class AboutActivity extends BaseActivity {
 
                 final AboutBean aboutBean= (AboutBean) object;
                 if(aboutBean.isSussess()){
-                    tvContent.setHtml(aboutBean.getData().getContent(), new HtmlHttpImageGetter(tvContent));
+                    if(!TextUtils.isEmpty(aboutBean.getData().getContent())){
+                        tvContent.setHtml(aboutBean.getData().getContent(), new HtmlHttpImageGetter(tvContent));
+                    }
                 }else{
                     ToastUtil.showLong(aboutBean.getDesc());
                 }

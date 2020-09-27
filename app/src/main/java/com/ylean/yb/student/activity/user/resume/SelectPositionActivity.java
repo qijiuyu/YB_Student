@@ -9,14 +9,10 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.user.resume.SelectPositionAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.user.SelectPositionP;
-import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.ToastUtil;
-import com.zxdc.utils.library.view.MyRefreshLayoutListener;
-import com.zxdc.utils.library.view.refresh.MyRefreshLayout;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,17 +20,13 @@ import butterknife.OnClick;
 /**
  * 选择职位
  */
-public class SelectPositionActivity extends BaseActivity implements MyRefreshLayoutListener, SelectPositionP.Face {
+public class SelectPositionActivity extends BaseActivity implements SelectPositionP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_right)
     TextView tvRight;
     @BindView(R.id.listView)
     ListView listView;
-    @BindView(R.id.re_list)
-    MyRefreshLayout reList;
-    //页码
-    private int page = 1;
     private SelectPositionAdapter adapter;
     //职位集合
     private List<ResumePostion.Position> listAll = new ArrayList<>();
@@ -72,11 +64,10 @@ public class SelectPositionActivity extends BaseActivity implements MyRefreshLay
             }
         }
 
-        reList.setMyRefreshLayoutListener(this);
         listView.setAdapter(adapter = new SelectPositionAdapter(this, listAll));
 
-        //加载数据
-        reList.startRefresh();
+        //查询职位类型信息
+        selectPositionP.getResumePostion();
     }
 
 
@@ -115,8 +106,6 @@ public class SelectPositionActivity extends BaseActivity implements MyRefreshLay
      */
     @Override
     public void getResumePostion(final List<ResumePostion.Position> list) {
-        reList.refreshComplete();
-        reList.loadMoreComplete();
         listAll.addAll(list);
 
         for (int i=0,len=listAll.size();i<len;i++){
@@ -125,33 +114,5 @@ public class SelectPositionActivity extends BaseActivity implements MyRefreshLay
             }
         }
         adapter.notifyDataSetChanged();
-        if (list.size() < 100) {
-            reList.setIsLoadingMoreEnabled(false);
-        }
-    }
-
-
-    /**
-     * 刷新
-     *
-     * @param view
-     */
-    @Override
-    public void onRefresh(View view) {
-        listAll.clear();
-        page = 1;
-        selectPositionP.getResumePostion(new PageParam(page, 100));
-    }
-
-
-    /**
-     * 加载
-     *
-     * @param view
-     */
-    @Override
-    public void onLoadMore(View view) {
-        page++;
-        selectPositionP.getResumePostion(new PageParam(page, 100));
     }
 }

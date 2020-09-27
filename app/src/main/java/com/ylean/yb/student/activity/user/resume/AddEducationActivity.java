@@ -1,17 +1,14 @@
 package com.ylean.yb.student.activity.user.resume;
 
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.callback.SelectRelationCallBack;
 import com.ylean.yb.student.callback.TimeCallBack;
-import com.ylean.yb.student.persenter.EducationP;
 import com.ylean.yb.student.persenter.SchoolP;
 import com.ylean.yb.student.persenter.user.MyResumeP;
 import com.ylean.yb.student.utils.SelectTimeUtils;
@@ -20,9 +17,7 @@ import com.ylean.yb.student.view.SelectFacultyView;
 import com.ylean.yb.student.view.SelectProvince;
 import com.ylean.yb.student.view.SelectSchoolType;
 import com.ylean.yb.student.view.SelectSchoolView;
-import com.zxdc.utils.library.bean.AddEducation;
 import com.zxdc.utils.library.bean.Address;
-import com.zxdc.utils.library.bean.EducationBean;
 import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ProvinceCallBack;
@@ -32,10 +27,8 @@ import com.zxdc.utils.library.bean.parameter.AddResumeEducation;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.ToastUtil;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 

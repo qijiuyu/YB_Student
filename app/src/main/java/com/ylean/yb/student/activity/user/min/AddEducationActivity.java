@@ -234,7 +234,6 @@ public class AddEducationActivity extends BaseActivity implements SchoolP.Face, 
                 AddEducation.Region region = new AddEducation.Region();
                 region.setPname(province);
                 region.setPcode((String) tvProvince.getTag());
-                region.setPname(province);
                 region.setCcode((String) tvCity.getTag());
                 region.setCname(city);
                 region.setAcode((String) tvArea.getTag());

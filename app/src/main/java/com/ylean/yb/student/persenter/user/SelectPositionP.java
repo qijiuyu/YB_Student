@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.ResumePostion;
+import com.zxdc.utils.library.bean.parameter.Position;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.ToastUtil;
 
@@ -21,10 +22,10 @@ public class SelectPositionP {
     }
 
     /**
-     * 根据组合条件查询职位信息
+     * 查询职位类型信息
      */
-    public void getResumePostion(PageParam pageParam){
-        HttpMethod.getResumePostion(pageParam, new NetCallBack() {
+    public void getResumePostion(){
+        HttpMethod.getResumePostion(new Position(), new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
                 final ResumePostion resumePostion= (ResumePostion) object;
