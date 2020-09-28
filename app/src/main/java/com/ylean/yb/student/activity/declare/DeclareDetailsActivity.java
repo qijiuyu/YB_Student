@@ -84,7 +84,10 @@ public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Fac
                  finish();
                 break;
             case R.id.tv_submit:
-                showApplyDialog();
+//                showApplyDialog();
+                Intent intent=new Intent(this,AddDeclareActivity.class);
+                intent.putExtra("batch",batch);
+                startActivity(intent);
                 break;
             default:
                 break;

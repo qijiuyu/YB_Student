@@ -38,6 +38,9 @@ public class DeclareP {
             @Override
             public void onSuccess(Object object) {
                 final DeclareBean declareBean= (DeclareBean) object;
+                if(declareBean==null){
+                    return;
+                }
                 if(declareBean.isSussess()){
 
                     face.getDeclareList(declareBean.getData());
@@ -63,6 +66,9 @@ public class DeclareP {
             @Override
             public void onSuccess(Object object) {
                 final BatchBean batchBean= (BatchBean) object;
+                if(batchBean==null){
+                    return;
+                }
                 if(batchBean.isSussess()){
 
                     face.getBatch(batchBean.getData());
@@ -90,6 +96,9 @@ public class DeclareP {
             @Override
             public void onSuccess(Object object) {
                 final BatchDetails batchDetails= (BatchDetails) object;
+                if(batchDetails==null){
+                    return;
+                }
                 if(batchDetails.isSussess()){
 
                     face2.getBatchDetailed(batchDetails.getData());
@@ -116,6 +125,9 @@ public class DeclareP {
             @Override
             public void onSuccess(Object object) {
                 final BaseBean baseBean= (BaseBean) object;
+                if(baseBean==null){
+                    return;
+                }
                 if(baseBean.isSussess()){
 
                     face2.checkdeclareno();

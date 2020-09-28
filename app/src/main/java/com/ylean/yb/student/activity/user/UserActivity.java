@@ -63,7 +63,8 @@ public class UserActivity extends BaseActivity implements UserP.Face {
     @Override
     protected void initData() {
         super.initData();
-        userP=new UserP(this,this);
+        userP=new UserP(this);
+        userP.setFace(this);
     }
 
 

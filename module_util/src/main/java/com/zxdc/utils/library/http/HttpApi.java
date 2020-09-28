@@ -229,4 +229,7 @@ public interface HttpApi {
     @POST(HttpConstant.IP+"api/syn/resumeInfo/saveOrUpdateResumePerson")
     Call<BaseBean> saveOrUpdateResumePerson(@Body ResumeBase resumeBase);
 
+    @GET(HttpConstant.IP+"api/user/student/getdeclarebaseinfo")
+    Call<UserInfo> getUserInfoByApply();
+
 }

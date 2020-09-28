@@ -1174,4 +1174,22 @@ public class HttpMethod extends BaseRequst {
         });
     }
 
+
+
+    /**
+     * 获取学生申报或查看申报基本信息
+     */
+    public static void getUserInfoByApply(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getUserInfoByApply().enqueue(new Callback<UserInfo>() {
+            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<UserInfo> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
 }

@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.gyf.barlibrary.ImmersionBar;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.user.mine.EducationAdapter;
 import com.ylean.yb.student.adapter.user.mine.FamilyAdapter;
@@ -92,7 +94,7 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
     //用户基本信息对象
     private UserInfo userInfo;
 
-    private UserP userP=new UserP(this,this);
+    private UserP userP=new UserP(this);
     private FamilyP familyP=new FamilyP(this,this);
     private EducationP educationP=new EducationP(this,this);
 
@@ -111,6 +113,9 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
     @Override
     protected void initData() {
         super.initData();
+        userP.setFace2(this);
+
+        ImmersionBar.with(this).statusBarColor(R.color.color_FA4D4F).fitsSystemWindows(true).autoDarkModeEnable(true).init();
 
         //展示用户基本信息
         showBaseInfo();

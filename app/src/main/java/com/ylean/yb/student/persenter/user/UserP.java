@@ -15,16 +15,24 @@ public class UserP {
     private Activity activity;
     private Face face;
     private Face2 face2;
+    private Face3 face3;
 
-    public UserP(Activity activity,Face face){
+    public UserP(Activity activity){
         this.activity=activity;
+    }
+
+    public void setFace(Face face){
         this.face=face;
     }
 
-    public UserP(Activity activity,Face2 face2){
-        this.activity=activity;
+    public void setFace2(Face2 face2){
         this.face2=face2;
     }
+
+    public void setFace3(Face3 face3){
+        this.face3=face3;
+    }
+
 
     /**
      * 获取学生基本信息
@@ -112,6 +120,35 @@ public class UserP {
     }
 
 
+    /**
+     * 获取学生申报或查看申报基本信息
+     */
+    public void getUserInfoByApply(){
+        DialogUtil.showProgress(activity,"加载中");
+        HttpMethod.getUserInfoByApply(new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final UserInfo userInfo= (UserInfo) object;
+                if(userInfo==null){
+                    return;
+                }
+                if(userInfo.isSussess()){
+
+                    face3.getUserInfoByApply(userInfo.getData());
+
+                }else{
+                    ToastUtil.showLong(userInfo.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
     public interface Face{
         void getbaseinfo(UserInfo userInfo);
 
@@ -120,5 +157,9 @@ public class UserP {
 
     public interface Face2{
         void updateSuccess();
+    }
+
+    public interface Face3{
+        void getUserInfoByApply(UserInfo.UserBean userBean);
     }
 }

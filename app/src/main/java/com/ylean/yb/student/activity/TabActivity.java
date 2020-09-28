@@ -64,8 +64,7 @@ public class TabActivity extends android.app.TabActivity {
         ButterKnife.bind(this);
         initView();
 
-        ImmersionBar.with(this).transparentStatusBar().init();
-        ImmersionBar.with(this).statusBarDarkFont(true).init();
+        ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true).autoDarkModeEnable(true).init();
 
         //android 7.0系统解决拍照的问题
         PermissionUtil.initPhotoError();
@@ -98,13 +97,16 @@ public class TabActivity extends android.app.TabActivity {
         switch (view.getId()) {
             case R.id.lin_main:
                 updateTag(0);
+                ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true).autoDarkModeEnable(true).init();
                 break;
             case R.id.lin_declare:
                 updateTag(1);
+                ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true).autoDarkModeEnable(true).init();
                 break;
             case R.id.lin_love:
                 if(MyApplication.isLogin()){
                     updateTag(2);
+                    ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true).autoDarkModeEnable(true).init();
                 }else{
                     startActivity(intent);
                 }
@@ -112,6 +114,7 @@ public class TabActivity extends android.app.TabActivity {
             case R.id.lin_planning:
                 if(MyApplication.isLogin()){
                     updateTag(3);
+                    ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true).autoDarkModeEnable(true).init();
                 }else{
                     startActivity(intent);
                 }
@@ -119,6 +122,7 @@ public class TabActivity extends android.app.TabActivity {
             case R.id.lin_user:
                 if(MyApplication.isLogin()){
                     updateTag(4);
+                    ImmersionBar.with(this).statusBarColor(R.color.color_FA4D4F).fitsSystemWindows(true).autoDarkModeEnable(true).init();
                 }else{
                     startActivity(intent);
                 }

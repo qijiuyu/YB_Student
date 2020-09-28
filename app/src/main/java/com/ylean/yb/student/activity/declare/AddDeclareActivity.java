@@ -23,6 +23,7 @@ import com.ylean.yb.student.persenter.EconomicP;
 import com.ylean.yb.student.persenter.FamilyP;
 import com.ylean.yb.student.persenter.UploadFileP;
 import com.ylean.yb.student.persenter.declare.ApplyDeclareP;
+import com.ylean.yb.student.persenter.user.UserP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.ylean.yb.student.view.AddFamilyView;
 import com.zxdc.utils.library.bean.Address;
@@ -44,7 +45,7 @@ import butterknife.OnClick;
 /**
  * 批次申报
  */
-public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, EconomicP.Face, UploadFileP.Face, ApplyDeclareP.Face {
+public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, EconomicP.Face, UploadFileP.Face, ApplyDeclareP.Face, UserP.Face3 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.scrollView)
@@ -119,6 +120,7 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
     //图片链接
     private String cardZ,cardF,hk1,hk2,notice,other;
 
+    private UserP userP=new UserP(this);
     private FamilyP familyP = new FamilyP(this, this);
     private EconomicP economicP = new EconomicP(this, this);
     private UploadFileP uploadFileP=new UploadFileP(this,this);
@@ -141,6 +143,7 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
     @Override
     protected void initData() {
         super.initData();
+
         tvTitle.setText("批次审报");
         batch = (BatchDetails.Batch) getIntent().getSerializableExtra("batch");
         if (batch != null) {
@@ -148,8 +151,9 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
             tvValidTime.setText(batch.getStarttime().split(" ")[0] + "-" + batch.getEndtime().split(" ")[0]);
         }
 
-        //显示用户基本信息
-        showUserInfo();
+        userP.setFace3(this);
+        //获取学生申报或查看申报基本信息
+        userP.getUserInfoByApply();
 
         //查询家庭成员数据
         familyP.getFamilyList();
@@ -272,30 +276,33 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
     /**
      * 显示用户基本信息
      */
-    private void showUserInfo() {
-        final UserInfo userInfo= (UserInfo) SPUtil.getInstance(this).getObject(SPUtil.USER_BASE_INFO,UserInfo.class);
-        if(userInfo==null){
+    @Override
+    public void getUserInfoByApply(UserInfo.UserBean userBean) {
+        if(userBean==null){
             return;
         }
-        if(!TextUtils.isEmpty(userInfo.getData().getPhoto())){
-            Glide.with(this).load(userInfo.getData().getPhoto()).into(imgHead);
+        if(!TextUtils.isEmpty(userBean.getPhoto())){
+            Glide.with(this).load(userBean.getPhoto()).into(imgHead);
         }
-        tvName.setText(userInfo.getData().getName());
-        tvSex.setText(userInfo.getData().getSex());
-        tvNationality.setText(userInfo.getData().getNationality());
-        tvBirthday.setText(userInfo.getData().getBirthday().split(" ")[0]);
-        tvNational.setText(userInfo.getData().getNation());
-        tvCard.setText(userInfo.getData().getIdnum());
-        if (!TextUtils.isEmpty(userInfo.getData().getValiditystarttime()) && !TextUtils.isEmpty(userInfo.getData().getValidityendtime())) {
-            tvCardTime.setText(userInfo.getData().getValiditystarttime().split(" ")[0] + "-" + userInfo.getData().getValidityendtime().split(" ")[0]);
+        tvName.setText(userBean.getName());
+        tvSex.setText(userBean.getSex());
+        tvNationality.setText(userBean.getNationality());
+        if(!TextUtils.isEmpty(userBean.getBirthday())){
+            tvBirthday.setText(userBean.getBirthday().split(" ")[0]);
         }
-        tvEmail.setText(userInfo.getData().getEmail());
-        tvMobile.setText(userInfo.getData().getPhone());
-        if (!TextUtils.isEmpty(userInfo.getData().getAddress())) {
-            final Address address = (Address) JsonUtil.stringToObject(userInfo.getData().getAddress(), Address.class);
+        tvNational.setText(userBean.getNation());
+        tvCard.setText(userBean.getIdnum());
+        if (!TextUtils.isEmpty(userBean.getValiditystarttime()) && !TextUtils.isEmpty(userBean.getValidityendtime())) {
+            tvCardTime.setText(userBean.getValiditystarttime().split(" ")[0] + "-" + userBean.getValidityendtime().split(" ")[0]);
+        }
+        tvEmail.setText(userBean.getEmail());
+        tvMobile.setText(userBean.getPhone());
+        if (!TextUtils.isEmpty(userBean.getResidenceaddress())) {
+            final Address address = (Address) JsonUtil.stringToObject(userBean.getResidenceaddress(), Address.class);
             tvHkAddress.setText(address.getAddress());
         }
         scrollView.scrollTo(0,0);
+
     }
 
 
@@ -398,4 +405,5 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
         startActivity(intent);
         finish();
     }
+
 }
