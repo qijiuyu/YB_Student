@@ -112,7 +112,7 @@
         <activity android:name=".activity.init.RegisterActivity2"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.init.ValidationSuccessActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.min.AddEducationActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.user.leave.LeaveDetailsActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.leave.LeaveDetailsActivity"  android:screenOrientation="portrait"  android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.user.resume.AddSchoolHonorActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.resume.AddSchoolPositionActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.resume.AddSpecialtyActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>

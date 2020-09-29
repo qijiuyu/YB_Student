@@ -115,8 +115,6 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
         super.initData();
         userP.setFace2(this);
 
-        ImmersionBar.with(this).statusBarColor(R.color.color_FA4D4F).fitsSystemWindows(true).autoDarkModeEnable(true).init();
-
         //展示用户基本信息
         showBaseInfo();
 

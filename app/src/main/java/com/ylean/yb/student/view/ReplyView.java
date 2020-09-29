@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.callback.ReplyCallBack;
 import com.ylean.yb.student.persenter.user.MyLeaveP;
 import com.zxdc.utils.library.util.ToastUtil;
 
@@ -26,6 +27,7 @@ public class ReplyView extends Dialog implements MyLeaveP.Face2 {
     private int id;
     private Activity context;
     private MyLeaveP myLeaveP;
+    private ReplyCallBack replyCallBack;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_reply);
@@ -38,10 +40,11 @@ public class ReplyView extends Dialog implements MyLeaveP.Face2 {
         initView();
     }
 
-    public ReplyView(Activity context,int id) {
+    public ReplyView(Activity context,int id,ReplyCallBack replyCallBack) {
         super(context, R.style.ActionSheetDialogStyle);
         this.context = context;
         this.id=id;
+        this.replyCallBack=replyCallBack;
     }
 
     /**
@@ -78,5 +81,6 @@ public class ReplyView extends Dialog implements MyLeaveP.Face2 {
     public void reply() {
         ToastUtil.showLong("已回复");
         dismiss();
+        replyCallBack.replySuccess();
     }
 }

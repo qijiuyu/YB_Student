@@ -1,35 +1,34 @@
 package com.ylean.yb.student.activity.user.leave;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.user.leave.ReplyLeaveAdapter;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.callback.ReplyCallBack;
+import com.ylean.yb.student.persenter.user.MyLeaveP;
 import com.ylean.yb.student.view.ReplyView;
-import com.zxdc.utils.library.bean.LeaveBean;
+import com.zxdc.utils.library.bean.LeaveDetailsBean;
 import com.zxdc.utils.library.view.MeasureListView;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * 留言详情
  */
-public class LeaveDetailsActivity extends BaseActivity {
+public class LeaveDetailsActivity extends BaseActivity implements MyLeaveP.Face3 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_time)
     TextView tvTime;
-    @BindView(R.id.tv_content)
-    TextView tvContent;
     @BindView(R.id.listView)
     MeasureListView listView;
-    private LeaveBean.Leave leave;
+    //留言id
+    private int id;
+
+    private MyLeaveP myLeaveP=new MyLeaveP(this,this);
 
     /**
      * 加载布局
@@ -49,14 +48,10 @@ public class LeaveDetailsActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         tvTitle.setText("留言详情");
-        leave = (LeaveBean.Leave) getIntent().getSerializableExtra("leave");
-        if(leave!=null){
-            tvContent.setText(leave.getMessage());
-            tvTime.setText(leave.getCreatetime());
 
-            //显示回复列表
-            listView.setAdapter(new ReplyLeaveAdapter(this,leave.getList()));
-        }
+        //获取留言详细
+        id=getIntent().getIntExtra("id",0);
+        myLeaveP.getLeaveDetails(id);
     }
 
 
@@ -67,10 +62,35 @@ public class LeaveDetailsActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_reply:
-                new ReplyView(this,leave.getId()).show();
+                new ReplyView(this,id,replyCallBack).show();
                 break;
             default:
                 break;
         }
     }
+
+
+    /**
+     * 获取详情数据
+     * @param dataBean
+     */
+    @Override
+    public void getLeaveDetails(LeaveDetailsBean.DataBean dataBean) {
+        if(dataBean==null){
+            return;
+        }
+        tvName.setText(dataBean.getMessage());
+        tvTime.setText(dataBean.getCreatetime());
+        listView.setAdapter(new ReplyLeaveAdapter(this,dataBean.getList()));
+    }
+
+
+    private ReplyCallBack replyCallBack=new ReplyCallBack() {
+        @Override
+        public void replySuccess() {
+            myLeaveP.getLeaveDetails(id);
+        }
+    };
+
+
 }

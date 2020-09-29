@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.ylean.yb.student.R;
 import com.zxdc.utils.library.bean.LeaveBean;
+import com.zxdc.utils.library.bean.LeaveDetailsBean;
 
 import java.util.List;
 
@@ -18,8 +19,8 @@ import butterknife.ButterKnife;
 public class ReplyLeaveAdapter extends BaseAdapter {
 
     private Activity activity;
-    private List<LeaveBean.Common> list;
-    public ReplyLeaveAdapter(Activity activity, List<LeaveBean.Common> list) {
+    private List<LeaveDetailsBean.ListBean> list;
+    public ReplyLeaveAdapter(Activity activity, List<LeaveDetailsBean.ListBean> list) {
         super();
         this.activity = activity;
         this.list = list;
@@ -51,14 +52,14 @@ public class ReplyLeaveAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        final LeaveBean.Common common = list.get(position);
-        if(common.getType()==0){
-            holder.tvType.setText("我回复：");
+        final LeaveDetailsBean.ListBean listBean=list.get(position);
+        if(listBean.getType()==0){
+            holder.tvType.setText("学生回复：");
         }else{
             holder.tvType.setText("基金会回复：");
         }
-        holder.tvTime.setText(common.getCreatetime());
-        holder.tvContent.setText(common.getMessage());
+        holder.tvTime.setText(listBean.getCreatetime());
+        holder.tvContent.setText(listBean.getMessage());
         return view;
     }
 

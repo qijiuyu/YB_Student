@@ -60,7 +60,7 @@ public class SurveyDetailsActivity extends BaseActivity implements SurveyP.Face2
          */
         survey = (SurveyBean.Survey) getIntent().getSerializableExtra("survey");
         if (survey != null) {
-            tvName.setText(survey.getName());
+            tvName.setText(survey.getTitle());
             surveyP.getSurveyDetails(survey.getId());
         }
     }

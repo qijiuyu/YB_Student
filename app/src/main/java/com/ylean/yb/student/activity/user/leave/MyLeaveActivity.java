@@ -84,7 +84,7 @@ public class MyLeaveActivity extends BaseActivity implements MyRefreshLayoutList
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent=new Intent(activity,LeaveDetailsActivity.class);
-                intent.putExtra("leave",listAll.get(position));
+                intent.putExtra("id",listAll.get(position).getId());
                 startActivity(intent);
             }
         });

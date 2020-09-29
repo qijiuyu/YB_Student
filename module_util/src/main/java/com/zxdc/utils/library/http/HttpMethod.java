@@ -20,6 +20,7 @@ import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.bean.InSchoolBean;
 import com.zxdc.utils.library.bean.LeaveBean;
+import com.zxdc.utils.library.bean.LeaveDetailsBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.PageParam;
@@ -1186,6 +1187,23 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<UserInfo> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取留言详细
+     */
+    public static void getLeaveDetails(int id,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getLeaveDetails(id).enqueue(new Callback<LeaveDetailsBean>() {
+            public void onResponse(Call<LeaveDetailsBean> call, Response<LeaveDetailsBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<LeaveDetailsBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

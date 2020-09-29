@@ -33,14 +33,20 @@ public abstract class BaseActivity extends FragmentActivity {
         initData();
 
         String simpleName = this.getClass().getSimpleName();
-//        switch (simpleName){
-//            case "UserInfoActivity":
-//                ImmersionBar.with(this).statusBarColor(R.color.color_FA4D4F).fitsSystemWindows(true).autoDarkModeEnable(true).init();
-//                break;
-//            default:
-//                ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true).autoDarkModeEnable(true).init();
-//                break;
-//        }
+        switch (simpleName){
+            case "MainActivity":
+            case "DeclareActivity":
+            case "LoveActivity":
+            case "PlanningActivity":
+            case "UserActivity":
+                 break;
+            case "UserInfoActivity":
+                ImmersionBar.with(this).statusBarColor(R.color.color_FA4D4F).fitsSystemWindows(true).autoDarkModeEnable(true).init();
+                break;
+            default:
+                ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true).autoDarkModeEnable(true).init();
+                break;
+        }
     }
 
 

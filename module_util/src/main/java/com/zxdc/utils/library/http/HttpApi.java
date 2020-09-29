@@ -19,6 +19,7 @@ import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.bean.InSchoolBean;
 import com.zxdc.utils.library.bean.LeaveBean;
+import com.zxdc.utils.library.bean.LeaveDetailsBean;
 import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.ProvinceBean;
@@ -162,10 +163,10 @@ public interface HttpApi {
     @GET(HttpConstant.IP+"api/sys/schoolsituation/getschoolsituationlist")
     Call<InSchoolBean> getInSchoolList(@Query("page") int page, @Query("size") int size);
 
-    @GET(HttpConstant.IP+"api/news/question/voucherlist")
+    @GET(HttpConstant.IP+"api/news/question/getvoucherlist")
     Call<SurveyBean> getSurveyList(@Query("page") int page, @Query("size") int size);
 
-    @GET(HttpConstant.IP+"api/news/question/voucherdetail")
+    @GET(HttpConstant.IP+"api/news/question/getvoucherdetail")
     Call<SurveyDetails> getSurveyDetails(@Query("id") int id);
 
     @FormUrlEncoded
@@ -231,5 +232,8 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/user/student/getdeclarebaseinfo")
     Call<UserInfo> getUserInfoByApply();
+
+    @GET(HttpConstant.IP+"api/sys/msg/lm/getdetailed")
+    Call<LeaveDetailsBean> getLeaveDetails(@Query("id") int id);
 
 }
