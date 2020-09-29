@@ -19,6 +19,7 @@ import com.ylean.yb.student.view.SelectProvince;
 import com.ylean.yb.student.view.SelectSchoolType;
 import com.ylean.yb.student.view.SelectSchoolView;
 import com.zxdc.utils.library.bean.AddEducation;
+import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.EducationBean;
 import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.ProvinceBean;
@@ -86,6 +87,77 @@ public class AddEducationActivity extends BaseActivity implements SchoolP.Face, 
     protected void initData() {
         super.initData();
         education= (EducationBean.Education) getIntent().getSerializableExtra("education");
+        if(education!=null){
+            if(education.getType()==3){
+                linClass.setVisibility(View.GONE);
+                linFaculty.setVisibility(View.VISIBLE);
+                linSpecialty.setVisibility(View.VISIBLE);
+            }else{
+                linClass.setVisibility(View.VISIBLE);
+                linFaculty.setVisibility(View.GONE);
+                linSpecialty.setVisibility(View.GONE);
+            }
+            tvType.setTag(education.getType());
+            switch (education.getType()){
+                case 0:
+                    tvType.setText("高中");
+                    break;
+                case 1:
+                    tvType.setText("中职");
+                    break;
+                case 2:
+                    tvType.setText("高职");
+                    break;
+                case 3:
+                    tvType.setText("大学");
+                    break;
+                default:
+                    break;
+            }
+            tvEducation.setTag(education.getEducation());
+            switch (education.getEducation()){
+                case 0:
+                    tvEducation.setText("高中");
+                    break;
+                case 1:
+                    tvEducation.setText("中职");
+                    break;
+                case 2:
+                    tvEducation.setText("高职");
+                    break;
+                case 3:
+                    tvEducation.setText("大学专科");
+                    break;
+                case 4:
+                    tvEducation.setText("大学本科");
+                    break;
+                case 5:
+                    tvEducation.setText("硕士");
+                    break;
+                case 6:
+                    tvEducation.setText("博士");
+                    break;
+                default:
+                    break;
+            }
+            if(!TextUtils.isEmpty(education.getRegion())) {
+                final Address address = (Address) JsonUtil.stringToObject(education.getRegion(), Address.class);
+                tvProvince.setText(address.getPname());
+                tvProvince.setTag(address.getPcode());
+                tvCity.setText(address.getCname());
+                tvCity.setTag(address.getCcode());
+                tvArea.setText(address.getAname());
+                tvArea.setTag(address.getAcode());
+            }
+            tvSchool.setText(education.getSname());
+            tvSchool.setTag(education.getSid());
+            tvFaculty.setText(education.getFacultyname());
+            tvFaculty.setTag(education.getFacultyid());
+            tvSpecialty.setText(education.getMajorname());
+            tvSpecialty.setTag(education.getMajorid());
+            etClass.setText(education.getGrades());
+            tvTime.setText(education.getAdmissiontime().split(" ")[0]);
+        }
     }
 
 
@@ -184,7 +256,7 @@ public class AddEducationActivity extends BaseActivity implements SchoolP.Face, 
                 final String faculty = tvFaculty.getText().toString().trim();
                 final String specialty = tvSpecialty.getText().toString().trim();
                 final String strClass=etClass.getText().toString().trim();
-                final String education=tvEducation.getText().toString().trim();
+                final String strEducation=tvEducation.getText().toString().trim();
                 final String time = tvTime.getText().toString().trim();
                 if (TextUtils.isEmpty(schoolType)) {
                     ToastUtil.showLong("请选择学校类型");
@@ -221,7 +293,7 @@ public class AddEducationActivity extends BaseActivity implements SchoolP.Face, 
                         return;
                     }
                 }
-                if (TextUtils.isEmpty(education)) {
+                if (TextUtils.isEmpty(strEducation)) {
                     ToastUtil.showLong("请选择学历");
                     return;
                 }
@@ -229,8 +301,7 @@ public class AddEducationActivity extends BaseActivity implements SchoolP.Face, 
                     ToastUtil.showLong("请选择入学时间");
                     return;
                 }
-                AddEducation addEducation = new AddEducation();
-                addEducation.setType((int) tvType.getTag());
+
                 AddEducation.Region region = new AddEducation.Region();
                 region.setPname(province);
                 region.setPcode((String) tvProvince.getTag());
@@ -238,19 +309,35 @@ public class AddEducationActivity extends BaseActivity implements SchoolP.Face, 
                 region.setCname(city);
                 region.setAcode((String) tvArea.getTag());
                 region.setAname(area);
-                addEducation.setRegion(region);
-                addEducation.setSid((int) tvSchool.getTag());
-                if((int)tvType.getTag()==3){
-                    addEducation.setFacultyid((int) tvFaculty.getTag());
-                    addEducation.setMajorid((int) tvSpecialty.getTag());
-                }else{
-                    addEducation.setGrades(strClass);
+
+                /**
+                 * 添加
+                 */
+                if(education==null){
+                    AddEducation addEducation = new AddEducation();
+                    addEducation.setType((int) tvType.getTag());
+                    addEducation.setRegion(region);
+                    addEducation.setSid((int) tvSchool.getTag());
+                    if((int)tvType.getTag()==3){
+                        addEducation.setFacultyid((int) tvFaculty.getTag());
+                        addEducation.setMajorid((int) tvSpecialty.getTag());
+                    }else{
+                        addEducation.setGrades(strClass);
+                    }
+                    addEducation.setEducation((int)tvEducation.getTag());
+                    addEducation.setAdmissiontime(time);
+                    List<AddEducation> list = new ArrayList<>();
+                    list.add(addEducation);
+                    educationP.addEducation(JsonUtil.objectToString(list));
                 }
-                addEducation.setEducation((int)tvEducation.getTag());
-                addEducation.setAdmissiontime(time);
-                List<AddEducation> list = new ArrayList<>();
-                list.add(addEducation);
-                educationP.addEducation(JsonUtil.objectToString(list));
+
+
+                /**
+                 * 修改
+                 */
+                if(education!=null){
+                    educationP.updateEducation(time,(int)tvEducation.getTag(),tvFaculty.getTag()==null ? 0 : (int)tvFaculty.getTag(),strClass,education.getId(),tvSpecialty.getTag()==null ? 0 : (int)tvSpecialty.getTag(),JsonUtil.objectToString(region),(int) tvSchool.getTag(),(int) tvType.getTag());
+                }
                 break;
             default:
                 break;

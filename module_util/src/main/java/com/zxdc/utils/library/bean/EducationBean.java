@@ -20,12 +20,16 @@ public class EducationBean extends BaseBean {
         private int ltype;
         private int type;
         private int sid;
+        private String sname;
         private int facultyid;
+        private String facultyname;
         private int majorid;
+        private String majorname;
         private int rid;
         private int education;
         private String grades;
         private String admissiontime;
+        private String region;
 
         public int getId() {
             return id;
@@ -105,6 +109,38 @@ public class EducationBean extends BaseBean {
 
         public void setAdmissiontime(String admissiontime) {
             this.admissiontime = admissiontime;
+        }
+
+        public String getSname() {
+            return sname;
+        }
+
+        public void setSname(String sname) {
+            this.sname = sname;
+        }
+
+        public String getFacultyname() {
+            return facultyname;
+        }
+
+        public void setFacultyname(String facultyname) {
+            this.facultyname = facultyname;
+        }
+
+        public String getMajorname() {
+            return majorname;
+        }
+
+        public void setMajorname(String majorname) {
+            this.majorname = majorname;
+        }
+
+        public String getRegion() {
+            return region;
+        }
+
+        public void setRegion(String region) {
+            this.region = region;
         }
     }
 }

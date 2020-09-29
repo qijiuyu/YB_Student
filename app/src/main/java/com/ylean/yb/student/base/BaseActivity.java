@@ -43,6 +43,9 @@ public abstract class BaseActivity extends FragmentActivity {
             case "UserInfoActivity":
                 ImmersionBar.with(this).statusBarColor(R.color.color_FA4D4F).fitsSystemWindows(true).autoDarkModeEnable(true).init();
                 break;
+            case "AddEducationActivity":
+                ImmersionBar.with(this).statusBarColor(R.color.color_90000000).fitsSystemWindows(true).autoDarkModeEnable(true).init();
+                break;
             default:
                 ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true).autoDarkModeEnable(true).init();
                 break;

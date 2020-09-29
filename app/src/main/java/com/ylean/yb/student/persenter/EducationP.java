@@ -111,6 +111,32 @@ public class EducationP {
     }
 
 
+    /**
+     * 添加教育经历
+     */
+    public void updateEducation(String admissiontime,int education,int facultyid,String grades,int id,int majorid,String region,int sid,int type){
+        DialogUtil.showProgress(activity,"提交中");
+        HttpMethod.updateEducation(admissiontime, education, facultyid, grades, id, majorid, region, sid,type, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                    face.addSuccess();
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
     public interface Face{
         void addSuccess();
     }

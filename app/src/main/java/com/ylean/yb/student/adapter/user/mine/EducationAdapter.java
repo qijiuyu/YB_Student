@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.user.min.AddEducationActivity;
 import com.ylean.yb.student.persenter.EducationP;
+import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.EducationBean;
+import com.zxdc.utils.library.util.JsonUtil;
 
 import java.util.List;
 
@@ -88,8 +91,17 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.MyHo
            default:
                break;
        }
+       if(!TextUtils.isEmpty(education.getRegion())){
+           final Address address= (Address) JsonUtil.stringToObject(education.getRegion(),Address.class);
+           holder.tvProvince.setText(address.getPname());
+           holder.tvCity.setText(address.getCname());
+           holder.tvArea.setText(address.getAname());
+       }
+       holder.tvSchool.setText(education.getSname());
+       holder.tvFaculty.setText(education.getFacultyname());
+       holder.tvSpecialty.setText(education.getMajorname());
        holder.tvClass.setText(education.getGrades());
-       holder.tvTime.setText(education.getAdmissiontime());
+       holder.tvTime.setText(education.getAdmissiontime().split(" ")[0]);
 
         /**
          * 删除
@@ -117,9 +129,6 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.MyHo
             }
         });
     }
-
-
-
 
 
     @Override

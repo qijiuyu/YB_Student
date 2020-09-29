@@ -476,6 +476,43 @@ public class HttpMethod extends BaseRequst {
     /**
      * 添加教育经历
      */
+    public static void updateEducation(String admissiontime,int education,int facultyid,String grades,int id,int majorid,String region,int sid,int type,final NetCallBack netCallBack) {
+        Map<String,String> map=new HashMap<>();
+        map.put("admissiontime",admissiontime);
+        map.put("education",education+"");
+        if(facultyid!=0){
+            map.put("facultyid",facultyid+"");
+        }
+        if(!TextUtils.isEmpty(grades)){
+            map.put("grades",grades);
+        }
+        map.put("id",id+"");
+        if(majorid!=0){
+            map.put("majorid",majorid+"");
+        }
+        map.put("region",region);
+        map.put("sid",sid+"");
+        map.put("type",type+"");
+        map.put("ftype","1");
+        map.put("mtype","1");
+        LogUtils.e(admissiontime+"++++++++++"+education+"++++++"+facultyid+"+++++++"+grades+"+++++++"+id+"++++++++"+majorid+"+++++++"+region+"++++++"+sid);
+
+        Http.getRetrofit().create(HttpApi.class).updateEducation(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 修改教育经历
+     */
     public static void addEducation(String learningexperiences,final NetCallBack netCallBack) {
         Map<String,String> map=new HashMap<>();
         map.put("learningexperiences",learningexperiences);

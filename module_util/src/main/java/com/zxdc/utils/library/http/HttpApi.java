@@ -123,6 +123,10 @@ public interface HttpApi {
     @POST(HttpConstant.IP+"api/user/le/add")
     Call<BaseBean> addEducation(@FieldMap Map<String, String> map);
 
+    @FormUrlEncoded
+    @PUT(HttpConstant.IP+"api/user/le/update")
+    Call<BaseBean> updateEducation(@FieldMap Map<String, String> map);
+
     @GET(HttpConstant.IP+"api/user/le/getList")
     Call<EducationBean> getEducationList();
 

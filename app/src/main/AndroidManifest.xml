@@ -111,12 +111,12 @@
         <activity android:name=".activity.user.apply.BankAuditActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.init.RegisterActivity2"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.init.ValidationSuccessActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.user.min.AddEducationActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.min.AddEducationActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.leave.LeaveDetailsActivity"  android:screenOrientation="portrait"  android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity android:name=".activity.user.resume.AddSchoolHonorActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.user.resume.AddSchoolPositionActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.user.resume.AddSpecialtyActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.user.resume.AddCertificateActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.resume.AddSchoolHonorActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.resume.AddSchoolPositionActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.resume.AddSpecialtyActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.resume.AddCertificateActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.news.SurveyDetailsActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.resume.SelectPositionActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.resume.SelectIndustryActivity"  android:screenOrientation="portrait"/>
@@ -124,7 +124,7 @@
         <activity android:name=".activity.user.MyCommunityActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.MentorActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.bank.ValidationActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.user.resume.AddEducationActivity" android:theme="@android:style/Theme.Translucent"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.user.resume.AddEducationActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"  android:screenOrientation="portrait"/>
 
 
         <provider

@@ -84,11 +84,23 @@ public class SelectProvince extends Dialog implements ProvinceP.Face {
                  break;
             case R.id.tv_confirm:
                  if(type==0){
-                     callBack.onSuccess(pList.get(wheel.getSelection()));
+
+                     if(pList!=null && pList.size()>0){
+                         callBack.onSuccess(pList.get(wheel.getSelection()));
+                     }
+
                  }else if(type==1){
-                     callBack.onSuccess(cList.get(wheel.getSelection()));
+
+                     if(cList!=null && cList.size()>0){
+                         callBack.onSuccess(cList.get(wheel.getSelection()));
+                     }
+
                  }else{
-                     callBack.onSuccess(aList.get(wheel.getSelection()));
+
+                     if(aList!=null && aList.size()>0){
+                         callBack.onSuccess(aList.get(wheel.getSelection()));
+                     }
+
                  }
                  dismiss();
                  break;
