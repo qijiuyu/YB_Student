@@ -1247,4 +1247,26 @@ public class HttpMethod extends BaseRequst {
         });
     }
 
+
+    /**
+     * 获取短信验证码
+     * type：  0学生注册，  1学生登录   2变更手机号    3忘记密码
+     */
+    public static void getSmsCode(String code,String phone,String type,final NetCallBack netCallBack) {
+        Map<String,String> map=new HashMap<>();
+        map.put("code",code);
+        map.put("phone",phone);
+        map.put("type",type);
+        Http.getRetrofit().create(HttpApi.class).getSmsCode(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
 }

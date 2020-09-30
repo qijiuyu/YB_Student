@@ -42,6 +42,7 @@ public class ValidationActivity extends BaseActivity implements ForgetPwdP.Face 
     protected void initData() {
         super.initData();
         tvTitle.setText("账号验证");
+        etCard.setText("37292419930212062X");
     }
 
     @OnClick({R.id.lin_back, R.id.tv_next})

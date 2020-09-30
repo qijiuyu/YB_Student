@@ -8,11 +8,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
-import com.ylean.yb.student.persenter.SendEmailP;
+import com.ylean.yb.student.persenter.SendCodeP;
 import com.ylean.yb.student.persenter.init.RegisterP;
 import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.util.ToastUtil;
-import org.greenrobot.eventbus.EventBus;
+
 import java.util.Timer;
 import java.util.TimerTask;
 import butterknife.BindView;
@@ -20,7 +20,7 @@ import butterknife.OnClick;
 /**
  * 绑定邮箱
  */
-public class BindingEmailActivity extends BaseActivity implements SendEmailP.Face, RegisterP.Face3 {
+public class BindingEmailActivity extends BaseActivity implements SendCodeP.Face, RegisterP.Face3 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.et_email)
@@ -34,7 +34,7 @@ public class BindingEmailActivity extends BaseActivity implements SendEmailP.Fac
     private int time = 0;
     //用户对象
     private Register userInfo;
-    private SendEmailP sendEmailP;
+    private SendCodeP sendEmailP;
     private RegisterP registerP;
 
     /**
@@ -54,7 +54,8 @@ public class BindingEmailActivity extends BaseActivity implements SendEmailP.Fac
         super.initData();
         tvTitle.setText("邮箱绑定");
         userInfo= (Register) getIntent().getSerializableExtra("userInfo");
-        sendEmailP=new SendEmailP(this,this);
+        sendEmailP=new SendCodeP(this);
+        sendEmailP.setFace(this);
         registerP=new RegisterP(this,this);
     }
 

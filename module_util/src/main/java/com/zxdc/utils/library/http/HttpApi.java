@@ -240,4 +240,8 @@ public interface HttpApi {
     @GET(HttpConstant.IP+"api/sys/msg/lm/getdetailed")
     Call<LeaveDetailsBean> getLeaveDetails(@Query("id") int id);
 
+    @FormUrlEncoded
+    @POST(HttpConstant.IP+"api/sys/sms/send")
+    Call<BaseBean> getSmsCode(@FieldMap Map<String, String> map);
+
 }

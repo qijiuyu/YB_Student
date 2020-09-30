@@ -42,6 +42,46 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="图形验证码"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13sp"/>
+
+        <EditText
+            android:id="@+id/et_code_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:background="@null"
+            android:layout_marginLeft="97dp"
+            android:hint="请输入图形验证码"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
+            android:inputType="number"
+            android:maxLength="6"/>
+
+        <ImageView
+            android:id="@+id/img_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:background="@android:color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="短信验证码"
             android:textColor="@color/color_333333"
             android:textSize="14sp"
@@ -55,7 +95,7 @@
             android:gravity="center_vertical"
             android:background="@null"
             android:layout_marginLeft="97dp"
-            android:hint="请输入验证码"
+            android:hint="请输入短信验证码"
             android:textSize="14sp"
             android:textColor="@color/color_333333"
             android:inputType="number"

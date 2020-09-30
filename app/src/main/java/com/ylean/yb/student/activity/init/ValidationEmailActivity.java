@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
-import com.ylean.yb.student.persenter.SendEmailP;
+import com.ylean.yb.student.persenter.SendCodeP;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,7 +18,7 @@ import butterknife.OnClick;
 /**
  * 验证邮箱
  */
-public class ValidationEmailActivity extends BaseActivity implements SendEmailP.Face {
+public class ValidationEmailActivity extends BaseActivity implements SendCodeP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_content)
@@ -34,7 +34,7 @@ public class ValidationEmailActivity extends BaseActivity implements SendEmailP.
     private Timer mTimer;
     private int time = 0;
 
-    private SendEmailP sendEmailP;
+    private SendCodeP sendEmailP;
 
     /**
      * 加载布局
@@ -52,7 +52,9 @@ public class ValidationEmailActivity extends BaseActivity implements SendEmailP.
     @Override
     protected void initData() {
         super.initData();
-        sendEmailP=new SendEmailP(this,this);
+        sendEmailP=new SendCodeP(this);
+        sendEmailP.setFace(this);
+
         tvTitle.setText("邮箱验证");
         forgetPwd= (ForgetPwd) getIntent().getSerializableExtra("forgetPwd");
         idnum=getIntent().getStringExtra("idnum");
