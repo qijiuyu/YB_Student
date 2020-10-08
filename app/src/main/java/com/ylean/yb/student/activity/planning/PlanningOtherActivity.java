@@ -1,20 +1,17 @@
 package com.ylean.yb.student.activity.planning;
 
-import android.content.Intent;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.webview.BaseWebView;
-import com.zxdc.utils.library.http.HttpConstant;
-import com.zxdc.utils.library.util.SPUtil;
 import butterknife.BindView;
 
 /**
  * 职业规划
  */
-public class PlanningActivity extends BaseWebView {
+public class PlanningOtherActivity extends BaseWebView {
 
     @BindView(R.id.webview)
     WebView webview;
@@ -36,18 +33,17 @@ public class PlanningActivity extends BaseWebView {
     protected void initData() {
         super.initData();
         initWebView(webview);
-        webview.loadUrl(HttpConstant.H5+"employmentlink.html?token="+ SPUtil.getInstance(this).getString(SPUtil.TOKEN));
+        final String url=getIntent().getStringExtra("url");
+        webview.loadUrl(url);
         webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Log.e("tag","++++++++++"+url);
-                Intent intent=new Intent(activity,PlanningOtherActivity.class);
-                intent.putExtra("url",url);
-                startActivity(intent);
-                return true;
+                return false;
             }
         });
     }
+
 
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -56,6 +52,7 @@ public class PlanningActivity extends BaseWebView {
         }
         return super.onKeyDown(keyCode, event);
     }
+
 
     @Override
     protected void onDestroy() {
