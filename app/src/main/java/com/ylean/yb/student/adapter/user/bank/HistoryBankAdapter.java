@@ -26,6 +26,11 @@ public class HistoryBankAdapter extends BaseAdapter {
 
     private Activity activity;
     private List<BankBaseBean.BankBase> list;
+    /**
+     * true：显示历史银行卡
+     * false：隐藏历史银行卡
+     */
+    public boolean isShowHistory=false;
 
     public HistoryBankAdapter(Activity activity,List<BankBaseBean.BankBase> list) {
         super();
@@ -35,7 +40,15 @@ public class HistoryBankAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        if(isShowHistory){
+            return list.size();
+        }else{
+            if(list.size()>0){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
     }
 
     @Override
@@ -134,6 +147,7 @@ public class HistoryBankAdapter extends BaseAdapter {
                          break;
                     //已邮寄：去验证
                     case 4:
+                         intent.putExtra("bankCode",bankBase.getBanknum());
                          intent.setClass(activity, ValidationActivity.class);
                          break;
                     //已更改： 可以变更了
@@ -178,5 +192,11 @@ public class HistoryBankAdapter extends BaseAdapter {
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
+    }
+
+
+    public void setIsShow(boolean isShowHistory){
+        this.isShowHistory=isShowHistory;
+        notifyDataSetChanged();
     }
 }

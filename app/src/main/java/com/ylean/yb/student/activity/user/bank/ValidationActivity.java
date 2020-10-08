@@ -20,6 +20,8 @@ import butterknife.OnClick;
 public class ValidationActivity extends BaseActivity implements MyBankP.Face3 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.tv_bank_code)
+    TextView tvBankCode;
     @BindView(R.id.tv1)
     TextView tv1;
     @BindView(R.id.tv2)
@@ -52,6 +54,9 @@ public class ValidationActivity extends BaseActivity implements MyBankP.Face3 {
         super.initData();
         myBankP.setFace3(this);
         tvTitle.setText("验证银行卡");
+
+        final String bankCode=getIntent().getStringExtra("bankCode");
+        tvBankCode.setText(bankCode);
 
         etCode.addTextChangedListener(new TextWatcher() {
             @Override

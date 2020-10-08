@@ -37,6 +37,7 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
      * 银行卡基本信息与历史信息
      */
     private List<BankBaseBean.BankBase> bankList = new ArrayList<>();
+    private HistoryBankAdapter adapter;
     private MyBankP myBankP = new MyBankP(this);
 
     /**
@@ -59,6 +60,9 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
         myBankP.setFace(this);
         tvTitle.setText("我的银行卡");
 
+        adapter=new HistoryBankAdapter(this, bankList);
+        listBank.setAdapter(adapter);
+
         //获取银行卡基本信息
         myBankP.getbankinfo();
 
@@ -77,7 +81,15 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
             case R.id.lin_back:
                  finish();
                 break;
+            //显示历史银行卡
             case R.id.tv_history:
+                 if(adapter.isShowHistory){
+                     adapter.setIsShow(false);
+                     tvHistory.setText("查看历史银行卡");
+                 }else{
+                     adapter.setIsShow(true);
+                     tvHistory.setText("隐藏历史银行卡");
+                 }
                 break;
             default:
                 break;
@@ -97,7 +109,7 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
             return;
         }
         bankList.add(0, bankBase);
-        listBank.setAdapter(new HistoryBankAdapter(this, bankList));
+        adapter.notifyDataSetChanged();
     }
 
 
@@ -112,7 +124,7 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
             return;
         }
         bankList.add(bankBase);
-        listBank.setAdapter(new HistoryBankAdapter(this, bankList));
+        adapter.notifyDataSetChanged();
     }
 
 

@@ -139,8 +139,6 @@ public class ValidationMobileActivity extends BaseActivity implements SendCodeP.
     @Override
     public void getSmsCode() {
         time=60;
-        //保存计时时间
-        SPUtil.getInstance(activity).addString("retister_time", String.valueOf((System.currentTimeMillis() + 60000)));
         mTimer = new Timer();
         mTimer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
