@@ -65,8 +65,6 @@ public class MyBankAdapter extends BaseAdapter {
     class ViewHolder {
         @BindView(R.id.tv_title)
         TextView tvTitle;
-        @BindView(R.id.tv_status)
-        TextView tvStatus;
         @BindView(R.id.tv_time)
         TextView tvTime;
         @BindView(R.id.tv_money)

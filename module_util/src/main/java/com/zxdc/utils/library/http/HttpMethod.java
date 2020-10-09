@@ -10,6 +10,7 @@ import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
 import com.zxdc.utils.library.bean.CollMoneyBean;
 import com.zxdc.utils.library.bean.DeclareBean;
+import com.zxdc.utils.library.bean.DeclareDetailsBean;
 import com.zxdc.utils.library.bean.DeliveryBean;
 import com.zxdc.utils.library.bean.DictBean;
 import com.zxdc.utils.library.bean.EconomicBean;
@@ -893,6 +894,7 @@ public class HttpMethod extends BaseRequst {
         if(!TextUtils.isEmpty(relevantdoc)){
             map.put("relevantdoc",relevantdoc);
         }
+        LogUtils.e("+++++++++"+JsonUtil.objectToString(map));
         Http.getRetrofit().create(HttpApi.class).applyDeclare(map).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
@@ -1263,6 +1265,23 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取申报基本信息
+     */
+    public static void getDeclareDetails(int did,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getDeclareDetails(did).enqueue(new Callback<DeclareDetailsBean>() {
+            public void onResponse(Call<DeclareDetailsBean> call, Response<DeclareDetailsBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<DeclareDetailsBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

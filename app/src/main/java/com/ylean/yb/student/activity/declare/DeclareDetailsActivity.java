@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.declare.DeclareP;
@@ -131,6 +133,7 @@ public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Fac
     @Override
     public void getBatchDetailed(BatchDetails.Batch batch) {
         this.batch=batch;
+        Glide.with(this).load(batch.getImg()).into(imgHead);
         tvName.setText(batch.getName());
         tvContent.setText(batch.getFactor());
         tvNum.setText("已有："+batch.getApplynum()+"人 进行申请");

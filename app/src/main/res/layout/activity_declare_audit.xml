@@ -675,7 +675,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="50dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/bg_sfz_zm"/>
+                    android:src="@mipmap/bg_sfz_fm"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -730,7 +730,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="50dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/bg_sfz_zm"/>
+                    android:src="@mipmap/hk_icon"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -749,7 +749,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="50dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/bg_sfz_zm"/>
+                    android:src="@mipmap/hk_icon"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -784,7 +784,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="50dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/bg_sfz_zm"/>
+                    android:src="@mipmap/tzs_icon"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -811,7 +811,7 @@
                     android:layout_marginRight="50dp"
                     android:layout_marginBottom="20dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/bg_sfz_zm"/>
+                    android:src="@mipmap/tzs_icon"/>
 
             </LinearLayout>
 

@@ -16,7 +16,7 @@ public class DeclareBean extends BaseBean {
     }
 
     public static class Declare implements Serializable{
-        private int bdod;
+        private int bdid;
         private int bdstatus;//申报状态 未审核(0), 学校审核通过(1), 学校审核不通过(2), 教育局审核通过(3), 教育局审核不通过(4), 基金会审核通过(5), 基金会审核不通过(6) , 教育局驳回(7), 基金会驳回(8), 学校驳回(9)
         private String createtime;
         private int gbid;
@@ -25,12 +25,12 @@ public class DeclareBean extends BaseBean {
         private String siname;
         private int sitype;//学校类型 高中(0), 中职(1), 高职(2),大学(3)
 
-        public int getBdod() {
-            return bdod;
+        public int getBdid() {
+            return bdid;
         }
 
-        public void setBdod(int bdod) {
-            this.bdod = bdod;
+        public void setBdid(int bdid) {
+            this.bdid = bdid;
         }
 
         public int getBdstatus() {

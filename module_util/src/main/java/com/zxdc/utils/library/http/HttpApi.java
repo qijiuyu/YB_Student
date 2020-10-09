@@ -10,6 +10,7 @@ import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
 import com.zxdc.utils.library.bean.CollMoneyBean;
 import com.zxdc.utils.library.bean.DeclareBean;
+import com.zxdc.utils.library.bean.DeclareDetailsBean;
 import com.zxdc.utils.library.bean.DeliveryBean;
 import com.zxdc.utils.library.bean.DictBean;
 import com.zxdc.utils.library.bean.EconomicBean;
@@ -243,5 +244,8 @@ public interface HttpApi {
     @FormUrlEncoded
     @POST(HttpConstant.IP+"api/sys/sms/send")
     Call<BaseBean> getSmsCode(@FieldMap Map<String, String> map);
+
+    @GET(HttpConstant.IP+"api/sys/declare/pub/getdbaseinfo")
+    Call<DeclareDetailsBean> getDeclareDetails(@Query("did") int did);
 
 }

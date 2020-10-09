@@ -11,16 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.callback.SelectCallBack;
-import com.ylean.yb.student.persenter.FamilyP;
-import com.ylean.yb.student.view.AddFamilyView;
-import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
-import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.view.MeasureListView;
-
 import java.util.List;
 
 public class SurveyTitleAdapter extends RecyclerView.Adapter<SurveyTitleAdapter.MyHolder> {

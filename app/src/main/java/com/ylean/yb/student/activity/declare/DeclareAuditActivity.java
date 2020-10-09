@@ -7,16 +7,18 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.adapter.declare.EconomicAdapter;
+import com.ylean.yb.student.adapter.declare.ShowEconomicAdapter;
 import com.ylean.yb.student.adapter.declare.ShowFamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.FamilyP;
+import com.ylean.yb.student.persenter.declare.DeclareDetailsP;
+import com.ylean.yb.student.persenter.user.UserP;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.DeclareBean;
+import com.zxdc.utils.library.bean.DeclareDetailsBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.util.JsonUtil;
-import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.view.ClickTextView;
 import com.zxdc.utils.library.view.MeasureListView;
 import java.util.List;
@@ -26,7 +28,7 @@ import butterknife.OnClick;
 /**
  * 批次审核页面
  */
-public class DeclareAuditActivity extends BaseActivity implements FamilyP.Face{
+public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,FamilyP.Face, DeclareDetailsP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.scrollView)
@@ -97,11 +99,10 @@ public class DeclareAuditActivity extends BaseActivity implements FamilyP.Face{
     ImageView imgOther;
     @BindView(R.id.tv_submit)
     ClickTextView tvSubmit;
-    private EconomicAdapter economicAdapter;
-    //列表对象
-    private DeclareBean.Declare declare;
 
+    private UserP userP=new UserP(this);
     private FamilyP familyP = new FamilyP(this, this);
+    private DeclareDetailsP declareDetailsP=new DeclareDetailsP(this);
 
     /**
      * 加载布局
@@ -120,16 +121,18 @@ public class DeclareAuditActivity extends BaseActivity implements FamilyP.Face{
     protected void initData() {
         super.initData();
         tvTitle.setText("审核记录");
-        declare= (DeclareBean.Declare) getIntent().getSerializableExtra("declare");
+        final DeclareBean.Declare declare= (DeclareBean.Declare) getIntent().getSerializableExtra("declare");
 
-        //显示用户基本信息
-        showUserInfo();
+        //获取学生申报或查看申报基本信息
+        userP.setFace3(this);
+        userP.getUserInfoByApply();
 
         //查询家庭成员数据
         familyP.getFamilyList();
 
-        //经济情况列表
-//        listEconomic.setAdapter(economicAdapter=new EconomicAdapter(this));
+        //获取申报基本信息
+        declareDetailsP.setFace(this);
+        declareDetailsP.getDeclareDetails(declare.getBdid());
     }
 
 
@@ -150,30 +153,33 @@ public class DeclareAuditActivity extends BaseActivity implements FamilyP.Face{
     /**
      * 显示用户基本信息
      */
-    private void showUserInfo() {
-        final UserInfo userInfo= (UserInfo) SPUtil.getInstance(this).getObject(SPUtil.USER_BASE_INFO,UserInfo.class);
-        if(userInfo==null){
+    @Override
+    public void getUserInfoByApply(UserInfo.UserBean userBean) {
+        if(userBean==null){
             return;
         }
-        if(!TextUtils.isEmpty(userInfo.getData().getPhoto())){
-            Glide.with(this).load(userInfo.getData().getPhoto()).into(imgHead);
+        if(!TextUtils.isEmpty(userBean.getPhoto())){
+            Glide.with(this).load(userBean.getPhoto()).into(imgHead);
         }
-        tvName.setText(userInfo.getData().getName());
-        tvSex.setText(userInfo.getData().getSex());
-        tvNationality.setText(userInfo.getData().getNationality());
-        tvBirthday.setText(userInfo.getData().getBirthday().split(" ")[0]);
-        tvNational.setText(userInfo.getData().getNation());
-        tvCard.setText(userInfo.getData().getIdnum());
-        if (!TextUtils.isEmpty(userInfo.getData().getValiditystarttime()) && !TextUtils.isEmpty(userInfo.getData().getValidityendtime())) {
-            tvCardTime.setText(userInfo.getData().getValiditystarttime().split(" ")[0] + "-" + userInfo.getData().getValidityendtime().split(" ")[0]);
+        tvName.setText(userBean.getName());
+        tvSex.setText(userBean.getSex());
+        tvNationality.setText(userBean.getNationality());
+        if(!TextUtils.isEmpty(userBean.getBirthday())){
+            tvBirthday.setText(userBean.getBirthday().split(" ")[0]);
         }
-        tvEmail.setText(userInfo.getData().getEmail());
-        tvMobile.setText(userInfo.getData().getPhone());
-        if (!TextUtils.isEmpty(userInfo.getData().getAddress())) {
-            final Address address = (Address) JsonUtil.stringToObject(userInfo.getData().getAddress(), Address.class);
+        tvNational.setText(userBean.getNation());
+        tvCard.setText(userBean.getIdnum());
+        if (!TextUtils.isEmpty(userBean.getValiditystarttime()) && !TextUtils.isEmpty(userBean.getValidityendtime())) {
+            tvCardTime.setText(userBean.getValiditystarttime().split(" ")[0] + "-" + userBean.getValidityendtime().split(" ")[0]);
+        }
+        tvEmail.setText(userBean.getEmail());
+        tvMobile.setText(userBean.getPhone());
+        if (!TextUtils.isEmpty(userBean.getResidenceaddress())) {
+            final Address address = (Address) JsonUtil.stringToObject(userBean.getResidenceaddress(), Address.class);
             tvHkAddress.setText(address.getAddress());
         }
         scrollView.scrollTo(0,0);
+
     }
 
 
@@ -184,9 +190,41 @@ public class DeclareAuditActivity extends BaseActivity implements FamilyP.Face{
     @Override
     public void getFamily(List<FamilyBean.ListBean> list) {
         listFamily.setAdapter(new ShowFamilyAdapter(this,list));
+        scrollView.scrollTo(0,0);
     }
 
     @Override
     public void deleteSuccess(FamilyBean.ListBean listBean) {
+    }
+
+
+    /**
+     * 获取申报基本信息
+     */
+    @Override
+    public void getDeclareDetails(DeclareDetailsBean.DetailsBean detailsBean) {
+        if(detailsBean==null){
+            return;
+        }
+        listEconomic.setAdapter(new ShowEconomicAdapter(this,detailsBean.getEconomic()));
+        if(!TextUtils.isEmpty(detailsBean.getIdcardimgz())){
+            Glide.with(this).load(detailsBean.getIdcardimgz()).into(imgZm);
+        }
+        if(!TextUtils.isEmpty(detailsBean.getIdcardimgf())){
+            Glide.with(this).load(detailsBean.getIdcardimgf()).into(imgFm);
+        }
+        if(!TextUtils.isEmpty(detailsBean.getBookimgz())){
+            Glide.with(this).load(detailsBean.getBookimgz()).into(imgHk1);
+        }
+        if(!TextUtils.isEmpty(detailsBean.getBookimgf())){
+            Glide.with(this).load(detailsBean.getBookimgf()).into(imgHk2);
+        }
+        if(!TextUtils.isEmpty(detailsBean.getAdmissionimg())){
+            Glide.with(this).load(detailsBean.getAdmissionimg()).into(imgNotice);
+        }
+        if(!TextUtils.isEmpty(detailsBean.getRelatedimg())){
+            Glide.with(this).load(detailsBean.getRelatedimg()).into(imgOther);
+        }
+        scrollView.scrollTo(0,0);
     }
 }
