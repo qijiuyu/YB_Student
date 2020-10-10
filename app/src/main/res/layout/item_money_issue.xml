@@ -45,7 +45,6 @@
             android:id="@+id/tv_school"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="清华大学"
             android:textColor="@color/color_333333"
             android:textSize="14sp"
             android:layout_marginTop="52dp"
@@ -63,7 +62,6 @@
             android:id="@+id/tv_bank_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="12453256454556****"
             android:textColor="@color/color_333333"
             android:textSize="14sp"
             android:layout_marginTop="79.5dp"
@@ -85,7 +83,6 @@
             android:gravity="right"
             android:maxLines="1"
             android:ellipsize="end"
-            android:text="第四学年第二次"
             android:textColor="@color/color_333333"
             android:textSize="14sp"
             android:layout_marginTop="107dp"
@@ -103,7 +100,6 @@
             android:id="@+id/tv_send_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2018年8月2日"
             android:textColor="@color/color_333333"
             android:textSize="14sp"
             android:layout_marginTop="135dp"
@@ -121,10 +117,30 @@
             android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10000.00"
             android:textColor="@color/color_333333"
             android:textSize="14sp"
             android:layout_marginTop="162.5dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
+            android:id="@+id/tv_reason_txt"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="失败原因"
+            android:textSize="14sp"
+            android:textColor="@color/color_666666"
+            android:layout_marginTop="195dp"/>
+
+        <TextView
+            android:id="@+id/tv_reason"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:layout_marginTop="195dp"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="15dp"/>
 

@@ -20,6 +20,7 @@ import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.bean.InSchoolBean;
+import com.zxdc.utils.library.bean.IssueRecordBean;
 import com.zxdc.utils.library.bean.LeaveBean;
 import com.zxdc.utils.library.bean.LeaveDetailsBean;
 import com.zxdc.utils.library.bean.NetCallBack;
@@ -1282,6 +1283,23 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<DeclareDetailsBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 资金发放明细
+     */
+    public static void getIssueRecord(int did,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getIssueRecord(did).enqueue(new Callback<IssueRecordBean>() {
+            public void onResponse(Call<IssueRecordBean> call, Response<IssueRecordBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<IssueRecordBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

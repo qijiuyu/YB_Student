@@ -54,7 +54,7 @@ public class MyBankAdapter extends BaseAdapter {
         final CollMoneyBean.CollMoney collMoney=list.get(position);
         holder.tvTitle.setText(collMoney.getBname());
         holder.tvTime.setText(collMoney.getYears()+"年");
-        holder.tvMoney.setText("¥"+collMoney.getMoney()+"年");
+        holder.tvMoney.setText("¥"+collMoney.getMoney()+"/年");
         holder.tvSend.setText("¥"+collMoney.getYmoney()+"/"+collMoney.getYcount()+"次");
         holder.tvGetMoney.setText("¥"+collMoney.getDmoney()+"/"+collMoney.getDcount()+"次");
         return view;

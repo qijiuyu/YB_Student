@@ -1,5 +1,6 @@
 package com.ylean.yb.student.activity.user.bank;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -133,7 +134,7 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
      * @param list
      */
     @Override
-    public void getCollMoneyList(List<CollMoneyBean.CollMoney> list) {
+    public void getCollMoneyList(final List<CollMoneyBean.CollMoney> list) {
         if (list == null || list.size() == 0) {
             linNo.setVisibility(View.VISIBLE);
             return;
@@ -142,7 +143,9 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                setClass(MoneyIssueActivity.class);
+                Intent intent=new Intent(activity,MoneyIssueActivity.class);
+                intent.putExtra("collMoney",list.get(position));
+                startActivity(intent);
             }
         });
     }

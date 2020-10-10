@@ -19,6 +19,7 @@ import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.bean.InSchoolBean;
+import com.zxdc.utils.library.bean.IssueRecordBean;
 import com.zxdc.utils.library.bean.LeaveBean;
 import com.zxdc.utils.library.bean.LeaveDetailsBean;
 import com.zxdc.utils.library.bean.NewsBean;
@@ -84,7 +85,7 @@ public interface HttpApi {
     @PUT(HttpConstant.IP+"api/sys/email/sendbindemail")
     Call<BaseBean> sendbindemail(@FieldMap Map<String, String> map);
 
-    @GET(HttpConstant.IP+"api/user/student/getbaseinfo")
+    @GET(HttpConstant.IP+"api/user/student/getstudentdetail")
     Call<UserInfo> getbaseinfo();
 
     @FormUrlEncoded
@@ -247,5 +248,8 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/sys/declare/pub/getdbaseinfo")
     Call<DeclareDetailsBean> getDeclareDetails(@Query("did") int did);
+
+    @GET(HttpConstant.IP+"api/sys/student/finace/financialrecords")
+    Call<IssueRecordBean> getIssueRecord(@Query("bid") int bid);
 
 }

@@ -28,16 +28,6 @@
                android:maxLines="1"
                android:ellipsize="end"/>
 
-           <TextView
-               android:id="@+id/tv_status"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="已完成"
-               android:textSize="14sp"
-               android:textColor="@color/color_BCC4CD"
-               android:layout_alignParentRight="true"
-               android:layout_centerVertical="true"/>
-
        </RelativeLayout>
 
        <RelativeLayout
@@ -81,7 +71,7 @@
                android:id="@+id/tv_total_money"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="￥6000.00/年"
+               android:text="0.00元"
                android:textSize="14sp"
                android:textColor="@color/color_333333"
                android:layout_centerVertical="true"
@@ -105,7 +95,7 @@
                android:id="@+id/tv_send_money"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="￥6000.00/年"
+               android:text="0.00元"
                android:textSize="14sp"
                android:textColor="@color/color_333333"
                android:layout_centerVertical="true"
@@ -120,7 +110,7 @@
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="已发放资数"
+               android:text="已发放次数"
                android:textColor="@color/color_666666"
                android:textSize="14sp"
                android:layout_centerVertical="true"/>
@@ -153,7 +143,7 @@
                android:id="@+id/tv_get_money"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="￥24000.00/年"
+               android:text="0.00/元"
                android:textSize="14sp"
                android:textColor="@color/color_333333"
                android:layout_centerVertical="true"

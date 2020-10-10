@@ -34,6 +34,7 @@ public class UserInfo extends BaseBean {
         private String validityendtime="";
         private String phone="";
         private String email="";
+        private String tel="";
         private boolean isbfchildren;
 
         public int getId() {
@@ -186,6 +187,14 @@ public class UserInfo extends BaseBean {
 
         public void setEmail(String email) {
             this.email = email;
+        }
+
+        public String getTel() {
+            return tel;
+        }
+
+        public void setTel(String tel) {
+            this.tel = tel;
         }
     }
 
