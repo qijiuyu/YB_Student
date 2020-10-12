@@ -70,6 +70,7 @@
                         android:layout_marginTop="119dp">
 
                         <TextView
+                            android:id="@+id/tv_education"
                             android:layout_width="49dp"
                             android:layout_height="18dp"
                             android:background="@drawable/bg_user_tag"
@@ -79,6 +80,7 @@
                             android:gravity="center"/>
 
                         <TextView
+                            android:id="@+id/tv_school_status"
                             android:layout_width="49dp"
                             android:layout_height="18dp"
                             android:layout_marginLeft="15dp"

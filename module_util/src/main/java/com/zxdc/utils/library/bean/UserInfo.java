@@ -26,7 +26,7 @@ public class UserInfo extends BaseBean {
         private String nation="";
         private String nationality="";
         private String photo="";
-        private String education="";
+        private int education;
         private String residenceaddress="";
         private String qq="";
         private String wechat="";
@@ -34,8 +34,9 @@ public class UserInfo extends BaseBean {
         private String validityendtime="";
         private String phone="";
         private String email="";
-        private String tel="";
         private boolean isbfchildren;
+        private String ucphone;
+        private int inschoolstatus;//学生在校状态 0-正常 1-异常
 
         public int getId() {
             return id;
@@ -117,14 +118,6 @@ public class UserInfo extends BaseBean {
             this.photo = photo;
         }
 
-        public String getEducation() {
-            return education;
-        }
-
-        public void setEducation(String education) {
-            this.education = education;
-        }
-
         public String getResidenceaddress() {
             return residenceaddress;
         }
@@ -187,6 +180,44 @@ public class UserInfo extends BaseBean {
 
         public void setEmail(String email) {
             this.email = email;
+        }
+
+        public int getEducation() {
+            return education;
+        }
+
+        public void setEducation(int education) {
+            this.education = education;
+        }
+
+        public String getUcphone() {
+            return ucphone;
+        }
+
+        public void setUcphone(String ucphone) {
+            this.ucphone = ucphone;
+        }
+
+        public int getInschoolstatus() {
+            return inschoolstatus;
+        }
+
+        public void setInschoolstatus(int inschoolstatus) {
+            this.inschoolstatus = inschoolstatus;
+        }
+    }
+
+
+    public static class Parent implements Serializable{
+        private String phone;
+        private String tel;
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
         }
 
         public String getTel() {

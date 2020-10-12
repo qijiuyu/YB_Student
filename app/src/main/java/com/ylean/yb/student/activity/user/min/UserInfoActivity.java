@@ -7,8 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.gyf.barlibrary.ImmersionBar;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.adapter.user.mine.EducationAdapter;
 import com.ylean.yb.student.adapter.user.mine.FamilyAdapter;
@@ -19,7 +17,6 @@ import com.ylean.yb.student.persenter.FamilyP;
 import com.ylean.yb.student.persenter.user.UserP;
 import com.ylean.yb.student.view.AddFamilyView;
 import com.ylean.yb.student.view.SelectProvince;
-import com.zxdc.utils.library.bean.AddEducation;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.EducationBean;
 import com.zxdc.utils.library.bean.FamilyBean;
@@ -356,6 +353,14 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
             tvArea1.setText(address.getAname());
             tvArea1.setTag(address.getAcode());
             etAddress1.setText(address.getAddress());
+        }
+
+        if(!TextUtils.isEmpty(userInfo.getData().getUcphone())){
+            final UserInfo.Parent parent= (UserInfo.Parent) JsonUtil.stringToObject(userInfo.getData().getUcphone(), UserInfo.Parent.class);
+            if(parent!=null){
+                etParentMobile.setText(parent.getPhone());
+                etLandMobile.setText(parent.getTel());
+            }
         }
     }
 

@@ -42,6 +42,10 @@ public class UserActivity extends BaseActivity implements UserP.Face {
     TextView tvTotalActivity;
     @BindView(R.id.tv_total_time)
     TextView tvTotalTime;
+    @BindView(R.id.tv_education)
+    TextView tvEducation;
+    @BindView(R.id.tv_school_status)
+    TextView tvSchoolStatus;
 
     //用户信息对象
     private UserInfo userInfo;
@@ -142,6 +146,31 @@ public class UserActivity extends BaseActivity implements UserP.Face {
             Glide.with(this).load(userInfo.getData().getPhoto()).into(imgHead);
         }
         tvNickName.setText(userInfo.getData().getName());
+        switch (userInfo.getData().getEducation()){
+            case 0:
+                 tvEducation.setText("高中");
+                 break;
+            case 1:
+                tvEducation.setText("中职");
+                break;
+            case 2:
+                tvEducation.setText("高职");
+                break;
+            case 3:
+                tvEducation.setText("大学专科");
+                break;
+            case 4:
+                tvEducation.setText("大学本科");
+                break;
+            case 5:
+                tvEducation.setText("硕士");
+                break;
+            case 6:
+                tvEducation.setText("博士");
+                break;
+            default:
+                break;
+        }
         tvCredential.setText("身份证号:"+userInfo.getData().getIdnum());
         Drawable drawable;
         if(userInfo.getData().getSex().equals("男")){

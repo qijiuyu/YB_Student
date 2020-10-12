@@ -85,7 +85,7 @@ public interface HttpApi {
     @PUT(HttpConstant.IP+"api/sys/email/sendbindemail")
     Call<BaseBean> sendbindemail(@FieldMap Map<String, String> map);
 
-    @GET(HttpConstant.IP+"api/user/student/getstudentdetail")
+    @GET(HttpConstant.IP+"api/user/student/getbaseinfo")
     Call<UserInfo> getbaseinfo();
 
     @FormUrlEncoded
