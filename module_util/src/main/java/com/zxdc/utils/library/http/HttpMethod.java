@@ -3,6 +3,7 @@ package com.zxdc.utils.library.http;
 import android.text.TextUtils;
 import com.zxdc.utils.library.bean.AboutBean;
 import com.zxdc.utils.library.bean.ActivityNum;
+import com.zxdc.utils.library.bean.ApplyBean;
 import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.bean.BankProgress;
 import com.zxdc.utils.library.bean.BaseBean;
@@ -1300,6 +1301,23 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<IssueRecordBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取申请记录
+     */
+    public static void getApplyList(int page,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getApplyList(page,pageSize).enqueue(new Callback<ApplyBean>() {
+            public void onResponse(Call<ApplyBean> call, Response<ApplyBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<ApplyBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

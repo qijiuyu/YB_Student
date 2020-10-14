@@ -3,6 +3,7 @@ package com.zxdc.utils.library.http;
 
 import com.zxdc.utils.library.bean.AboutBean;
 import com.zxdc.utils.library.bean.ActivityNum;
+import com.zxdc.utils.library.bean.ApplyBean;
 import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.bean.BankProgress;
 import com.zxdc.utils.library.bean.BaseBean;
@@ -251,5 +252,8 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/sys/student/finace/financialrecords")
     Call<IssueRecordBean> getIssueRecord(@Query("bid") int bid);
+
+    @GET(HttpConstant.IP+"ybsysserver/api/sys/applyrecord/list")
+    Call<ApplyBean> getApplyList(@Query("page") int page, @Query("size") int size);
 
 }

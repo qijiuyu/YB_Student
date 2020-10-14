@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
+import com.zxdc.utils.library.bean.ApplyBean;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,15 +18,17 @@ import butterknife.ButterKnife;
 public class ApplyRecordAdapter extends BaseAdapter {
 
     private Activity activity;
+    private List<ApplyBean.ListBean> list;
 
-    public ApplyRecordAdapter(Activity activity) {
+    public ApplyRecordAdapter(Activity activity,List<ApplyBean.ListBean> list) {
         super();
         this.activity = activity;
+        this.list=list;
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return list==null ? 0 : list.size();
     }
 
     @Override
@@ -46,6 +51,26 @@ public class ApplyRecordAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
+        final ApplyBean.ListBean listBean=list.get(position);
+        switch (listBean.getType()){
+            case 0:
+                 holder.tvType.setText("申请类型：财务补发");
+                 break;
+            case 1:
+                holder.tvType.setText("申请类型：变更银行卡");
+                break;
+            case 2:
+                holder.tvType.setText("申请类型：公益时申请");
+                break;
+            case 3:
+                holder.tvType.setText("申请类型：返校申请");
+                break;
+            default:
+                break;
+        }
+        holder.tvName.setText("所属名称："+listBean.getBname());
+        holder.tvTime.setText("申请时间："+listBean.getCreatetime());
+        holder.tvStatus.setText(listBean.getStatustext());
         return view;
     }
 
