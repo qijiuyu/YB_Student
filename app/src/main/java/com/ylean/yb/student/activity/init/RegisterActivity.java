@@ -1,32 +1,42 @@
 package com.ylean.yb.student.activity.init;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.SendCodeP;
 import com.ylean.yb.student.persenter.init.RegisterP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.Register;
+import com.zxdc.utils.library.http.HttpConstant;
+import com.zxdc.utils.library.util.LogUtils;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
  * 注册
  */
-public class RegisterActivity extends BaseActivity implements RegisterP.Face {
+public class RegisterActivity extends BaseActivity implements RegisterP.Face ,SendCodeP.Face2 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.et_card)
@@ -43,13 +53,26 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face {
     ImageView imgZm;
     @BindView(R.id.img_fm)
     ImageView imgFm;
+    @BindView(R.id.et_code_img)
+    EditText etCodeImg;
+    @BindView(R.id.img_code)
+    ImageView imgCode;
     /**
      * 1：正面照片
      * 2：反面照片
      */
     private int imgType;
     private File zmFile,fmFile;
-    private RegisterP registerP;
+
+    private Handler handler=new Handler();
+    private RequestOptions requestOptions;
+
+     //计数器
+    private Timer mTimer;
+    private int time = 0;
+
+    private RegisterP registerP=new RegisterP(this,this);
+    private SendCodeP sendCodeP=new SendCodeP(this);
 
     /**
      * 加载布局
@@ -67,19 +90,34 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face {
     protected void initData() {
         super.initData();
         tvTitle.setText("注册");
-        registerP=new RegisterP(this,this);
+        sendCodeP.setFace2(this);
+
+        requestOptions = new RequestOptions();
+        //禁用磁盘缓存
+        requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);///不使用磁盘缓存
+        requestOptions.skipMemoryCache(true); // 不使用内存缓存
+        //显示图形验证码
+        Glide.with(this).load(HttpConstant.IP+"api/user/ckh/codeimg").apply(requestOptions).into(imgCode);
     }
 
 
-    @OnClick({R.id.lin_back, R.id.tv_send_code, R.id.img_zm, R.id.img_fm, R.id.tv_next})
+    @OnClick({R.id.lin_back, R.id.img_code,R.id.tv_send_code, R.id.img_zm, R.id.img_fm, R.id.tv_next})
     public void onViewClicked(View view) {
         final String mobile=etMobile.getText().toString().trim();
+        final String strImgCode=etCodeImg.getText().toString().trim();
         switch (view.getId()) {
             case R.id.lin_back:
                 finish();
                 break;
+            //刷新图形验证码
+            case R.id.img_code:
+                Glide.with(this).load(HttpConstant.IP+"api/user/ckh/codeimg").apply(requestOptions).into(imgCode);
+                break;
             //获取验证码
             case R.id.tv_send_code:
+                if(time>0){
+                    return;
+                }
                 if(TextUtils.isEmpty(mobile)){
                     ToastUtil.showLong("请输入手机号");
                     return;
@@ -88,6 +126,11 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face {
                     ToastUtil.showLong("请输入正确的手机号");
                     return;
                 }
+                if(TextUtils.isEmpty(strImgCode)){
+                    ToastUtil.showLong("请输入图形验证码");
+                    return;
+                }
+                sendCodeP.getSmsCode(strImgCode,mobile,"0");
                 break;
             //身份证正面
             case R.id.img_zm:
@@ -124,7 +167,7 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face {
                     return;
                 }
                 if(TextUtils.isEmpty(code)){
-                    ToastUtil.showLong("请输入验证码");
+                    ToastUtil.showLong("请输入短信验证码");
                     return;
                 }
                 if(zmFile==null){
@@ -190,6 +233,35 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face {
 
 
     /**
+     * 获取短信验证码
+     */
+    @Override
+    public void getSmsCode() {
+        time=60;
+        mTimer = new Timer();
+        mTimer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                if (time <= 0) {
+                    handler.post(new Runnable() {
+                        public void run() {
+                            mTimer.cancel();
+                            tvSendCode.setText("获取验证码");
+                        }
+                    });
+                } else {
+                    --time;
+                    handler.post(new Runnable() {
+                        public void run() {
+                            tvSendCode.setText(time + "秒");
+                        }
+                    });
+                }
+            }
+        }, 0, 1000);
+    }
+
+
+    /**
      * 提交成功
      * @param userInfo
      */
@@ -205,4 +277,17 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face {
             }
         });
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer.purge();
+            mTimer = null;
+        }
+        removeHandler(handler);
+    }
+
 }

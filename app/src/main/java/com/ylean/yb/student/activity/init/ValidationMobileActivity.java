@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.SendCodeP;
@@ -44,6 +46,7 @@ public class ValidationMobileActivity extends BaseActivity implements SendCodeP.
     private Timer mTimer;
     private int time = 0;
     private Handler handler=new Handler();
+    private RequestOptions requestOptions;
 
     private SendCodeP sendCodeP=new SendCodeP(this);
 
@@ -72,8 +75,13 @@ public class ValidationMobileActivity extends BaseActivity implements SendCodeP.
         if (forgetPwd != null) {
             tvContent.setText(Html.fromHtml("您输入的当前账号的验证手机号是<font color=\"#FA4D4F\">" + forgetPwd.getData().getPhone() + "</font> ，请输入短信验证码验证信息，以便对登录密码进行修改"));
         }
+
+        requestOptions = new RequestOptions();
+        //禁用磁盘缓存
+        requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);///不使用磁盘缓存
+        requestOptions.skipMemoryCache(true); // 不使用内存缓存
         //显示图形验证码
-        Glide.with(this).load(HttpConstant.IP+"api/user/ckh/codeimg").into(imgCode);
+        Glide.with(this).load(HttpConstant.IP+"api/user/ckh/codeimg").apply(requestOptions).into(imgCode);
     }
 
 
@@ -95,8 +103,7 @@ public class ValidationMobileActivity extends BaseActivity implements SendCodeP.
                 break;
             //刷新图形验证码
             case R.id.img_code:
-                 imgCode.setImageResource(0);
-                 Glide.with(this).load(HttpConstant.IP+"api/user/ckh/codeimg").into(imgCode);
+                 Glide.with(this).load(HttpConstant.IP+"api/user/ckh/codeimg").apply(requestOptions).into(imgCode);
                  break;
             //获取短信验证码
             case R.id.tv_send_code:
@@ -147,7 +154,6 @@ public class ValidationMobileActivity extends BaseActivity implements SendCodeP.
                         public void run() {
                             mTimer.cancel();
                             tvSendCode.setText("获取验证码");
-                            SPUtil.getInstance(activity).removeMessage("retister_time");
                         }
                     });
                 } else {

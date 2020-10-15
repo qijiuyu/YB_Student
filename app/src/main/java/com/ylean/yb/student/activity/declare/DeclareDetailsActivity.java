@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.user.min.UserInfoActivity;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.declare.DeclareP;
 import com.zxdc.utils.library.bean.BatchDetails;
@@ -79,12 +80,15 @@ public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Fac
     }
 
 
-    @OnClick({R.id.lin_back, R.id.tv_submit})
+    @OnClick({R.id.lin_back, R.id.tv_des,R.id.tv_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lin_back:
                  finish();
                 break;
+            case R.id.tv_des:
+                 setClass(UserInfoActivity.class);
+                 break;
             case R.id.tv_submit:
 //                showApplyDialog();
                 Intent intent=new Intent(this,AddDeclareActivity.class);
