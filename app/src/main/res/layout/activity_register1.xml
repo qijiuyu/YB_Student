@@ -140,8 +140,7 @@
                     android:hint="请输入图形验证码"
                     android:textSize="14sp"
                     android:textColor="@color/color_333333"
-                    android:inputType="number"
-                    android:maxLength="6"/>
+                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" />
 
                 <ImageView
                     android:id="@+id/img_code"
@@ -165,7 +164,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="验证码"
+                    android:text="短信验证码"
                     android:textColor="@color/color_333333"
                     android:textSize="14sp"
                     android:layout_centerVertical="true"
@@ -178,7 +177,7 @@
                     android:gravity="center_vertical"
                     android:background="@null"
                     android:layout_marginLeft="87dp"
-                    android:hint="请输入验证码"
+                    android:hint="请输入短信验证码"
                     android:textSize="14sp"
                     android:textColor="@color/color_333333"
                     android:inputType="number"

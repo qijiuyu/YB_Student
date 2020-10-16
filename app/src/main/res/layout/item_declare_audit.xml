@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/img_audit"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/audit1"/>
+
+        <TextView
+            android:id="@+id/tv_audit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/img_audit"
+            android:text="提交"
+            android:textColor="@color/color_FA4D4F"
+            android:textSize="12sp"
+            android:layout_marginTop="7dp"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2019-09-09"
+            android:textSize="10sp"
+            android:textColor="@color/color_999999"
+            android:layout_below="@id/tv_audit"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"/>
+
+        <View
+            android:id="@+id/view_left"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="14dp"
+            android:background="#BCC4CD"
+            android:layout_toLeftOf="@id/img_audit"/>
+
+        <View
+            android:id="@+id/view_right"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="14dp"
+            android:background="#BCC4CD"
+            android:layout_toRightOf="@id/img_audit"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

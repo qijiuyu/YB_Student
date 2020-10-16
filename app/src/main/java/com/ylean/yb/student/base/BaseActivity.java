@@ -40,6 +40,7 @@ public abstract class BaseActivity extends FragmentActivity {
             case "PlanningActivity":
             case "UserActivity":
                  break;
+            case "RegisterActivity2":
             case "UserInfoActivity":
                 ImmersionBar.with(this).statusBarColor(R.color.color_FA4D4F).fitsSystemWindows(true).autoDarkModeEnable(true).init();
                 break;

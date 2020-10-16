@@ -23,9 +23,9 @@ public class ApplyDeclareP {
     /**
      * 学生申报批次
      */
-    public void applyDeclare(int bid,String jkids,String idpositive,String idback,String householder,String oneself,String acceptanceletter,String relevantdoc){
+    public void applyDeclare(int bid,String jkids,String idpositive,String idback,String householder,String oneself,String acceptanceletter,String relevantdoc,String num){
         DialogUtil.showProgress(activity,"提交中");
-        HttpMethod.applyDeclare(bid, jkids, idpositive, idback, householder, oneself, acceptanceletter, relevantdoc, new NetCallBack() {
+        HttpMethod.applyDeclare(bid, jkids, idpositive, idback, householder, oneself, acceptanceletter, relevantdoc, num,new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
                 final BaseBean baseBean= (BaseBean) object;

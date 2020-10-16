@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import com.zxdc.utils.library.bean.AboutBean;
 import com.zxdc.utils.library.bean.ActivityNum;
 import com.zxdc.utils.library.bean.ApplyBean;
+import com.zxdc.utils.library.bean.AuditBean;
 import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.bean.BankProgress;
 import com.zxdc.utils.library.bean.BaseBean;
@@ -874,9 +875,9 @@ public class HttpMethod extends BaseRequst {
     /**
      * 学生申报批次
      */
-    public static void applyDeclare(int bid,String jkids,String idpositive,String idback,String householder,String oneself,String acceptanceletter,String relevantdoc,final NetCallBack netCallBack) {
+    public static void applyDeclare(int bid,String jkids,String idpositive,String idback,String householder,String oneself,String acceptanceletter,String relevantdoc,String num,final NetCallBack netCallBack) {
         Map<String,String> map=new HashMap<>();
-        map.put("bid",bid+"");
+        map.put("bid",String.valueOf(bid));
         map.put("jkids",jkids);
         if(!TextUtils.isEmpty(idpositive)){
             map.put("idpositive",idpositive);
@@ -895,6 +896,9 @@ public class HttpMethod extends BaseRequst {
         }
         if(!TextUtils.isEmpty(relevantdoc)){
             map.put("relevantdoc",relevantdoc);
+        }
+        if(!TextUtils.isEmpty(num)){
+            map.put("num",num);
         }
         LogUtils.e("+++++++++"+JsonUtil.objectToString(map));
         Http.getRetrofit().create(HttpApi.class).applyDeclare(map).enqueue(new Callback<BaseBean>() {
@@ -1318,6 +1322,23 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<ApplyBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取审核信息
+     */
+    public static void getAudit(int did,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getAudit(did).enqueue(new Callback<AuditBean>() {
+            public void onResponse(Call<AuditBean> call, Response<AuditBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<AuditBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

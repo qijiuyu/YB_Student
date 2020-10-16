@@ -90,10 +90,14 @@ public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Fac
                  setClass(UserInfoActivity.class);
                  break;
             case R.id.tv_submit:
-//                showApplyDialog();
-                Intent intent=new Intent(this,AddDeclareActivity.class);
-                intent.putExtra("batch",batch);
-                startActivity(intent);
+                 if(batch==null){
+                     return;
+                 }
+                 if(batch.getType()==4 || batch.getType()==5 || batch.getType()==6){
+                     showApplyDialog();
+                 }else {
+                     checkdeclareno();
+                 }
                 break;
             default:
                 break;
@@ -104,6 +108,7 @@ public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Fac
     /**
      * 去申请
      */
+    private String num;
     private void showApplyDialog(){
         View view= LayoutInflater.from(this).inflate(R.layout.dialog_apply_declare,null);
         final Dialog dialog= DialogUtil.getDialog(this,view);
@@ -111,12 +116,12 @@ public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Fac
         view.findViewById(R.id.tv_confirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code=etCode.getText().toString().trim();
-                if(TextUtils.isEmpty(code)){
+                num=etCode.getText().toString().trim();
+                if(TextUtils.isEmpty(num)){
                     ToastUtil.showLong("请输入考号");
                     return;
                 }
-                declareP.checkdeclareno(id,code);
+                declareP.checkdeclareno(id,num);
                 dialog.dismiss();
             }
         });
@@ -190,6 +195,7 @@ public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Fac
     public void checkdeclareno() {
         Intent intent=new Intent(this,AddDeclareActivity.class);
         intent.putExtra("batch",batch);
+        intent.putExtra("num",num);
         startActivity(intent);
     }
 }

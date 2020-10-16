@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -33,8 +32,6 @@ import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.util.JsonUtil;
-import com.zxdc.utils.library.util.LogUtils;
-import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.MeasureListView;
 import java.io.File;
@@ -79,10 +76,6 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
     TextView tvEmail;
     @BindView(R.id.tv_bank_code)
     TextView tvBankCode;
-    @BindView(R.id.et_high_school)
-    EditText etHighSchool;
-    @BindView(R.id.et_university)
-    EditText etUniversity;
     @BindView(R.id.img_head)
     ImageView imgHead;
     @BindView(R.id.list_family)
@@ -120,6 +113,8 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
     private int imgType;
     //图片链接
     private String cardZ,cardF,hk1,hk2,notice,other;
+    //考号
+    private String num;
 
     private UserP userP=new UserP(this);
     private FamilyP familyP = new FamilyP(this, this);
@@ -147,9 +142,10 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
 
         tvTitle.setText("批次审报");
         batch = (BatchDetails.Batch) getIntent().getSerializableExtra("batch");
+        num=getIntent().getStringExtra("num");
         if (batch != null) {
             tvBatchNo.setText(batch.getName());
-            tvValidTime.setText(batch.getStarttime().split(" ")[0] + "-" + batch.getEndtime().split(" ")[0]);
+            tvValidTime.setText(batch.getStarttime().split(" ")[0] + "至" + batch.getEndtime().split(" ")[0]);
         }
 
         userP.setFace3(this);
@@ -239,7 +235,7 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
                     ToastUtil.showLong("请上传录取通知书照片");
                     return;
                 }
-                applyDeclareP.applyDeclare(batch.getId(),economicId.toString(),cardZ,cardF,hk1,hk2,notice,other);
+                applyDeclareP.applyDeclare(batch.getId(),economicId.toString(),cardZ,cardF,hk1,hk2,notice,other,num);
                 break;
             default:
                 break;
@@ -294,7 +290,7 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
         tvNational.setText(userBean.getNation());
         tvCard.setText(userBean.getIdnum());
         if (!TextUtils.isEmpty(userBean.getValiditystarttime()) && !TextUtils.isEmpty(userBean.getValidityendtime())) {
-            tvCardTime.setText(userBean.getValiditystarttime().split(" ")[0] + "-" + userBean.getValidityendtime().split(" ")[0]);
+            tvCardTime.setText(userBean.getValiditystarttime().split(" ")[0] + "至" + userBean.getValidityendtime().split(" ")[0]);
         }
         tvEmail.setText(userBean.getEmail());
         tvMobile.setText(userBean.getPhone());

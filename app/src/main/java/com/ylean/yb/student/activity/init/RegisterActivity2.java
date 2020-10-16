@@ -92,12 +92,17 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
             tvUserName.setText(userInfo.getData().getName());
             tvSex.setText(userInfo.getData().getSex());
             tvNationality.setText(userInfo.getData().getNationality());
-            tvBirthday.setText(userInfo.getData().getBirthday().split(" ")[0]);
+            if(!TextUtils.isEmpty(userInfo.getData().getBirthday())){
+                tvBirthday.setText(userInfo.getData().getBirthday().split(" ")[0]);
+            }
             tvNational.setText(userInfo.getData().getNation());
             tvCard.setText(userInfo.getData().getIdnum());
             if(!TextUtils.isEmpty(userInfo.getData().getValiditystarttime()) && !TextUtils.isEmpty(userInfo.getData().getValidityendtime())){
                 tvCardTime.setText(userInfo.getData().getValiditystarttime().split(" ")[0]+"-"+userInfo.getData().getValidityendtime().split(" ")[0]);
             }
+            etQq.setText(userInfo.getData().getQq());
+            etWx.setText(userInfo.getData().getWechat());
+
         }
     }
 

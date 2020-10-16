@@ -1,5 +1,7 @@
 package com.ylean.yb.student.activity.declare;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -7,13 +9,16 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.adapter.declare.AuditAdapter;
 import com.ylean.yb.student.adapter.declare.ShowEconomicAdapter;
 import com.ylean.yb.student.adapter.declare.ShowFamilyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.AuditStatusP;
 import com.ylean.yb.student.persenter.FamilyP;
 import com.ylean.yb.student.persenter.declare.DeclareDetailsP;
 import com.ylean.yb.student.persenter.user.UserP;
 import com.zxdc.utils.library.bean.Address;
+import com.zxdc.utils.library.bean.AuditBean;
 import com.zxdc.utils.library.bean.DeclareBean;
 import com.zxdc.utils.library.bean.DeclareDetailsBean;
 import com.zxdc.utils.library.bean.FamilyBean;
@@ -28,29 +33,29 @@ import butterknife.OnClick;
 /**
  * 批次审核页面
  */
-public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,FamilyP.Face, DeclareDetailsP.Face {
+public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,FamilyP.Face, DeclareDetailsP.Face, AuditStatusP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.scrollView)
     ScrollView scrollView;
-    @BindView(R.id.img_audit1)
-    ImageView imgAudit1;
-    @BindView(R.id.img_audit2)
-    ImageView imgAudit2;
-    @BindView(R.id.img_audit3)
-    ImageView imgAudit3;
-    @BindView(R.id.tv_audit1)
-    TextView tvAudit1;
-    @BindView(R.id.tv_audit2)
-    TextView tvAudit2;
-    @BindView(R.id.tv_audit3)
-    TextView tvAudit3;
-    @BindView(R.id.tv_code)
-    TextView tvCode;
+    @BindView(R.id.list_audit)
+    RecyclerView listAudit;
+//    @BindView(R.id.img_audit1)
+//    ImageView imgAudit1;
+//    @BindView(R.id.img_audit2)
+//    ImageView imgAudit2;
+//    @BindView(R.id.img_audit3)
+//    ImageView imgAudit3;
+//    @BindView(R.id.tv_audit1)
+//    TextView tvAudit1;
+//    @BindView(R.id.tv_audit2)
+//    TextView tvAudit2;
+//    @BindView(R.id.tv_audit3)
+//    TextView tvAudit3;
     @BindView(R.id.tv_batchNo)
     TextView tvBatchNo;
-    @BindView(R.id.tv_valid_time)
-    TextView tvValidTime;
+    @BindView(R.id.tv_code)
+    TextView tvCode;
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_sex)
@@ -100,6 +105,7 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
     @BindView(R.id.tv_submit)
     ClickTextView tvSubmit;
 
+    private AuditStatusP auditStatusP=new AuditStatusP(this,this);
     private UserP userP=new UserP(this);
     private FamilyP familyP = new FamilyP(this, this);
     private DeclareDetailsP declareDetailsP=new DeclareDetailsP(this);
@@ -123,6 +129,9 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
         tvTitle.setText("审核记录");
         final DeclareBean.Declare declare= (DeclareBean.Declare) getIntent().getSerializableExtra("declare");
 
+        //获取审核信息
+        auditStatusP.getAudit(declare.getGbid());
+
         //获取学生申报或查看申报基本信息
         userP.setFace3(this);
         userP.getUserInfoByApply();
@@ -140,6 +149,7 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lin_back:
+                finish();
                 break;
             case R.id.tv_submit:
                  finish();
@@ -147,6 +157,23 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
             default:
                 break;
         }
+    }
+
+
+    /**
+     * 获取审核信息
+     */
+    @Override
+    public void getAudit(AuditBean.Audit audit) {
+        tvCode.setText(audit.getCode());
+        tvBatchNo.setText(audit.getBname());
+
+        if(audit.getAtype()==0 || audit.getAtype()==1){
+            listAudit.setLayoutManager(new GridLayoutManager(this, 3));
+        }else{
+            listAudit.setLayoutManager(new GridLayoutManager(this, 2));
+        }
+        listAudit.setAdapter(new AuditAdapter(this,audit));
     }
 
 
@@ -227,4 +254,5 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
         }
         scrollView.scrollTo(0,0);
     }
+
 }

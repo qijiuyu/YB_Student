@@ -4,6 +4,7 @@ package com.zxdc.utils.library.http;
 import com.zxdc.utils.library.bean.AboutBean;
 import com.zxdc.utils.library.bean.ActivityNum;
 import com.zxdc.utils.library.bean.ApplyBean;
+import com.zxdc.utils.library.bean.AuditBean;
 import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.bean.BankProgress;
 import com.zxdc.utils.library.bean.BaseBean;
@@ -255,5 +256,9 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"ybsysserver/api/sys/applyrecord/list")
     Call<ApplyBean> getApplyList(@Query("page") int page, @Query("size") int size);
+
+    @GET(HttpConstant.IP+"api/sys/declare/pub/gettjinfo")
+    Call<AuditBean> getAudit(@Query("did") int did);
+
 
 }

@@ -54,6 +54,7 @@ public class DeclareAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
         final DeclareBean.Declare declare=list.get(position);
+        holder.tvName.setText(declare.getBname());
         //显示图片
         String imgUrl = declare.getImg();
         if(!TextUtils.isEmpty(imgUrl)){

@@ -63,7 +63,7 @@ public class DeclareHeadViewAdapter extends BaseAdapter {
             }
         }
         holder.tvName.setText(batch.getName());
-        holder.tvContent.setText(batch.getRemarks());
+        holder.tvContent.setText(batch.getFactor());
         holder.tvNum.setText("已有："+batch.getApplynum()+"人 进行申请");
         holder.tvValidTime.setText("有效时间："+batch.getStarttime().split(" ")[0]+"一"+batch.getEndtime().split(" ")[0]);
         holder.tvSendTime.setText("发布时间："+batch.getCreatetime());

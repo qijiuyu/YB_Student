@@ -21,7 +21,7 @@ android {
         manifestPlaceholders = [
                 JPUSH_PKGNAME : "com.ylean.yb.student",
                 JPUSH_APPKEY : "60201abf09cd4ac1c8ca44e2", //JPush 上注册的包名对应的 Appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL : "developer-bg", //暂时填写默认值即可.
         ]
     }
 

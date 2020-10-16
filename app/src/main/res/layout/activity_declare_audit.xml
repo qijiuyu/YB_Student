@@ -20,7 +20,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
+                android:layout_height="170dp"
                 android:background="@drawable/bg_white"
                 android:layout_margin="15dp">
 
@@ -30,77 +30,86 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/in_apply"/>
 
-                <ImageView
-                    android:id="@+id/img_audit1"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:src="@mipmap/audit1"
-                    android:layout_marginLeft="35dp"
-                    android:layout_marginTop="15dp"/>
+                <!--<ImageView-->
+                    <!--android:id="@+id/img_audit1"-->
+                    <!--android:layout_width="28dp"-->
+                    <!--android:layout_height="28dp"-->
+                    <!--android:src="@mipmap/audit1"-->
+                    <!--android:layout_marginLeft="35dp"-->
+                    <!--android:layout_marginTop="15dp"/>-->
 
-                <ImageView
-                    android:id="@+id/img_audit2"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:src="@mipmap/audit2"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="15dp"/>
+                <!--<ImageView-->
+                    <!--android:id="@+id/img_audit2"-->
+                    <!--android:layout_width="28dp"-->
+                    <!--android:layout_height="28dp"-->
+                    <!--android:src="@mipmap/audit2"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_marginTop="15dp"/>-->
 
-                <ImageView
-                    android:id="@+id/img_audit3"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:src="@mipmap/audit2"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginTop="15dp"/>
+                <!--<ImageView-->
+                    <!--android:id="@+id/img_audit3"-->
+                    <!--android:layout_width="28dp"-->
+                    <!--android:layout_height="28dp"-->
+                    <!--android:src="@mipmap/audit2"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_marginRight="35dp"-->
+                    <!--android:layout_marginTop="15dp"/>-->
 
-                <TextView
-                    android:id="@+id/tv_audit1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="提交"
-                    android:textColor="@color/color_FA4D4F"
-                    android:textSize="12sp"
-                    android:layout_marginLeft="36dp"
-                    android:layout_marginTop="47dp"/>
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_audit1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="提交"-->
+                    <!--android:textColor="@color/color_FA4D4F"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:layout_marginLeft="36dp"-->
+                    <!--android:layout_marginTop="47dp"/>-->
 
-                <TextView
-                    android:id="@+id/tv_audit2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="教育局审核"
-                    android:textColor="@color/color_333333"
-                    android:textSize="12sp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="47dp"/>
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_audit2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="教育局审核"-->
+                    <!--android:textColor="@color/color_333333"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_marginTop="47dp"/>-->
 
-                <TextView
-                    android:id="@+id/tv_audit3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="基金会审核"
-                    android:textColor="@color/color_333333"
-                    android:textSize="12sp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="36dp"
-                    android:layout_marginTop="47dp"/>
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_audit3"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="基金会审核"-->
+                    <!--android:textColor="@color/color_333333"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_marginRight="36dp"-->
+                    <!--android:layout_marginTop="47dp"/>-->
 
-                <View
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="#BCC4CD"-->
+                    <!--android:layout_toRightOf="@id/img_audit1"-->
+                    <!--android:layout_toLeftOf="@id/img_audit2"-->
+                    <!--android:layout_marginTop="31dp"/>-->
+
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="#BCC4CD"-->
+                    <!--android:layout_toRightOf="@id/img_audit2"-->
+                    <!--android:layout_toLeftOf="@id/img_audit3"-->
+                    <!--android:layout_marginTop="31dp"/>-->
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/list_audit"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#BCC4CD"
-                    android:layout_toRightOf="@id/img_audit1"
-                    android:layout_toLeftOf="@id/img_audit2"
-                    android:layout_marginTop="31dp"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#BCC4CD"
-                    android:layout_toRightOf="@id/img_audit2"
-                    android:layout_toLeftOf="@id/img_audit3"
-                    android:layout_marginTop="31dp"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="17dp"
+                    android:layout_marginLeft="17dp">
+                </android.support.v7.widget.RecyclerView>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -115,7 +124,6 @@
                     android:id="@+id/tv_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="bfmzdxfszx-000001"
                     android:textColor="@color/color_333333"
                     android:textSize="14sp"
                     android:layout_alignParentRight="true"
@@ -135,32 +143,11 @@
                     android:id="@+id/tv_batchNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2018年大学生批次"
                     android:textColor="@color/color_333333"
                     android:textSize="14sp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="14dp"
                     android:layout_marginTop="129dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="有效时间"
-                    android:textSize="14sp"
-                    android:textColor="@color/color_333333"
-                    android:layout_marginLeft="14dp"
-                    android:layout_marginTop="156dp"/>
-
-                <TextView
-                    android:id="@+id/tv_valid_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2019.01.01 - 2019.02.15"
-                    android:textColor="@color/color_333333"
-                    android:textSize="14sp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="14dp"
-                    android:layout_marginTop="156dp"/>
 
             </RelativeLayout>
 
@@ -502,6 +489,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:background="@drawable/bg_rel_border"
@@ -528,6 +516,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:background="@drawable/bg_rel_border"
@@ -559,7 +548,7 @@
                     android:id="@+id/img_head"
                     android:layout_width="84dp"
                     android:layout_height="123dp"
-                    android:src="@mipmap/aa"
+                    android:src="@mipmap/bg"
                     android:scaleType="fitXY"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="15.5dp"

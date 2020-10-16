@@ -26,6 +26,7 @@ public class BatchBean extends BaseBean {
         private String starttime;
         private int status;
         private int type;
+        private String factor;
 
         public int getApplynum() {
             return applynum;
@@ -105,6 +106,14 @@ public class BatchBean extends BaseBean {
 
         public void setType(int type) {
             this.type = type;
+        }
+
+        public String getFactor() {
+            return factor;
+        }
+
+        public void setFactor(String factor) {
+            this.factor = factor;
         }
     }
 }

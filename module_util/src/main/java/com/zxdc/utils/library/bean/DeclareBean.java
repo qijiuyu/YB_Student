@@ -24,6 +24,7 @@ public class DeclareBean extends BaseBean {
         private String img;
         private String siname;
         private int sitype;//学校类型 高中(0), 中职(1), 高职(2),大学(3)
+        private String bname;
 
         public int getBdid() {
             return bdid;
@@ -87,6 +88,14 @@ public class DeclareBean extends BaseBean {
 
         public void setSitype(int sitype) {
             this.sitype = sitype;
+        }
+
+        public String getBname() {
+            return bname;
+        }
+
+        public void setBname(String bname) {
+            this.bname = bname;
         }
     }
 }
