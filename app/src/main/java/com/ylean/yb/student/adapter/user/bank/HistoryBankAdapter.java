@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.user.apply.ApplyRecordActivity;
 import com.ylean.yb.student.activity.user.bank.ProgressActivity;
 import com.ylean.yb.student.activity.user.bank.UpdateBankActivity;
 import com.ylean.yb.student.activity.user.bank.ValidationActivity;
@@ -83,52 +84,60 @@ public class HistoryBankAdapter extends BaseAdapter {
 
         holder.tvBankName.setText(bankBase.getBankname());
         holder.tvBankCode.setText(bankBase.getBanknum());
-        switch (bankBase.getBankstatus()){
-            case 0:
-                 holder.tvStatus.setText("未提交");
-                 holder.tvPlay1.setVisibility(View.GONE);
-                 break;
-            case 1:
-                holder.tvStatus.setText("已提交");
-                holder.tvPlay1.setVisibility(View.VISIBLE);
-                holder.tvPlay1.setText("办理进度");
-                break;
-            case 2:
-                holder.tvStatus.setText("未开卡");
-                holder.tvPlay1.setVisibility(View.GONE);
-                break;
-            case 3:
-                holder.tvStatus.setText("已开卡");
-                break;
-            case 4:
-                holder.tvStatus.setText("已邮寄");
-                holder.tvPlay1.setVisibility(View.VISIBLE);
-                holder.tvPlay1.setText("去验证");
-                break;
-            case 5:
-                holder.tvStatus.setText("正在使用");
-                break;
-            case 6:
-                holder.tvStatus.setText("已更改");
-                break;
-            case 7:
-                holder.tvStatus.setText("失败");
-                break;
-            case 8:
-                holder.tvStatus.setText("开卡中");
-                break;
-            default:
-                break;
-        }
         holder.tvCardholder.setText("持卡人姓名："+bankBase.getUname());
         holder.tvMobile.setText("手机号："+bankBase.getPhone());
         holder.tvCard.setText("身份证号："+bankBase.getIdnum());
 
+
+        /**
+         * 历史银行卡会有阴影遮罩
+         */
         if(position==0){
             holder.view.setVisibility(View.GONE);
         }else{
             holder.view.setVisibility(View.VISIBLE);
         }
+
+        holder.tvPlay1.setVisibility(View.GONE);
+        holder.tvPlay2.setVisibility(View.GONE);
+        holder.tvLookAudit.setVisibility(View.GONE);
+        if(position==0){
+            switch (bankBase.getBankstatus()){
+                case 0:
+                case 1:
+                case 2:
+                    holder.tvStatus.setText("未开卡");
+                    break;
+                case 3:
+                case 8:
+                    holder.tvStatus.setText("办理中");
+                    holder.tvPlay1.setVisibility(View.VISIBLE);
+                    holder.tvPlay1.setText("查看进度");
+                    break;
+                case 4:
+                    holder.tvStatus.setText("待验证");
+                    holder.tvPlay1.setVisibility(View.VISIBLE);
+                    holder.tvPlay2.setVisibility(View.VISIBLE);
+                    holder.tvPlay1.setText("查看进度");
+                    break;
+                case 5:
+                    holder.tvStatus.setText("已通过");
+                    holder.tvPlay1.setVisibility(View.VISIBLE);
+                    holder.tvLookAudit.setVisibility(View.VISIBLE);
+                    holder.tvPlay1.setText("变更银行卡");
+                    break;
+                case 6:
+                    holder.tvStatus.setText("已更改");
+                    break;
+                case 7:
+                    holder.tvStatus.setText("失败");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
 
 
         /**
@@ -142,21 +151,45 @@ public class HistoryBankAdapter extends BaseAdapter {
                 Intent intent=new Intent();
                 switch (bankBase.getBankstatus()){
                     //已提交： 可以查看办理进度
-                    case 1:
+                    case 3:
+                    case 4:
+                    case 8:
                          intent.setClass(activity, ProgressActivity.class);
                          break;
-                    //已邮寄：去验证
-                    case 4:
-                         intent.putExtra("bankCode",bankBase.getBanknum());
-                         intent.setClass(activity, ValidationActivity.class);
-                         break;
-                    //已更改： 可以变更了
-                    case 6:
+                    //已通过： 可以变更了
+                    case 5:
                          intent.setClass(activity,UpdateBankActivity.class);
                          break;
                      default:
                          break;
                 }
+                activity.startActivity(intent);
+            }
+        });
+
+
+        /**
+         * 去验证
+         */
+        holder.tvPlay2.setTag(bankBase);
+        holder.tvPlay2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final BankBaseBean.BankBase bankBase= (BankBaseBean.BankBase) v.getTag();
+                Intent intent=new Intent();
+                intent.putExtra("bankCode",bankBase.getBanknum());
+                intent.setClass(activity, ValidationActivity.class);
+            }
+        });
+
+
+        /**
+         * 查看审核记录
+         */
+        holder.tvLookAudit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(activity, ApplyRecordActivity.class);
                 activity.startActivity(intent);
             }
         });
@@ -186,6 +219,8 @@ public class HistoryBankAdapter extends BaseAdapter {
         TextView tvPlay1;
         @BindView(R.id.tv_play2)
         TextView tvPlay2;
+        @BindView(R.id.tv_look_audit)
+        TextView tvLookAudit;
         @BindView(R.id.view)
         View view;
 

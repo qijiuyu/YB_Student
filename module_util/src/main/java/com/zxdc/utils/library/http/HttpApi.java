@@ -20,6 +20,7 @@ import com.zxdc.utils.library.bean.EducationBean;
 import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
+import com.zxdc.utils.library.bean.HistoryBankBean;
 import com.zxdc.utils.library.bean.InSchoolBean;
 import com.zxdc.utils.library.bean.IssueRecordBean;
 import com.zxdc.utils.library.bean.LeaveBean;
@@ -166,7 +167,7 @@ public interface HttpApi {
     Call<BankBaseBean> getbankinfo();
 
     @GET(HttpConstant.IP+"api/user/bk/getbankhistoryinfos")
-    Call<BankBaseBean> getBankHistory();
+    Call<HistoryBankBean> getBankHistory();
 
     @GET(HttpConstant.IP+"api/sys/schoolsituation/getschoolsituationlist")
     Call<InSchoolBean> getInSchoolList(@Query("page") int page, @Query("size") int size);

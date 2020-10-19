@@ -21,6 +21,7 @@ import com.zxdc.utils.library.bean.FacultyBean;
 import com.zxdc.utils.library.bean.FamilyBean;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
+import com.zxdc.utils.library.bean.HistoryBankBean;
 import com.zxdc.utils.library.bean.InSchoolBean;
 import com.zxdc.utils.library.bean.IssueRecordBean;
 import com.zxdc.utils.library.bean.LeaveBean;
@@ -758,12 +759,12 @@ public class HttpMethod extends BaseRequst {
      * 获取银行卡历史信息
      */
     public static void getBankHistory(final NetCallBack netCallBack) {
-        Http.getRetrofit().create(HttpApi.class).getBankHistory().enqueue(new Callback<BankBaseBean>() {
-            public void onResponse(Call<BankBaseBean> call, Response<BankBaseBean> response) {
+        Http.getRetrofit().create(HttpApi.class).getBankHistory().enqueue(new Callback<HistoryBankBean>() {
+            public void onResponse(Call<HistoryBankBean> call, Response<HistoryBankBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());
             }
-            public void onFailure(Call<BankBaseBean> call, Throwable t) {
+            public void onFailure(Call<HistoryBankBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

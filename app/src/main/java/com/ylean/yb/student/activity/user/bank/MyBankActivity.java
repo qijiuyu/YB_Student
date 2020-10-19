@@ -84,6 +84,9 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
                 break;
             //显示历史银行卡
             case R.id.tv_history:
+                 if(bankList.size()==1){
+                     return;
+                 }
                  if(adapter.isShowHistory){
                      adapter.setIsShow(false);
                      tvHistory.setText("查看历史银行卡");
@@ -116,15 +119,14 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
 
     /**
      * 获取历史银行卡
-     *
-     * @param bankBase
+     * @param list
      */
     @Override
-    public void getBankHistory(BankBaseBean.BankBase bankBase) {
-        if (bankBase == null) {
+    public void getBankHistory(List<BankBaseBean.BankBase> list) {
+        if (list == null) {
             return;
         }
-        bankList.add(bankBase);
+        bankList.addAll(list);
         adapter.notifyDataSetChanged();
     }
 

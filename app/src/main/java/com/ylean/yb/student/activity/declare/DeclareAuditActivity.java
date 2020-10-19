@@ -151,8 +151,9 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
             case R.id.lin_back:
                 finish();
                 break;
+            //重新提交
             case R.id.tv_submit:
-                 finish();
+                 setClass(AddDeclareActivity.class);
                 break;
             default:
                 break;
@@ -165,6 +166,9 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
      */
     @Override
     public void getAudit(AuditBean.Audit audit) {
+        if(audit==null){
+            return;
+        }
         tvCode.setText(audit.getCode());
         tvBatchNo.setText(audit.getBname());
 
@@ -174,6 +178,12 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
             listAudit.setLayoutManager(new GridLayoutManager(this, 2));
         }
         listAudit.setAdapter(new AuditAdapter(this,audit));
+
+        if(audit.getStatus()==0 || audit.getStatus()==2 || audit.getStatus()==4 || audit.getStatus()==6 || audit.getStatus()==7 || audit.getStatus()==8 || audit.getStatus()==9){
+            tvSubmit.setVisibility(View.VISIBLE);
+        }else{
+            tvSubmit.setVisibility(View.GONE);
+        }
     }
 
 

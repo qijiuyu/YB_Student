@@ -44,25 +44,19 @@ public class AuditAdapter extends RecyclerView.Adapter<AuditAdapter.MyHolder> {
         }
 
 
+
         /**
          * 显示审核时间
          */
         if(i==0){
             holder.tvTime.setText(audit.getCreatetime());
-            holder.tvTime.setVisibility(View.VISIBLE);
         }else if(i==1){
             if(audit.getStatus()==1 || audit.getStatus()==2 || audit.getStatus()==3 || audit.getStatus()==4 || audit.getStatus()==7 || audit.getStatus()==9 || audit.getStatus()==10 || audit.getStatus()==11){
-                holder.tvTime.setVisibility(View.VISIBLE);
                 holder.tvTime.setText(audit.getJxatime());
-            }else{
-                holder.tvTime.setVisibility(View.GONE);
             }
         }else{
             if(audit.getStatus()==5 || audit.getStatus()==6 || audit.getStatus()==8){
-                holder.tvTime.setVisibility(View.VISIBLE);
                 holder.tvTime.setText(audit.getJhatime());
-            }else{
-                holder.tvTime.setVisibility(View.GONE);
             }
         }
 
@@ -72,7 +66,13 @@ public class AuditAdapter extends RecyclerView.Adapter<AuditAdapter.MyHolder> {
          */
         if(i==1 && audit.getAtype()==0){
             holder.tvAudit.setTextColor(context.getResources().getColor(R.color.color_FA4D4F));
+            holder.imgAudit.setImageResource(R.mipmap.audit_yes);
             switch (audit.getStatus()){
+                case 0:
+                     holder.tvAudit.setText("教育局审核");
+                     holder.tvAudit.setTextColor(context.getResources().getColor(R.color.color_333333));
+                    holder.imgAudit.setImageResource(R.mipmap.audit_no);
+                     break;
                 case 3:
                      holder.tvAudit.setText("教育局审核通过");
                      break;
@@ -86,13 +86,18 @@ public class AuditAdapter extends RecyclerView.Adapter<AuditAdapter.MyHolder> {
                     holder.tvAudit.setText("教育局提交");
                     break;
                 default:
-                    holder.tvAudit.setText("教育局审核");
-                    holder.tvAudit.setTextColor(context.getResources().getColor(R.color.color_333333));
+                    holder.tvAudit.setText("教育局审核通过");
                     break;
             }
         }else if(i==1 && audit.getAtype()==1){
             holder.tvAudit.setTextColor(context.getResources().getColor(R.color.color_FA4D4F));
+            holder.imgAudit.setImageResource(R.mipmap.audit_yes);
             switch (audit.getStatus()){
+                case 0:
+                    holder.tvAudit.setText("学校审核");
+                    holder.tvAudit.setTextColor(context.getResources().getColor(R.color.color_333333));
+                    holder.imgAudit.setImageResource(R.mipmap.audit_no);
+                    break;
                 case 1:
                     holder.tvAudit.setText("学校审核通过");
                     break;
@@ -106,13 +111,17 @@ public class AuditAdapter extends RecyclerView.Adapter<AuditAdapter.MyHolder> {
                     holder.tvAudit.setText("学校提交");
                     break;
                 default:
-                    holder.tvAudit.setText("学校审核");
-                    holder.tvAudit.setTextColor(context.getResources().getColor(R.color.color_333333));
+                    holder.tvAudit.setText("学校审核通过");
                     break;
             }
-        }else if(i==1 && audit.getAtype()==2){
+        }else if(i==(getItemCount()-1)){
             holder.tvAudit.setTextColor(context.getResources().getColor(R.color.color_FA4D4F));
+            holder.imgAudit.setImageResource(R.mipmap.audit_yes);
             switch (audit.getStatus()){
+                case 0:
+                    holder.tvAudit.setText("基金会审核");
+                    holder.tvAudit.setTextColor(context.getResources().getColor(R.color.color_333333));
+                    break;
                 case 5:
                     holder.tvAudit.setText("基金会审核通过");
                     break;
@@ -123,7 +132,6 @@ public class AuditAdapter extends RecyclerView.Adapter<AuditAdapter.MyHolder> {
                     holder.tvAudit.setText("基金会驳回");
                     break;
                 default:
-                    holder.tvAudit.setTextColor(context.getResources().getColor(R.color.color_333333));
                     break;
             }
         }

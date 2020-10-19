@@ -6,6 +6,7 @@ import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.bean.BankProgress;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.CollMoneyBean;
+import com.zxdc.utils.library.bean.HistoryBankBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
@@ -77,16 +78,16 @@ public class MyBankP {
         HttpMethod.getBankHistory(new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
-                final BankBaseBean bankBaseBean= (BankBaseBean) object;
-                if(bankBaseBean==null){
+                final HistoryBankBean historyBankBean= (HistoryBankBean) object;
+                if(historyBankBean==null){
                     return;
                 }
-                if(bankBaseBean.isSussess()){
+                if(historyBankBean.isSussess()){
 
-                    face.getBankHistory(bankBaseBean.getData());
+                    face.getBankHistory(historyBankBean.getData());
 
                 }else{
-                    ToastUtil.showLong(bankBaseBean.getDesc());
+                    ToastUtil.showLong(historyBankBean.getDesc());
                 }
 
             }
@@ -189,7 +190,7 @@ public class MyBankP {
 
         void getbankinfo(BankBaseBean.BankBase bankBase);
 
-        void getBankHistory(BankBaseBean.BankBase bankBase);
+        void getBankHistory(List<BankBaseBean.BankBase> list);
 
         void getCollMoneyList(List<CollMoneyBean.CollMoney> list);
     }
