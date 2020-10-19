@@ -341,12 +341,11 @@ public class HttpMethod extends BaseRequst {
     /**
      * 修改个人信息
      */
-    public static void updateUserInfo(String ucphone,String address,String qq,String residenceaddress,String uctel,String wechat,final NetCallBack netCallBack) {
+    public static void updateUserInfo(String ucphone,String address,String qq,String uctel,String wechat,final NetCallBack netCallBack) {
         Map<String ,String> map=new HashMap<>();
         map.put("ucphone",ucphone);
         map.put("address",address);
         map.put("qq",qq);
-        map.put("residenceaddress",residenceaddress);
         map.put("uctel",uctel);
         map.put("wechat",wechat);
         Http.getRetrofit().create(HttpApi.class).updateUserInfo(map).enqueue(new Callback<BaseBean>() {

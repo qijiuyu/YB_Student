@@ -426,8 +426,6 @@
                             android:layout_weight="1"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:drawableRight="@mipmap/bottom_sj"
-                            android:paddingRight="7dp"
                             android:maxLines="1"
                             android:hint="省"
                             android:ellipsize="end"
@@ -444,8 +442,6 @@
                             android:layout_weight="1"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:drawableRight="@mipmap/bottom_sj"
-                            android:paddingRight="7dp"
                             android:maxLines="1"
                             android:hint="市"
                             android:ellipsize="end"
@@ -462,8 +458,6 @@
                             android:layout_weight="1"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:drawableRight="@mipmap/bottom_sj"
-                            android:paddingRight="7dp"
                             android:maxLines="1"
                             android:hint="区"
                             android:ellipsize="end"
@@ -485,8 +479,8 @@
                     android:paddingLeft="15dp"
                     android:gravity="center_vertical">
 
-                    <EditText
-                        android:id="@+id/et_address"
+                    <TextView
+                        android:id="@+id/tv_address"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:background="@drawable/bg_memo"

@@ -66,8 +66,8 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
     TextView tvCity;
     @BindView(R.id.tv_area)
     TextView tvArea;
-    @BindView(R.id.et_address)
-    EditText etAddress;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
     @BindView(R.id.tv_province1)
     TextView tvProvince1;
     @BindView(R.id.tv_city1)
@@ -122,11 +122,8 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
         educationP.getEducationList();
     }
 
-    @OnClick({R.id.lin_back,R.id.tv_province, R.id.tv_city, R.id.tv_area, R.id.tv_province1, R.id.tv_city1, R.id.tv_area1, R.id.tv_add_family,R.id.tv_add_education,R.id.tv_submit})
+    @OnClick({R.id.lin_back,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1, R.id.tv_add_family,R.id.tv_add_education,R.id.tv_submit})
     public void onViewClicked(View view) {
-        final String province=tvProvince.getText().toString().trim();
-        final String city=tvCity.getText().toString().trim();
-        final String area=tvArea.getText().toString().trim();
         final String province1=tvProvince1.getText().toString().trim();
         final String city1=tvCity1.getText().toString().trim();
         final String area1=tvArea1.getText().toString().trim();
@@ -134,44 +131,44 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
             case R.id.lin_back:
                   finish();
                  break;
-            //选择省
-            case R.id.tv_province:
-                new SelectProvince(this, 0, null, new ProvinceCallBack() {
-                    public void onSuccess(ProvinceBean.ListBean listBean) {
-                        tvProvince.setText(listBean.getName());
-                        tvProvince.setTag(listBean.getCode());
-                        tvCity.setText(null);
-                        tvArea.setText(null);
-                    }
-                }).show();
-                break;
-            //选择市
-            case R.id.tv_city:
-                if(TextUtils.isEmpty(province)){
-                    ToastUtil.showLong("请先选择省");
-                    return;
-                }
-                new SelectProvince(this, 1, (String) tvProvince.getTag(), new ProvinceCallBack() {
-                    public void onSuccess(ProvinceBean.ListBean listBean) {
-                        tvCity.setText(listBean.getName());
-                        tvCity.setTag(listBean.getCode());
-                        tvArea.setText(null);
-                    }
-                }).show();
-                break;
-            //选择区
-            case R.id.tv_area:
-                if(TextUtils.isEmpty(city)){
-                    ToastUtil.showLong("请先选择市");
-                    return;
-                }
-                new SelectProvince(this, 2, (String) tvCity.getTag(), new ProvinceCallBack() {
-                    public void onSuccess(ProvinceBean.ListBean listBean) {
-                        tvArea.setText(listBean.getName());
-                        tvArea.setTag(listBean.getCode());
-                    }
-                }).show();
-                break;
+//            //选择省
+//            case R.id.tv_province:
+//                new SelectProvince(this, 0, null, new ProvinceCallBack() {
+//                    public void onSuccess(ProvinceBean.ListBean listBean) {
+//                        tvProvince.setText(listBean.getName());
+//                        tvProvince.setTag(listBean.getCode());
+//                        tvCity.setText(null);
+//                        tvArea.setText(null);
+//                    }
+//                }).show();
+//                break;
+//            //选择市
+//            case R.id.tv_city:
+//                if(TextUtils.isEmpty(province)){
+//                    ToastUtil.showLong("请先选择省");
+//                    return;
+//                }
+//                new SelectProvince(this, 1, (String) tvProvince.getTag(), new ProvinceCallBack() {
+//                    public void onSuccess(ProvinceBean.ListBean listBean) {
+//                        tvCity.setText(listBean.getName());
+//                        tvCity.setTag(listBean.getCode());
+//                        tvArea.setText(null);
+//                    }
+//                }).show();
+//                break;
+//            //选择区
+//            case R.id.tv_area:
+//                if(TextUtils.isEmpty(city)){
+//                    ToastUtil.showLong("请先选择市");
+//                    return;
+//                }
+//                new SelectProvince(this, 2, (String) tvCity.getTag(), new ProvinceCallBack() {
+//                    public void onSuccess(ProvinceBean.ListBean listBean) {
+//                        tvArea.setText(listBean.getName());
+//                        tvArea.setTag(listBean.getCode());
+//                    }
+//                }).show();
+//                break;
             //选择省
             case R.id.tv_province1:
                 new SelectProvince(this, 0, null, new ProvinceCallBack() {
@@ -227,7 +224,6 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
             case R.id.tv_submit:
                  final String qq=etQq.getText().toString().trim();
                  final String wx=etWx.getText().toString().trim();
-                 final String address=etAddress.getText().toString().trim();
                  final String address1=etAddress1.getText().toString().trim();
                  final String mobile=etParentMobile.getText().toString().trim();
                  final String landMobile=etLandMobile.getText().toString().trim();
@@ -237,22 +233,6 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
                 }
                 if(TextUtils.isEmpty(wx)){
                     ToastUtil.showLong("请输入微信号");
-                    return;
-                }
-                if(TextUtils.isEmpty(province)){
-                    ToastUtil.showLong("请选择户口所在省");
-                    return;
-                }
-                if(TextUtils.isEmpty(city)){
-                    ToastUtil.showLong("请选择户口所在市");
-                    return;
-                }
-                if(TextUtils.isEmpty(area)){
-                    ToastUtil.showLong("请选择户口所在区");
-                    return;
-                }
-                if(TextUtils.isEmpty(address)){
-                    ToastUtil.showLong("请输入户口详细地址");
                     return;
                 }
                 if(TextUtils.isEmpty(province1)){
@@ -279,15 +259,6 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
                     ToastUtil.showLong("请输入家长座机号");
                     return;
                 }
-                Address addressBean=new Address();
-                addressBean.setPcode((String)tvProvince.getTag());
-                addressBean.setPname(province);
-                addressBean.setCcode((String)tvCity.getTag());
-                addressBean.setCname(city);
-                addressBean.setAcode((String)tvArea.getTag());
-                addressBean.setAname(area);
-                addressBean.setAddress(address);
-
                 Address addressBean1=new Address();
                 addressBean1.setPcode((String)tvProvince1.getTag());
                 addressBean1.setPname(province1);
@@ -298,7 +269,7 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
                 addressBean1.setAddress(address1);
 
                 //更新个人信息
-                userP.updateUserInfo(mobile, JsonUtil.objectToString(addressBean),qq,JsonUtil.objectToString(addressBean1),landMobile,wx);
+                userP.updateUserInfo(mobile,JsonUtil.objectToString(addressBean1),qq,landMobile,wx);
                  break;
             default:
                 break;
@@ -338,7 +309,7 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
             tvCity.setTag(address.getCcode());
             tvArea.setText(address.getAname());
             tvArea.setTag(address.getAcode());
-            etAddress.setText(address.getAddress());
+            tvAddress.setText(address.getAddress());
         }
 
         /**

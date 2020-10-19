@@ -25,6 +25,8 @@ public class LogInterceptor implements Interceptor {
             request = addPostParameter(request);
         }else if(request.method().equals("PUT")){
             request = addPutParameter(request);
+        }else{
+            request = addDeleteParameter(request);
         }
         Response response = chain.proceed(request);
         long t2 = System.nanoTime();
@@ -81,6 +83,25 @@ public class LogInterceptor implements Interceptor {
     }
 
 
+    /**
+     * 传递DELETE请求的全局参数
+     * @param request
+     * @return
+     */
+    public Request addDeleteParameter(Request request){
+        LogUtils.e("参数：token="+SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN));
+        String params;
+        if(request.url().toString().contains("?")){
+            params="&ch=2&token="+SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN);
+        }else{
+            params="?ch=2&token="+SPUtil.getInstance(BaseApplication.getContext()).getString(SPUtil.TOKEN);
+        }
+        Request newRequest = request.newBuilder()
+                .method(request.method(), request.body())
+                .url(request.url()+params)
+                .build();
+        return newRequest;
+    }
 
 
     public int getCode(String json) {

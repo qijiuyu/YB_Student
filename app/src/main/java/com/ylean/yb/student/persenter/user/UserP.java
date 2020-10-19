@@ -66,9 +66,9 @@ public class UserP {
     /**
      * 修改个人信息
      */
-    public void updateUserInfo(String ucphone,String address,String qq,String residenceaddress,String uctel,String wechat){
+    public void updateUserInfo(String ucphone,String address,String qq,String uctel,String wechat){
         DialogUtil.showProgress(activity,"更新中");
-        HttpMethod.updateUserInfo(ucphone, address, qq, residenceaddress, uctel, wechat, new NetCallBack() {
+        HttpMethod.updateUserInfo(ucphone, address, qq, uctel, wechat, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
                 final BaseBean baseBean= (BaseBean) object;
