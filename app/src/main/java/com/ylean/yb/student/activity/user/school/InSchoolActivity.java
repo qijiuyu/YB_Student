@@ -55,6 +55,7 @@ public class InSchoolActivity extends BaseActivity implements MyRefreshLayoutLis
         inSchoolP=new InSchoolP(this,this);
 
         reList.setMyRefreshLayoutListener(this);
+        listView.setDivider(null);
         listView.setAdapter(adapter=new InSchoolAdapter(this,listAll));
 
         //加载数据

@@ -29,7 +29,7 @@ import butterknife.OnClick;
 /**
  * 我的
  */
-public class UserActivity extends BaseActivity implements UserP.Face {
+public class UserActivity extends BaseActivity implements UserP.Face,UserP.Face4 {
     @BindView(R.id.img_head)
     CircleImageView imgHead;
     @BindView(R.id.tv_nickName)
@@ -69,6 +69,7 @@ public class UserActivity extends BaseActivity implements UserP.Face {
         super.initData();
         userP=new UserP(this);
         userP.setFace(this);
+        userP.setFace4(this);
     }
 
 

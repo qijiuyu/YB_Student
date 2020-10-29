@@ -15,111 +15,111 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_margin="15dp"
             android:background="@drawable/bg_white"
-            android:layout_margin="15dp">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp"/>
+                android:layout_marginTop="50dp"
+                android:src="@mipmap/ic_launcher" />
 
             <TextView
                 android:id="@+id/tv_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="版本号：1.0.0"
-                android:textSize="12sp"
-                android:textColor="@color/color_333333"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:text="版本号：1.0.0"
+                android:textColor="@color/color_333333"
+                android:textSize="12sp" />
 
             <org.sufficientlysecure.htmltextview.HtmlTextView
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="15dp"/>
+                android:layout_margin="15dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/bg_rel_border"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp">
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bg_rel_border">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="客服热线"
                     android:textColor="@color/color_333333"
-                    android:textSize="14sp"
-                    android:layout_centerVertical="true"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tv_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:text="99999"
                     android:textColor="@color/color_333333"
-                    android:textSize="14sp"
-                    android:layout_centerVertical="true"/>
+                    android:textSize="14sp" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/bg_rel_border"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp">
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bg_rel_border">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="微信服务号"
                     android:textColor="@color/color_333333"
-                    android:textSize="14sp"
-                    android:layout_centerVertical="true"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tv_wx"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:text="99999"
                     android:textColor="@color/color_333333"
-                    android:textSize="14sp"
-                    android:layout_centerVertical="true"/>
+                    android:textSize="14sp" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/bg_rel_border"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp">
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bg_rel_border">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="燕宝基金会官网"
                     android:textColor="@color/color_333333"
-                    android:textSize="14sp"
-                    android:layout_centerVertical="true"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tv_url"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:text="www.yjjijin.com"
                     android:textColor="@color/color_333333"
-                    android:textSize="14sp"
-                    android:layout_centerVertical="true"/>
+                    android:textSize="14sp" />
 
             </RelativeLayout>
 
@@ -127,25 +127,25 @@
                 android:id="@+id/rel_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/bg_rel_border"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp">
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/bg_rel_border">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="意见反馈"
-                android:textColor="@color/color_333333"
-                android:textSize="14sp"
-                android:layout_centerVertical="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="意见反馈"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/more_icon"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/more_icon" />
 
             </RelativeLayout>
 

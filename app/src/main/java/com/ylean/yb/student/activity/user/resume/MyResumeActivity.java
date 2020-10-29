@@ -120,6 +120,9 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
                  finish();
                 break;
             case R.id.tv_right:
+                 if(resume==null){
+                     return;
+                 }
                  intent.setClass(this,DeliveryRecordActivity.class);
                  intent.putExtra("resumeId",resume.getId());
                  startActivity(intent);

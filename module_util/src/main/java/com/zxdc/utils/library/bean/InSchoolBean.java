@@ -19,11 +19,13 @@ public class InSchoolBean extends BaseBean {
 
         private int applyid;//申报id
         private String content;//在校情况说明
-        private String endtime;//提交结束时间
         private int id;
         private String name;//在校情况名称
-        private String starttime;//提交开始时间
-        private int status;//审核状态 2-待提交 3-已提交（待审核） 4-驳回 5-通过
+        private int checkstatus;//审核状态 0未提交（需要学生提交） 2-待提交 3-已提交（待审核） 4-驳回 5-通过
+        private String createtime;
+        private int ruleid;//在校情况规则id
+        private int schoolid;
+        private int status;//在校情况状态 未提交（0） 在校(1), 违纪(2), 休学(3),参军(4), 退学(5), 死亡(6), 其他(7)
         private int type;//提交类型 1-学校提交 2-学生提交 3-基金会提交
 
         public int getApplyid() {
@@ -42,14 +44,6 @@ public class InSchoolBean extends BaseBean {
             this.content = content;
         }
 
-        public String getEndtime() {
-            return endtime;
-        }
-
-        public void setEndtime(String endtime) {
-            this.endtime = endtime;
-        }
-
         public int getId() {
             return id;
         }
@@ -66,12 +60,36 @@ public class InSchoolBean extends BaseBean {
             this.name = name;
         }
 
-        public String getStarttime() {
-            return starttime;
+        public int getCheckstatus() {
+            return checkstatus;
         }
 
-        public void setStarttime(String starttime) {
-            this.starttime = starttime;
+        public void setCheckstatus(int checkstatus) {
+            this.checkstatus = checkstatus;
+        }
+
+        public String getCreatetime() {
+            return createtime;
+        }
+
+        public void setCreatetime(String createtime) {
+            this.createtime = createtime;
+        }
+
+        public int getRuleid() {
+            return ruleid;
+        }
+
+        public void setRuleid(int ruleid) {
+            this.ruleid = ruleid;
+        }
+
+        public int getSchoolid() {
+            return schoolid;
+        }
+
+        public void setSchoolid(int schoolid) {
+            this.schoolid = schoolid;
         }
 
         public int getStatus() {

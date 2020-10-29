@@ -169,7 +169,7 @@ public interface HttpApi {
     @GET(HttpConstant.IP+"api/user/bk/getbankhistoryinfos")
     Call<HistoryBankBean> getBankHistory();
 
-    @GET(HttpConstant.IP+"api/sys/schoolsituation/getschoolsituationlist")
+    @GET(HttpConstant.IP+"api/sys/schoolsituation/inschoollist")
     Call<InSchoolBean> getInSchoolList(@Query("page") int page, @Query("size") int size);
 
     @GET(HttpConstant.IP+"api/news/question/getvoucherlist")

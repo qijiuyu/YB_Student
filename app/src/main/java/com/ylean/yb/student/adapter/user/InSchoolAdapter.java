@@ -56,28 +56,8 @@ public class InSchoolAdapter extends BaseAdapter {
 
         final InSchoolBean.InSchool inSchool=list.get(position);
         holder.tvName.setText(inSchool.getName());
-        switch (inSchool.getStatus()){
-            case 2:
-                 holder.tvStatus.setText("待提交");
-                 holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.color_FFA000));
-                 break;
-            case 3:
-                holder.tvStatus.setText("待审核");
-                holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.color_FFA000));
-                break;
-            case 4:
-                holder.tvStatus.setText("驳回");
-                holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.color_FA4D4F));
-                break;
-            case 5:
-                holder.tvStatus.setText("通过");
-                holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.color_049640));
-                break;
-            default:
-                break;
-        }
         holder.tvContent.setText(inSchool.getContent());
-        holder.tvTime.setText("申请时间："+inSchool.getStarttime());
+        holder.tvTime.setText("申请时间："+inSchool.getCreatetime());
         switch (inSchool.getType()){
             case 1:
                  holder.tvType.setText("学校提交");
@@ -92,6 +72,56 @@ public class InSchoolAdapter extends BaseAdapter {
                 break;
         }
 
+
+        /**
+         * 学生提交的显示提交按钮
+         */
+        if(inSchool.getType()==1){
+            holder.tvSubmit.setVisibility(View.VISIBLE);
+        }else{
+            holder.tvSubmit.setVisibility(View.GONE);
+        }
+
+
+        /**
+         * 审核状态
+         */
+        switch (inSchool.getStatus()){
+            case 0:
+                holder.tvStatus.setText("未提交");
+                holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.color_007AFF));
+                holder.tvSubmit.setText("立即提交");
+                break;
+            case 2:
+                holder.tvStatus.setText("待提交");
+                holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.color_FFA000));
+                holder.tvSubmit.setText("立即提交");
+                break;
+            case 3:
+                holder.tvStatus.setText("待审核");
+                holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.color_FFA000));
+                holder.tvSubmit.setText("重新提交");
+                break;
+            case 4:
+                holder.tvStatus.setText("驳回");
+                holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.color_FA4D4F));
+                holder.tvSubmit.setText("重新提交");
+                break;
+            case 5:
+                holder.tvStatus.setText("通过");
+                holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.color_049640));
+                if(inSchool.getType()==1){
+                    holder.tvSubmit.setVisibility(View.GONE);
+                }
+                break;
+            default:
+                break;
+        }
+
+
+        /**
+         * 提交在校情况
+         */
         holder.tvSubmit.setTag(inSchool);
         holder.tvSubmit.setOnClickListener(new View.OnClickListener() {
             @Override

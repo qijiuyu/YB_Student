@@ -16,6 +16,7 @@ public class UserP {
     private Face face;
     private Face2 face2;
     private Face3 face3;
+    private Face4 face4;
 
     public UserP(Activity activity){
         this.activity=activity;
@@ -31,6 +32,10 @@ public class UserP {
 
     public void setFace3(Face3 face3){
         this.face3=face3;
+    }
+
+    public void setFace4(Face4 face4){
+        this.face4=face4;
     }
 
 
@@ -105,7 +110,7 @@ public class UserP {
                 }
                 if(activityNum.isSussess()){
 
-                    face.getOwnActivityNum(activityNum.getData());
+                    face4.getOwnActivityNum(activityNum.getData());
 
                 }else{
                     ToastUtil.showLong(activityNum.getDesc());
@@ -151,8 +156,6 @@ public class UserP {
 
     public interface Face{
         void getbaseinfo(UserInfo userInfo);
-
-        void getOwnActivityNum(ActivityNum.NumBean numBean);
     }
 
     public interface Face2{
@@ -161,5 +164,9 @@ public class UserP {
 
     public interface Face3{
         void getUserInfoByApply(UserInfo.UserBean userBean);
+    }
+
+    public interface Face4{
+        void getOwnActivityNum(ActivityNum.NumBean numBean);
     }
 }

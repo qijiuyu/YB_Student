@@ -24,6 +24,7 @@ import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.callback.TimeCallBack;
 import com.ylean.yb.student.persenter.user.MyResumeP;
 import com.ylean.yb.student.persenter.user.SettingP;
+import com.ylean.yb.student.persenter.user.UserP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.ylean.yb.student.utils.SelectTimeUtils;
 import com.ylean.yb.student.view.SelectProvince;
@@ -38,6 +39,7 @@ import com.zxdc.utils.library.bean.ProvinceCallBack;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.Salary;
+import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.bean.parameter.JobIntention;
 import com.zxdc.utils.library.bean.parameter.ResumeBase;
 import com.zxdc.utils.library.util.JsonUtil;
@@ -53,7 +55,7 @@ import butterknife.OnClick;
 /**
  * 编辑简历
  */
-public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2, SettingP.Face,MyResumeP.Face3 {
+public class EditResumeActivity extends BaseActivity implements UserP.Face,MyResumeP.Face2, SettingP.Face,MyResumeP.Face3 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_right)
@@ -556,7 +558,19 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2,
     /**
      * 展示用户基本信息
      */
+    @Override
+    public void getbaseinfo(UserInfo userInfo) {
+
+    }
+
+
+    /**
+     * 展示用户基本信息
+     */
     private void showUserBase(){
+        if(resume==null){
+            return;
+        }
         try {
             /**
              * 基本信息
@@ -719,4 +733,5 @@ public class EditResumeActivity extends BaseActivity implements MyResumeP.Face2,
     public void onSuccess() {
 
     }
+
 }
