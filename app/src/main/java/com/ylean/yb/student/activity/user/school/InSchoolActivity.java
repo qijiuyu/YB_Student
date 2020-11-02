@@ -1,5 +1,6 @@
 package com.ylean.yb.student.activity.user.school;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -111,4 +112,13 @@ public class InSchoolActivity extends BaseActivity implements MyRefreshLayoutLis
         inSchoolP.getInSchoolList(page);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1000){
+            //加载数据
+            reList.startRefresh();
+        }
+    }
 }

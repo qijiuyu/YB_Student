@@ -3,6 +3,7 @@ package com.ylean.yb.student.activity.user.apply;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
@@ -30,6 +31,8 @@ public class ApplyRecordActivity extends BaseActivity implements MyRefreshLayout
     ListView listView;
     @BindView(R.id.re_list)
     MyRefreshLayout reList;
+    @BindView(R.id.lin_no)
+    LinearLayout linNo;
     //列表适配器
     private ApplyRecordAdapter adapter;
     //页数
@@ -108,6 +111,11 @@ public class ApplyRecordActivity extends BaseActivity implements MyRefreshLayout
         adapter.notifyDataSetChanged();
         if(list.size()< HttpMethod.pageSize){
             reList.setIsLoadingMoreEnabled(false);
+        }
+        if(listAll.size()==0){
+            linNo.setVisibility(View.VISIBLE);
+        }else{
+            linNo.setVisibility(View.GONE);
         }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

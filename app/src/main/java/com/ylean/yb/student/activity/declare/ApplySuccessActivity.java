@@ -48,6 +48,10 @@ public class ApplySuccessActivity extends BaseActivity {
                  tvName.setText("您的银行卡变更申请已提交成功！");
                  tvDes.setText("基金会会尽快进行审核，请关注审核进度情况");
                  break;
+            case 在校情况:
+                tvName.setText("您的在校情况说明已提交成功！");
+                tvDes.setText("基金会会尽快进行审核，请关注审核进度情况");
+                 break;
             default:
                 break;
         }

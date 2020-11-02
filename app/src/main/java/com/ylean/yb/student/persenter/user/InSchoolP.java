@@ -53,6 +53,32 @@ public class InSchoolP {
 
 
     /**
+     * 提交在校情况说明
+     */
+    public void addInSchool(int status,String schoolreport,String descriptionfile,final String content,int ruleid){
+        DialogUtil.showProgress(activity,"数据提交中");
+        HttpMethod.addInSchool(status, schoolreport, descriptionfile, content,ruleid, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                    face2.updateSuccess();
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
+    /**
      * 编辑在校情况说明
      */
     public void updateInSchool(int did,int status,String schoolreport,String descriptionfile,final String content){

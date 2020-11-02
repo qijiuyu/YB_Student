@@ -16,6 +16,7 @@ import com.ylean.yb.student.activity.user.bank.ProgressActivity;
 import com.ylean.yb.student.activity.user.bank.UpdateBankActivity;
 import com.ylean.yb.student.activity.user.bank.ValidationActivity;
 import com.zxdc.utils.library.bean.BankBaseBean;
+import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.view.CircleImageView;
 
 import java.util.List;
@@ -176,9 +177,9 @@ public class HistoryBankAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 final BankBaseBean.BankBase bankBase= (BankBaseBean.BankBase) v.getTag();
-                Intent intent=new Intent();
+                Intent intent=new Intent(activity, ValidationActivity.class);
                 intent.putExtra("bankCode",bankBase.getBanknum());
-                intent.setClass(activity, ValidationActivity.class);
+                activity.startActivity(intent);
             }
         });
 

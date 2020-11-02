@@ -1,5 +1,6 @@
 package com.zxdc.utils.library.http;
 
+import android.os.Handler;
 import android.text.TextUtils;
 import com.zxdc.utils.library.bean.AboutBean;
 import com.zxdc.utils.library.bean.ActivityNum;
@@ -15,6 +16,7 @@ import com.zxdc.utils.library.bean.DeclareBean;
 import com.zxdc.utils.library.bean.DeclareDetailsBean;
 import com.zxdc.utils.library.bean.DeliveryBean;
 import com.zxdc.utils.library.bean.DictBean;
+import com.zxdc.utils.library.bean.DownLoad;
 import com.zxdc.utils.library.bean.EconomicBean;
 import com.zxdc.utils.library.bean.EducationBean;
 import com.zxdc.utils.library.bean.FacultyBean;
@@ -951,6 +953,30 @@ public class HttpMethod extends BaseRequst {
 
 
     /**
+     * 提交在校情况说明
+     */
+    public static void addInSchool(int status,String schoolreport,String descriptionfile, String content,int ruleid,final NetCallBack netCallBack) {
+        Map<String,String> map=new HashMap<>();
+        map.put("status",status+"");
+        map.put("schoolreport",schoolreport);
+        map.put("descriptionfile",descriptionfile);
+        map.put("content",content);
+        map.put("ruleid",String.valueOf(ruleid));
+
+        Http.getRetrofit().create(HttpApi.class).addInSchool(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
      * 编辑在校情况说明
      */
     public static void updateInSchool(int did,int status,String schoolreport,String descriptionfile,final String content,final NetCallBack netCallBack) {
@@ -1104,6 +1130,7 @@ public class HttpMethod extends BaseRequst {
      */
     public static void verBank(String num,final NetCallBack netCallBack) {
         Map<String,String> map=new HashMap<>();
+        LogUtils.e(num+"+++++++++++++++num");
         map.put("num",num);
         Http.getRetrofit().create(HttpApi.class).verBank(map).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
@@ -1341,6 +1368,23 @@ public class HttpMethod extends BaseRequst {
             public void onFailure(Call<AuditBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 文件下载
+     * @param handler
+     */
+    public static void download(final DownLoad downLoad, final Handler handler) {
+        Http.dowload(downLoad.getDownPath(), downLoad.getSavePath(),handler, new okhttp3.Callback() {
+            public void onFailure(okhttp3.Call call, IOException e) {
+            }
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                if(response.isSuccessful()){
+                    sendMessage(handler, HandlerConstant.DOWNLOAD_SUCCESS, downLoad);
+                }
             }
         });
     }

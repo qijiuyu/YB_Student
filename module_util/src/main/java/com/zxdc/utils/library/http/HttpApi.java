@@ -193,6 +193,10 @@ public interface HttpApi {
     Call<ResumeBean> getMyResume();
 
     @FormUrlEncoded
+    @POST(HttpConstant.IP+"api/sys/schoolsituation/addstudentapply")
+    Call<BaseBean> addInSchool(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
     @POST(HttpConstant.IP+"api/sys/schoolsituation/updstudentapply")
     Call<BaseBean> updateInSchool(@FieldMap Map<String, String> map);
 
