@@ -101,9 +101,9 @@ public class AddInSchoolActivity extends BaseActivity implements InSchoolP.Face2
                 imgType=2;
                 SelectPhotoUtil.SelectPhoto(this,1);
                 break;
-            //下载模板
+            //获取在校情况说明模板
             case R.id.img_template:
-                 setClass(UploadFileActivity.class);
+                inSchoolP.getSchoolTemplete();
                 break;
             case R.id.tv_submit:
                 final String status=tvStatus.getText().toString().trim();
@@ -188,6 +188,19 @@ public class AddInSchoolActivity extends BaseActivity implements InSchoolP.Face2
             }
         }
     }
+
+
+    /**
+     * 获取在校情况说明模板
+     * @param url
+     */
+    @Override
+    public void getSchoolTemplete(String url) {
+        Intent intent=new Intent(this,UploadFileActivity.class);
+        intent.putExtra("fileUrl",url);
+        startActivity(intent);
+    }
+
 
     /**
      * 更新成功

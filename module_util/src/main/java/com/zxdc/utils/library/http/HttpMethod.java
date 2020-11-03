@@ -38,6 +38,7 @@ import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.SchoolBean;
 import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
+import com.zxdc.utils.library.bean.TempleteBean;
 import com.zxdc.utils.library.bean.UploadFile;
 import com.zxdc.utils.library.bean.UploadPic;
 import com.zxdc.utils.library.bean.UserInfo;
@@ -1385,6 +1386,23 @@ public class HttpMethod extends BaseRequst {
                 if(response.isSuccessful()){
                     sendMessage(handler, HandlerConstant.DOWNLOAD_SUCCESS, downLoad);
                 }
+            }
+        });
+    }
+
+
+    /**
+     * 获取在校情况说明模板
+     */
+    public static void getSchoolTemplete(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getSchoolTemplete().enqueue(new Callback<TempleteBean>() {
+            public void onResponse(Call<TempleteBean> call, Response<TempleteBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<TempleteBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
             }
         });
     }

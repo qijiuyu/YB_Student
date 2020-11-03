@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.InSchoolBean;
 import com.zxdc.utils.library.bean.NetCallBack;
+import com.zxdc.utils.library.bean.TempleteBean;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
@@ -104,6 +105,36 @@ public class InSchoolP {
     }
 
 
+    /**
+     * 获取在校情况说明模板
+     */
+    public void getSchoolTemplete(){
+        HttpMethod.getSchoolTemplete(new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final TempleteBean templeteBean= (TempleteBean) object;
+                if(templeteBean==null){
+                    return;
+                }
+                if(templeteBean.isSussess()){
+
+                    face2.getSchoolTemplete(templeteBean.getData());
+
+                }else{
+                    ToastUtil.showLong(templeteBean.getDesc());
+                }
+
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
+
 
     public interface Face{
         void getInSchoolList(List<InSchoolBean.InSchool> list);
@@ -111,6 +142,8 @@ public class InSchoolP {
 
     public interface Face2{
         void updateSuccess();
+
+        void getSchoolTemplete(String url);
     }
 
 }

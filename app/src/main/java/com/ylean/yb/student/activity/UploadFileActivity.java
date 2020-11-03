@@ -18,7 +18,7 @@ import butterknife.OnClick;
 /**
  * 下载文件
  */
-public class UploadFileActivity extends BaseActivity {
+public class UploadFileActivity extends BaseActivity{
     @BindView(R.id.tv_progress)
     TextView tvProgress;
     @BindView(R.id.tv_content)
@@ -46,6 +46,7 @@ public class UploadFileActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        fileUrl=getIntent().getStringExtra("fileUrl");
         String[] str = fileUrl.split("/");
         savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + str[str.length - 1];
 

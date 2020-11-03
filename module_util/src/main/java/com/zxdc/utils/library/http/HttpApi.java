@@ -33,6 +33,7 @@ import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.SchoolBean;
 import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
+import com.zxdc.utils.library.bean.TempleteBean;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.bean.parameter.AddResumeEducation;
 import com.zxdc.utils.library.bean.parameter.AddSchoolHonor;
@@ -264,6 +265,9 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/sys/declare/pub/gettjinfo")
     Call<AuditBean> getAudit(@Query("did") int did);
+
+    @GET(HttpConstant.IP+"api/sys/schoolsituation/gettemplate")
+    Call<TempleteBean> getSchoolTemplete();
 
 
 }
