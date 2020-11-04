@@ -8,6 +8,7 @@ import com.zxdc.utils.library.bean.ApplyBean;
 import com.zxdc.utils.library.bean.AuditBean;
 import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.bean.BankProgress;
+import com.zxdc.utils.library.bean.BannerBean;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
@@ -16,6 +17,7 @@ import com.zxdc.utils.library.bean.DeclareBean;
 import com.zxdc.utils.library.bean.DeclareDetailsBean;
 import com.zxdc.utils.library.bean.DeliveryBean;
 import com.zxdc.utils.library.bean.DictBean;
+import com.zxdc.utils.library.bean.DonationBean;
 import com.zxdc.utils.library.bean.DownLoad;
 import com.zxdc.utils.library.bean.EconomicBean;
 import com.zxdc.utils.library.bean.EducationBean;
@@ -30,6 +32,9 @@ import com.zxdc.utils.library.bean.LeaveBean;
 import com.zxdc.utils.library.bean.LeaveDetailsBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.NewsBean;
+import com.zxdc.utils.library.bean.NewsDetailsBean;
+import com.zxdc.utils.library.bean.NewsListBean;
+import com.zxdc.utils.library.bean.NewsTitleBean;
 import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.Register;
@@ -1401,6 +1406,94 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<TempleteBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
+     * 获取Banner列表信息
+     * 所在页面 0 首页banner 1 交流合作banner 2 爱心社banner 可按顺序增加
+     */
+    public static void getBanner(int pageindex,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getBanner(pageindex).enqueue(new Callback<BannerBean>() {
+            public void onResponse(Call<BannerBean> call, Response<BannerBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BannerBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取网站新闻标题列表
+     * 网站导航类型 201 机构文化 202 捐赠项目 203 合作交流 204 燕宝人 205 基金会动态
+     */
+    public static void getNewsTitle(int ctype,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getNewsTitle(ctype).enqueue(new Callback<NewsTitleBean>() {
+            public void onResponse(Call<NewsTitleBean> call, Response<NewsTitleBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<NewsTitleBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取网站新闻详细
+     */
+    public static void getNewsDetails(int id,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getNewsDetails(id).enqueue(new Callback<NewsDetailsBean>() {
+            public void onResponse(Call<NewsDetailsBean> call, Response<NewsDetailsBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<NewsDetailsBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取网站项目捐赠列表
+     */
+    public static void getDonation(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getDonation().enqueue(new Callback<DonationBean>() {
+            public void onResponse(Call<DonationBean> call, Response<DonationBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<DonationBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取网站新闻列表
+     */
+    public static void getNewsList(int cid,int ctype,int page,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getNewsList(cid,ctype,page,pageSize).enqueue(new Callback<NewsListBean>() {
+            public void onResponse(Call<NewsListBean> call, Response<NewsListBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<NewsListBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

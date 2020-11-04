@@ -38,7 +38,7 @@ public class MyRefreshLayout extends BGARefreshLayout {
             @Override
             public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
                 if (mListener != null) {
-                    setIsLoadingMoreEnabled(true);
+//                    setIsLoadingMoreEnabled(true);
                     mListener.onRefresh(refreshLayout);
                 }
             }

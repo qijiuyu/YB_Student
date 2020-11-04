@@ -12,20 +12,20 @@ import com.ylean.yb.student.adapter.main.MainDTAdapter;
 import com.ylean.yb.student.adapter.main.MainJLAdapter;
 import com.ylean.yb.student.adapter.main.MainJZAdapter;
 import com.ylean.yb.student.base.BaseFragment;
+import com.ylean.yb.student.persenter.main.BannerP;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
-import java.util.ArrayList;
+import com.zxdc.utils.library.bean.BannerBean;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2020/3/29.
  */
-public class MainFragment extends BaseFragment {
+public class MainFragment extends BaseFragment implements BannerP.Face {
 
 
     @BindView(R.id.banner)
@@ -36,6 +36,8 @@ public class MainFragment extends BaseFragment {
     RecyclerView listJz;
     @BindView(R.id.list_dt)
     RecyclerView listDt;
+
+    private BannerP bannerP;
 
     /**
      * 加载布局
@@ -54,12 +56,14 @@ public class MainFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
+        bannerP=new BannerP(activity,this);
 
-        showBanner();
+        //获取Banner列表信息
+        bannerP.getBanner(0);
 
 
         listJl.setLayoutManager(new GridLayoutManager(activity, 2));
-        listJl.setAdapter(new MainJLAdapter(activity));
+//        listJl.setAdapter(new MainJLAdapter(activity));
 
 
         listJz.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
@@ -94,13 +98,14 @@ public class MainFragment extends BaseFragment {
 
 
     /**
-     * 显示轮播图
+     * 获取banner图
+     * @param list
      */
-    private void showBanner(){
-        List<String> list=new ArrayList<>();
-        list.add("http://app2020ad.dyrs.com.cn/upload/image/20200910/e0792e45-ae58-4e29-8f26-8f7f32ed3454.jpg");
-        list.add("http://app2020ad.dyrs.com.cn/upload/image/20200910/e0792e45-ae58-4e29-8f26-8f7f32ed3454.jpg");
-        list.add("http://app2020ad.dyrs.com.cn/upload/image/20200910/e0792e45-ae58-4e29-8f26-8f7f32ed3454.jpg");
+    @Override
+    public void getBanner(List<BannerBean.ListBean> list) {
+        if(list==null){
+            return;
+        }
         try {
             banner.setVisibility(View.VISIBLE);
             //设置样式，里面有很多种样式可以自己都看看效果
@@ -122,12 +127,13 @@ public class MainFragment extends BaseFragment {
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
 
+    }
 
     public class ABImageLoader extends ImageLoader {
         public void displayImage(Context context, Object path, ImageView imageView) {
-            Glide.with(context).load((String)path).into(imageView);
+            final BannerBean.ListBean listBean= (BannerBean.ListBean) path;
+            Glide.with(context).load(listBean.getImgurl()).into(imageView);
         }
     }
 }

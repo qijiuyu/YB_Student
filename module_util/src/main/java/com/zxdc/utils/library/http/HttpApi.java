@@ -7,10 +7,15 @@ import com.zxdc.utils.library.bean.ApplyBean;
 import com.zxdc.utils.library.bean.AuditBean;
 import com.zxdc.utils.library.bean.BankBaseBean;
 import com.zxdc.utils.library.bean.BankProgress;
+import com.zxdc.utils.library.bean.BannerBean;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
 import com.zxdc.utils.library.bean.CollMoneyBean;
+import com.zxdc.utils.library.bean.DonationBean;
+import com.zxdc.utils.library.bean.NewsDetailsBean;
+import com.zxdc.utils.library.bean.NewsListBean;
+import com.zxdc.utils.library.bean.NewsTitleBean;
 import com.zxdc.utils.library.bean.DeclareBean;
 import com.zxdc.utils.library.bean.DeclareDetailsBean;
 import com.zxdc.utils.library.bean.DeliveryBean;
@@ -44,18 +49,15 @@ import com.zxdc.utils.library.bean.parameter.JobIntention;
 import com.zxdc.utils.library.bean.parameter.Position;
 import com.zxdc.utils.library.bean.parameter.ResumeBase;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
-import com.zxdc.utils.library.util.SPUtil;
 
 import java.util.Map;
 
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -269,5 +271,19 @@ public interface HttpApi {
     @GET(HttpConstant.IP+"api/sys/schoolsituation/gettemplate")
     Call<TempleteBean> getSchoolTemplete();
 
+    @GET(HttpConstant.IP+"api/news/banner/getList")
+    Call<BannerBean> getBanner(@Query("pageindex") int pageindex);
+
+    @GET(HttpConstant.IP+"api/news/web/newsclass/getlist")
+    Call<NewsTitleBean> getNewsTitle(@Query("ctype") int ctype);
+
+    @GET(HttpConstant.IP+"api/news/web/news/getdetailed")
+    Call<NewsDetailsBean> getNewsDetails(@Query("id") int id);
+
+    @GET(HttpConstant.IP+"api/news/web/donation/getlist")
+    Call<DonationBean> getDonation();
+
+    @GET(HttpConstant.IP+"api/news/web/news/getlist")
+    Call<NewsListBean> getNewsList(@Query("cid") int cid,@Query("ctype") int ctype,@Query("page") int page,@Query("size") int size);
 
 }
