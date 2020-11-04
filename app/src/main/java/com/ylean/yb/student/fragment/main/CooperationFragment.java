@@ -16,7 +16,7 @@ import butterknife.BindView;
 /**
  * 交流合作
  */
-public class CooperationFragment extends BaseFragment  implements CultrueP.Face {
+public class CooperationFragment extends BaseFragment implements CultrueP.Face {
 
     @BindView(R.id.listView)
     RecyclerView listView;

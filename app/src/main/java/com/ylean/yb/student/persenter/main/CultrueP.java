@@ -5,8 +5,10 @@ import android.app.Activity;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.NewsDetailsBean;
 import com.zxdc.utils.library.bean.NewsListBean;
+import com.zxdc.utils.library.bean.NewsSingle;
 import com.zxdc.utils.library.bean.NewsTitleBean;
 import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class CultrueP {
     private Face face;
     private Face2 face2;
     private Face3 face3;
+    private Face4 face4;
 
     public CultrueP(Activity activity){
         this.activity=activity;
@@ -31,6 +34,10 @@ public class CultrueP {
 
     public void setFace3(Face3 face3){
         this.face3=face3;
+    }
+
+    public void setFace4(Face4 face4){
+        this.face4=face4;
     }
 
 
@@ -67,6 +74,7 @@ public class CultrueP {
      * 获取网站新闻详细
      */
     public void getNewsDetails(int id){
+        DialogUtil.showProgress(activity,"数据加载中");
         HttpMethod.getNewsDetails(id, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
@@ -79,7 +87,7 @@ public class CultrueP {
                     face2.getNewsDetails(newsDetailsBean.getData());
 
                 }else{
-
+                    ToastUtil.showLong(newsDetailsBean.getDesc());
                 }
             }
 
@@ -119,6 +127,34 @@ public class CultrueP {
     }
 
 
+    /**
+     * 获取网站新闻单页
+     */
+    public void getNewsSingle(int cid,int ctype){
+        HttpMethod.getNewsSingle(cid, ctype, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final NewsSingle newsSingle= (NewsSingle) object;
+                if(newsSingle==null){
+                    return;
+                }
+                if(newsSingle.isSussess()){
+
+                    face4.getNewsSingle(newsSingle.getData());
+
+                }else{
+                    ToastUtil.showLong(newsSingle.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
 
     public interface Face{
         void getNewsTitle(List<NewsTitleBean.ListBean> list);
@@ -130,6 +166,10 @@ public class CultrueP {
 
     public interface Face3{
         void getNewsList(List<NewsListBean.ListBean> list);
+    }
+
+    public interface Face4{
+        void getNewsSingle(NewsSingle.Single single);
     }
 
 }

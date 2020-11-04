@@ -34,6 +34,7 @@ import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.NewsDetailsBean;
 import com.zxdc.utils.library.bean.NewsListBean;
+import com.zxdc.utils.library.bean.NewsSingle;
 import com.zxdc.utils.library.bean.NewsTitleBean;
 import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.ProvinceBean;
@@ -1494,6 +1495,23 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<NewsListBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取网站新闻单页
+     */
+    public static void getNewsSingle(int cid,int ctype,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getNewsSingle(cid,ctype).enqueue(new Callback<NewsSingle>() {
+            public void onResponse(Call<NewsSingle> call, Response<NewsSingle> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<NewsSingle> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

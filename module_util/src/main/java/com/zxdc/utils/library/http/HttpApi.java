@@ -15,6 +15,7 @@ import com.zxdc.utils.library.bean.CollMoneyBean;
 import com.zxdc.utils.library.bean.DonationBean;
 import com.zxdc.utils.library.bean.NewsDetailsBean;
 import com.zxdc.utils.library.bean.NewsListBean;
+import com.zxdc.utils.library.bean.NewsSingle;
 import com.zxdc.utils.library.bean.NewsTitleBean;
 import com.zxdc.utils.library.bean.DeclareBean;
 import com.zxdc.utils.library.bean.DeclareDetailsBean;
@@ -285,5 +286,8 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/news/web/news/getlist")
     Call<NewsListBean> getNewsList(@Query("cid") int cid,@Query("ctype") int ctype,@Query("page") int page,@Query("size") int size);
+
+    @GET(HttpConstant.IP+"api/news/web/news/getsingle")
+    Call<NewsSingle> getNewsSingle(@Query("cid") int cid,@Query("ctype") int ctype);
 
 }

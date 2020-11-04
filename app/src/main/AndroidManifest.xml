@@ -129,6 +129,7 @@
         <activity android:name=".activity.love.LoveOtherActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.ShareActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.UploadFileActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.main.NewsDetailsActivity"  android:screenOrientation="portrait"/>
 
 
 

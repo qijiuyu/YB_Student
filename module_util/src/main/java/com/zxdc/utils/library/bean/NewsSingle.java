@@ -2,29 +2,30 @@ package com.zxdc.utils.library.bean;
 
 import java.io.Serializable;
 
-public class NewsDetailsBean extends BaseBean {
+public class NewsSingle extends BaseBean {
 
-    private DetailsBean data;
+    private Single data;
 
-    public DetailsBean getData() {
+    public Single getData() {
         return data;
     }
 
-    public void setData(DetailsBean data) {
+    public void setData(Single data) {
         this.data = data;
     }
 
-    public static class DetailsBean implements Serializable{
+    public static class Single implements Serializable{
+        private int id;
         private String title;
         private String content;
-        private String createtime;
+        private String subtitle;
 
-        public String getCreatetime() {
-            return createtime;
+        public int getId() {
+            return id;
         }
 
-        public void setCreatetime(String createtime) {
-            this.createtime = createtime;
+        public void setId(int id) {
+            this.id = id;
         }
 
         public String getTitle() {
@@ -41,6 +42,14 @@ public class NewsDetailsBean extends BaseBean {
 
         public void setContent(String content) {
             this.content = content;
+        }
+
+        public String getSubtitle() {
+            return subtitle;
+        }
+
+        public void setSubtitle(String subtitle) {
+            this.subtitle = subtitle;
         }
     }
 }

@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#f9f9f9"
     android:orientation="vertical">
 
+    <include layout="@layout/head"/>
+
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minHeight="50dp"
@@ -16,8 +18,18 @@
         android:textSize="16sp"
         android:textColor="@android:color/black"
         android:textStyle="bold"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="13sp"
+        android:textColor="@color/color_666666"/>
 
     <org.sufficientlysecure.htmltextview.HtmlTextView
         android:id="@+id/tv_content"
@@ -25,6 +37,8 @@
         android:layout_height="match_parent"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
         android:textAppearance="@android:style/TextAppearance.Small"/>
+
 
 </LinearLayout>

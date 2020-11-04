@@ -6,17 +6,21 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseFragment;
 import com.ylean.yb.student.persenter.main.CultrueP;
 import com.zxdc.utils.library.bean.NewsDetailsBean;
+import com.zxdc.utils.library.bean.NewsSingle;
+
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 import butterknife.BindView;
 
 /**
  * 机构文化子页面
  */
-public class CultureChildFragment extends BaseFragment implements CultrueP.Face2 {
+public class CultureChildFragment extends BaseFragment implements CultrueP.Face4 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.webview)
-    WebView webview;
+    @BindView(R.id.tv_content)
+    HtmlTextView tvContent;
     //id
     private int id;
 
@@ -39,14 +43,11 @@ public class CultureChildFragment extends BaseFragment implements CultrueP.Face2
     protected void initData() {
         super.initData();
         cultrueP=new CultrueP(activity);
-        cultrueP.setFace2(this);
-
-        //初始化webview
-        initWebView(webview);
+        cultrueP.setFace4(this);
 
         //获取网站新闻详细
         if(isVisibleToUser && view!=null){
-            cultrueP.getNewsDetails(id);
+            cultrueP.getNewsSingle(id,201);
         }
     }
 
@@ -66,20 +67,20 @@ public class CultureChildFragment extends BaseFragment implements CultrueP.Face2
 
         //获取网站新闻详细
         if(isVisibleToUser && view!=null){
-            cultrueP.getNewsDetails(id);
+            cultrueP.getNewsSingle(id,201);
         }
     }
 
     /**
-     * 获取网站新闻详细
-     * @param detailsBean
+     * 获取网站新闻单页
+     * @param single
      */
     @Override
-    public void getNewsDetails(NewsDetailsBean.DetailsBean detailsBean) {
-        if(detailsBean==null){
+    public void getNewsSingle(NewsSingle.Single single) {
+        if(single==null){
             return;
         }
-        tvTitle.setText(detailsBean.getTitle());
-        webview.loadDataWithBaseURL(null, detailsBean.getContent(), "text/html", "utf-8", null);
+        tvTitle.setText(single.getTitle());
+        tvContent.setHtml(single.getContent(), new HtmlHttpImageGetter(tvContent));
     }
 }
