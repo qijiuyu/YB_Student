@@ -80,9 +80,6 @@ public class CultrueFragment extends BaseFragment implements CultrueP.Face {
             return;
         }
         this.listAll.addAll(list);
-        this.listAll.addAll(list);
-        this.listAll.addAll(list);
-        this.listAll.addAll(list);
 
         /**
          * 显示标题
