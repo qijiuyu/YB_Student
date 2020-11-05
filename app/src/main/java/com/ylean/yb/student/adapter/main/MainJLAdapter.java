@@ -47,7 +47,9 @@ public class MainJLAdapter extends RecyclerView.Adapter<MainJLAdapter.MyHolder> 
             }
         }
         holder.tvContent.setText(listBean.getSubtitle());
-        holder.tvTime.setText(listBean.getCreatetime());
+        if(!TextUtils.isEmpty(listBean.getCreatetime())){
+            holder.tvTime.setText(listBean.getCreatetime().split(" ")[0]);
+        }
         holder.tvLookNum.setText(String.valueOf(listBean.getYcount()));
 
         /**

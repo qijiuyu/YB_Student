@@ -46,6 +46,8 @@
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@mipmap/time_icon"
                 android:text="2019.02.15"
                 android:textSize="12sp"
                 android:textColor="@color/color_666666"/>

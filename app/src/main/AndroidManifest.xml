@@ -57,15 +57,15 @@
             android:value="portrait|landscape" />
 
 
-        <activity android:name=".activity.init.WelcomeActivity">
+        <activity android:name=".activity.TabActivity"  android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.init.GuideActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.TabActivity"  android:screenOrientation="portrait"   android:launchMode="singleTask"/>
+        <!--<activity android:name=".activity.init.GuideActivity"  android:screenOrientation="portrait"/>-->
+        <!--<activity android:name=".activity.TabActivity"  android:screenOrientation="portrait"   android:launchMode="singleTask"/>-->
         <activity android:name=".activity.main.MainActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.declare.DeclareActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.love.LoveActivity"  android:screenOrientation="portrait"/>

@@ -92,7 +92,7 @@ public class InSchoolAdapter extends BaseAdapter {
         /**
          * 审核状态
          */
-        switch (inSchool.getStatus()){
+        switch (inSchool.getCheckstatus()){
             case 0:
                 holder.tvStatus.setText("未提交");
                 holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.color_007AFF));

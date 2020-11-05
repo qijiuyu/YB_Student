@@ -13,6 +13,7 @@ import com.zxdc.utils.library.bean.BatchBean;
 import com.zxdc.utils.library.bean.BatchDetails;
 import com.zxdc.utils.library.bean.CollMoneyBean;
 import com.zxdc.utils.library.bean.DonationBean;
+import com.zxdc.utils.library.bean.InSchoolDetailsBean;
 import com.zxdc.utils.library.bean.NewsDetailsBean;
 import com.zxdc.utils.library.bean.NewsListBean;
 import com.zxdc.utils.library.bean.NewsSingle;
@@ -297,5 +298,8 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/news/web/news/getindexlist")
     Call<NewsListBean> getMainNews(@Query("ctype") int ctype,@Query("top") int top);
+
+    @GET(HttpConstant.IP+"api/sys/schoolsituation/student/getapplydetail")
+    Call<InSchoolDetailsBean> getInSchoolDetails(@Query("did") int did);
 
 }

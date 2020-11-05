@@ -23,7 +23,7 @@ public class MainP {
     /**
      * 获取网站首页新闻列表
      */
-    public void getMainNews(int ctype,int top){
+    public void getMainNews(final int ctype, int top){
         HttpMethod.getMainNews(ctype, top, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
@@ -33,7 +33,7 @@ public class MainP {
                 }
                 if(newsListBean.isSussess()){
 
-                    face.getMainNews(newsListBean.getData());
+                    face.getMainNews(newsListBean.getData(),ctype);
 
                 }else{
                     ToastUtil.showLong(newsListBean.getDesc());
@@ -49,6 +49,6 @@ public class MainP {
 
 
     public interface Face{
-        void getMainNews(List<NewsListBean.ListBean> list);
+        void getMainNews(List<NewsListBean.ListBean> list,int ctype);
     }
 }

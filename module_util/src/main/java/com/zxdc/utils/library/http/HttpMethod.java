@@ -27,6 +27,7 @@ import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.bean.HistoryBankBean;
 import com.zxdc.utils.library.bean.InSchoolBean;
+import com.zxdc.utils.library.bean.InSchoolDetailsBean;
 import com.zxdc.utils.library.bean.IssueRecordBean;
 import com.zxdc.utils.library.bean.LeaveBean;
 import com.zxdc.utils.library.bean.LeaveDetailsBean;
@@ -995,6 +996,7 @@ public class HttpMethod extends BaseRequst {
      */
     public static void updateInSchool(int did,int status,String schoolreport,String descriptionfile,final String content,final NetCallBack netCallBack) {
         Map<String,String> map=new HashMap<>();
+        LogUtils.e(did+"+++++++++"+status+"+++++"+schoolreport+"++++++"+descriptionfile+"++++++"+content);
         map.put("did",did+"");
         map.put("status",status+"");
         map.put("schoolreport",schoolreport);
@@ -1553,6 +1555,23 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<NewsListBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 查看在校情况提交的详情
+     */
+    public static void getInSchoolDetails(int did,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getInSchoolDetails(did).enqueue(new Callback<InSchoolDetailsBean>() {
+            public void onResponse(Call<InSchoolDetailsBean> call, Response<InSchoolDetailsBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<InSchoolDetailsBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

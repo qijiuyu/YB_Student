@@ -21,6 +21,7 @@ import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.ylean.yb.student.view.SelectInSchoolStatusView;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.InSchoolBean;
+import com.zxdc.utils.library.bean.InSchoolDetailsBean;
 import com.zxdc.utils.library.util.ToastUtil;
 
 import java.io.File;
@@ -77,10 +78,18 @@ public class AddInSchoolActivity extends BaseActivity implements InSchoolP.Face2
         tvTitle.setText("在校情况说明");
 
         inSchool= (InSchoolBean.InSchool) getIntent().getSerializableExtra("inSchool");
-        if(inSchool!=null){
-            tvName.setText(inSchool.getName());
-            tvContent.setText(inSchool.getContent());
+        if(inSchool==null){
+            return;
         }
+        tvName.setText(inSchool.getName());
+        tvContent.setText(inSchool.getContent());
+
+        /**
+         * 状态为4，表示要重新提交
+         */
+//        if(inSchool.getCheckstatus()==4){
+            inSchoolP.getInSchoolDetails(inSchool.getApplyid());
+//        }
     }
 
     @OnClick({R.id.lin_back, R.id.tv_status, R.id.img_results, R.id.img_inSchool, R.id.img_template, R.id.tv_submit})
@@ -125,7 +134,7 @@ public class AddInSchoolActivity extends BaseActivity implements InSchoolP.Face2
                     return;
                 }
                 if(inSchool.getCheckstatus()==4){
-                    inSchoolP.updateInSchool(inSchool.getId(),(int)tvStatus.getTag(),schoolreport,descriptionfile,remark);
+                    inSchoolP.updateInSchool(inSchool.getApplyid(),(int)tvStatus.getTag(),schoolreport,descriptionfile,remark);
                 }else{
                     inSchoolP.addInSchool((int)tvStatus.getTag(),schoolreport,descriptionfile,remark,inSchool.getRuleid());
                 }
@@ -191,11 +200,60 @@ public class AddInSchoolActivity extends BaseActivity implements InSchoolP.Face2
 
 
     /**
+     * 查看在校情况提交的详情
+     * @param detailsBean
+     */
+    @Override
+    public void getInSchoolDetails(InSchoolDetailsBean.DetailsBean detailsBean) {
+        if(detailsBean==null){
+            return;
+        }
+        switch (detailsBean.getStatus()){
+            case 1:
+                 tvStatus.setText("在校");
+                 break;
+            case 2:
+                tvStatus.setText("违纪");
+                break;
+            case 3:
+                tvStatus.setText("休学");
+                break;
+            case 4:
+                tvStatus.setText("参军");
+                break;
+            case 5:
+                tvStatus.setText("退学");
+                break;
+            case 6:
+                tvStatus.setText("死亡");
+                break;
+            case 7:
+                tvStatus.setText("其他");
+                break;
+            default:
+                break;
+        }
+        tvStatus.setTag(detailsBean.getStatus());
+        //成绩单
+        schoolreport=detailsBean.getSchoolreport();
+        Glide.with(this).load(schoolreport).into(imgResults);
+        //说明文件
+        descriptionfile=detailsBean.getDescriptionfile();
+        Glide.with(this).load(descriptionfile).into(imgInSchool);
+
+        etRemark.setText(detailsBean.getContent());
+    }
+
+
+    /**
      * 获取在校情况说明模板
      * @param url
      */
     @Override
     public void getSchoolTemplete(String url) {
+        if(TextUtils.isEmpty(url)){
+            return;
+        }
         Intent intent=new Intent(this,UploadFileActivity.class);
         intent.putExtra("fileUrl",url);
         startActivity(intent);

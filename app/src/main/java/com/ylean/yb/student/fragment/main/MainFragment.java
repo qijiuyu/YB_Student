@@ -1,6 +1,7 @@
 package com.ylean.yb.student.fragment.main;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.main.MainActivity;
 import com.ylean.yb.student.adapter.main.MainDTAdapter;
+import com.ylean.yb.student.adapter.main.MainJLAdapter;
 import com.ylean.yb.student.adapter.main.MainJZAdapter;
 import com.ylean.yb.student.base.BaseFragment;
 import com.ylean.yb.student.persenter.main.BannerP;
@@ -71,15 +73,11 @@ public class MainFragment extends BaseFragment implements BannerP.Face, Donation
         //获取网站项目捐赠列表
         donationP.getDonation();
 
+        //获取交流合作数据
+        mainP.getMainNews(203,4);
+
         //获取首页动态数据
         mainP.getMainNews(205,6);
-
-
-//        listJl.setLayoutManager(new GridLayoutManager(activity, 2));
-//        listJl.setAdapter(new MainJLAdapter(activity));
-
-
-
 
     }
 
@@ -165,8 +163,13 @@ public class MainFragment extends BaseFragment implements BannerP.Face, Donation
      * @param list
      */
     @Override
-    public void getMainNews(List<NewsListBean.ListBean> list) {
-        listDt.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        listDt.setAdapter(new MainDTAdapter(activity,list));
+    public void getMainNews(List<NewsListBean.ListBean> list,int ctype) {
+        if(ctype==203){
+            listJl.setLayoutManager(new GridLayoutManager(activity, 2));
+            listJl.setAdapter(new MainJLAdapter(activity,list));
+        }else{
+            listDt.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+            listDt.setAdapter(new MainDTAdapter(activity,list));
+        }
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.InSchoolBean;
+import com.zxdc.utils.library.bean.InSchoolDetailsBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.TempleteBean;
 import com.zxdc.utils.library.http.HttpMethod;
@@ -42,6 +43,35 @@ public class InSchoolP {
 
                 }else{
                     ToastUtil.showLong(inSchoolBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
+    /**
+     * 查看在校情况提交的详情
+     */
+    public void getInSchoolDetails(int did){
+        DialogUtil.showProgress(activity,"查询中");
+        HttpMethod.getInSchoolDetails(did, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final InSchoolDetailsBean inSchoolDetailsBean= (InSchoolDetailsBean) object;
+                if(inSchoolDetailsBean==null){
+                    return;
+                }
+                if(inSchoolDetailsBean.isSussess()){
+
+                    face2.getInSchoolDetails(inSchoolDetailsBean.getData());
+
+                }else{
+                    ToastUtil.showLong(inSchoolDetailsBean.getDesc());
                 }
             }
 
@@ -141,6 +171,9 @@ public class InSchoolP {
     }
 
     public interface Face2{
+
+        void getInSchoolDetails(InSchoolDetailsBean.DetailsBean detailsBean);
+
         void updateSuccess();
 
         void getSchoolTemplete(String url);
