@@ -1518,4 +1518,21 @@ public class HttpMethod extends BaseRequst {
         });
     }
 
+
+    /**
+     * 获取网站首页新闻列表
+     */
+    public static void getMainNews(int ctype,int top,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getMainNews(ctype,top).enqueue(new Callback<NewsListBean>() {
+            public void onResponse(Call<NewsListBean> call, Response<NewsListBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<NewsListBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
 }

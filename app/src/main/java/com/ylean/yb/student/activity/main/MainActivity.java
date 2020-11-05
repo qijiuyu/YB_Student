@@ -48,4 +48,9 @@ public class MainActivity extends BaseActivity {
         tab.setShouldExpand(true);
         tab.setSelectedTextColorResource(R.color.color_FA4D4F);
     }
+
+
+    public void updatePager(int position){
+        viewPager.setCurrentItem(position);
+    }
 }

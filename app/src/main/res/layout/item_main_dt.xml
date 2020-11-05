@@ -45,6 +45,8 @@
                 android:layout_height="wrap_content"
                 android:text="2019.02.15"
                 android:textSize="12sp"
+                android:drawableLeft="@mipmap/time_icon"
+                android:drawablePadding="5dp"
                 android:textColor="@color/color_666666"/>
 
             <TextView

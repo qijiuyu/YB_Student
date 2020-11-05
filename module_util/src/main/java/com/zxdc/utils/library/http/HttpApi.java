@@ -290,4 +290,7 @@ public interface HttpApi {
     @GET(HttpConstant.IP+"api/news/web/news/getsingle")
     Call<NewsSingle> getNewsSingle(@Query("cid") int cid,@Query("ctype") int ctype);
 
+    @GET(HttpConstant.IP+"api/news/web/news/getindexlist")
+    Call<NewsListBean> getMainNews(@Query("ctype") int ctype,@Query("top") int top);
+
 }
