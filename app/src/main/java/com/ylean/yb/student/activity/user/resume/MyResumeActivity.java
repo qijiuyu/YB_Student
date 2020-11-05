@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -82,6 +83,8 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
     MeasureListView listSpecialty;
     @BindView(R.id.list_certificate)
     MeasureListView listCertificate;
+    @BindView(R.id.img_file)
+    ImageView imgFile;
     //简历对象
     private ResumeBean.Resume resume;
 
@@ -238,6 +241,11 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
 
             //证书
             listCertificate.setAdapter(new MyCertificateAdapter(this,resume.getCertificatesList()));
+
+            //附件
+            if(!TextUtils.isEmpty(resume.getEnclosure())){
+                Glide.with(this).load(resume.getEnclosure()).into(imgFile);
+            }
 
             new Handler().postDelayed(new Runnable() {
                 @Override

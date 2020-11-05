@@ -281,4 +281,19 @@ public class Util extends ClassLoader {
         }
         return resultStr;
     }
+
+    /**
+     * 验证邮箱格式
+     * @param email
+     * @return
+     */
+    public static boolean judegEmail(String email){
+        Pattern pattern = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
+        Matcher m =pattern.matcher(email);
+        if (m.matches()) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

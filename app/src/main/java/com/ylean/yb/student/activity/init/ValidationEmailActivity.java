@@ -3,6 +3,7 @@ package com.ylean.yb.student.activity.init;
 import android.content.Intent;
 import android.os.Handler;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,6 +11,8 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.SendCodeP;
 import com.zxdc.utils.library.bean.ForgetPwd;
+import com.zxdc.utils.library.util.ToastUtil;
+
 import java.util.Timer;
 import java.util.TimerTask;
 import butterknife.BindView;
@@ -83,6 +86,10 @@ public class ValidationEmailActivity extends BaseActivity implements SendCodeP.F
                 break;
             //下一步
             case R.id.tv_submit:
+                if(TextUtils.isEmpty(code)){
+                    ToastUtil.showLong("请输入邮箱验证码");
+                    return;
+                }
                 Intent intent=new Intent(this,ValidationSuccessActivity.class);
                 intent.putExtra("idnum",idnum);
                 intent.putExtra("code",code);

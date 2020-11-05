@@ -141,7 +141,7 @@
                 android:id="@+id/tv_look_audit"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="审核记录"
+                android:text="查看审核记录"
                 android:textColor="#F71016"
                 android:textSize="14sp"
                 android:drawableRight="@mipmap/red_next"

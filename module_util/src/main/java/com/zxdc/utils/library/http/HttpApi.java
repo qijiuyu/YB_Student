@@ -40,6 +40,7 @@ import com.zxdc.utils.library.bean.SchoolBean;
 import com.zxdc.utils.library.bean.SurveyBean;
 import com.zxdc.utils.library.bean.SurveyDetails;
 import com.zxdc.utils.library.bean.TempleteBean;
+import com.zxdc.utils.library.bean.UploadResumeFile;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.bean.parameter.AddResumeEducation;
 import com.zxdc.utils.library.bean.parameter.AddSchoolHonor;
@@ -53,6 +54,7 @@ import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 
 import java.util.Map;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -194,7 +196,7 @@ public interface HttpApi {
     Call<BaseBean> deleteEducation(@Query("id") int id);
 
     @GET(HttpConstant.IP+"api/syn/resumeInfo/getResumeInfoByToken")
-    Call<ResumeBean> getMyResume();
+    Call<ResponseBody> getMyResume();
 
     @FormUrlEncoded
     @POST(HttpConstant.IP+"api/sys/schoolsituation/addstudentapply")
@@ -215,6 +217,9 @@ public interface HttpApi {
 
     @POST(HttpConstant.IP+"api/syn/resumeInfo/saveOrUpdateSpeciality")
     Call<BaseBean> saveOrUpdateSpeciality(@Body AddSpecialtyP addSpecialtyP);
+
+    @POST(HttpConstant.IP+"api/syn/resumeInfo/saveOrUpdateEnclosure")
+    Call<BaseBean> uploadResumeFile(@Body UploadResumeFile uploadResumeFile);
 
     @POST(HttpConstant.IP+"api/syn/positionType/findPostionTypeByPage")
     Call<ResumePostion> getResumePostion(@Body Position position);

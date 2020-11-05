@@ -42,7 +42,6 @@ public class ValidationActivity extends BaseActivity implements ForgetPwdP.Face 
     protected void initData() {
         super.initData();
         tvTitle.setText("账号验证");
-        etCard.setText("37292419930212062X");
     }
 
     @OnClick({R.id.lin_back, R.id.tv_next})
@@ -55,6 +54,10 @@ public class ValidationActivity extends BaseActivity implements ForgetPwdP.Face 
                 final String card=etCard.getText().toString().trim();
                 if(TextUtils.isEmpty(card)){
                     ToastUtil.showLong("请输入身份证号码");
+                    return;
+                }
+                if(card.length()<18){
+                    ToastUtil.showLong("请输入正确的身份证号");
                     return;
                 }
                 forgetPwdP.findfirstpwd(card);

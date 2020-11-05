@@ -1,10 +1,11 @@
 package com.ylean.yb.student.persenter.user;
 
 import android.app.Activity;
-
+import android.text.TextUtils;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.bean.ResumeBean;
+import com.zxdc.utils.library.bean.UploadResumeFile;
 import com.zxdc.utils.library.bean.parameter.AddResumeEducation;
 import com.zxdc.utils.library.bean.parameter.AddSchoolHonor;
 import com.zxdc.utils.library.bean.parameter.AddSchoolPosition;
@@ -14,7 +15,10 @@ import com.zxdc.utils.library.bean.parameter.ResumeBase;
 import com.zxdc.utils.library.bean.parameter.ResumeCertificate;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
+import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.ToastUtil;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MyResumeP {
 
@@ -49,16 +53,24 @@ public class MyResumeP {
         HttpMethod.getMyResume(new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
-                final ResumeBean resumeBean= (ResumeBean) object;
-                if(resumeBean==null){
+                final String msg= (String) object;
+                if(TextUtils.isEmpty(msg)){
                     return;
                 }
-                if(resumeBean.isSussess()){
+                try {
+                    final JSONObject jsonObject=new JSONObject(msg);
+                    if(jsonObject.getInt("code")==0){
 
-                    face.getMyResume(resumeBean.getData());
-
-                }else{
-                    ToastUtil.showLong(resumeBean.getDesc());
+                        final ResumeBean.Resume resume= (ResumeBean.Resume) JsonUtil.stringToObject(jsonObject.getString("data"),ResumeBean.Resume.class);
+                        if(resume==null){
+                            return;
+                        }
+                        face.getMyResume(resume);
+                    }else{
+                        ToastUtil.showLong(jsonObject.getString("desc"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -251,6 +263,30 @@ public class MyResumeP {
     }
 
 
+    /**
+     * 编辑简历附件
+     */
+    public void uploadResumeFile(UploadResumeFile uploadResumeFile){
+        DialogUtil.showProgress(activity,"附件上传中");
+        HttpMethod.uploadResumeFile(uploadResumeFile, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                    face2.onSuccess();
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
 
 
     public interface Face{

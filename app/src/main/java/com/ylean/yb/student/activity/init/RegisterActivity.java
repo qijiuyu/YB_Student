@@ -21,15 +21,12 @@ import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.http.HttpConstant;
-import com.zxdc.utils.library.util.LogUtils;
-import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 

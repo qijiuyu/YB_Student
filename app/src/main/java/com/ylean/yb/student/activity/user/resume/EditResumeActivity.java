@@ -22,8 +22,8 @@ import com.ylean.yb.student.adapter.user.resume.AddResumePositionAdapter;
 import com.ylean.yb.student.adapter.user.resume.EditResumeSpecialtyAdapter;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.callback.TimeCallBack;
+import com.ylean.yb.student.persenter.UploadFileP;
 import com.ylean.yb.student.persenter.user.MyResumeP;
-import com.ylean.yb.student.persenter.user.SettingP;
 import com.ylean.yb.student.persenter.user.UserP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.ylean.yb.student.utils.SelectTimeUtils;
@@ -39,6 +39,7 @@ import com.zxdc.utils.library.bean.ProvinceCallBack;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.Salary;
+import com.zxdc.utils.library.bean.UploadResumeFile;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.bean.parameter.JobIntention;
 import com.zxdc.utils.library.bean.parameter.ResumeBase;
@@ -55,7 +56,7 @@ import butterknife.OnClick;
 /**
  * 编辑简历
  */
-public class EditResumeActivity extends BaseActivity implements UserP.Face,MyResumeP.Face2, SettingP.Face,MyResumeP.Face3 {
+public class EditResumeActivity extends BaseActivity implements UserP.Face,MyResumeP.Face2,MyResumeP.Face3, UploadFileP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_right)
@@ -135,7 +136,7 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
     private AddResumeCertificateAdapter certificateAdapter;
 
     private MyResumeP myResumeP=new MyResumeP(this);
-    private SettingP settingP=new SettingP(this);
+    private UploadFileP uploadFileP=new UploadFileP(this,this);
 
     /**
      * 加载布局
@@ -155,7 +156,6 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
         super.initData();
         myResumeP.setFace2(this);
         myResumeP.setFace3(this);
-        settingP.setFace(this);
         tvTitle.setText("编辑简历");
         tvRight.setText("完成");
         resume= (ResumeBean.Resume) getIntent().getSerializableExtra("resume");
@@ -272,7 +272,7 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
 
                 resumeBase.setId(resume.getId());
                 if(imgHead.getTag()!=null){
-                    resumeBase.setImg((String) imgHead.getTag());
+                    resumeBase.setImg((String) imgHead.getTag(R.id.tag1));
                 }
                 resumeBase.setMail(mail);
                 resumeBase.setPhone(mobile);
@@ -488,14 +488,7 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
             case SelectPhotoUtil.CODE_CAMERA_REQUEST:
                 if (resultCode == RESULT_OK) {
                     final File tempFile = new File(SelectPhotoUtil.pai);
-                    if(selectImg==1){
-                        //上传头像
-                        List<FileBean> fileList=new ArrayList<FileBean>(){{add(new FileBean("photo",tempFile));}};
-                        settingP.uploadImg(fileList);
-
-                    }else{
-                        Glide.with(this).load(tempFile).into(imgHead);
-                    }
+                    upload(tempFile);
                 }
                 break;
             //返回相册选择图片
@@ -504,14 +497,7 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
                 if(list.size()==0){
                     return;
                 }
-                if(selectImg==1){
-                    //上传头像
-                    List<FileBean> fileList=new ArrayList<FileBean>(){{add(new FileBean("photo",new File(list.get(0).getCompressPath())));}};
-                    settingP.uploadImg(fileList);
-
-                }else{
-                    Glide.with(this).load(list.get(0).getCompressPath()).into(imgHead);
-                }
+                upload(new File(list.get(0).getCompressPath()));
                 break;
             default:
                 break;
@@ -556,6 +542,17 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
 
 
     /**
+     * 上传图片
+     * @param file
+     */
+    private void upload(File file){
+        List<FileBean> list=new ArrayList<>();
+        list.add(new FileBean(file.getName(),file));
+        uploadFileP.uploadFile(6,list);
+    }
+
+
+    /**
      * 展示用户基本信息
      */
     @Override
@@ -576,7 +573,7 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
              * 基本信息
              */
             Glide.with(this).load(resume.getImg()).into(imgHead);
-            imgHead.setTag(resume.getImg());
+            imgHead.setTag(R.id.tag1,resume.getImg());
             if(resume.getStudentVO()!=null){
                 tvName.setText(resume.getStudentVO().getName());
                 tvNationality.setText(resume.getStudentVO().getNationality());
@@ -686,6 +683,7 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
             listHonor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
             listHonor.setAdapter(honorAdapter=new AddResumeHonorAdapter(this,resume));
 
+            //校内职务
             listPosition.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
             listPosition.setAdapter(positionAdapter=new AddResumePositionAdapter(this,resume));
 
@@ -696,24 +694,14 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
             //展示证书信息
             listCertificate.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
             listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,resume));
+
+            //附件
+            if(!TextUtils.isEmpty(resume.getEnclosure())){
+                Glide.with(this).load(resume.getEnclosure()).into(imgFile);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-
-    /**
-     * 头像上传成功
-     */
-    @Override
-    public void uploadSuccess(final String imgPath) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Glide.with(activity).load(imgPath).into(imgHead);
-                imgHead.setTag(imgPath);
-            }
-        });
     }
 
 
@@ -734,4 +722,37 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
 
     }
 
+
+    /**
+     * 图片上传成功
+     * @param imgs
+     */
+    @Override
+    public void uploadSuccess(final String[] imgs) {
+        if(imgs==null && imgs.length==0){
+            return;
+        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(selectImg==1){
+                    Glide.with(activity).load(imgs[0]).into(imgHead);
+                    imgHead.setTag(R.id.tag1,imgs[0]);
+                }else{
+                    Glide.with(activity).load(imgs[0]).into(imgFile);
+
+                    /**
+                     * 编辑简历附件
+                     */
+                    UploadResumeFile uploadResumeFile=new UploadResumeFile();
+                    if(resume!=null){
+                        uploadResumeFile.setId(resume.getId());
+                    }
+                    uploadResumeFile.setEnclosure(imgs[0]);
+                    myResumeP.uploadResumeFile(uploadResumeFile);
+
+                }
+            }
+        });
+    }
 }

@@ -19,6 +19,7 @@ import com.ylean.yb.student.activity.planning.PlanningActivity;
 import com.ylean.yb.student.activity.user.UserActivity;
 import com.ylean.yb.student.application.MyApplication;
 import com.ylean.yb.student.utils.PermissionUtil;
+import com.zxdc.utils.library.util.AESUtil;
 import com.zxdc.utils.library.util.ActivitysLifecycle;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.util.error.CockroachUtil;
@@ -68,6 +69,9 @@ public class TabActivity extends android.app.TabActivity {
 
         //android 7.0系统解决拍照的问题
         PermissionUtil.initPhotoError();
+
+        final String a= AESUtil.encrypt("15011224467");
+        final String b=AESUtil.decrypt(a);
     }
 
     /**

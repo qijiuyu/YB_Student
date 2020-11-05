@@ -16,7 +16,6 @@ import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.SendCodeP;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.http.HttpConstant;
-import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -73,7 +72,10 @@ public class ValidationMobileActivity extends BaseActivity implements SendCodeP.
         forgetPwd = (ForgetPwd) getIntent().getSerializableExtra("forgetPwd");
         idnum = getIntent().getStringExtra("idnum");
         if (forgetPwd != null) {
-            tvContent.setText(Html.fromHtml("您输入的当前账号的验证手机号是<font color=\"#FA4D4F\">" + forgetPwd.getData().getPhone() + "</font> ，请输入短信验证码验证信息，以便对登录密码进行修改"));
+            final String phone=forgetPwd.getData().getPhone();
+            if(!TextUtils.isEmpty(phone)){
+                tvContent.setText(Html.fromHtml("您输入的当前账号的验证手机号是<font color=\"#FA4D4F\">" + phone.substring(0, 3) + "****" + phone.substring(phone.length() - 4)) + "</font> ，请输入短信验证码验证信息，以便对登录密码进行修改");
+            }
         }
 
         requestOptions = new RequestOptions();
@@ -108,9 +110,6 @@ public class ValidationMobileActivity extends BaseActivity implements SendCodeP.
             //获取短信验证码
             case R.id.tv_send_code:
                 if(time>0){
-                    return;
-                }
-                if (forgetPwd == null) {
                     return;
                 }
                 if(TextUtils.isEmpty(codeImg)){

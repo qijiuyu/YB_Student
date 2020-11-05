@@ -34,6 +34,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:layout_marginTop="-3dp"
                 android:background="@drawable/bg_userinfo_head"/>
 
             <LinearLayout

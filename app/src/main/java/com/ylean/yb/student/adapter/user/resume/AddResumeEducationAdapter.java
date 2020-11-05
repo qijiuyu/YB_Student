@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.user.resume.AddEducationActivity;
@@ -37,13 +38,13 @@ public class AddResumeEducationAdapter extends RecyclerView.Adapter<AddResumeEdu
     public void onBindViewHolder(@NonNull final MyHolder holder, int i) {
        final ResumeBean.Education education=resume.getLearningExperienceList().get(i);
         if(education.getType()==3){
-            holder.tvClass.setVisibility(View.GONE);
-            holder.tvFacultyName.setVisibility(View.VISIBLE);
-            holder.tvSpecialtyName.setVisibility(View.VISIBLE);
+            holder.linClass.setVisibility(View.GONE);
+            holder.linFaculty.setVisibility(View.VISIBLE);
+            holder.linSpecialty.setVisibility(View.VISIBLE);
         }else{
-            holder.tvClass.setVisibility(View.VISIBLE);
-            holder.tvFacultyName.setVisibility(View.GONE);
-            holder.tvSpecialtyName.setVisibility(View.GONE);
+            holder.linClass.setVisibility(View.VISIBLE);
+            holder.linFaculty.setVisibility(View.GONE);
+            holder.linSpecialty.setVisibility(View.GONE);
         }
 
         switch (education.getType()){
@@ -126,6 +127,7 @@ public class AddResumeEducationAdapter extends RecyclerView.Adapter<AddResumeEdu
 
     public class MyHolder extends RecyclerView.ViewHolder {
         TextView tvType,tvProvince,tvCity,tvArea,tvSchool,tvFacultyName,tvSpecialtyName,tvClass,tvEducation,tvTime,tvUpdate;
+        LinearLayout linFaculty,linSpecialty,linClass;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             tvType=itemView.findViewById(R.id.tv_type);
@@ -139,6 +141,9 @@ public class AddResumeEducationAdapter extends RecyclerView.Adapter<AddResumeEdu
             tvEducation=itemView.findViewById(R.id.tv_education);
             tvTime=itemView.findViewById(R.id.tv_time);
             tvUpdate=itemView.findViewById(R.id.tv_update);
+            linFaculty=itemView.findViewById(R.id.lin_faculty);
+            linSpecialty=itemView.findViewById(R.id.lin_specialty);
+            linClass=itemView.findViewById(R.id.lin_class);
         }
     }
 }

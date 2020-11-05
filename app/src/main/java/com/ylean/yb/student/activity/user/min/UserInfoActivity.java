@@ -281,57 +281,61 @@ public class UserInfoActivity extends BaseActivity implements UserP.Face2, Famil
      * 展示用户基本信息
      */
     private void showBaseInfo(){
-        userInfo= (UserInfo) SPUtil.getInstance(this).getObject(SPUtil.USER_BASE_INFO,UserInfo.class);
-        if(userInfo==null){
-            return;
-        }
-        tvUserName.setText(userInfo.getData().getName());
-        tvSex.setText(userInfo.getData().getSex());
-        tvNationality.setText(userInfo.getData().getNationality());
-        tvBirthday.setText(userInfo.getData().getBirthday().split(" ")[0]);
-        tvNational.setText(userInfo.getData().getNation());
-        tvCard.setText(userInfo.getData().getIdnum());
-        if(!TextUtils.isEmpty(userInfo.getData().getValiditystarttime()) && !TextUtils.isEmpty(userInfo.getData().getValidityendtime())){
-            tvCardTime.setText(userInfo.getData().getValiditystarttime().split(" ")[0]+"-"+userInfo.getData().getValidityendtime().split(" ")[0]);
-        }
-        tvEmail.setText(userInfo.getData().getEmail());
-        etQq.setText(userInfo.getData().getQq());
-        etWx.setText(userInfo.getData().getWechat());
-
-        /**
-         * 户口地址
-         */
-        if(!TextUtils.isEmpty(userInfo.getData().getAddress())){
-            final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getAddress(),Address.class);
-            tvProvince.setText(address.getPname());
-            tvProvince.setTag(address.getPcode());
-            tvCity.setText(address.getCname());
-            tvCity.setTag(address.getCcode());
-            tvArea.setText(address.getAname());
-            tvArea.setTag(address.getAcode());
-            tvAddress.setText(address.getAddress());
-        }
-
-        /**
-         * 家庭地址
-         */
-        if(!TextUtils.isEmpty(userInfo.getData().getResidenceaddress())){
-            final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getResidenceaddress(),Address.class);
-            tvProvince1.setText(address.getPname());
-            tvProvince1.setTag(address.getPcode());
-            tvCity1.setText(address.getCname());
-            tvCity1.setTag(address.getCcode());
-            tvArea1.setText(address.getAname());
-            tvArea1.setTag(address.getAcode());
-            etAddress1.setText(address.getAddress());
-        }
-
-        if(!TextUtils.isEmpty(userInfo.getData().getUcphone())){
-            final UserInfo.Parent parent= (UserInfo.Parent) JsonUtil.stringToObject(userInfo.getData().getUcphone(), UserInfo.Parent.class);
-            if(parent!=null){
-                etParentMobile.setText(parent.getPhone());
-                etLandMobile.setText(parent.getTel());
+        try {
+            userInfo= (UserInfo) SPUtil.getInstance(this).getObject(SPUtil.USER_BASE_INFO,UserInfo.class);
+            if(userInfo==null){
+                return;
             }
+            tvUserName.setText(userInfo.getData().getName());
+            tvSex.setText(userInfo.getData().getSex());
+            tvNationality.setText(userInfo.getData().getNationality());
+            tvBirthday.setText(userInfo.getData().getBirthday().split(" ")[0]);
+            tvNational.setText(userInfo.getData().getNation());
+            tvCard.setText(userInfo.getData().getIdnum());
+            if(!TextUtils.isEmpty(userInfo.getData().getValiditystarttime()) && !TextUtils.isEmpty(userInfo.getData().getValidityendtime())){
+                tvCardTime.setText(userInfo.getData().getValiditystarttime().split(" ")[0]+"-"+userInfo.getData().getValidityendtime().split(" ")[0]);
+            }
+            tvEmail.setText(userInfo.getData().getEmail());
+            etQq.setText(userInfo.getData().getQq());
+            etWx.setText(userInfo.getData().getWechat());
+
+            /**
+             * 户口地址
+             */
+            if(!TextUtils.isEmpty(userInfo.getData().getAddress())){
+                final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getAddress(),Address.class);
+                tvProvince.setText(address.getPname());
+                tvProvince.setTag(address.getPcode());
+                tvCity.setText(address.getCname());
+                tvCity.setTag(address.getCcode());
+                tvArea.setText(address.getAname());
+                tvArea.setTag(address.getAcode());
+                tvAddress.setText(address.getAddress());
+            }
+
+            /**
+             * 家庭地址
+             */
+            if(!TextUtils.isEmpty(userInfo.getData().getResidenceaddress())){
+                final Address address= (Address) JsonUtil.stringToObject(userInfo.getData().getResidenceaddress(),Address.class);
+                tvProvince1.setText(address.getPname());
+                tvProvince1.setTag(address.getPcode());
+                tvCity1.setText(address.getCname());
+                tvCity1.setTag(address.getCcode());
+                tvArea1.setText(address.getAname());
+                tvArea1.setTag(address.getAcode());
+                etAddress1.setText(address.getAddress());
+            }
+
+            if(!TextUtils.isEmpty(userInfo.getData().getUcphone())){
+                final UserInfo.Parent parent= (UserInfo.Parent) JsonUtil.stringToObject(userInfo.getData().getUcphone(), UserInfo.Parent.class);
+                if(parent!=null){
+                    etParentMobile.setText(parent.getPhone());
+                    etLandMobile.setText(parent.getTel());
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

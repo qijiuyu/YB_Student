@@ -47,6 +47,7 @@ import com.zxdc.utils.library.bean.SurveyDetails;
 import com.zxdc.utils.library.bean.TempleteBean;
 import com.zxdc.utils.library.bean.UploadFile;
 import com.zxdc.utils.library.bean.UploadPic;
+import com.zxdc.utils.library.bean.UploadResumeFile;
 import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.bean.parameter.AddResumeEducation;
 import com.zxdc.utils.library.bean.parameter.AddSchoolHonor;
@@ -67,6 +68,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -946,12 +949,16 @@ public class HttpMethod extends BaseRequst {
      * 查询我的简历
      */
     public static void getMyResume(final NetCallBack netCallBack) {
-        Http.getRetrofit().create(HttpApi.class).getMyResume().enqueue(new Callback<ResumeBean>() {
-            public void onResponse(Call<ResumeBean> call, Response<ResumeBean> response) {
+        Http.getRetrofit().create(HttpApi.class).getMyResume().enqueue(new Callback<ResponseBody>() {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 DialogUtil.closeProgress();
-                netCallBack.onSuccess(response.body());
+                try {
+                    netCallBack.onSuccess(response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-            public void onFailure(Call<ResumeBean> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }
@@ -1102,6 +1109,23 @@ public class HttpMethod extends BaseRequst {
      */
     public static void saveOrUpdateSpeciality(AddSpecialtyP addSpecialtyP, final NetCallBack netCallBack) {
         Http.getRetrofit().create(HttpApi.class).saveOrUpdateSpeciality(addSpecialtyP).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 编辑简历附件
+     */
+    public static void uploadResumeFile(UploadResumeFile uploadResumeFile, final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).uploadResumeFile(uploadResumeFile).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());

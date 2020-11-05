@@ -88,7 +88,19 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
 
         userInfo= (Register) getIntent().getSerializableExtra("userInfo");
 
-        if(userInfo!=null){
+        //展示用户信息
+        showUserInfo();
+    }
+
+
+    /**
+     * 展示用户信息
+     */
+    private void showUserInfo(){
+        try {
+            if(userInfo==null){
+                return;
+            }
             tvUserName.setText(userInfo.getData().getName());
             tvSex.setText(userInfo.getData().getSex());
             tvNationality.setText(userInfo.getData().getNationality());
@@ -100,9 +112,8 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
             if(!TextUtils.isEmpty(userInfo.getData().getValiditystarttime()) && !TextUtils.isEmpty(userInfo.getData().getValidityendtime())){
                 tvCardTime.setText(userInfo.getData().getValiditystarttime().split(" ")[0]+"-"+userInfo.getData().getValidityendtime().split(" ")[0]);
             }
-            etQq.setText(userInfo.getData().getQq());
-            etWx.setText(userInfo.getData().getWechat());
-
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

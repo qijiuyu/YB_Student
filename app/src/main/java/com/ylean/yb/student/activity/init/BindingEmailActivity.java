@@ -12,6 +12,7 @@ import com.ylean.yb.student.persenter.SendCodeP;
 import com.ylean.yb.student.persenter.init.RegisterP;
 import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.util.ToastUtil;
+import com.zxdc.utils.library.util.Util;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -70,18 +71,26 @@ public class BindingEmailActivity extends BaseActivity implements SendCodeP.Face
                 break;
             //发送邮箱验证码
             case R.id.tv_send_code:
+                 if(time>0){
+                     return;
+                 }
                  if(TextUtils.isEmpty(email)){
                      ToastUtil.showLong("请输入邮箱地址");
                      return;
                  }
-                if(time>0){
-                    return;
-                }
-                sendEmailP.sendbindemail("0",email);
+                 if(!Util.judegEmail(email)){
+                     ToastUtil.showLong("请输入正确的邮箱地址");
+                     return;
+                 }
+                 sendEmailP.sendbindemail("0",email);
                 break;
             case R.id.tv_confirm:
                 if(TextUtils.isEmpty(email)){
                     ToastUtil.showLong("请输入邮箱地址");
+                    return;
+                }
+                if(!Util.judegEmail(email)){
+                    ToastUtil.showLong("请输入正确的邮箱地址");
                     return;
                 }
                 if(TextUtils.isEmpty(code)){

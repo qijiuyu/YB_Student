@@ -8,12 +8,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.persenter.ProvinceP;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ProvinceCallBack;
-
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;

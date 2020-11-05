@@ -55,8 +55,8 @@
                 android:textSize="14sp"
                 android:layout_centerVertical="true"/>
 
-            <EditText
-                android:id="@+id/et_nickName"
+            <TextView
+                android:id="@+id/tv_nickName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -64,8 +64,6 @@
                 android:gravity="right"
                 android:textSize="14sp"
                 android:textColor="@color/color_333333"
-                android:drawableRight="@mipmap/more_icon"
-                android:drawablePadding="7dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"/>
 
@@ -115,16 +113,13 @@
                 android:textSize="14sp"
                 android:layout_centerVertical="true"/>
 
-            <EditText
-                android:id="@+id/et_email"
+            <TextView
+                android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="请输入邮箱"
                 android:textSize="14sp"
                 android:textColor="@color/color_333333"
-                android:drawableRight="@mipmap/more_icon"
-                android:drawablePadding="7dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"/>
 

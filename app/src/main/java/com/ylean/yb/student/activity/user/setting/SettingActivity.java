@@ -31,16 +31,14 @@ public class SettingActivity extends BaseActivity implements SettingP.Face {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_right)
-    TextView tvRight;
     @BindView(R.id.img_head)
     CircleImageView imgHead;
-    @BindView(R.id.et_nickName)
-    EditText etNickName;
+    @BindView(R.id.tv_nickName)
+    TextView tvNickName;
     @BindView(R.id.tv_mobile)
     TextView tvMobile;
-    @BindView(R.id.et_email)
-    EditText etEmail;
+    @BindView(R.id.tv_email)
+    TextView tvEmail;
     //用户信息对象
     private UserInfo userInfo;
 
@@ -65,27 +63,24 @@ public class SettingActivity extends BaseActivity implements SettingP.Face {
         super.initData();
         settingP.setFace(this);
         tvTitle.setText("设置");
-        tvRight.setText("完成");
 
         userInfo= (UserInfo) getIntent().getSerializableExtra("userInfo");
         if(userInfo!=null){
             if(!TextUtils.isEmpty(userInfo.getData().getPhoto())){
                 Glide.with(this).load(userInfo.getData().getPhoto()).into(imgHead);
             }
-            etNickName.setText(userInfo.getData().getName());
+            tvNickName.setText(userInfo.getData().getName());
             tvMobile.setText(userInfo.getData().getPhone());
-            etEmail.setText(userInfo.getData().getEmail());
+            tvEmail.setText(userInfo.getData().getEmail());
         }
     }
 
-    @OnClick({R.id.lin_back, R.id.tv_right, R.id.img_head, R.id.tv_mobile, R.id.rel_pwd, R.id.tv_login_out})
+    @OnClick({R.id.lin_back,R.id.img_head, R.id.tv_mobile, R.id.rel_pwd, R.id.tv_login_out})
     public void onViewClicked(View view) {
         Intent intent=new Intent();
         switch (view.getId()) {
             case R.id.lin_back:
                  finish();
-                break;
-            case R.id.tv_right:
                 break;
             //选择头像
             case R.id.img_head:

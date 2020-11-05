@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.user.apply.ApplyRecordActivity;
@@ -16,11 +15,8 @@ import com.ylean.yb.student.activity.user.bank.ProgressActivity;
 import com.ylean.yb.student.activity.user.bank.UpdateBankActivity;
 import com.ylean.yb.student.activity.user.bank.ValidationActivity;
 import com.zxdc.utils.library.bean.BankBaseBean;
-import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.view.CircleImageView;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
