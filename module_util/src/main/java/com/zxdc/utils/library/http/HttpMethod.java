@@ -39,6 +39,7 @@ import com.zxdc.utils.library.bean.NewsSingle;
 import com.zxdc.utils.library.bean.NewsTitleBean;
 import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.ProvinceBean;
+import com.zxdc.utils.library.bean.ReceivablesheadBean;
 import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.ResumePostion;
@@ -996,7 +997,6 @@ public class HttpMethod extends BaseRequst {
      */
     public static void updateInSchool(int did,int status,String schoolreport,String descriptionfile,final String content,final NetCallBack netCallBack) {
         Map<String,String> map=new HashMap<>();
-        LogUtils.e(did+"+++++++++"+status+"+++++"+schoolreport+"++++++"+descriptionfile+"++++++"+content);
         map.put("did",did+"");
         map.put("status",status+"");
         map.put("schoolreport",schoolreport);
@@ -1578,4 +1578,21 @@ public class HttpMethod extends BaseRequst {
         });
     }
 
+
+
+    /**
+     * 财务记录明细信息头部
+     */
+    public static void getReceivableshead(int fid,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getReceivableshead(fid).enqueue(new Callback<ReceivablesheadBean>() {
+            public void onResponse(Call<ReceivablesheadBean> call, Response<ReceivablesheadBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<ReceivablesheadBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
 }

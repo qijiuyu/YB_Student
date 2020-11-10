@@ -17,10 +17,12 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.SendCodeP;
 import com.ylean.yb.student.persenter.init.RegisterP;
+import com.ylean.yb.student.utils.CodeUtils;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.http.HttpConstant;
+import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.ToastUtil;
 import java.io.File;
 import java.util.ArrayList;
@@ -89,12 +91,16 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face ,Se
         tvTitle.setText("注册");
         sendCodeP.setFace2(this);
 
-        requestOptions = new RequestOptions();
-        //禁用磁盘缓存
-        requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);///不使用磁盘缓存
-        requestOptions.skipMemoryCache(true); // 不使用内存缓存
-        //显示图形验证码
-        Glide.with(this).load(HttpConstant.IP+"api/user/ckh/codeimg").apply(requestOptions).into(imgCode);
+        //获取验证码图片
+        imgCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
+
+
+//        requestOptions = new RequestOptions();
+//        //禁用磁盘缓存
+//        requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);///不使用磁盘缓存
+//        requestOptions.skipMemoryCache(true); // 不使用内存缓存
+//        //显示图形验证码
+//        Glide.with(this).load(HttpConstant.IP+"api/user/ckh/codeimg").apply(requestOptions).into(imgCode);
     }
 
 
@@ -108,7 +114,7 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face ,Se
                 break;
             //刷新图形验证码
             case R.id.img_code:
-                Glide.with(this).load(HttpConstant.IP+"api/user/ckh/codeimg").apply(requestOptions).into(imgCode);
+                imgCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
                 break;
             //获取验证码
             case R.id.tv_send_code:
@@ -125,6 +131,10 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face ,Se
                 }
                 if(TextUtils.isEmpty(strImgCode)){
                     ToastUtil.showLong("请输入图形验证码");
+                    return;
+                }
+                if(!CodeUtils.getInstance().getCode().equals(strImgCode)){
+                    ToastUtil.showLong("图形验证码错误");
                     return;
                 }
                 sendCodeP.getSmsCode(strImgCode,mobile,"0");

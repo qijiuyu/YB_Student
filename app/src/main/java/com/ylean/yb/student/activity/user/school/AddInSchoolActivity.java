@@ -87,9 +87,9 @@ public class AddInSchoolActivity extends BaseActivity implements InSchoolP.Face2
         /**
          * 状态为4，表示要重新提交
          */
-//        if(inSchool.getCheckstatus()==4){
+        if(inSchool.getCheckstatus()==4){
             inSchoolP.getInSchoolDetails(inSchool.getApplyid());
-//        }
+        }
     }
 
     @OnClick({R.id.lin_back, R.id.tv_status, R.id.img_results, R.id.img_inSchool, R.id.img_template, R.id.tv_submit})

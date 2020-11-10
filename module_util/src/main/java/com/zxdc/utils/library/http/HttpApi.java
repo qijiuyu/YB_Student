@@ -35,6 +35,7 @@ import com.zxdc.utils.library.bean.LeaveDetailsBean;
 import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.ProvinceBean;
+import com.zxdc.utils.library.bean.ReceivablesheadBean;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.SchoolBean;
@@ -301,5 +302,8 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/sys/schoolsituation/student/getapplydetail")
     Call<InSchoolDetailsBean> getInSchoolDetails(@Query("did") int did);
+
+    @GET(HttpConstant.IP+"api/sys/student/finace/getreceivablesheadinfo")
+    Call<ReceivablesheadBean> getReceivableshead(@Query("fid") int fid);
 
 }

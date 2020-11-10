@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.zxdc.utils.library.bean.IssueRecordBean;
 import com.zxdc.utils.library.bean.NetCallBack;
+import com.zxdc.utils.library.bean.ReceivablesheadBean;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
@@ -21,6 +22,35 @@ public class MoneyIssueP {
 
     public void setFace(Face face){
         this.face=face;
+    }
+
+
+    /**
+     * 财务记录明细信息头部
+     */
+    public void getReceivableshead(int fid){
+        DialogUtil.showProgress(activity,"数据加载中");
+        HttpMethod.getReceivableshead(fid, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final ReceivablesheadBean receivablesheadBean= (ReceivablesheadBean) object;
+                if(receivablesheadBean==null){
+                    return;
+                }
+                if(receivablesheadBean.isSussess()){
+
+                    face.getReceivableshead(receivablesheadBean.getData());
+
+                }else{
+                    ToastUtil.showLong(receivablesheadBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
     }
 
 
@@ -54,6 +84,8 @@ public class MoneyIssueP {
 
 
     public interface Face{
+        void getReceivableshead(ReceivablesheadBean.HeadBean headBean);
+
         void getIssueRecord(List<IssueRecordBean.ListBean> list);
     }
 }

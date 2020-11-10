@@ -140,12 +140,13 @@
                     android:hint="请输入图形验证码"
                     android:textSize="14sp"
                     android:textColor="@color/color_333333"
+                    android:inputType="number"
                     android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" />
 
                 <ImageView
                     android:id="@+id/img_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="79dp"
+                    android:layout_height="28dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="15dp"
                     android:layout_centerVertical="true"/>

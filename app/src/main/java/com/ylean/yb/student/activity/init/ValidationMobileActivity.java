@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.SendCodeP;
+import com.ylean.yb.student.utils.CodeUtils;
 import com.zxdc.utils.library.bean.ForgetPwd;
 import com.zxdc.utils.library.http.HttpConstant;
 import com.zxdc.utils.library.util.ToastUtil;
@@ -45,7 +46,6 @@ public class ValidationMobileActivity extends BaseActivity implements SendCodeP.
     private Timer mTimer;
     private int time = 0;
     private Handler handler=new Handler();
-    private RequestOptions requestOptions;
 
     private SendCodeP sendCodeP=new SendCodeP(this);
 
@@ -78,12 +78,8 @@ public class ValidationMobileActivity extends BaseActivity implements SendCodeP.
             }
         }
 
-        requestOptions = new RequestOptions();
-        //禁用磁盘缓存
-        requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);///不使用磁盘缓存
-        requestOptions.skipMemoryCache(true); // 不使用内存缓存
-        //显示图形验证码
-        Glide.with(this).load(HttpConstant.IP+"api/user/ckh/codeimg").apply(requestOptions).into(imgCode);
+        //获取验证码图片
+        imgCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
     }
 
 
@@ -105,7 +101,7 @@ public class ValidationMobileActivity extends BaseActivity implements SendCodeP.
                 break;
             //刷新图形验证码
             case R.id.img_code:
-                 Glide.with(this).load(HttpConstant.IP+"api/user/ckh/codeimg").apply(requestOptions).into(imgCode);
+                 imgCode.setImageBitmap(CodeUtils.getInstance().createBitmap());
                  break;
             //获取短信验证码
             case R.id.tv_send_code:
@@ -116,11 +112,19 @@ public class ValidationMobileActivity extends BaseActivity implements SendCodeP.
                     ToastUtil.showLong("请输入图形验证码");
                     return;
                 }
+                if(!CodeUtils.getInstance().getCode().equals(codeImg)){
+                    ToastUtil.showLong("图形验证码错误");
+                    return;
+                }
                 sendCodeP.getSmsCode(codeImg,forgetPwd.getData().getPhone(),"3");
                 break;
             case R.id.tv_submit:
                 if(TextUtils.isEmpty(codeImg)){
                     ToastUtil.showLong("请输入图形验证码");
+                    return;
+                }
+                if(!CodeUtils.getInstance().getCode().equals(codeImg)){
+                    ToastUtil.showLong("图形验证码错误");
                     return;
                 }
                 if(TextUtils.isEmpty(code)){
