@@ -16,6 +16,7 @@ public class SettingP {
 
     private Activity activity;
     private Face face;
+    private Face2 face2;
 
     public SettingP(Activity activity){
         this.activity=activity;
@@ -23,6 +24,10 @@ public class SettingP {
 
     public void setFace(Face face){
         this.face=face;
+    }
+
+    public void setFace2(Face2 face2){
+        this.face2=face2;
     }
 
     /**
@@ -56,7 +61,40 @@ public class SettingP {
     }
 
 
+    /**
+     * 变更手机号
+     */
+    public void updatePhone(String code,String ecode,String phone){
+        DialogUtil.showProgress(activity,"变更中");
+        HttpMethod.updatePhone(code, ecode, phone, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean==null){
+                    return;
+                }
+                if(baseBean.isSussess()){
+
+                    face2.updatePhone();
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
     public interface Face{
         void uploadSuccess(String imgPath);
+    }
+
+    public interface Face2{
+        void updatePhone();
     }
 }

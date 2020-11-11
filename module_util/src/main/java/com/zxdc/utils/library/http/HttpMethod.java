@@ -1595,4 +1595,59 @@ public class HttpMethod extends BaseRequst {
             }
         });
     }
+
+
+    /**
+     * 获取申请补发模板
+     */
+    public static void getReissueTemplate(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getReissueTemplate().enqueue(new Callback<TempleteBean>() {
+            public void onResponse(Call<TempleteBean> call, Response<TempleteBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<TempleteBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取申请退还奖学金模板
+     */
+    public static void getReturnTemplate(final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getReturnTemplate().enqueue(new Callback<TempleteBean>() {
+            public void onResponse(Call<TempleteBean> call, Response<TempleteBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<TempleteBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 变更手机号
+     */
+    public static void updatePhone(String code,String ecode,String phone,final NetCallBack netCallBack) {
+        Map<String ,String> map=new HashMap<>();
+        map.put("code",code);
+        map.put("ecode",ecode);
+        map.put("phone",phone);
+        Http.getRetrofit().create(HttpApi.class).updatePhone(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
 }

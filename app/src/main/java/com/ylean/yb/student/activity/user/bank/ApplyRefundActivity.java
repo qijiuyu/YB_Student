@@ -1,6 +1,7 @@
 package com.ylean.yb.student.activity.user.bank;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -10,8 +11,10 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.UploadFileActivity;
 import com.ylean.yb.student.activity.declare.ApplySuccessActivity;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.user.ApplyRefundP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import java.io.File;
 import java.util.List;
@@ -21,7 +24,7 @@ import butterknife.OnClick;
 /**
  * 申请退还奖学金
  */
-public class ApplyRefundActivity extends BaseActivity {
+public class ApplyRefundActivity extends BaseActivity implements ApplyRefundP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_name)
@@ -44,6 +47,8 @@ public class ApplyRefundActivity extends BaseActivity {
     EditText etContent;
     //图片类型
     private int imgType;
+
+    private ApplyRefundP applyRefundP=new ApplyRefundP(this,this);
 
     /**
      * 加载布局
@@ -78,7 +83,9 @@ public class ApplyRefundActivity extends BaseActivity {
                 imgType=2;
                 SelectPhotoUtil.SelectPhoto(this,1);
                 break;
+            //下载模板
             case R.id.img_template:
+                applyRefundP.getReturnTemplate();
                 break;
             case R.id.tv_submit:
                 setClass(ApplySuccessActivity.class);
@@ -119,5 +126,19 @@ public class ApplyRefundActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    /**
+     * 下载模板
+     * @param url
+     */
+    @Override
+    public void getReturnTemplate(String url) {
+        if(TextUtils.isEmpty(url)){
+            return;
+        }
+        Intent intent=new Intent(this, UploadFileActivity.class);
+        intent.putExtra("fileUrl",url);
+        startActivity(intent);
     }
 }

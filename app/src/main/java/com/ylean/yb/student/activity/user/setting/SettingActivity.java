@@ -86,8 +86,9 @@ public class SettingActivity extends BaseActivity implements SettingP.Face {
             case R.id.img_head:
                 SelectPhotoUtil.SelectPhoto(this,1);
                 break;
+            //变更手机号
             case R.id.tv_mobile:
-                setClass(UpdateMobileActivity1.class);
+                setClass(UpdatePhoneActivity.class);
                 break;
             case R.id.rel_pwd:
                 setClass(UpdatePwdActivity1.class);

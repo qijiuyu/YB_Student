@@ -20,7 +20,7 @@
            <ImageView
                android:layout_width="9.5dp"
                android:layout_height="18dp"
-               android:src="@mipmap/black_bank"
+               android:src="@mipmap/white_back"
                android:layout_marginRight="20dp"/>
 
        </LinearLayout>

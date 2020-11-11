@@ -306,4 +306,14 @@ public interface HttpApi {
     @GET(HttpConstant.IP+"api/sys/student/finace/getreceivablesheadinfo")
     Call<ReceivablesheadBean> getReceivableshead(@Query("fid") int fid);
 
+    @GET(HttpConstant.IP+"api/sys/student/finace/getreissuetemplate")
+    Call<TempleteBean> getReissueTemplate();
+
+    @GET(HttpConstant.IP+"api/sys/student/finace/getreturntemplate")
+    Call<TempleteBean> getReturnTemplate();
+
+    @FormUrlEncoded
+    @PUT(HttpConstant.IP+"api/user/login/changephone")
+    Call<BaseBean> updatePhone(@FieldMap Map<String, String> map);
+
 }
