@@ -194,6 +194,10 @@ public interface HttpApi {
     @PUT(HttpConstant.IP+"api/sys/declare/declare")
     Call<BaseBean> applyDeclare(@FieldMap Map<String, String> map);
 
+    @FormUrlEncoded
+    @PUT(HttpConstant.IP+"api/sys/declare/againdeclare")
+    Call<BaseBean> againdeclare(@FieldMap Map<String, String> map);
+
     @DELETE(HttpConstant.IP+"api/user/le/delete")
     Call<BaseBean> deleteEducation(@Query("id") int id);
 
@@ -319,5 +323,8 @@ public interface HttpApi {
     @FormUrlEncoded
     @PUT(HttpConstant.IP+"api/user/student/updatepwd")
     Call<BaseBean> updatePwd(@FieldMap Map<String, String> map);
+
+    @GET(HttpConstant.IP+"api/sys/feedback/add")
+    Call<BaseBean> addFeedBack(@Query("content") String content);
 
 }

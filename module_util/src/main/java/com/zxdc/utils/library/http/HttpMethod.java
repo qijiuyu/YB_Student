@@ -930,6 +930,46 @@ public class HttpMethod extends BaseRequst {
 
 
     /**
+     * 学生重新申报批次
+     */
+    public static void againdeclare(int did,String jkids,String idpositive,String idback,String householder,String oneself,String acceptanceletter,String relevantdoc,final NetCallBack netCallBack) {
+        Map<String,String> map=new HashMap<>();
+        map.put("did",String.valueOf(did));
+        map.put("jkids",jkids);
+        if(!TextUtils.isEmpty(idpositive)){
+            map.put("idpositive",idpositive);
+        }
+        if(!TextUtils.isEmpty(idback)){
+            map.put("idback",idback);
+        }
+        if(!TextUtils.isEmpty(householder)){
+            map.put("householder",householder);
+        }
+        if(!TextUtils.isEmpty(oneself)){
+            map.put("oneself",oneself);
+        }
+        if(!TextUtils.isEmpty(acceptanceletter)){
+            map.put("acceptanceletter",acceptanceletter);
+        }
+        if(!TextUtils.isEmpty(relevantdoc)){
+            map.put("relevantdoc",relevantdoc);
+        }
+        LogUtils.e("+++++++++"+JsonUtil.objectToString(map));
+        Http.getRetrofit().create(HttpApi.class).againdeclare(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+
+    /**
      * 删除教育经历
      */
     public static void deleteEducation(int id,final NetCallBack netCallBack) {
@@ -1720,6 +1760,23 @@ public class HttpMethod extends BaseRequst {
         map.put("rpwd",rpwd);
         map.put("ypwd",ypwd);
         Http.getRetrofit().create(HttpApi.class).updatePwd(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 意见反馈
+     */
+    public static void addFeedBack(String content,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).addFeedBack(content).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());

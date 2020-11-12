@@ -1,5 +1,6 @@
 package com.ylean.yb.student.activity.declare;
 
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -105,6 +106,9 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
     @BindView(R.id.tv_submit)
     ClickTextView tvSubmit;
 
+    //申报对象
+    private DeclareBean.Declare declare;
+
     private AuditStatusP auditStatusP=new AuditStatusP(this,this);
     private UserP userP=new UserP(this);
     private FamilyP familyP = new FamilyP(this, this);
@@ -127,10 +131,10 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
     protected void initData() {
         super.initData();
         tvTitle.setText("审核记录");
-        final DeclareBean.Declare declare= (DeclareBean.Declare) getIntent().getSerializableExtra("declare");
+        declare= (DeclareBean.Declare) getIntent().getSerializableExtra("declare");
 
         //获取审核信息
-        auditStatusP.getAudit(declare.getGbid());
+        auditStatusP.getAudit(declare.getBdid());
 
         //获取学生申报或查看申报基本信息
         userP.setFace3(this);
@@ -153,7 +157,10 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
                 break;
             //重新提交
             case R.id.tv_submit:
-                 setClass(AddDeclareActivity.class);
+                Intent intent=new Intent(this,AddDeclareActivity.class);
+                intent.putExtra("batchId",declare.getGbid());
+                intent.putExtra("applyId",declare.getBdid());
+                startActivity(intent);
                 break;
             default:
                 break;

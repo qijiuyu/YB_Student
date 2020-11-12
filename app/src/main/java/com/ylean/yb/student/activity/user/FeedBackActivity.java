@@ -8,6 +8,10 @@ import android.widget.TextView;
 
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
+import com.zxdc.utils.library.bean.BaseBean;
+import com.zxdc.utils.library.bean.NetCallBack;
+import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 
 import butterknife.BindView;
@@ -54,9 +58,34 @@ public class FeedBackActivity extends BaseActivity {
                     ToastUtil.showLong("请输入意见反馈内容");
                     return;
                 }
+                addFeedBack(content);
                 break;
             default:
                 break;
         }
+    }
+
+
+    private void addFeedBack(String content){
+        DialogUtil.showProgress(this,"反馈中");
+        HttpMethod.addFeedBack(content, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean==null){
+                    return;
+                }
+                if(baseBean.isSussess()){
+                    finish();
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
     }
 }

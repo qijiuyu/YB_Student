@@ -27,7 +27,7 @@ import butterknife.OnClick;
 /**
  * 批次申报详情
  */
-public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Face2 {
+public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Face2,DeclareP.Face3 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.img_head)
@@ -54,7 +54,7 @@ public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Fac
     HtmlTextView tvHtml;
     //批次id
     private int id;
-    private DeclareP declareP=new DeclareP(this,this);
+    private DeclareP declareP=new DeclareP(this);
 
     /**
      * 加载布局
@@ -71,6 +71,8 @@ public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Fac
     @Override
     protected void initData() {
         super.initData();
+        declareP.setFace2(this);
+        declareP.setFace3(this);
         tvTitle.setText("批次申报详情");
         tvDes.setText(Html.fromHtml("注：未能展示出符合实际申报的批次，请从个人档案中正确维护教育经历！<font color=\"#FA4D4F\">去维护></font>"));
 
@@ -194,7 +196,7 @@ public class DeclareDetailsActivity extends BaseActivity implements DeclareP.Fac
     @Override
     public void checkdeclareno() {
         Intent intent=new Intent(this,AddDeclareActivity.class);
-        intent.putExtra("batch",batch);
+        intent.putExtra("batchId",batch.getId());
         intent.putExtra("num",num);
         startActivity(intent);
     }

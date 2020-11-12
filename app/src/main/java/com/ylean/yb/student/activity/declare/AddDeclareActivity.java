@@ -22,6 +22,7 @@ import com.ylean.yb.student.persenter.EconomicP;
 import com.ylean.yb.student.persenter.FamilyP;
 import com.ylean.yb.student.persenter.UploadFileP;
 import com.ylean.yb.student.persenter.declare.ApplyDeclareP;
+import com.ylean.yb.student.persenter.declare.DeclareP;
 import com.ylean.yb.student.persenter.user.UserP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.ylean.yb.student.view.AddFamilyView;
@@ -43,7 +44,7 @@ import butterknife.OnClick;
 /**
  * 批次申报
  */
-public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, EconomicP.Face, UploadFileP.Face, ApplyDeclareP.Face, UserP.Face3 {
+public class AddDeclareActivity extends BaseActivity implements DeclareP.Face2,FamilyP.Face, EconomicP.Face, UploadFileP.Face, ApplyDeclareP.Face, UserP.Face3 {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.scrollView)
@@ -100,8 +101,6 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
     private List<FamilyBean.ListBean> familyList = new ArrayList<>();
     //资助经济集合
     private List<EconomicBean.Economic> economicList = new ArrayList<>();
-    //批次申报详情对象
-    private BatchDetails.Batch batch;
     /**
      * 1：身份证正面
      * 2：身份证反面
@@ -113,9 +112,14 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
     private int imgType;
     //图片链接
     private String cardZ,cardF,hk1,hk2,notice,other;
+    //批次id
+    private int batchId;
+    //申报id
+    private int applyId;
     //考号
     private String num;
 
+    private DeclareP declareP=new DeclareP(this);
     private UserP userP=new UserP(this);
     private FamilyP familyP = new FamilyP(this, this);
     private EconomicP economicP = new EconomicP(this, this);
@@ -141,12 +145,17 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
         super.initData();
 
         tvTitle.setText("批次审报");
-        batch = (BatchDetails.Batch) getIntent().getSerializableExtra("batch");
+        //获取批次id
+        batchId = getIntent().getIntExtra("batchId",0);
+        //获取申报id
+        applyId=getIntent().getIntExtra("applyId",0);
+        //获取考号
         num=getIntent().getStringExtra("num");
-        if (batch != null) {
-            tvBatchNo.setText(batch.getName());
-            tvValidTime.setText(batch.getStarttime().split(" ")[0] + "至" + batch.getEndtime().split(" ")[0]);
-        }
+
+
+        declareP.setFace2(this);
+        //学生获取可申报批次详情
+        declareP.getBatchDetailed(batchId);
 
         userP.setFace3(this);
         //获取学生申报或查看申报基本信息
@@ -235,7 +244,11 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
                     ToastUtil.showLong("请上传录取通知书照片");
                     return;
                 }
-                applyDeclareP.applyDeclare(batch.getId(),economicId.toString(),cardZ,cardF,hk1,hk2,notice,other,num);
+                if(applyId==0){
+                    applyDeclareP.applyDeclare(batchId,economicId.toString(),cardZ,cardF,hk1,hk2,notice,other,num);
+                }else{
+                    applyDeclareP.againdeclare(applyId,economicId.toString(),cardZ,cardF,hk1,hk2,notice,other);
+                }
                 break;
             default:
                 break;
@@ -267,6 +280,20 @@ public class AddDeclareActivity extends BaseActivity implements FamilyP.Face, Ec
             default:
                 break;
         }
+    }
+
+
+    /**
+     * 返回详情
+     * @param batch
+     */
+    @Override
+    public void getBatchDetailed(BatchDetails.Batch batch) {
+        if (batch != null) {
+            tvBatchNo.setText(batch.getName());
+            tvValidTime.setText(batch.getStarttime().split(" ")[0] + "至" + batch.getEndtime().split(" ")[0]);
+        }
+        scrollView.scrollTo(0,0);
     }
 
 

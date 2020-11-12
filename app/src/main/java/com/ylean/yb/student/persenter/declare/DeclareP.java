@@ -18,15 +18,24 @@ public class DeclareP {
     private Activity activity;
     private Face face;
     private Face2 face2;
+    private Face3 face3;
 
     public DeclareP(Activity activity,Face face){
         this.activity=activity;
         this.face=face;
     }
 
-    public DeclareP(Activity activity,Face2 face2){
+    public DeclareP(Activity activity){
         this.activity=activity;
+        this.face=face;
+    }
+
+    public void setFace2(Face2 face2){
         this.face2=face2;
+    }
+
+    public void setFace3(Face3 face3){
+        this.face3=face3;
     }
 
 
@@ -130,7 +139,7 @@ public class DeclareP {
                 }
                 if(baseBean.isSussess()){
 
-                    face2.checkdeclareno();
+                    face3.checkdeclareno();
 
                 }else{
                     ToastUtil.showLong(baseBean.getDesc());
@@ -154,7 +163,10 @@ public class DeclareP {
 
     public interface Face2{
         void getBatchDetailed(BatchDetails.Batch batch);
+    }
 
+
+    public interface Face3{
         void checkdeclareno();
     }
 }

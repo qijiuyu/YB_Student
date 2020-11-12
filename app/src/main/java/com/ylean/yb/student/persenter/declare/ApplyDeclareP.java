@@ -6,7 +6,6 @@ import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.http.HttpMethod;
 import com.zxdc.utils.library.util.DialogUtil;
-import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.ToastUtil;
 
 public class ApplyDeclareP {
@@ -26,6 +25,33 @@ public class ApplyDeclareP {
     public void applyDeclare(int bid,String jkids,String idpositive,String idback,String householder,String oneself,String acceptanceletter,String relevantdoc,String num){
         DialogUtil.showProgress(activity,"提交中");
         HttpMethod.applyDeclare(bid, jkids, idpositive, idback, householder, oneself, acceptanceletter, relevantdoc, num,new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                    face.applySuccess();
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
+
+    /**
+     * 学生重新申报批次
+     */
+    public void againdeclare(int did,String jkids,String idpositive,String idback,String householder,String oneself,String acceptanceletter,String relevantdoc){
+        DialogUtil.showProgress(activity,"提交中");
+        HttpMethod.againdeclare(did, jkids, idpositive, idback, householder, oneself, acceptanceletter, relevantdoc,new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
                 final BaseBean baseBean= (BaseBean) object;
