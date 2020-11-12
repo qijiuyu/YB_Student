@@ -95,43 +95,42 @@ public class HistoryBankAdapter extends BaseAdapter {
             holder.view.setVisibility(View.VISIBLE);
         }
 
+
         holder.tvPlay1.setVisibility(View.GONE);
         holder.tvPlay2.setVisibility(View.GONE);
         holder.tvLookAudit.setVisibility(View.GONE);
-        if(position==0){
-            switch (bankBase.getBankstatus()){
-                case 0:
-                case 1:
-                case 2:
-                    holder.tvStatus.setText("未开卡");
-                    break;
-                case 3:
-                case 8:
-                    holder.tvStatus.setText("办理中");
-                    holder.tvPlay1.setVisibility(View.VISIBLE);
-                    holder.tvPlay1.setText("查看进度");
-                    break;
-                case 4:
-                    holder.tvStatus.setText("待验证");
-                    holder.tvPlay1.setVisibility(View.VISIBLE);
-                    holder.tvPlay2.setVisibility(View.VISIBLE);
-                    holder.tvPlay1.setText("查看进度");
-                    break;
-                case 5:
-                    holder.tvStatus.setText("已通过");
-                    holder.tvPlay1.setVisibility(View.VISIBLE);
-                    holder.tvLookAudit.setVisibility(View.VISIBLE);
-                    holder.tvPlay1.setText("变更银行卡");
-                    break;
-                case 6:
-                    holder.tvStatus.setText("已更改");
-                    break;
-                case 7:
-                    holder.tvStatus.setText("失败");
-                    break;
-                default:
-                    break;
-            }
+        switch (bankBase.getBankstatus()){
+            case 0:
+            case 1:
+            case 2:
+                holder.tvStatus.setText("未开卡");
+                break;
+            case 3:
+            case 8:
+                holder.tvStatus.setText("办理中");
+                holder.tvPlay1.setVisibility(View.VISIBLE);
+                holder.tvPlay1.setText("查看进度");
+                break;
+            case 4:
+                holder.tvStatus.setText("待验证");
+                holder.tvPlay1.setVisibility(View.VISIBLE);
+                holder.tvPlay2.setVisibility(View.VISIBLE);
+                holder.tvPlay1.setText("查看进度");
+                break;
+            case 5:
+                holder.tvStatus.setText("已通过");
+                holder.tvPlay1.setVisibility(View.VISIBLE);
+                holder.tvLookAudit.setVisibility(View.VISIBLE);
+                holder.tvPlay1.setText("变更银行卡");
+                break;
+            case 6:
+                holder.tvStatus.setText("已更改");
+                break;
+            case 7:
+                holder.tvStatus.setText("失败");
+                break;
+            default:
+                break;
         }
 
 

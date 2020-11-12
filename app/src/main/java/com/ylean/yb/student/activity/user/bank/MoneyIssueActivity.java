@@ -1,5 +1,6 @@
 package com.ylean.yb.student.activity.user.bank;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
@@ -82,8 +83,6 @@ public class MoneyIssueActivity extends BaseActivity implements MoneyIssueP.Face
         final TextView tvGetMoney=headView.findViewById(R.id.tv_get_money);
         final TextView tvGetNum=headView.findViewById(R.id.tv_get_num);
         final TextView tvReissueNum=headView.findViewById(R.id.tv_reissue_num);
-        final TextView tvApplyReissue=headView.findViewById(R.id.tv_apply_reissue);
-        final TextView tvApplyRefund=headView.findViewById(R.id.tv_apply_refund);
         tvTitle.setText(headBean.getBname());
         tvTime.setText(headBean.getYears()+"年");
         tvTotalMoney.setText(headBean.getMoney()*collMoney.getYears()+"元");
@@ -92,22 +91,6 @@ public class MoneyIssueActivity extends BaseActivity implements MoneyIssueP.Face
         tvGetMoney.setText(headBean.getDmoney()+"元");
         tvGetNum.setText(headBean.getDcount()+"次");
         tvReissueNum.setText(headBean.getYcount()-headBean.getDcount()+"次");
-
-
-        //补发申请
-        tvApplyReissue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setClass(ApplyReissueActivity.class);
-            }
-        });
-        //申请退还金额
-        tvApplyRefund.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setClass(ApplyRefundActivity.class);
-            }
-        });
     }
 
     /**
@@ -118,5 +101,15 @@ public class MoneyIssueActivity extends BaseActivity implements MoneyIssueP.Face
     public void getIssueRecord(List<IssueRecordBean.ListBean> list) {
         listView.setDivider(null);
         listView.setAdapter(new MoneyIssueAdapter(this,list));
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1000){
+            //获取资金发放明细
+            moneyIssueP.getIssueRecord(collMoney.getBid());
+        }
     }
 }

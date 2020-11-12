@@ -1,5 +1,6 @@
 package com.ylean.yb.student.activity.user.setting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,13 +9,14 @@ import android.widget.TextView;
 
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.user.SettingP;
 import com.zxdc.utils.library.util.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class UpdatePwdActivity2 extends BaseActivity {
+public class UpdatePwdActivity2 extends BaseActivity implements SettingP.Face3 {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -22,6 +24,11 @@ public class UpdatePwdActivity2 extends BaseActivity {
     EditText etPwd;
     @BindView(R.id.et_pwd2)
     EditText etPwd2;
+
+    //旧密码
+    private String oldPwd;
+
+    private SettingP settingP=new SettingP(this);
 
     /**
      * 加载布局
@@ -39,7 +46,9 @@ public class UpdatePwdActivity2 extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        settingP.setFace3(this);
         tvTitle.setText("修改登录密码");
+        oldPwd=getIntent().getStringExtra("oldPwd");
     }
 
 
@@ -64,9 +73,20 @@ public class UpdatePwdActivity2 extends BaseActivity {
                     ToastUtil.showLong("两次输入的密码不一致");
                     return;
                 }
+                settingP.updatePwd(pwd,pwd2,oldPwd);
                 break;
             default:
                 break;
         }
+    }
+
+
+    /**
+     * 修改成功
+     */
+    @Override
+    public void updatePwd() {
+        setResult(1000,new Intent());
+        finish();
     }
 }

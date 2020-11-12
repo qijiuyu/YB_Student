@@ -1650,4 +1650,84 @@ public class HttpMethod extends BaseRequst {
             }
         });
     }
+
+
+    /**
+     * 财务补发
+     */
+    public static void financialreissue(int fid,List<FileBean> list,String remarks,final NetCallBack netCallBack){
+        Map<String,String> map=new HashMap<>();
+        map.put("fid",String.valueOf(fid));
+        if(!TextUtils.isEmpty(remarks)){
+            map.put("remarks",remarks);
+        }
+        map.put("type","1");
+        Http.upLoadFile("api/sys/applyrecord/financialreissue", list, map, new okhttp3.Callback() {
+            public void onResponse(okhttp3.Call call, okhttp3.Response response){
+                DialogUtil.closeProgress();
+                try {
+                    String str = response.body().string();
+                    LogUtils.e("+++++++++++++++++"+str);
+                    final BaseBean baseBean= (BaseBean) JsonUtil.stringToObject(str, BaseBean.class);
+                    netCallBack.onSuccess(baseBean);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            public void onFailure(okhttp3.Call call, IOException e) {
+                DialogUtil.closeProgress();
+                netCallBack.onFail();
+            }
+        });
+    }
+
+
+    /**
+     * 申请退还奖学金
+     */
+    public static void applyreturn(int fid,List<FileBean> list,String remarks,final NetCallBack netCallBack){
+        Map<String,String> map=new HashMap<>();
+        map.put("fid",String.valueOf(fid));
+        if(!TextUtils.isEmpty(remarks)){
+            map.put("remarks",remarks);
+        }
+        Http.upLoadFile("api/sys/applyrecord/applyreturn", list, map, new okhttp3.Callback() {
+            public void onResponse(okhttp3.Call call, okhttp3.Response response){
+                DialogUtil.closeProgress();
+                try {
+                    String str = response.body().string();
+                    LogUtils.e("+++++++++++++++++"+str);
+                    final BaseBean baseBean= (BaseBean) JsonUtil.stringToObject(str, BaseBean.class);
+                    netCallBack.onSuccess(baseBean);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            public void onFailure(okhttp3.Call call, IOException e) {
+                DialogUtil.closeProgress();
+                netCallBack.onFail();
+            }
+        });
+    }
+
+
+    /**
+     * 修改密码
+     */
+    public static void updatePwd(String pwd,String rpwd,String ypwd,final NetCallBack netCallBack) {
+        Map<String ,String> map=new HashMap<>();
+        map.put("pwd",pwd);
+        map.put("rpwd",rpwd);
+        map.put("ypwd",ypwd);
+        Http.getRetrofit().create(HttpApi.class).updatePwd(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
 }

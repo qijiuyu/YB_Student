@@ -14,9 +14,14 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.UploadFileActivity;
 import com.ylean.yb.student.activity.declare.ApplySuccessActivity;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.enumer.ApplyEnum;
 import com.ylean.yb.student.persenter.user.ApplyRefundP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
+import com.zxdc.utils.library.bean.FileBean;
+import com.zxdc.utils.library.bean.IssueRecordBean;
+import com.zxdc.utils.library.util.ToastUtil;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,8 +50,14 @@ public class ApplyRefundActivity extends BaseActivity implements ApplyRefundP.Fa
     ImageView imgApply;
     @BindView(R.id.et_content)
     EditText etContent;
-    //图片类型
+    /**
+     * 1：银行汇款单
+     * 2：申请单照片
+     */
     private int imgType;
+    private File bankFile,applyFile;
+    //财务明细对象
+    private IssueRecordBean.ListBean listBean;
 
     private ApplyRefundP applyRefundP=new ApplyRefundP(this,this);
 
@@ -67,6 +78,15 @@ public class ApplyRefundActivity extends BaseActivity implements ApplyRefundP.Fa
     protected void initData() {
         super.initData();
         tvTitle.setText("申请退还奖学金");
+        listBean= (IssueRecordBean.ListBean) getIntent().getSerializableExtra("listBean");
+        if(listBean!=null){
+            tvName.setText(listBean.getBname());
+            tvSchool.setText(listBean.getSname());
+            tvBankCode.setText(listBean.getBknum());
+            tvSendDes.setText(listBean.getBname());
+            tvSendTime.setText(listBean.getCreatetime());
+            tvMoney.setText(listBean.getMoney() + "元");
+        }
     }
 
     @OnClick({R.id.lin_back, R.id.img_bank, R.id.img_apply, R.id.img_template, R.id.tv_submit})
@@ -88,7 +108,18 @@ public class ApplyRefundActivity extends BaseActivity implements ApplyRefundP.Fa
                 applyRefundP.getReturnTemplate();
                 break;
             case R.id.tv_submit:
-                setClass(ApplySuccessActivity.class);
+                if(bankFile==null){
+                    ToastUtil.showLong("请选择银行汇款单");
+                    return;
+                }
+                if(applyFile==null){
+                    ToastUtil.showLong("请选择申请单");
+                    return;
+                }
+                List<FileBean> list=new ArrayList<>();
+                list.add(new FileBean("RemittanceForm",bankFile));
+                list.add(new FileBean("ApplyForm",applyFile));
+                applyRefundP.applyreturn(listBean.getId(),list,etContent.getText().toString().trim());
                 break;
             default:
                 break;
@@ -105,8 +136,10 @@ public class ApplyRefundActivity extends BaseActivity implements ApplyRefundP.Fa
                 if (resultCode == RESULT_OK) {
                     File tempFile = new File(SelectPhotoUtil.pai);
                     if(imgType==1){
+                        bankFile=tempFile;
                         Glide.with(this).load(tempFile).into(imgBank);
                     }else {
+                        applyFile=tempFile;
                         Glide.with(this).load(tempFile).into(imgApply);
                     }
                 }
@@ -118,8 +151,10 @@ public class ApplyRefundActivity extends BaseActivity implements ApplyRefundP.Fa
                     return;
                 }
                 if(imgType==1){
+                    bankFile=new File(list.get(0).getCompressPath());
                     Glide.with(this).load(list.get(0).getCompressPath()).into(imgBank);
                 }else {
+                    applyFile=new File(list.get(0).getCompressPath());
                     Glide.with(this).load(list.get(0).getCompressPath()).into(imgApply);
                 }
                 break;
@@ -140,5 +175,18 @@ public class ApplyRefundActivity extends BaseActivity implements ApplyRefundP.Fa
         Intent intent=new Intent(this, UploadFileActivity.class);
         intent.putExtra("fileUrl",url);
         startActivity(intent);
+    }
+
+
+    /**
+     * 提交成功
+     */
+    @Override
+    public void applyreturn() {
+        Intent intent=new Intent(this,ApplySuccessActivity.class);
+        intent.putExtra("applyEnum", ApplyEnum.申请退还奖学金);
+        startActivity(intent);
+        setResult(1000,new Intent());
+        finish();
     }
 }

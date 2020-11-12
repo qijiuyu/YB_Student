@@ -1,6 +1,7 @@
 package com.ylean.yb.student.adapter.user.bank;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
+import com.ylean.yb.student.activity.user.bank.ApplyRefundActivity;
+import com.ylean.yb.student.activity.user.bank.ApplyReissueActivity;
 import com.zxdc.utils.library.bean.IssueRecordBean;
 
 import java.util.List;
@@ -55,24 +58,33 @@ public class MoneyIssueAdapter extends BaseAdapter {
         final IssueRecordBean.ListBean listBean = list.get(position);
         holder.tvReasonTxt.setVisibility(View.GONE);
         holder.tvReason.setVisibility(View.GONE);
+        holder.tvPlay.setVisibility(View.GONE);
         switch (listBean.getStatus()) {
             case 2:
                 holder.tvStatus.setText("发放中");
                 break;
             case 3:
                 holder.tvStatus.setText("已发放");
+                holder.tvPlay.setVisibility(View.VISIBLE);
+                holder.tvPlay.setText("申请退还奖学金");
                 break;
             case 4:
                 holder.tvStatus.setText("银行发放失败");
                 holder.tvReasonTxt.setVisibility(View.VISIBLE);
                 holder.tvReason.setVisibility(View.VISIBLE);
                 holder.tvReason.setText(listBean.getReason());
+
+                holder.tvPlay.setVisibility(View.VISIBLE);
+                holder.tvPlay.setText("申请补发");
                 break;
             case 5:
                 holder.tvStatus.setText("卡号错误发放失败");
                 holder.tvReasonTxt.setVisibility(View.VISIBLE);
                 holder.tvReason.setVisibility(View.VISIBLE);
                 holder.tvReason.setText(listBean.getReason());
+
+                holder.tvPlay.setVisibility(View.VISIBLE);
+                holder.tvPlay.setText("申请补发");
                 break;
             case 6:
                 holder.tvStatus.setText("暂停发放");
@@ -85,9 +97,28 @@ public class MoneyIssueAdapter extends BaseAdapter {
         }
         holder.tvSchool.setText(listBean.getSname());
         holder.tvBankCode.setText(listBean.getBknum());
-        holder.tvSendDes.setText(listBean.getBname());
         holder.tvSendTime.setText(listBean.getCreatetime());
         holder.tvMoney.setText(listBean.getMoney() + "元");
+
+
+        /**
+         * 申请补发，或者申请退还奖学金
+         */
+        holder.tvPlay.setTag(listBean);
+        holder.tvPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final IssueRecordBean.ListBean listBean= (IssueRecordBean.ListBean) v.getTag();
+                Intent intent=new Intent();
+                if(listBean.getStatus()==3){
+                    intent.setClass(activity, ApplyRefundActivity.class);
+                }else{
+                    intent.setClass(activity, ApplyReissueActivity.class);
+                }
+                intent.putExtra("listBean",listBean);
+                activity.startActivityForResult(intent,1000);
+            }
+        });
         return view;
     }
 
@@ -100,8 +131,6 @@ public class MoneyIssueAdapter extends BaseAdapter {
         TextView tvSchool;
         @BindView(R.id.tv_bank_code)
         TextView tvBankCode;
-        @BindView(R.id.tv_send_des)
-        TextView tvSendDes;
         @BindView(R.id.tv_send_time)
         TextView tvSendTime;
         @BindView(R.id.tv_money)
@@ -110,6 +139,8 @@ public class MoneyIssueAdapter extends BaseAdapter {
         TextView tvReasonTxt;
         @BindView(R.id.tv_reason)
         TextView tvReason;
+        @BindView(R.id.tv_play)
+        TextView tvPlay;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

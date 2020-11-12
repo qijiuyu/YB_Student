@@ -1,12 +1,15 @@
 package com.ylean.yb.student.activity.user.setting;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
+import com.zxdc.utils.library.util.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,10 +48,26 @@ public class UpdatePwdActivity1 extends BaseActivity {
                  finish();
                 break;
             case R.id.tv_submit:
-                setClass(UpdatePwdActivity2.class);
+                final String oldPwd=etPwd.getText().toString().trim();
+                if(TextUtils.isEmpty(oldPwd)){
+                    ToastUtil.showLong("请输入旧密码");
+                    return;
+                }
+                Intent intent=new Intent(this,UpdatePwdActivity2.class);
+                intent.putExtra("oldPwd",oldPwd);
+                startActivityForResult(intent,1000);
                 break;
             default:
                 break;
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1000){
+            finish();
         }
     }
 }

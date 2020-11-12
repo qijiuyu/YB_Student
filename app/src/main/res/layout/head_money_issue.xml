@@ -204,35 +204,6 @@
            android:layout_height="1dp"
            android:background="#f9f9f9"/>
 
-       <LinearLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="right"
-           android:layout_marginTop="40dp">
-
-           <TextView
-               android:id="@+id/tv_apply_reissue"
-               android:layout_width="84dp"
-               android:layout_height="30dp"
-               android:background="@drawable/bg_border_gray"
-               android:text="申请补发"
-               android:textSize="14sp"
-               android:textColor="@color/color_333333"
-               android:gravity="center"/>
-
-           <TextView
-               android:id="@+id/tv_apply_refund"
-               android:layout_width="119.5dp"
-               android:layout_height="30dp"
-               android:background="@drawable/bg_border_gray"
-               android:text="申请退还奖学金"
-               android:textSize="14sp"
-               android:textColor="@color/color_333333"
-               android:gravity="center"
-               android:layout_marginLeft="15dp"/>
-
-       </LinearLayout>
-
    </LinearLayout>
 
     <TextView

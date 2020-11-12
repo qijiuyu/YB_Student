@@ -316,4 +316,8 @@ public interface HttpApi {
     @PUT(HttpConstant.IP+"api/user/login/changephone")
     Call<BaseBean> updatePhone(@FieldMap Map<String, String> map);
 
+    @FormUrlEncoded
+    @PUT(HttpConstant.IP+"api/user/student/updatepwd")
+    Call<BaseBean> updatePwd(@FieldMap Map<String, String> map);
+
 }
