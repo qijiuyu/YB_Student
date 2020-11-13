@@ -45,12 +45,15 @@ public class PlanningOtherActivity extends BaseWebView {
     }
 
 
-
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webview.canGoBack()) {
-            webview.goBack();
+        if (keyCode == KeyEvent.KEYCODE_BACK && webview.canGoBack()) {
+            webview.goBack();//返回上个页面
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyDown(keyCode, event);//退出H5界面
     }
 
 

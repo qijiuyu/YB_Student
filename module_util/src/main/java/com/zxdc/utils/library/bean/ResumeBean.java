@@ -257,14 +257,14 @@ public class ResumeBean extends BaseBean {
 
     public static class Student implements Serializable{
         private int id;
-        private String name;
+        private String name="";
         private int education;
-        private String sex;
-        private String birthday;
-        private String nation;
-        private String nationality;
-        private String address;
-        private String imgUrl;
+        private String sex="";
+        private String birthday="";
+        private String nation="";
+        private String nationality="";
+        private String address="";
+        private String imgUrl="";
 
         public int getId() {
             return id;
@@ -343,9 +343,9 @@ public class ResumeBean extends BaseBean {
         private int id;
         private int type;
         private int facultyid;
-        private String faculty;
+        private String faculty="";
         private int majorid;
-        private String major;
+        private String major="";
         private int education;
         private String grades="";
         private String admissiontime="";

@@ -148,6 +148,9 @@ public class MyResumeActivity extends BaseActivity implements MyResumeP.Face {
      */
     @Override
     public void getMyResume(ResumeBean.Resume resume) {
+        if(resume==null){
+            return;
+        }
         this.resume=resume;
         try {
             /**

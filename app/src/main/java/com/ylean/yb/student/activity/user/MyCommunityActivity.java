@@ -1,12 +1,15 @@
 package com.ylean.yb.student.activity.user;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.webview.BaseWebView;
 import com.zxdc.utils.library.http.HttpConstant;
+import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.SPUtil;
 
 import butterknife.BindView;
@@ -43,22 +46,29 @@ public class MyCommunityActivity extends BaseWebView {
      * 退出
      */
     @JavascriptInterface
-    public void back(){
-        if (webview.canGoBack()) {
-            webview.goBack();
-        } else {
-            finish();
-        }
+    public void back(int flag){
+        webview.post(new Runnable() {
+            @Override
+            public void run() {
+                if (webview.canGoBack()) {
+                    webview.goBack();
+                } else {
+                    finish();
+                }
+            }
+        });
     }
 
 
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webview.canGoBack()) {
-            webview.goBack();
-        }else if (keyCode == KeyEvent.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && webview.canGoBack()) {
+            webview.goBack();//返回上个页面
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyDown(keyCode, event);//退出H5界面
     }
 
     @Override

@@ -1399,7 +1399,7 @@ public class HttpMethod extends BaseRequst {
      * 资金发放明细
      */
     public static void getIssueRecord(int did,final NetCallBack netCallBack) {
-        Http.getRetrofit().create(HttpApi.class).getIssueRecord(did).enqueue(new Callback<IssueRecordBean>() {
+        Http.getRetrofit().create(HttpApi.class).getIssueRecord(did,-1).enqueue(new Callback<IssueRecordBean>() {
             public void onResponse(Call<IssueRecordBean> call, Response<IssueRecordBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());

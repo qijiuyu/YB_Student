@@ -1,5 +1,6 @@
 package com.ylean.yb.student.activity.user.resume;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -155,6 +156,7 @@ public class AddSchoolPositionActivity extends BaseActivity implements MyResumeP
      */
     @Override
     public void onSuccess() {
+        setResult(1000,new Intent());
         finish();
     }
 }

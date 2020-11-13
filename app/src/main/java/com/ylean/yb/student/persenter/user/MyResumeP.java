@@ -62,12 +62,9 @@ public class MyResumeP {
                     if(jsonObject.getInt("code")==0){
 
                         final ResumeBean.Resume resume= (ResumeBean.Resume) JsonUtil.stringToObject(jsonObject.getString("data"),ResumeBean.Resume.class);
-                        if(resume==null){
-                            return;
-                        }
                         face.getMyResume(resume);
                     }else{
-                        ToastUtil.showLong(jsonObject.getString("desc"));
+                        face.getMyResume(null);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

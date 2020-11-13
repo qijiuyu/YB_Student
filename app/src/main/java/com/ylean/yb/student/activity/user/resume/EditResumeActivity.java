@@ -24,7 +24,6 @@ import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.callback.TimeCallBack;
 import com.ylean.yb.student.persenter.UploadFileP;
 import com.ylean.yb.student.persenter.user.MyResumeP;
-import com.ylean.yb.student.persenter.user.UserP;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.ylean.yb.student.utils.SelectTimeUtils;
 import com.ylean.yb.student.view.SelectProvince;
@@ -40,7 +39,6 @@ import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.Salary;
 import com.zxdc.utils.library.bean.UploadResumeFile;
-import com.zxdc.utils.library.bean.UserInfo;
 import com.zxdc.utils.library.bean.parameter.JobIntention;
 import com.zxdc.utils.library.bean.parameter.ResumeBase;
 import com.zxdc.utils.library.util.JsonUtil;
@@ -56,7 +54,7 @@ import butterknife.OnClick;
 /**
  * 编辑简历
  */
-public class EditResumeActivity extends BaseActivity implements UserP.Face,MyResumeP.Face2,MyResumeP.Face3, UploadFileP.Face {
+public class EditResumeActivity extends BaseActivity implements MyResumeP.Face,MyResumeP.Face2,MyResumeP.Face3, UploadFileP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_right)
@@ -117,8 +115,6 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
     RecyclerView listCertificate;
     @BindView(R.id.img_file)
     ImageView imgFile;
-    //简历对象
-    private ResumeBean.Resume resume;
     //选择的求职职位
     private List<ResumePostion.Position> selectPosition=new ArrayList<>();
     //选择的行业类型
@@ -129,14 +125,11 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
      */
     private int selectImg=1;
 
-    private AddResumeEducationAdapter educationAdapter;
-    private AddResumeHonorAdapter honorAdapter;
-    private AddResumePositionAdapter positionAdapter;
-    private EditResumeSpecialtyAdapter specialtyAdapter;
-    private AddResumeCertificateAdapter certificateAdapter;
-
     private MyResumeP myResumeP=new MyResumeP(this);
     private UploadFileP uploadFileP=new UploadFileP(this,this);
+
+    //简历对象
+    private ResumeBean.Resume resume;
 
     /**
      * 加载布局
@@ -154,14 +147,15 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
     @Override
     protected void initData() {
         super.initData();
+        myResumeP.setFace(this);
         myResumeP.setFace2(this);
         myResumeP.setFace3(this);
         tvTitle.setText("编辑简历");
         tvRight.setText("完成");
-        resume= (ResumeBean.Resume) getIntent().getSerializableExtra("resume");
 
-        //展示用户基本信息
-        showUserBase();
+        //查询我的简历
+        myResumeP.getMyResume();
+
     }
 
     @OnClick({R.id.lin_back,R.id.img_head, R.id.tv_province, R.id.tv_city, R.id.tv_area,R.id.tv_save_base,R.id.tv_province1, R.id.tv_city1, R.id.tv_area1,R.id.tv_add_position_tag,R.id.tv_add_industry_tag,R.id.tv_salary,R.id.tv_work_time,R.id.tv_job_type,R.id.tv_save,R.id.tv_add_education,R.id.tv_add_honor,R.id.tv_add_position,R.id.tv_add_specialty,R.id.tv_add_certificate,R.id.img_file,R.id.tv_right})
@@ -446,25 +440,25 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
             case R.id.tv_add_honor:
                 intent.setClass(this,AddSchoolHonorActivity.class);
                 intent.putExtra("resume",resume);
-                startActivityForResult(intent,1001);
+                startActivityForResult(intent,1000);
                  break;
             //添加校内职务
             case R.id.tv_add_position:
                 intent.setClass(this,AddSchoolPositionActivity.class);
                 intent.putExtra("resume",resume);
-                startActivityForResult(intent,1002);
+                startActivityForResult(intent,1000);
                  break;
             //添加技能特长
             case R.id.tv_add_specialty:
                  intent.setClass(this,AddSpecialtyActivity.class);
                  intent.putExtra("resume",resume);
-                 startActivityForResult(intent,1003);
+                 startActivityForResult(intent,1000);
                  break;
             //添加证书
             case R.id.tv_add_certificate:
                  intent.setClass(this,AddCertificateActivity.class);
                  intent.putExtra("resume",resume);
-                 startActivityForResult(intent,1004);
+                 startActivityForResult(intent,1000);
                  break;
             //添加附件
             case R.id.img_file:
@@ -535,6 +529,10 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
                     tvIndustry.addView(textView, lp);
                 }
                  break;
+            case 1000:
+                 //查询我的简历
+                 myResumeP.getMyResume();
+                 break;
              default:
                  break;
         }
@@ -553,21 +551,16 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
 
 
     /**
-     * 展示用户基本信息
+     * 查询我的简历
+     * @param resume
      */
     @Override
-    public void getbaseinfo(UserInfo userInfo) {
-
-    }
-
-
-    /**
-     * 展示用户基本信息
-     */
-    private void showUserBase(){
+    public void getMyResume(ResumeBean.Resume resume) {
         if(resume==null){
+            this.resume=new ResumeBean.Resume();
             return;
         }
+        this.resume=resume;
         try {
             /**
              * 基本信息
@@ -677,28 +670,29 @@ public class EditResumeActivity extends BaseActivity implements UserP.Face,MyRes
 
             //展示学习经历
             listEducation.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-            listEducation.setAdapter(educationAdapter=new AddResumeEducationAdapter(this,resume));
+            listEducation.setAdapter(new AddResumeEducationAdapter(this,resume));
 
             //展示在校荣誉
             listHonor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-            listHonor.setAdapter(honorAdapter=new AddResumeHonorAdapter(this,resume));
+            listHonor.setAdapter(new AddResumeHonorAdapter(this,resume));
 
             //校内职务
             listPosition.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-            listPosition.setAdapter(positionAdapter=new AddResumePositionAdapter(this,resume));
+            listPosition.setAdapter(new AddResumePositionAdapter(this,resume));
 
             //展示特长信息
             listSpecialty.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-            listSpecialty.setAdapter(specialtyAdapter=new EditResumeSpecialtyAdapter(this,resume));
+            listSpecialty.setAdapter(new EditResumeSpecialtyAdapter(this,resume));
 
             //展示证书信息
             listCertificate.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-            listCertificate.setAdapter(certificateAdapter=new AddResumeCertificateAdapter(this,resume));
+            listCertificate.setAdapter(new AddResumeCertificateAdapter(this,resume));
 
             //附件
             if(!TextUtils.isEmpty(resume.getEnclosure())){
                 Glide.with(this).load(resume.getEnclosure()).into(imgFile);
             }
+
         }catch (Exception e){
             e.printStackTrace();
         }

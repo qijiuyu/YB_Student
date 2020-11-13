@@ -2,6 +2,7 @@ package com.ylean.yb.student.activity.love;
 
 import android.util.Log;
 import android.view.KeyEvent;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import com.ylean.yb.student.R;
@@ -35,20 +36,18 @@ public class LoveOtherActivity extends BaseWebView {
         initWebView(webview);
         final String url=getIntent().getStringExtra("url");
         webview.loadUrl(url);
-        webview.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                Log.e("tag","++++++++++"+url);
-                return false;
-            }
-        });
     }
 
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webview.canGoBack()) {
-            webview.goBack();
+        if (keyCode == KeyEvent.KEYCODE_BACK && webview.canGoBack()) {
+            webview.goBack();//返回上个页面
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyDown(keyCode, event);//退出H5界面
     }
 
     @Override

@@ -16,7 +16,9 @@ import com.ylean.yb.student.base.BaseActivity;
 import com.zxdc.utils.library.eventbus.EventBusType;
 import com.zxdc.utils.library.eventbus.EventStatus;
 import com.zxdc.utils.library.http.HttpConstant;
+import com.zxdc.utils.library.util.LogUtils;
 import com.zxdc.utils.library.util.SPUtil;
+import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.view.refresh.MyRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -49,31 +51,38 @@ public class MyActivity extends BaseWebView {
         super.initData();
         initWebView(webview);
         webview.loadUrl(HttpConstant.H5+"myactivityList.html?token="+ SPUtil.getInstance(this).getString(SPUtil.TOKEN));
+    }
 
-        webview.setWebViewClient(new WebViewClient() {
-            //覆盖shouldOverrideUrlLoading 方法
+
+    /**
+     * 退出
+     */
+    @JavascriptInterface
+    public void back(int flag){
+        webview.post(new Runnable() {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if(url.contains("back()")){
-                    if (webview.canGoBack()) {
-                        webview.goBack();
-                    } else {
-                        finish();
-                    }
-                    return true;
+            public void run() {
+                if (webview.canGoBack()) {
+                    webview.goBack();
+                } else {
+                    finish();
                 }
-                return false;
             }
         });
     }
 
 
 
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webview.canGoBack()) {
-            webview.goBack();
+        if (keyCode == KeyEvent.KEYCODE_BACK && webview.canGoBack()) {
+            webview.goBack();//返回上个页面
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_BACK) {
+           finish();
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyDown(keyCode, event);//退出H5界面
     }
 
     @Override

@@ -272,7 +272,7 @@ public interface HttpApi {
     Call<DeclareDetailsBean> getDeclareDetails(@Query("did") int did);
 
     @GET(HttpConstant.IP+"api/sys/student/finace/financialrecords")
-    Call<IssueRecordBean> getIssueRecord(@Query("bid") int bid);
+    Call<IssueRecordBean> getIssueRecord(@Query("bid") int bid,@Query("status") int status);
 
     @GET(HttpConstant.IP+"ybsysserver/api/sys/applyrecord/list")
     Call<ApplyBean> getApplyList(@Query("page") int page, @Query("size") int size);

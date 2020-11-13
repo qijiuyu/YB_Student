@@ -30,7 +30,7 @@ public class AddSchoolHonor implements Serializable {
         private String level;
         private String prize;
 
-        public ObjectBean(String acquisitionTime, String level, String prize) {
+        public ObjectBean(String acquisitionTime, String prize, String level) {
             this.acquisitionTime = acquisitionTime;
             this.level = level;
             this.prize = prize;
