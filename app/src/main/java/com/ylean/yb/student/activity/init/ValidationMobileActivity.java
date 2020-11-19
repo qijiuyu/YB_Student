@@ -116,7 +116,7 @@ public class ValidationMobileActivity extends BaseActivity implements SendCodeP.
                     ToastUtil.showLong("图形验证码错误");
                     return;
                 }
-                sendCodeP.getSmsCode(codeImg,forgetPwd.getData().getPhone(),"3");
+                sendCodeP.getSmsCodeByNum(idnum,"3");
                 break;
             case R.id.tv_submit:
                 if(TextUtils.isEmpty(codeImg)){

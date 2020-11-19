@@ -1,23 +1,20 @@
 package com.ylean.yb.student.activity.user.apply;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.ylean.yb.student.R;
-import com.ylean.yb.student.adapter.user.apply.ReissueAuditAdapter;
 import com.ylean.yb.student.base.BaseActivity;
+import com.ylean.yb.student.persenter.ApplyDetailsP;
+import com.zxdc.utils.library.bean.ReissueAuditBean;
 import com.zxdc.utils.library.view.MeasureListView;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * 补发申请详情
  */
-public class ReissueAuditActivity extends BaseActivity {
+public class ReissueAuditActivity extends BaseActivity implements ApplyDetailsP.Face {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.img_status)
@@ -30,7 +27,16 @@ public class ReissueAuditActivity extends BaseActivity {
     TextView tvAudit3;
     @BindView(R.id.listView)
     MeasureListView listView;
-    private ReissueAuditAdapter adapter;
+    @BindView(R.id.tv_total_money)
+    TextView tvTotalMoney;
+    @BindView(R.id.tv_bank_code)
+    TextView tvBankCode;
+    @BindView(R.id.tv_send_time)
+    TextView tvSendTime;
+    //申请记录id
+    private int id;
+
+    private ApplyDetailsP applyDetailsP=new ApplyDetailsP(this);
 
     /**
      * 加载布局
@@ -48,9 +54,14 @@ public class ReissueAuditActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        applyDetailsP.setFace(this);
         tvTitle.setText("补发申请详情");
 
-        listView.setAdapter(adapter=new ReissueAuditAdapter(this));
+        id=getIntent().getIntExtra("id",0);
+        //获取申请记录详情
+        applyDetailsP.getReissueAudit(id);
+
+//        listView.setAdapter(adapter=new ReissueAuditAdapter(this));
     }
 
 
@@ -69,5 +80,20 @@ public class ReissueAuditActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+
+    /**
+     * 获取申请记录详情
+     * @param dataBean
+     */
+    @Override
+    public void getReissueAudit(ReissueAuditBean.DataBean dataBean) {
+        if(dataBean==null){
+            return;
+        }
+        tvTotalMoney.setText("补发金额总计："+dataBean.getMoney()+"元");
+        tvBankCode.setText("银行卡号："+dataBean.getBnum());
+        tvSendTime.setText("发放时间："+dataBean.getFdate());
     }
 }

@@ -36,8 +36,6 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
     TextView tvCard;
     @BindView(R.id.tv_card_time)
     TextView tvCardTime;
-    @BindView(R.id.tv_bank_code)
-    TextView tvBankCode;
     @BindView(R.id.tv_email)
     TextView tvEmail;
     @BindView(R.id.et_qq)

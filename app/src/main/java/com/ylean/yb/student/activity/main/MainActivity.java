@@ -11,6 +11,9 @@ import com.ylean.yb.student.fragment.main.DonationFragment;
 import com.ylean.yb.student.fragment.main.MainFragment;
 import com.ylean.yb.student.fragment.main.YanBaoFragment;
 import com.ylean.yb.student.view.PagerSlidingTabStrip;
+import com.zxdc.utils.library.util.AESUtil;
+import com.zxdc.utils.library.util.LogUtils;
+
 import butterknife.BindView;
 
 /**

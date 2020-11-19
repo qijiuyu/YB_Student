@@ -27,7 +27,6 @@ public class DeclareP {
 
     public DeclareP(Activity activity){
         this.activity=activity;
-        this.face=face;
     }
 
     public void setFace2(Face2 face2){

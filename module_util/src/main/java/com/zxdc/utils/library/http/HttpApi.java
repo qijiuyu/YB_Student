@@ -36,6 +36,7 @@ import com.zxdc.utils.library.bean.NewsBean;
 import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ReceivablesheadBean;
+import com.zxdc.utils.library.bean.ReissueAuditBean;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.SchoolBean;
@@ -95,6 +96,10 @@ public interface HttpApi {
     @FormUrlEncoded
     @PUT(HttpConstant.IP+"api/sys/email/sendbindemail")
     Call<BaseBean> sendbindemail(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @PUT(HttpConstant.IP+"api/sys/email/sendbyidnum")
+    Call<BaseBean> sendbindemailByNum(@FieldMap Map<String, String> map);
 
     @GET(HttpConstant.IP+"api/user/student/getbaseinfo")
     Call<UserInfo> getbaseinfo();
@@ -268,6 +273,10 @@ public interface HttpApi {
     @POST(HttpConstant.IP+"api/sys/sms/send")
     Call<BaseBean> getSmsCode(@FieldMap Map<String, String> map);
 
+    @FormUrlEncoded
+    @POST(HttpConstant.IP+"api/sys/sms/sendbyidnum")
+    Call<BaseBean> getSmsCodeByNum(@FieldMap Map<String, String> map);
+
     @GET(HttpConstant.IP+"api/sys/declare/pub/getdbaseinfo")
     Call<DeclareDetailsBean> getDeclareDetails(@Query("did") int did);
 
@@ -326,5 +335,8 @@ public interface HttpApi {
 
     @GET(HttpConstant.IP+"api/sys/feedback/add")
     Call<BaseBean> addFeedBack(@Query("content") String content);
+
+    @GET(HttpConstant.IP+"api/sys/applyrecord/getdetailed")
+    Call<ReissueAuditBean> getReissueAudit(@Query("id") int id);
 
 }

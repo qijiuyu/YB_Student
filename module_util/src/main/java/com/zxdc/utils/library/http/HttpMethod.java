@@ -41,6 +41,7 @@ import com.zxdc.utils.library.bean.PageParam;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ReceivablesheadBean;
 import com.zxdc.utils.library.bean.Register;
+import com.zxdc.utils.library.bean.ReissueAuditBean;
 import com.zxdc.utils.library.bean.ResumeBean;
 import com.zxdc.utils.library.bean.ResumePostion;
 import com.zxdc.utils.library.bean.SchoolBean;
@@ -196,6 +197,26 @@ public class HttpMethod extends BaseRequst {
         map.put("type",type);
         map.put("email",email);
         Http.getRetrofit().create(HttpApi.class).sendbindemail(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 发送email验证信息(根据身份证号码)
+     */
+    public static void sendbindemailByNum(String idnum,String type,final NetCallBack netCallBack) {
+        Map<String ,String> map=new HashMap<>();
+        map.put("idnum",idnum);
+        map.put("type",type);
+        Http.getRetrofit().create(HttpApi.class).sendbindemailByNum(map).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();
                 netCallBack.onSuccess(response.body());
@@ -1379,6 +1400,26 @@ public class HttpMethod extends BaseRequst {
 
 
     /**
+     * 发送短信(根据身份证号码)
+     */
+    public static void getSmsCodeByNum(String idnum,String type,final NetCallBack netCallBack) {
+        Map<String,String> map=new HashMap<>();
+        map.put("idnum",idnum);
+        map.put("type",type);
+        Http.getRetrofit().create(HttpApi.class).getSmsCodeByNum(map).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
      * 获取申报基本信息
      */
     public static void getDeclareDetails(int did,final NetCallBack netCallBack) {
@@ -1782,6 +1823,23 @@ public class HttpMethod extends BaseRequst {
                 netCallBack.onSuccess(response.body());
             }
             public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
+
+
+    /**
+     * 获取申请记录详情（财务或项目补发用）
+     */
+    public static void getReissueAudit(int id,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).getReissueAudit(id).enqueue(new Callback<ReissueAuditBean>() {
+            public void onResponse(Call<ReissueAuditBean> call, Response<ReissueAuditBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<ReissueAuditBean> call, Throwable t) {
                 DialogUtil.closeProgress();
                 ToastUtil.showLong("网络异常，请检查网络后重试");
             }

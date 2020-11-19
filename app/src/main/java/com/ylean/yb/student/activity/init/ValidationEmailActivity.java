@@ -82,7 +82,7 @@ public class ValidationEmailActivity extends BaseActivity implements SendCodeP.F
                 if(time>0){
                     return;
                 }
-                sendEmailP.sendbindemail("1",forgetPwd.getData().getEmail());
+                sendEmailP.sendbindemailByNum("1",idnum);
                 break;
             //下一步
             case R.id.tv_submit:

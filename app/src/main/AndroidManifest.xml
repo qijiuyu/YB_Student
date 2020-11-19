@@ -131,6 +131,7 @@
         <activity android:name=".activity.UploadFileActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.main.NewsDetailsActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.setting.UpdatePhoneActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.webview.MainWebViewActivity"  android:screenOrientation="portrait"/>
 
 
 

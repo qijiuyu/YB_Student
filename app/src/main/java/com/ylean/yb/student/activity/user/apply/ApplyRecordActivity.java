@@ -123,6 +123,7 @@ public class ApplyRecordActivity extends BaseActivity implements MyRefreshLayout
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final ApplyBean.ListBean listBean=listAll.get(position);
                 Intent intent=new Intent();
+                intent.putExtra("id",listBean.getId());
                 switch (listBean.getType()){
                     case 0:
                         intent.setClass(activity,ReissueAuditActivity.class);

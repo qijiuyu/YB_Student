@@ -1,6 +1,7 @@
 package com.ylean.yb.student.fragment.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.ylean.yb.student.R;
 import com.ylean.yb.student.activity.main.MainActivity;
+import com.ylean.yb.student.activity.webview.MainWebViewActivity;
 import com.ylean.yb.student.adapter.main.MainDTAdapter;
 import com.ylean.yb.student.adapter.main.MainJLAdapter;
 import com.ylean.yb.student.adapter.main.MainJZAdapter;
@@ -74,7 +76,7 @@ public class MainFragment extends BaseFragment implements BannerP.Face, Donation
         donationP.getDonation();
 
         //获取交流合作数据
-        mainP.getMainNews(203,4);
+        mainP.getMainNews(203,6);
 
         //获取首页动态数据
         mainP.getMainNews(205,6);
@@ -84,16 +86,28 @@ public class MainFragment extends BaseFragment implements BannerP.Face, Donation
 
     @OnClick({R.id.tv_jz, R.id.tv_school, R.id.tv_jyj, R.id.tv_ds, R.id.tv_qy, R.id.tv_more_jl})
     public void onViewClicked(View view) {
+        Intent intent=new Intent(activity, MainWebViewActivity.class);
         switch (view.getId()) {
+            //捐赠管理系统
             case R.id.tv_jz:
+                intent.putExtra("type",1);
+                startActivity(intent);
                 break;
             case R.id.tv_school:
+                intent.putExtra("type",2);
+                startActivity(intent);
                 break;
             case R.id.tv_jyj:
+                intent.putExtra("type",3);
+                startActivity(intent);
                 break;
             case R.id.tv_ds:
+                intent.putExtra("type",4);
+                startActivity(intent);
                 break;
             case R.id.tv_qy:
+                intent.putExtra("type",5);
+                startActivity(intent);
                 break;
             //交流合作-更多
             case R.id.tv_more_jl:

@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.zxdc.utils.library.bean.BaseBean;
 import com.zxdc.utils.library.bean.NetCallBack;
 import com.zxdc.utils.library.http.HttpMethod;
+import com.zxdc.utils.library.util.AESUtil;
 import com.zxdc.utils.library.util.DialogUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 
@@ -56,12 +57,64 @@ public class SendCodeP {
 
 
     /**
+     * 发送email验证信息(根据身份证号码)
+     */
+    public void sendbindemailByNum(String type,String idnum){
+        DialogUtil.showProgress(activity,"发送中");
+        HttpMethod.sendbindemailByNum(type, idnum, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                    face.sendbindemail();
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
+    /**
      * 获取短信验证码
      * type：  0学生注册，  1学生登录   2变更手机号    3忘记密码
      */
     public void getSmsCode(String code,String phone,String type){
         DialogUtil.showProgress(activity,"数据提交中");
-        HttpMethod.getSmsCode(code, phone, type, new NetCallBack() {
+        HttpMethod.getSmsCode(code, AESUtil.encrypt(phone), type, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                    face2.getSmsCode();
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
+    /**
+     * 发送短信(根据身份证号码)
+     */
+    public void getSmsCodeByNum(String idnum,String type){
+        DialogUtil.showProgress(activity,"数据提交中");
+        HttpMethod.getSmsCodeByNum(idnum, type, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
                 final BaseBean baseBean= (BaseBean) object;
