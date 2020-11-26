@@ -131,10 +131,10 @@ public class ApplyRecordActivity extends BaseActivity implements MyRefreshLayout
                     case 1:
                         intent.setClass(activity,BankAuditActivity.class);
                         break;
-                    case 2:
+                    case 4:
                         intent.setClass(activity,WelfareAuditActivity.class);
                         break;
-                    case 3:
+                    case 5:
                         intent.setClass(activity,InSchoolAuditActivity.class);
                         break;
                     default:

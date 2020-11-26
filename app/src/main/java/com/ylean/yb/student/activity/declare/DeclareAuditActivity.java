@@ -39,6 +39,8 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
     TextView tvTitle;
     @BindView(R.id.scrollView)
     ScrollView scrollView;
+    @BindView(R.id.tv_status)
+    TextView tvStatus;
     @BindView(R.id.list_audit)
     RecyclerView listAudit;
 //    @BindView(R.id.img_audit1)
@@ -175,6 +177,46 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
     public void getAudit(AuditBean.Audit audit) {
         if(audit==null){
             return;
+        }
+        switch (audit.getStatus()){
+            case 0:
+                 tvStatus.setText("未审核");
+                 break;
+            case 1:
+                tvStatus.setText("学校审核通过");
+                break;
+            case 2:
+                tvStatus.setText("学校审核不通过");
+                break;
+            case 3:
+                tvStatus.setText("教育局审核通过");
+                break;
+            case 4:
+                tvStatus.setText("教育局审核不通过");
+                break;
+            case 5:
+                tvStatus.setText("基金会审核通过");
+                break;
+            case 6:
+                tvStatus.setText("基金会审核不通过");
+                break;
+            case 7:
+                tvStatus.setText("教育局驳回");
+                break;
+            case 8:
+                tvStatus.setText("基金会驳回");
+                break;
+            case 9:
+                tvStatus.setText("学校驳回");
+                break;
+            case 10:
+                tvStatus.setText("教育局提交");
+                break;
+            case 11:
+                tvStatus.setText("学校提交");
+                break;
+            default:
+                break;
         }
         tvCode.setText(audit.getCode());
         tvBatchNo.setText(audit.getBname());
