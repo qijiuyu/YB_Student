@@ -1845,4 +1845,21 @@ public class HttpMethod extends BaseRequst {
             }
         });
     }
+
+
+    /**
+     * 学生登录验证短信验证码
+     */
+    public static void loginByCode(String code,String phone,final NetCallBack netCallBack) {
+        Http.getRetrofit().create(HttpApi.class).loginByCode(code,phone).enqueue(new Callback<BaseBean>() {
+            public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
+                DialogUtil.closeProgress();
+                netCallBack.onSuccess(response.body());
+            }
+            public void onFailure(Call<BaseBean> call, Throwable t) {
+                DialogUtil.closeProgress();
+                ToastUtil.showLong("网络异常，请检查网络后重试");
+            }
+        });
+    }
 }

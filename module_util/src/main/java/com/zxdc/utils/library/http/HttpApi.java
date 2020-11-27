@@ -339,4 +339,7 @@ public interface HttpApi {
     @GET(HttpConstant.IP+"api/sys/applyrecord/getdetailed")
     Call<ReissueAuditBean> getReissueAudit(@Query("id") int id);
 
+    @GET(HttpConstant.IP+"api/user/login/loginsms")
+    Call<BaseBean> loginByCode(@Query("code") String code,@Query("phone") String phone);
+
 }

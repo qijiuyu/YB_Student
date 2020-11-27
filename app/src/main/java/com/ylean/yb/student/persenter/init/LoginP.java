@@ -46,6 +46,32 @@ public class LoginP {
     }
 
 
+    /**
+     * 学生登录验证短信验证码
+     */
+    public void loginByCode(String code,String phone){
+        DialogUtil.showProgress(activity,"登录中");
+        HttpMethod.loginByCode(code, phone, new NetCallBack() {
+            @Override
+            public void onSuccess(Object object) {
+                final BaseBean baseBean= (BaseBean) object;
+                if(baseBean.isSussess()){
+
+                    face.onSuccess(baseBean);
+
+                }else{
+                    ToastUtil.showLong(baseBean.getDesc());
+                }
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
     public interface Face{
         void onSuccess(BaseBean baseBean);
     }

@@ -29,133 +29,227 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:background="@android:color/white">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="身份证号"
-            android:textColor="@color/color_333333"
-            android:textSize="14sp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="13sp"/>
-
-        <EditText
-            android:id="@+id/et_card"
+        <LinearLayout
+            android:id="@+id/lin_1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:background="@null"
-            android:layout_marginLeft="87dp"
-            android:hint="请输入身份证号"
-            android:textSize="14sp"
-            android:textColor="@color/color_333333"
-            android:maxLength="18"
-            android:inputType="number"
-            android:digits="0987654321xX"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:background="@android:color/white">
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="密码"
-            android:textColor="@color/color_333333"
-            android:textSize="14sp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="13sp"/>
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/et_pwd"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="身份证号"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@null"
+                    android:layout_marginLeft="87dp"
+                    android:hint="请输入身份证号"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_333333"
+                    android:maxLength="18"
+                    android:inputType="number"
+                    android:digits="0987654321xX"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="密码"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@null"
+                    android:layout_marginLeft="87dp"
+                    android:hint="请输入密码"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_333333"
+                    android:password="true"/>
+
+                <TextView
+                    android:id="@+id/tv_forget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:text="忘记密码？"
+                    android:textSize="13sp"
+                    android:textColor="@color/color_999999"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_2"
+            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:background="@null"
-            android:layout_marginLeft="87dp"
-            android:hint="请输入密码"
-            android:textSize="14sp"
-            android:textColor="@color/color_333333"
-            android:password="true"/>
-
-        <TextView
-            android:id="@+id/tv_forget"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:text="忘记密码？"
-            android:textSize="13sp"
-            android:textColor="@color/color_999999"/>
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:background="@android:color/white">
 
-    <RelativeLayout
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:background="@android:color/white">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="手机号"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13sp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="验证码"
-            android:textColor="@color/color_333333"
-            android:textSize="14sp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="13sp"/>
+                <EditText
+                    android:id="@+id/et_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@null"
+                    android:layout_marginLeft="87dp"
+                    android:hint="请输入手机号"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_333333"
+                    android:maxLength="11"
+                    android:inputType="phone"/>
 
-        <EditText
-            android:id="@+id/et_code"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:background="@null"
-            android:layout_marginLeft="87dp"
-            android:hint="请输入验证码"
-            android:textSize="14sp"
-            android:textColor="@color/color_333333"
-            android:inputType="number"
-            android:maxLength="6"/>
+            </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_send_code"
-            android:layout_width="79dp"
-            android:layout_height="28dp"
-            android:background="@drawable/bg_smscode"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:text="获取验证码"
-            android:textSize="12sp"
-            android:textColor="@color/color_FA4D4F"
-            android:gravity="center"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="图形验证码"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_code_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@null"
+                    android:layout_marginLeft="97dp"
+                    android:hint="请输入图形验证码"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_333333"
+                    android:inputType="number"
+                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" />
+
+                <ImageView
+                    android:id="@+id/img_code"
+                    android:layout_width="79dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="验证码"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@null"
+                    android:layout_marginLeft="87dp"
+                    android:hint="请输入验证码"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_333333"
+                    android:inputType="number"
+                    android:maxLength="6"/>
+
+                <TextView
+                    android:id="@+id/tv_send_code"
+                    android:layout_width="79dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_smscode"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:text="获取验证码"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_FA4D4F"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
     <TextView
-        android:visibility="gone"
-        android:id="@+id/tv_update_mobile"
+        android:id="@+id/tv_login_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="已更换手机，收不到验证码"
+        android:tag="0"
+        android:text="手机验证"
         android:textSize="14sp"
-        android:textColor="@color/color_9B9B9B"
+        android:textColor="@color/color_FA4D4F"
         android:layout_gravity="right"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"/>
