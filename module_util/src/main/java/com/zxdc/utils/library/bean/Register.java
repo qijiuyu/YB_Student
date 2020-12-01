@@ -16,7 +16,6 @@ public class Register extends BaseBean {
 
     public static class UserBean implements Serializable{
 
-        private int id;
         private int ctype;
         private String idnum;
         private String name="";
@@ -35,12 +34,12 @@ public class Register extends BaseBean {
         private boolean isbfchildren;
         private String idimgurl;
 
-        public int getId() {
-            return id;
+        public String getIdimgurl() {
+            return idimgurl;
         }
 
-        public void setId(int id) {
-            this.id = id;
+        public void setIdimgurl(String idimgurl) {
+            this.idimgurl = idimgurl;
         }
 
         public int getCtype() {

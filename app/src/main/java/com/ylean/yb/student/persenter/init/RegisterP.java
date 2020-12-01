@@ -66,9 +66,9 @@ public class RegisterP {
     /**
      * 注册第二步
      */
-    public void register2(String ucphone,String address,String qq,String residenceaddress,String uctel,int uid,String wechat){
+    public void register2(String ucphone,String address,String qq,String residenceaddress,String uctel,String token,String wechat){
         DialogUtil.showProgress(activity,"数据提交中");
-        HttpMethod.saveUser(ucphone, address, qq, residenceaddress, uctel, uid, wechat, new NetCallBack() {
+        HttpMethod.saveUser(ucphone, address, qq, residenceaddress, uctel, token, wechat, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
                 final BaseBean baseBean= (BaseBean) object;
@@ -92,9 +92,9 @@ public class RegisterP {
     /**
      * 学生注册第三步
      */
-    public void bindingEmail(String code,String email,int uid){
+    public void bindingEmail(String code,String email,String token){
         DialogUtil.showProgress(activity,"绑定中");
-        HttpMethod.bindingEmail(code, email,uid, new NetCallBack() {
+        HttpMethod.bindingEmail(code, email,token, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
                 final BaseBean baseBean= (BaseBean) object;

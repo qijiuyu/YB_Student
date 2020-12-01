@@ -98,7 +98,7 @@ public class BindingEmailActivity extends BaseActivity implements SendCodeP.Face
                     return;
                 }
                 //学生注册第三步
-                registerP.bindingEmail(code,email,userInfo.getData().getId());
+                registerP.bindingEmail(code,email,userInfo.getToken());
                 break;
             default:
                 break;

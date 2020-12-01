@@ -167,14 +167,14 @@ public class HttpMethod extends BaseRequst {
     /**
      * 保存用户基本信息
      */
-    public static void saveUser(String ucphone,String address,String qq,String residenceaddress,String uctel,int uid,String wechat,final NetCallBack netCallBack) {
+    public static void saveUser(String ucphone,String address,String qq,String residenceaddress,String uctel,String token,String wechat,final NetCallBack netCallBack) {
         Map<String ,String> map=new HashMap<>();
         map.put("ucphone",ucphone);
         map.put("address",address);
         map.put("qq",qq);
         map.put("residenceaddress",residenceaddress);
         map.put("uctel",uctel);
-        map.put("uid",uid+"");
+        map.put("token",token);
         map.put("wechat",wechat);
         Http.getRetrofit().create(HttpApi.class).saveUser(map).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
@@ -232,11 +232,11 @@ public class HttpMethod extends BaseRequst {
     /**
      * 学生注册第三步
      */
-    public static void bindingEmail(String code,String email,int uid,final NetCallBack netCallBack) {
+    public static void bindingEmail(String code,String email,String token,final NetCallBack netCallBack) {
         Map<String ,String> map=new HashMap<>();
         map.put("code",code);
         map.put("email",email);
-        map.put("uid",uid+"");
+        map.put("token",token);
         Http.getRetrofit().create(HttpApi.class).bindingEmail(map).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
                 DialogUtil.closeProgress();

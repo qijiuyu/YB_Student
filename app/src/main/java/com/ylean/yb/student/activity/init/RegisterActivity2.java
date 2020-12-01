@@ -275,7 +275,7 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
                 addressBean1.setAddress(address1);
 
                 //注册第二步
-                registerP.register2(mobile, JsonUtil.objectToString(addressBean),qq,JsonUtil.objectToString(addressBean1),landMobile,userInfo.getData().getId(),wx);
+                registerP.register2(mobile, JsonUtil.objectToString(addressBean),qq,JsonUtil.objectToString(addressBean1),landMobile,userInfo.getToken(),wx);
                 break;
             default:
                 break;

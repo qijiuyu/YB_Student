@@ -15,14 +15,14 @@ public class BankBaseBean extends BaseBean {
     }
 
     public static class BankBase implements Serializable{
-        private String bankimgurl;
-        private String bankname;
-        private String banknum;
+        private String bankimgurl="";
+        private String bankname="";
+        private String banknum="";
         private int bankstatus;//银行卡状态 未提交(0), 已提交(1), 未开卡(2), 已开卡(3), 已邮寄(4), 正在使用(5), 已更改(6), 失败(7), 开卡中(8)
         private int id;
-        private String idnum;
-        private String phone;
-        private String uname;
+        private String idnum="";
+        private String phone="";
+        private String uname="";
 
         public String getBankimgurl() {
             return bankimgurl;
