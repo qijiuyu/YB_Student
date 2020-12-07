@@ -125,7 +125,6 @@
         <activity android:name=".activity.user.MentorActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.bank.ValidationActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.resume.AddEducationActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"  android:screenOrientation="portrait"/>
-        <activity android:name=".activity.planning.PlanningOtherActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.love.LoveOtherActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.user.ShareActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".activity.UploadFileActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"  android:screenOrientation="portrait"/>

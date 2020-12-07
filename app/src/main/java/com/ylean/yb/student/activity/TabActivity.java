@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import androidx.annotation.RequiresApi;
@@ -19,10 +20,13 @@ import com.ylean.yb.student.activity.planning.PlanningActivity;
 import com.ylean.yb.student.activity.user.UserActivity;
 import com.ylean.yb.student.application.MyApplication;
 import com.ylean.yb.student.utils.PermissionUtil;
-import com.zxdc.utils.library.util.AESUtil;
+import com.zxdc.utils.library.eventbus.EventBusType;
+import com.zxdc.utils.library.eventbus.EventStatus;
 import com.zxdc.utils.library.util.ActivitysLifecycle;
 import com.zxdc.utils.library.util.ToastUtil;
 import com.zxdc.utils.library.util.error.CockroachUtil;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
@@ -31,6 +35,8 @@ import butterknife.OnClick;
 
 public class TabActivity extends android.app.TabActivity {
 
+    @BindView(R.id.lin_tab)
+    LinearLayout linTab;
     @BindView(R.id.img_main)
     ImageView imgMain;
     @BindView(R.id.tv_main)
@@ -65,13 +71,13 @@ public class TabActivity extends android.app.TabActivity {
         ButterKnife.bind(this);
         initView();
 
+        //注册eventBus
+        EventBus.getDefault().register(this);
+
         ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true).autoDarkModeEnable(true).init();
 
         //android 7.0系统解决拍照的问题
         PermissionUtil.initPhotoError();
-
-        final String a= AESUtil.encrypt("15011224467");
-        final String b=AESUtil.decrypt(a);
     }
 
     /**
@@ -138,6 +144,24 @@ public class TabActivity extends android.app.TabActivity {
 
 
     /**
+     * EventBus注解
+     */
+    @Subscribe
+    public void onEvent(EventBusType eventBusType) {
+        switch (eventBusType.getStatus()) {
+            case EventStatus.HIDDEN_TAB:
+                 linTab.setVisibility(View.GONE);
+                 break;
+             case EventStatus.SHOW_TAB:
+                 linTab.setVisibility(View.VISIBLE);
+                 break;
+             default:
+                 break;
+        }
+    }
+
+
+    /**
      * 切换tab时，更新图片和文字颜色
      */
     private void updateTag(int type) {
@@ -161,16 +185,20 @@ public class TabActivity extends android.app.TabActivity {
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if ((System.currentTimeMillis() - exitTime) > 2000) {
+                if(linTab.getVisibility()==View.GONE){
+                    EventBus.getDefault().post(new EventBusType(EventStatus.BACK_H5));
+                    return false;
+                }
                 ToastUtil.showLong("再按一次退出程序!");
                 exitTime = System.currentTimeMillis();
             } else {
                 //关闭小强
                 CockroachUtil.clear();
+                EventBus.getDefault().unregister(this);
                 ActivitysLifecycle.getInstance().exit();
             }
             return false;
         }
         return super.dispatchKeyEvent(event);
     }
-
 }
