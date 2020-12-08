@@ -28,7 +28,7 @@ public class MyApplication extends BaseApplication {
     private void initBugly(){
         try {
             CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
-            CrashReport.initCrashReport(this, "82f3ccc7c0", false, strategy);
+            CrashReport.initCrashReport(this, "8ca4190bb2", false, strategy);
         }catch (Exception e){
 
         }
@@ -40,9 +40,9 @@ public class MyApplication extends BaseApplication {
      * @return
      */
     public static boolean isLogin(){
-        if(TextUtils.isEmpty(SPUtil.getInstance(getContext()).getString(SPUtil.TOKEN))){
-            return false;
+        if(SPUtil.getInstance(getContext()).getBoolean(SPUtil.IS_LOGIN)){
+            return true;
         }
-        return true;
+        return false;
     }
 }

@@ -17,6 +17,8 @@ public class SPUtil {
     public final static String USERMESSAGE = "yan_guo_student";
     //是否是第一次打开APP
     public final static String IS_FIRST_OPEN="IS_FIRST_OPEN";
+    //是否处于登录状态
+    public final static String IS_LOGIN="IS_LOGIN";
     //登录的token
     public final static String TOKEN="TOKEN";
     //用户基本信息

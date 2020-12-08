@@ -110,8 +110,12 @@ public class TabActivity extends android.app.TabActivity {
                 ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true).autoDarkModeEnable(true).init();
                 break;
             case R.id.lin_declare:
-                updateTag(1);
-                ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true).autoDarkModeEnable(true).init();
+                if(MyApplication.isLogin()){
+                    updateTag(1);
+                    ImmersionBar.with(this).statusBarColor(android.R.color.white).fitsSystemWindows(true).autoDarkModeEnable(true).init();
+                }else{
+                    startActivity(intent);
+                }
                 break;
             case R.id.lin_love:
                 if(MyApplication.isLogin()){

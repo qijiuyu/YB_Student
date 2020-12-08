@@ -11,6 +11,7 @@ import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
 import com.ylean.yb.student.callback.PermissionCallBack;
+import com.zxdc.utils.library.util.LogUtils;
 
 import java.util.List;
 
@@ -107,6 +108,7 @@ public class PermissionUtil {
      */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     public static void initPhotoError(){
+        LogUtils.e("++++++++++++++++++++123");
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();

@@ -87,7 +87,7 @@ public class SendCodeP {
      * type：  0学生注册，  1学生登录   2变更手机号    3忘记密码
      */
     public void getSmsCode(String code,String phone,String type){
-        DialogUtil.showProgress(activity,"验证码已发送，请注意查收");
+        DialogUtil.showProgress(activity,"验证码发送中");
         HttpMethod.getSmsCode(code, AESUtil.encrypt(phone), type, new NetCallBack() {
             @Override
             public void onSuccess(Object object) {
@@ -95,6 +95,7 @@ public class SendCodeP {
                 if(baseBean.isSussess()){
 
                     face2.getSmsCode();
+                    ToastUtil.showLong("验证码已发送，请注意查收");
 
                 }else{
                     ToastUtil.showLong(baseBean.getDesc());

@@ -9,11 +9,14 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.init.RegisterP;
 import com.ylean.yb.student.view.SelectProvince;
+import com.zxdc.utils.library.base.BaseApplication;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ProvinceCallBack;
 import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.util.JsonUtil;
+import com.zxdc.utils.library.util.LogUtils;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -110,6 +113,7 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
             if(!TextUtils.isEmpty(userInfo.getData().getValiditystarttime()) && !TextUtils.isEmpty(userInfo.getData().getValidityendtime())){
                 tvCardTime.setText(userInfo.getData().getValiditystarttime().split(" ")[0]+"-"+userInfo.getData().getValidityendtime().split(" ")[0]);
             }
+            etAddress.setText(userInfo.getData().getAddress());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -275,6 +279,7 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
                 addressBean1.setAddress(address1);
 
                 //注册第二步
+                LogUtils.e(userInfo.getToken()+"++++++++++++++++++++++++++aaa");
                 registerP.register2(mobile, JsonUtil.objectToString(addressBean),qq,JsonUtil.objectToString(addressBean1),landMobile,userInfo.getToken(),wx);
                 break;
             default:

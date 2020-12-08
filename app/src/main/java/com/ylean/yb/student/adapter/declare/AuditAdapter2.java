@@ -11,11 +11,11 @@ import android.widget.TextView;
 import com.ylean.yb.student.R;
 import com.zxdc.utils.library.bean.AuditBean;
 
-public class AuditAdapter extends RecyclerView.Adapter<AuditAdapter.MyHolder> {
+public class AuditAdapter2 extends RecyclerView.Adapter<AuditAdapter2.MyHolder> {
 
     private Context context;
     private AuditBean.Audit audit;
-    public AuditAdapter(Context context, AuditBean.Audit audit) {
+    public AuditAdapter2(Context context, AuditBean.Audit audit) {
         super();
         this.context = context;
         this.audit=audit;

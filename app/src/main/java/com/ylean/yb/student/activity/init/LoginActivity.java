@@ -224,6 +224,8 @@ public class LoginActivity extends BaseActivity implements LoginP.Face, SendCode
     public void onSuccess(BaseBean baseBean) {
         //存储token
         SPUtil.getInstance(this).addString(SPUtil.TOKEN,baseBean.getToken());
+        //是否处于登录状态
+        SPUtil.getInstance(activity).addBoolean(SPUtil.IS_LOGIN,true);
         setClass(TabActivity.class);
         finish();
     }

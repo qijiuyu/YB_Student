@@ -16,10 +16,13 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.SendCodeP;
 import com.ylean.yb.student.persenter.init.RegisterP;
+import com.ylean.yb.student.utils.BuglyUtils;
 import com.ylean.yb.student.utils.CodeUtils;
 import com.ylean.yb.student.utils.SelectPhotoUtil;
 import com.zxdc.utils.library.bean.FileBean;
 import com.zxdc.utils.library.bean.Register;
+import com.zxdc.utils.library.util.LogUtils;
+import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import java.io.File;
 import java.util.ArrayList;
@@ -231,6 +234,7 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face ,Se
         }
 
         if(resultCode==1000){
+            SPUtil.getInstance(this).removeMessage(SPUtil.TOKEN);
             finish();
         }
     }
@@ -270,13 +274,18 @@ public class RegisterActivity extends BaseActivity implements RegisterP.Face ,Se
      * @param userInfo
      */
     @Override
-    public void onSuccess(Register userInfo) {
-        Intent intent=new Intent(this,RegisterActivity2.class);
-        intent.putExtra("userInfo",userInfo);
-        startActivityForResult(intent,1000);
+    public void onSuccess(final Register userInfo) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                if(userInfo==null){
+                    return;
+                }
+                SPUtil.getInstance(activity).addString(SPUtil.TOKEN,userInfo.getToken());
+
+                Intent intent=new Intent(activity,RegisterActivity2.class);
+                intent.putExtra("userInfo",userInfo);
+                startActivityForResult(intent,1000);
                 ToastUtil.showLong("注册成功");
             }
         });
