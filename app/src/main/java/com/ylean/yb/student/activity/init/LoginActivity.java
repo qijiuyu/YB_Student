@@ -157,6 +157,10 @@ public class LoginActivity extends BaseActivity implements LoginP.Face, SendCode
                         ToastUtil.showLong("请输入身份证号");
                         return;
                     }
+                    if(card.length()!=18){
+                        ToastUtil.showLong("请输入正确的身份证号");
+                        return;
+                    }
                     if(TextUtils.isEmpty(pwd)){
                         ToastUtil.showLong("请输入密码");
                         return;

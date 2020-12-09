@@ -9,14 +9,12 @@ import com.ylean.yb.student.R;
 import com.ylean.yb.student.base.BaseActivity;
 import com.ylean.yb.student.persenter.init.RegisterP;
 import com.ylean.yb.student.view.SelectProvince;
-import com.zxdc.utils.library.base.BaseApplication;
 import com.zxdc.utils.library.bean.Address;
 import com.zxdc.utils.library.bean.ProvinceBean;
 import com.zxdc.utils.library.bean.ProvinceCallBack;
 import com.zxdc.utils.library.bean.Register;
 import com.zxdc.utils.library.util.JsonUtil;
 import com.zxdc.utils.library.util.LogUtils;
-import com.zxdc.utils.library.util.SPUtil;
 import com.zxdc.utils.library.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,8 +37,6 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
     TextView tvCard;
     @BindView(R.id.tv_card_time)
     TextView tvCardTime;
-    @BindView(R.id.tv_email)
-    TextView tvEmail;
     @BindView(R.id.et_qq)
     EditText etQq;
     @BindView(R.id.et_wx)
@@ -51,8 +47,8 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
     TextView tvCity;
     @BindView(R.id.tv_area)
     TextView tvArea;
-    @BindView(R.id.et_address)
-    EditText etAddress;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
     @BindView(R.id.tv_province1)
     TextView tvProvince1;
     @BindView(R.id.tv_city1)
@@ -113,7 +109,7 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
             if(!TextUtils.isEmpty(userInfo.getData().getValiditystarttime()) && !TextUtils.isEmpty(userInfo.getData().getValidityendtime())){
                 tvCardTime.setText(userInfo.getData().getValiditystarttime().split(" ")[0]+"-"+userInfo.getData().getValidityendtime().split(" ")[0]);
             }
-            etAddress.setText(userInfo.getData().getAddress());
+            tvAddress.setText(userInfo.getData().getAddress());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -208,7 +204,7 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
             case R.id.tv_submit:
                 final String qq=etQq.getText().toString().trim();
                 final String wx=etWx.getText().toString().trim();
-                final String address=etAddress.getText().toString().trim();
+                final String address=tvAddress.getText().toString().trim();
                 final String address1=etAddress1.getText().toString().trim();
                 final String mobile=etParentMobile.getText().toString().trim();
                 final String landMobile=etLandMobile.getText().toString().trim();
@@ -279,7 +275,6 @@ public class RegisterActivity2 extends BaseActivity implements RegisterP.Face2 {
                 addressBean1.setAddress(address1);
 
                 //注册第二步
-                LogUtils.e(userInfo.getToken()+"++++++++++++++++++++++++++aaa");
                 registerP.register2(mobile, JsonUtil.objectToString(addressBean),qq,JsonUtil.objectToString(addressBean1),landMobile,userInfo.getToken(),wx);
                 break;
             default:
