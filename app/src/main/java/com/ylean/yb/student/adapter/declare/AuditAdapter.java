@@ -59,9 +59,6 @@ public class AuditAdapter extends RecyclerView.Adapter<AuditAdapter.MyHolder> {
             //学校或教育局
             case 1:
                  if(audit.getStatus()==1 || audit.getStatus()==2 || audit.getStatus()==3 || audit.getStatus()==4 || audit.getStatus()==7 || audit.getStatus()==9 || audit.getStatus()==10 || audit.getStatus()==11){
-                     holder.tvTime.setVisibility(View.VISIBLE);
-                     holder.tvTime.setText(audit.getJxatime());
-
                      holder.tvAudit.setVisibility(View.VISIBLE);
                      switch (audit.getStatus()){
                          case 1:
@@ -86,14 +83,26 @@ public class AuditAdapter extends RecyclerView.Adapter<AuditAdapter.MyHolder> {
                              holder.tvAudit.setText("教育局提交");
                              break;
                      }
+
+                     holder.tvTime.setVisibility(View.VISIBLE);
+                     holder.tvTime.setText(audit.getJxatime());
+                 }
+
+
+                 if(audit.getStatus()==5 || audit.getStatus()==6 || audit.getStatus()==8){
+                     holder.tvAudit.setVisibility(View.VISIBLE);
+                     if(audit.getAtype()==0){
+                         holder.tvAudit.setText("教育局审核通过");
+                     }else{
+                         holder.tvAudit.setText("学校审核通过");
+                     }
+                     holder.tvTime.setVisibility(View.VISIBLE);
+                     holder.tvTime.setText(audit.getJxatime());
                  }
                  break;
             //基金会
             case 2:
                  if(audit.getStatus()==5 || audit.getStatus()==6 || audit.getStatus()==8){
-                     holder.tvTime.setVisibility(View.VISIBLE);
-                     holder.tvTime.setText(audit.getJhatime());
-
                      holder.tvAudit.setVisibility(View.VISIBLE);
                      switch (audit.getStatus()){
                          case 5:
@@ -109,6 +118,10 @@ public class AuditAdapter extends RecyclerView.Adapter<AuditAdapter.MyHolder> {
                              break;
                      }
                  }
+                if(audit.getStatus()>0){
+                    holder.tvTime.setVisibility(View.VISIBLE);
+                    holder.tvTime.setText(audit.getJhatime());
+                }
                  break;
              default:
                  break;

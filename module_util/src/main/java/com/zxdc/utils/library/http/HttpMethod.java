@@ -1224,7 +1224,6 @@ public class HttpMethod extends BaseRequst {
      */
     public static void verBank(String num,final NetCallBack netCallBack) {
         Map<String,String> map=new HashMap<>();
-        LogUtils.e(num+"+++++++++++++++num");
         map.put("num",num);
         Http.getRetrofit().create(HttpApi.class).verBank(map).enqueue(new Callback<BaseBean>() {
             public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {

@@ -228,8 +228,12 @@ public class DeclareAuditActivity extends BaseActivity implements UserP.Face3,Fa
         }
         listAudit.setAdapter(new AuditAdapter(this,audit));
 
-        if(audit.getStatus()==0 || audit.getStatus()==2 || audit.getStatus()==4 || audit.getStatus()==6 || audit.getStatus()==7 || audit.getStatus()==8 || audit.getStatus()==9){
+        if(audit.getStatus()==0){
             tvSubmit.setVisibility(View.VISIBLE);
+            tvSubmit.setText("编辑");
+        }else if(audit.getStatus()==2 || audit.getStatus()==4 || audit.getStatus()==6 || audit.getStatus()==7 || audit.getStatus()==8 || audit.getStatus()==9){
+            tvSubmit.setVisibility(View.VISIBLE);
+            tvSubmit.setText("重新提交");
         }else{
             tvSubmit.setVisibility(View.GONE);
         }

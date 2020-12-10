@@ -95,6 +95,7 @@ public class SettingActivity extends BaseActivity implements SettingP.Face {
                 break;
             case R.id.tv_login_out:
                 SPUtil.getInstance(this).removeMessage(SPUtil.IS_LOGIN);
+                SPUtil.getInstance(this).removeMessage(SPUtil.TOKEN);
                 intent.setClass(this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
