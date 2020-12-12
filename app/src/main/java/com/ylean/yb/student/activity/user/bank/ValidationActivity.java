@@ -1,6 +1,7 @@
 package com.ylean.yb.student.activity.user.bank;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -123,6 +124,7 @@ public class ValidationActivity extends BaseActivity implements MyBankP.Face3 {
      */
     @Override
     public void verBankSuccess() {
+        setResult(1000,new Intent());
         finish();
     }
 }

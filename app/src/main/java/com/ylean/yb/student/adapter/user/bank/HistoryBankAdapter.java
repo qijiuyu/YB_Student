@@ -174,7 +174,7 @@ public class HistoryBankAdapter extends BaseAdapter {
                 final BankBaseBean.BankBase bankBase= (BankBaseBean.BankBase) v.getTag();
                 Intent intent=new Intent(activity, ValidationActivity.class);
                 intent.putExtra("bankCode",bankBase.getBanknum());
-                activity.startActivity(intent);
+                activity.startActivityForResult(intent,1000);
             }
         });
 

@@ -54,7 +54,7 @@ public class AuditAdapter extends RecyclerView.Adapter<AuditAdapter.MyHolder> {
                  holder.tvTime.setText(audit.getCreatetime());
 
                  holder.tvAudit.setVisibility(View.VISIBLE);
-                 holder.tvAudit.setText("提交");
+                 holder.tvAudit.setText("学生提交");
                  break;
             //学校或教育局
             case 1:

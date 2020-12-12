@@ -153,4 +153,12 @@ public class MyBankActivity extends BaseActivity implements MyBankP.Face {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1000){
+            //获取银行卡基本信息
+            myBankP.getbankinfo();
+        }
+    }
 }

@@ -422,15 +422,14 @@
                     <TextView
                         android:id="@+id/tv_address"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="30dp"
                         android:background="@drawable/bg_memo"
                         android:layout_marginLeft="90dp"
                         android:textSize="13sp"
                         android:textColor="@android:color/black"
                         android:paddingLeft="7dp"
                         android:paddingRight="7dp"
-                        android:maxLines="1"
-                        android:singleLine="true"
                         android:gravity="center_vertical"/>
 
                 </LinearLayout>
@@ -524,7 +523,8 @@
                     <EditText
                         android:id="@+id/et_address1"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="30dp"
                         android:background="@drawable/bg_memo"
                         android:layout_marginLeft="95dp"
                         android:hint="请输入详细地址"
@@ -532,9 +532,7 @@
                         android:textColor="@android:color/black"
                         android:paddingLeft="7dp"
                         android:paddingRight="7dp"
-                        android:gravity="center_vertical"
-                        android:maxLines="1"
-                        android:singleLine="true"/>
+                        android:gravity="center_vertical"/>
 
                 </LinearLayout>
 

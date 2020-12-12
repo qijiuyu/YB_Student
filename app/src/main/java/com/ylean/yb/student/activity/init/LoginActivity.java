@@ -25,7 +25,7 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**18396831092 123456
+/**13261766886 123456
  * 登录
  */
 public class LoginActivity extends BaseActivity implements LoginP.Face, SendCodeP.Face2  {

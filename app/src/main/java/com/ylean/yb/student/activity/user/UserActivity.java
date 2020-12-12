@@ -142,6 +142,9 @@ public class UserActivity extends BaseActivity implements UserP.Face,UserP.Face4
      */
     @Override
     public void getbaseinfo(UserInfo userInfo) {
+        if(userInfo.getData()==null){
+            return;
+        }
         this.userInfo=userInfo;
         if(!TextUtils.isEmpty(userInfo.getData().getPhoto())){
             Glide.with(this).load(userInfo.getData().getPhoto()).into(imgHead);
